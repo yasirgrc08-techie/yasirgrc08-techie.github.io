@@ -814,6 +814,107 @@
             height: 100%;
             border: 0;
         }
+
+        /* ===== Testimonials ===== */
+        .testimonials-header {
+            text-align: center;
+        }
+        .testimonials-rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 10px 24px;
+            margin-top: 1rem;
+        }
+        .testimonials-rating .stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .testimonials-rating .rating-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .testimonials-rating .rating-text strong {
+            color: var(--text-primary);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            position: relative;
+            transition: all var(--transition);
+        }
+        .testimonial-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+        }
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            font-size: 3.5rem;
+            color: var(--accent);
+            opacity: 0.25;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .testimonial-meta .t-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .testimonial-meta .t-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .testimonial-stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+        @media (max-width: 768px) {
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -1409,6 +1510,98 @@
         <div class="video-wrapper fade-in">
             <div class="video-responsive">
                 <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="testimonials-header fade-in">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">What Mentees Say</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">Feedback from 1-on-1 career guidance &amp; mentorship sessions</p>
+            <div class="testimonials-rating">
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="rating-text"><strong>5.00 / 5</strong> &nbsp;·&nbsp; 10 responses &nbsp;·&nbsp; 100% rated 5 stars</span>
+            </div>
+        </div>
+        <div class="testimonials-grid fade-in">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself and consistently working hard to reach where you want to see yourself. You clearly addressed all my doubts regarding where I am currently lacking and how I can improve especially in areas like DSA, system design, tech stack, C language, and core CSE subjects. I also really appreciated you sharing your own mistakes and insights on how to approach upcoming interviews in a smarter and more effective way. Thank you so much for your time, honesty, and guidance.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">So helpful session — carrier guidance as well. Incredible and wonderful!</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">Very Nice and Insightful!</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-meta">
+                        <div class="t-name">Mentee</div>
+                        <div class="t-role">Career Guidance Session</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
