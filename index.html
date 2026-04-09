@@ -815,6 +815,148 @@
             border: 0;
         }
 
+        /* ===== Company Marquee ===== */
+        .marquee-section {
+            padding: 3rem 0;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .marquee-label {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 35s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-group {
+            display: flex;
+            gap: 3rem;
+            padding: 0 1.5rem;
+            align-items: center;
+        }
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            white-space: nowrap;
+            transition: all var(--transition);
+            flex-shrink: 0;
+        }
+        .marquee-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: scale(1.05);
+        }
+        .marquee-item .company-icon {
+            font-size: 1.3rem;
+        }
+        .marquee-item .company-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+        .marquee-item .company-status {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-weight: 600;
+        }
+        .status-cleared {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+        }
+        .status-joined {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-light);
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== Video Carousel ===== */
+        .video-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 2rem 1.5rem;
+            margin-top: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .video-carousel::-webkit-scrollbar { height: 6px; }
+        .video-carousel::-webkit-scrollbar-track { background: transparent; }
+        .video-carousel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .video-carousel-item {
+            flex: 0 0 420px;
+            scroll-snap-align: center;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            background: var(--bg-card);
+        }
+        .video-carousel-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+        }
+        .video-carousel-item .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-carousel-item .video-responsive iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
+        }
+        .video-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .video-nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-nav-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .video-carousel-item { flex: 0 0 85vw; }
+        }
+
         /* ===== Testimonials ===== */
         .testimonials-header {
             text-align: center;
@@ -981,6 +1123,138 @@
             <img src="https://avatars.githubusercontent.com/u/268230354?v=4" alt="Yasir Arafat Sharfi" loading="lazy">
         </div>
     </section>
+
+    <!-- Companies Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-label">13+ Companies Cracked &mdash; Interviewed &amp; Cleared</div>
+        <div class="marquee-track">
+            <div class="marquee-group">
+                <div class="marquee-item">
+                    <span class="company-icon">🔵</span>
+                    <span class="company-name">Google</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟦</span>
+                    <span class="company-name">Microsoft</span>
+                    <span class="company-status status-joined">Joined</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟠</span>
+                    <span class="company-name">Amazon</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟣</span>
+                    <span class="company-name">Meta</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🍎</span>
+                    <span class="company-name">Apple</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔴</span>
+                    <span class="company-name">Oracle</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟢</span>
+                    <span class="company-name">AMD</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔷</span>
+                    <span class="company-name">Cisco</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟩</span>
+                    <span class="company-name">Dell</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔴</span>
+                    <span class="company-name">Netflix</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟥</span>
+                    <span class="company-name">Bosch</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟦</span>
+                    <span class="company-name">+ More</span>
+                    <span class="company-status status-cleared">13+ Total</span>
+                </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="marquee-group">
+                <div class="marquee-item">
+                    <span class="company-icon">🔵</span>
+                    <span class="company-name">Google</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟦</span>
+                    <span class="company-name">Microsoft</span>
+                    <span class="company-status status-joined">Joined</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟠</span>
+                    <span class="company-name">Amazon</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟣</span>
+                    <span class="company-name">Meta</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🍎</span>
+                    <span class="company-name">Apple</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔴</span>
+                    <span class="company-name">Oracle</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟢</span>
+                    <span class="company-name">AMD</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔷</span>
+                    <span class="company-name">Cisco</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟩</span>
+                    <span class="company-name">Dell</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🔴</span>
+                    <span class="company-name">Netflix</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟥</span>
+                    <span class="company-name">Bosch</span>
+                    <span class="company-status status-cleared">Cleared</span>
+                </div>
+                <div class="marquee-item">
+                    <span class="company-icon">🟦</span>
+                    <span class="company-name">+ More</span>
+                    <span class="company-status status-cleared">13+ Total</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- About -->
     <section id="about">
@@ -1504,13 +1778,49 @@
     <!-- Featured Video -->
     <section id="video" style="text-align: center;">
         <div class="fade-in">
-            <span class="section-label">Featured Video</span>
+            <span class="section-label">YouTube Channel</span>
             <h2 class="section-title">Watch &amp; Learn</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">Career guidance, interview tips &amp; tech insights on my YouTube channel</p>
         </div>
-        <div class="video-wrapper fade-in">
+
+        <!-- Main Featured Video -->
+        <div class="video-wrapper fade-in" style="margin-bottom: 2.5rem;">
             <div class="video-responsive">
                 <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
+        </div>
+
+        <!-- Rolling Video Carousel -->
+        <div class="video-carousel fade-in" id="videoCarousel">
+            <div class="video-carousel-item">
+                <div class="video-responsive">
+                    <iframe src="https://www.youtube.com/embed/vet4IYJiER4?si=MqXu_BNI5Q23hE3g" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="video-carousel-item">
+                <div class="video-responsive">
+                    <iframe src="https://www.youtube.com/embed/6iQOrtpS03M?si=VDoiKJbjW0bIMPkb" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="video-carousel-item">
+                <div class="video-responsive">
+                    <iframe src="https://www.youtube.com/embed/Eu2z0yS9r48?si=otD6sd-sM2FjXvGI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="video-carousel-item">
+                <div class="video-responsive">
+                    <iframe src="https://www.youtube.com/embed/eASJoeqOS_k?si=twlN25Jd6Rv6I7hM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="video-carousel-item">
+                <div class="video-responsive">
+                    <iframe src="https://www.youtube.com/embed/5k299r-bG4U?si=B0Zt1UXQcQ3ynlhA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="video-nav">
+            <button class="video-nav-btn" id="vidPrev" aria-label="Previous video">&#8592;</button>
+            <button class="video-nav-btn" id="vidNext" aria-label="Next video">&#8594;</button>
         </div>
     </section>
 
@@ -1689,6 +1999,20 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Video carousel navigation
+        const carousel = document.getElementById('videoCarousel');
+        const vidPrev = document.getElementById('vidPrev');
+        const vidNext = document.getElementById('vidNext');
+        if (carousel && vidPrev && vidNext) {
+            const scrollAmount = 436;
+            vidNext.addEventListener('click', () => {
+                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+            vidPrev.addEventListener('click', () => {
+                carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
