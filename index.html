@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yasir Arafat Sharfi — Software Engineer II @ Microsoft</title>
+    <meta name="description" content="Portfolio of Yasir Arafat Sharfi — Software Engineer II (L62) at Microsoft, working on Azure Cloud Storage, NVMe, RDMA, DPU. 6.7+ years experience across Microsoft, Dell, Cisco & Bosch.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Reset & Variables ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111119;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --border: #2a2a3a;
+            --text-primary: #e4e4ed;
+            --text-secondary: #9494a8;
+            --text-muted: #6b6b80;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --green: #22c55e;
+            --blue: #3b82f6;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --max-width: 1200px;
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a { color: var(--accent-light); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--accent); }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        .nav.scrolled {
+            border-bottom-color: var(--border);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-logo .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Mobile menu toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== Sections ===== */
+        section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hero-bg .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 10s ease-in-out infinite;
+        }
+        .hero-bg .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+        .hero-bg .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--pink);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+        .hero-bg .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--cyan);
+            top: 40%;
+            left: 40%;
+            animation-delay: -3s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        .hero-badge .status {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-light), var(--cyan), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-sans);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--accent-light);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .hero-stat .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .hero-avatar {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .hero-avatar img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+            object-fit: cover;
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.2);
+        }
+
+        /* ===== About ===== */
+        #about { padding-top: 3rem; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2.5rem;
+        }
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+        .about-text strong { color: var(--text-primary); }
+        .about-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            transition: all var(--transition);
+        }
+        .info-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .info-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-card .info-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .info-card .info-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* ===== Experience ===== */
+        .timeline {
+            margin-top: 3rem;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--pink), var(--cyan), var(--orange));
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 70px;
+            padding-bottom: 3rem;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: 14px;
+            top: 6px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            z-index: 2;
+        }
+        .timeline-dot.microsoft { background: var(--blue); }
+        .timeline-dot.dell { background: var(--green); }
+        .timeline-dot.cisco { background: var(--orange); }
+        .timeline-dot.bosch { background: var(--red); }
+        .timeline-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-company {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .timeline-role {
+            color: var(--accent-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .timeline-period {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+        .timeline-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Tech Stack ===== */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .tech-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            transition: all var(--transition);
+        }
+        .tech-category:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .tech-category-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-item {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            transition: all var(--transition);
+        }
+        .tech-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* ===== Projects ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
+            transform: scaleX(0);
+            transition: transform var(--transition);
+            transform-origin: left;
+        }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+        }
+        .project-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .project-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex: 1;
+            margin-bottom: 1.25rem;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1.25rem;
+        }
+        .project-tech span {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: var(--accent-glow);
+            color: var(--accent-light);
+            font-weight: 500;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+        .project-link:hover { gap: 10px; }
+
+        /* ===== Achievements ===== */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .achievement-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all var(--transition);
+        }
+        .achievement-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .achievement-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .achievement-title {
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+        .achievement-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Expertise ===== */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .expertise-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition);
+        }
+        .expertise-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+        }
+        .expertise-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .expertise-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .expertise-items {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .expertise-items li {
+            padding: 4px 0;
+        }
+
+        /* ===== Philosophy ===== */
+        .philosophy-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem;
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+        .philosophy-quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        .philosophy-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .principle {
+            text-align: center;
+        }
+        .principle-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .principle-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .principle-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ===== Contact ===== */
+        .contact-section {
+            text-align: center;
+            padding-bottom: 3rem;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all var(--transition);
+            min-width: 220px;
+            justify-content: center;
+        }
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            color: var(--text-primary);
+        }
+        .contact-card .c-icon { font-size: 1.5rem; }
+        .contact-card .c-label {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .contact-card .c-value {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--accent-light); }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 1024px) {
+            .hero-avatar { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .expertise-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem 2rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1.25rem;
+            }
+            .nav-toggle { display: block; }
+            section { padding: 3rem 1.25rem; }
+            .section-title { font-size: 2rem; }
+            .hero { min-height: auto; padding-top: 6rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-stat .number { font-size: 1.5rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .achievements-grid { grid-template-columns: 1fr; }
+            .expertise-grid { grid-template-columns: 1fr; }
+            .about-info { grid-template-columns: 1fr; }
+            .contact-links { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <span class="dot"></span>
+                YAS
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="status"></span>
+                Software Engineer II (L62) @ Microsoft
+            </div>
+            <h1>
+                Hi, I'm <span class="gradient">Yasir Arafat<br>Sharfi</span>
+            </h1>
+            <p class="hero-desc">
+                Building ultra-fast NVMe-based virtual disk architecture for Azure Cloud.
+                6.7+ years driving innovation across <strong>Microsoft</strong>, <strong>Dell</strong>,
+                <strong>Cisco</strong> &amp; <strong>Bosch</strong>.
+            </p>
+            <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">View Projects &rarr;</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">6.7+</div>
+                    <div class="label">Years Experience</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">4</div>
+                    <div class="label">Companies</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">9</div>
+                    <div class="label">Public Repos</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-avatar">
+            <img src="https://avatars.githubusercontent.com/u/268230354?v=4" alt="Yasir Arafat Sharfi" loading="lazy">
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="fade-in">
+            <span class="section-label">About Me</span>
+            <h2 class="section-title">Driven by Systems Thinking</h2>
+        </div>
+        <div class="about-grid fade-in">
+            <div class="about-text">
+                <p>
+                    I'm a <strong>Software Engineer II (L62)</strong> at <strong>Microsoft</strong>, currently working on the
+                    <strong>Accelerated DPU DirectDrive (Ultra-Disk) DataPath</strong> team in Bengaluru, India.
+                </p>
+                <br>
+                <p>
+                    My work focuses on building <strong>NVMe-based virtual disk architecture for Azure Cloud</strong>,
+                    <strong>RDMA-enabled high-performance data paths</strong>, and <strong>storage slicing, replication &amp;
+                    coordination on FunOS-powered DPUs</strong>.
+                </p>
+                <br>
+                <p>
+                    With <strong>6.7+ years</strong> across top tech companies, I've built ASR9K router features at Cisco,
+                    developed automotive ECU systems for BMW, Audi &amp; Porsche at Bosch, and contributed to
+                    OneFS distributed storage at Dell.
+                </p>
+            </div>
+            <div class="about-info">
+                <div class="info-card">
+                    <div class="icon">🏢</div>
+                    <div class="info-label">Company</div>
+                    <div class="info-value">Microsoft</div>
+                </div>
+                <div class="info-card">
+                    <div class="icon">💼</div>
+                    <div class="info-label">Role</div>
+                    <div class="info-value">SWE II (L62)</div>
+                </div>
+                <div class="info-card">
+                    <div class="icon">📍</div>
+                    <div class="info-label">Location</div>
+                    <div class="info-value">Bengaluru, India</div>
+                </div>
+                <div class="info-card">
+                    <div class="icon">🎓</div>
+                    <div class="info-label">Education</div>
+                    <div class="info-value">B.Tech ECE — MAKAUT</div>
+                </div>
+                <div class="info-card">
+                    <div class="icon">⚡</div>
+                    <div class="info-label">Focus</div>
+                    <div class="info-value">Azure Cloud Storage</div>
+                </div>
+                <div class="info-card">
+                    <div class="icon">🔧</div>
+                    <div class="info-label">Tech</div>
+                    <div class="info-value">NVMe · RDMA · DPU</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="fade-in">
+            <span class="section-label">Experience</span>
+            <h2 class="section-title">Career Timeline</h2>
+            <p class="section-subtitle">A journey through world-class engineering organizations</p>
+        </div>
+        <div class="timeline fade-in">
+            <div class="timeline-item">
+                <div class="timeline-dot microsoft"></div>
+                <div class="timeline-header">
+                    <span class="timeline-company">Microsoft</span>
+                    <span class="timeline-role">Software Engineer II (L62)</span>
+                    <span class="timeline-period">2025 — Present</span>
+                </div>
+                <p class="timeline-desc">
+                    Working on end-to-end DPU datapath for Azure Ultra-Disk. Building NVMe-based virtual disk architecture,
+                    RDMA-enabled high-performance data paths, and storage coordination on FunOS-powered DPUs.
+                </p>
+                <div class="timeline-tags">
+                    <span class="tag">Azure Cloud</span>
+                    <span class="tag">NVMe</span>
+                    <span class="tag">RDMA</span>
+                    <span class="tag">DPU</span>
+                    <span class="tag">FunOS</span>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot dell"></div>
+                <div class="timeline-header">
+                    <span class="timeline-company">Dell Technologies</span>
+                    <span class="timeline-role">Senior Software Engineer</span>
+                    <span class="timeline-period">2025</span>
+                </div>
+                <p class="timeline-desc">
+                    Contributed to PowerScale OneFS distributed storage core infrastructure running on FreeBSD.
+                </p>
+                <div class="timeline-tags">
+                    <span class="tag">PowerScale</span>
+                    <span class="tag">OneFS</span>
+                    <span class="tag">FreeBSD</span>
+                    <span class="tag">Distributed Storage</span>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot cisco"></div>
+                <div class="timeline-header">
+                    <span class="timeline-company">Cisco Systems</span>
+                    <span class="timeline-role">Senior Software Engineer</span>
+                    <span class="timeline-period">2022 — 2025</span>
+                </div>
+                <p class="timeline-desc">
+                    Built ASR9K router features including SRv6 and MPLS deployed across global ISP networks.
+                    Created Docker-based in-router health-check tool and AI-assisted troubleshooting tool for network engineers.
+                </p>
+                <div class="timeline-tags">
+                    <span class="tag">ASR9K</span>
+                    <span class="tag">SRv6</span>
+                    <span class="tag">MPLS</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">AWS</span>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot bosch"></div>
+                <div class="timeline-header">
+                    <span class="timeline-company">Bosch</span>
+                    <span class="timeline-role">Software Engineer</span>
+                    <span class="timeline-period">2019 — 2022</span>
+                </div>
+                <p class="timeline-desc">
+                    Developed automotive ECU communication stacks for BMW, Audi &amp; Porsche. Worked with
+                    CAN, CAN-FD, LIN, FlexRay protocols and ADC integration with HW-SW verification.
+                </p>
+                <div class="timeline-tags">
+                    <span class="tag">Automotive ECU</span>
+                    <span class="tag">CAN / FlexRay</span>
+                    <span class="tag">BMW</span>
+                    <span class="tag">Audi</span>
+                    <span class="tag">Porsche</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="skills">
+        <div class="fade-in">
+            <span class="section-label">Tech Stack</span>
+            <h2 class="section-title">Tools &amp; Technologies</h2>
+            <p class="section-subtitle">Technologies I work with on a daily basis</p>
+        </div>
+        <div class="tech-categories fade-in">
+            <div class="tech-category">
+                <div class="tech-category-title">💻 Languages</div>
+                <div class="tech-list">
+                    <span class="tech-item">C</span>
+                    <span class="tech-item">C++</span>
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">Bash</span>
+                    <span class="tech-item">JavaScript</span>
+                    <span class="tech-item">SQL</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <div class="tech-category-title">☁️ Cloud &amp; Infra</div>
+                <div class="tech-list">
+                    <span class="tech-item">Azure</span>
+                    <span class="tech-item">AWS</span>
+                    <span class="tech-item">Docker</span>
+                    <span class="tech-item">Kubernetes</span>
+                    <span class="tech-item">CI/CD</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <div class="tech-category-title">🐧 OS &amp; Platforms</div>
+                <div class="tech-list">
+                    <span class="tech-item">Linux</span>
+                    <span class="tech-item">FreeBSD</span>
+                    <span class="tech-item">FunOS</span>
+                    <span class="tech-item">RTOS</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <div class="tech-category-title">💾 Storage &amp; Networking</div>
+                <div class="tech-list">
+                    <span class="tech-item">NVMe</span>
+                    <span class="tech-item">RDMA</span>
+                    <span class="tech-item">DPU</span>
+                    <span class="tech-item">SRv6</span>
+                    <span class="tech-item">MPLS</span>
+                    <span class="tech-item">Path Tracing</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <div class="tech-category-title">🚗 Embedded / Automotive</div>
+                <div class="tech-list">
+                    <span class="tech-item">CAN / CAN-FD</span>
+                    <span class="tech-item">LIN</span>
+                    <span class="tech-item">FlexRay</span>
+                    <span class="tech-item">AUTOSAR</span>
+                    <span class="tech-item">ADC</span>
+                    <span class="tech-item">ECU Dev</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <div class="tech-category-title">🛠️ Tools</div>
+                <div class="tech-list">
+                    <span class="tech-item">Git</span>
+                    <span class="tech-item">GDB</span>
+                    <span class="tech-item">Wireshark</span>
+                    <span class="tech-item">Make</span>
+                    <span class="tech-item">VS Code</span>
+                    <span class="tech-item">Jira</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="fade-in">
+            <span class="section-label">Projects</span>
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">Open-source projects showcasing system design and engineering</p>
+        </div>
+        <div class="projects-grid fade-in">
+            <div class="project-card">
+                <div class="project-icon">🏫</div>
+                <div class="project-name">School Management System</div>
+                <p class="project-desc">
+                    Full-stack School Management System MVP with student enrollment, class management,
+                    and grade tracking.
+                </p>
+                <div class="project-tech">
+                    <span>React</span>
+                    <span>Express</span>
+                    <span>PostgreSQL</span>
+                    <span>JavaScript</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/school-management-system" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🔗</div>
+                <div class="project-name">URL Shortener</div>
+                <p class="project-desc">
+                    System Design: URL Shortener with Base62 encoding, deduplication,
+                    analytics, and TTL expiration — interview-ready.
+                </p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>System Design</span>
+                    <span>Base62</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/url-shortener" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🏢</div>
+                <div class="project-name">Elevator System Design</div>
+                <p class="project-desc">
+                    System Design: Elevator/Lift system with SCAN algorithm,
+                    multi-elevator dispatch — LLD interview-ready.
+                </p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>SCAN Algorithm</span>
+                    <span>LLD</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/elevator-system-design" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🅿️</div>
+                <div class="project-name">Parking Lot Design</div>
+                <p class="project-desc">
+                    System Design: Multi-floor Parking Lot with ticket billing,
+                    smart allocation, display board — LLD interview-ready.
+                </p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>System Design</span>
+                    <span>LLD</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/parking-lot-design" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🌤️</div>
+                <div class="project-name">Weather CLI</div>
+                <p class="project-desc">
+                    A lightweight command-line weather app in Python — current conditions &amp; 3-day forecast
+                    for any city. Zero dependencies, pure Python.
+                </p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>REST API</span>
+                    <span>argparse</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/weather-cli" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">📚</div>
+                <div class="project-name">C Data Structures</div>
+                <p class="project-desc">
+                    Clean, well-documented implementations of fundamental data structures from scratch —
+                    Linked List, Stack, Binary Search Tree.
+                </p>
+                <div class="project-tech">
+                    <span>C</span>
+                    <span>Makefile</span>
+                    <span>gcc</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/c-datastructures" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🖥️</div>
+                <div class="project-name">SysMonitor</div>
+                <p class="project-desc">
+                    Beautiful terminal-based Linux system monitoring dashboard with CPU, Memory, Disk,
+                    Network stats and color-coded alerts.
+                </p>
+                <div class="project-tech">
+                    <span>Bash</span>
+                    <span>Linux</span>
+                    <span>Shell</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/sysmonitor" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🗺️</div>
+                <div class="project-name">Tech Giants Roadmap</div>
+                <p class="project-desc">
+                    A comprehensive roadmap and resource guide for aspiring engineers targeting
+                    top tech companies.
+                </p>
+                <div class="project-tech">
+                    <span>HTML</span>
+                    <span>Documentation</span>
+                </div>
+                <a href="https://github.com/yasirgrc08-techie/tech-giants-roadmap" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+        <div class="fade-in">
+            <span class="section-label">Achievements</span>
+            <h2 class="section-title">Key Milestones</h2>
+        </div>
+        <div class="achievements-grid fade-in">
+            <div class="achievement-card">
+                <div class="achievement-icon">🏢</div>
+                <div>
+                    <div class="achievement-title">Microsoft L62</div>
+                    <div class="achievement-desc">Working on end-to-end DPU datapath for Azure Ultra-Disk</div>
+                </div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🌐</div>
+                <div>
+                    <div class="achievement-title">Cisco ASR9K</div>
+                    <div class="achievement-desc">Developed SRv6/MPLS features deployed across global ISP networks</div>
+                </div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🚗</div>
+                <div>
+                    <div class="achievement-title">Bosch Automotive</div>
+                    <div class="achievement-desc">Built ECU communication stacks for BMW, Audi &amp; Porsche</div>
+                </div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">💾</div>
+                <div>
+                    <div class="achievement-title">Dell PowerScale</div>
+                    <div class="achievement-desc">Contributed to OneFS distributed storage core infrastructure</div>
+                </div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🐳</div>
+                <div>
+                    <div class="achievement-title">Containerized Diagnostics</div>
+                    <div class="achievement-desc">Built Docker-based in-router health-check tool at Cisco</div>
+                </div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🤖</div>
+                <div>
+                    <div class="achievement-title">AI Diagnostic Tool</div>
+                    <div class="achievement-desc">Created AI-assisted troubleshooting tool for network engineers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise -->
+    <section id="expertise">
+        <div class="fade-in">
+            <span class="section-label">Expertise</span>
+            <h2 class="section-title">Domain Knowledge</h2>
+        </div>
+        <div class="expertise-grid fade-in">
+            <div class="expertise-card">
+                <div class="expertise-icon">⚙️</div>
+                <div class="expertise-name">Systems Engineering</div>
+                <ul class="expertise-items">
+                    <li>Storage Architecture</li>
+                    <li>NVMe / RDMA / DPU</li>
+                    <li>Distributed Systems</li>
+                    <li>Kernel &amp; OS Internals</li>
+                    <li>Performance Optimization</li>
+                </ul>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-icon">🌐</div>
+                <div class="expertise-name">Networking</div>
+                <ul class="expertise-items">
+                    <li>SRv6 / MPLS</li>
+                    <li>Path Tracing</li>
+                    <li>Performance Measurement</li>
+                    <li>Router Platforms (ASR9K)</li>
+                    <li>Network Simulation</li>
+                </ul>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-icon">🚗</div>
+                <div class="expertise-name">Embedded Systems</div>
+                <ul class="expertise-items">
+                    <li>CAN / CAN-FD / LIN</li>
+                    <li>FlexRay Protocols</li>
+                    <li>Automotive ECU</li>
+                    <li>ADC Integration</li>
+                    <li>HW-SW Verification</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="philosophy">
+        <div class="fade-in">
+            <span class="section-label">Philosophy</span>
+            <h2 class="section-title">How I Think</h2>
+        </div>
+        <div class="philosophy-section fade-in">
+            <p class="philosophy-quote">
+                "Great systems aren't built in a day — they're designed with deep understanding,
+                 debugged with patience, and optimized with precision."
+            </p>
+            <div class="philosophy-principles">
+                <div class="principle">
+                    <div class="principle-icon">🎯</div>
+                    <div class="principle-title">Systems-First Design</div>
+                    <div class="principle-desc">Architecture should precede implementation</div>
+                </div>
+                <div class="principle">
+                    <div class="principle-icon">🔍</div>
+                    <div class="principle-title">Root-Cause Analysis</div>
+                    <div class="principle-desc">Fix the problem, not just the symptom</div>
+                </div>
+                <div class="principle">
+                    <div class="principle-icon">📐</div>
+                    <div class="principle-title">Performance-Driven</div>
+                    <div class="principle-desc">Every microsecond matters in datapath code</div>
+                </div>
+                <div class="principle">
+                    <div class="principle-icon">🔄</div>
+                    <div class="principle-title">Collaborative Growth</div>
+                    <div class="principle-desc">Best solutions emerge from diverse perspectives</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currently Learning -->
+    <section id="learning">
+        <div class="fade-in">
+            <span class="section-label">What I'm Learning</span>
+            <h2 class="section-title">Always Growing</h2>
+        </div>
+        <div class="tech-categories fade-in" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="tech-category" style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔬</div>
+                <div class="tech-category-title" style="justify-content: center;">DPU Programming</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced DPU programming &amp; FunOS internals</p>
+            </div>
+            <div class="tech-category" style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">☁️</div>
+                <div class="tech-category-title" style="justify-content: center;">Azure Architecture</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Cloud architecture patterns at scale</p>
+            </div>
+            <div class="tech-category" style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🦀</div>
+                <div class="tech-category-title" style="justify-content: center;">Rust</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Exploring Rust for systems programming</p>
+            </div>
+            <div class="tech-category" style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                <div class="tech-category-title" style="justify-content: center;">Performance Profiling</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Profiling &amp; optimization techniques</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="fade-in">
+            <span class="section-label">Get In Touch</span>
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">
+                Open to collaborations in systems programming, cloud infrastructure, and technical knowledge sharing.
+            </p>
+        </div>
+        <div class="contact-links fade-in">
+            <a href="mailto:yasir.grc08@gmail.com" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <span class="c-icon">✉️</span>
+                <div>
+                    <div class="c-label">Email</div>
+                    <div class="c-value">yasir.grc08@gmail.com</div>
+                </div>
+            </a>
+            <a href="https://github.com/yasirgrc08-techie" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <span class="c-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </span>
+                <div>
+                    <div class="c-label">GitHub</div>
+                    <div class="c-value">yasirgrc08-techie</div>
+                </div>
+            </a>
+            <a href="https://www.linkedin.com/in/yasir-arafat-sharfi/" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <span class="c-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </span>
+                <div>
+                    <div class="c-label">LinkedIn</div>
+                    <div class="c-value">yasir-arafat-sharfi</div>
+                </div>
+            </a>
+            <a href="https://www.youtube.com/@YasirArafatSharfi" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <span class="c-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </span>
+                <div>
+                    <div class="c-label">YouTube</div>
+                    <div class="c-value">Yasir Arafat Sharfi</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            Designed &amp; Built by <a href="https://github.com/yasirgrc08-techie" target="_blank" rel="noopener noreferrer">Yasir Arafat Sharfi</a>
+            &nbsp;·&nbsp; &copy; 2026
+        </p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Mobile toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // Fade-in on scroll using IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
