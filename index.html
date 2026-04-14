@@ -522,9 +522,8 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-right">
-            <a href="#sessions" class="nav-cta">Book a Session</a>
             <a href="#services" class="nav-cta" style="background:var(--cyan);">Hire Me</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9790;</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" style="width:auto;border-radius:8px;padding:6px 14px;font-size:.8rem;font-weight:600;">Night</button>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
         </div>
     </div>
@@ -1277,16 +1276,16 @@
     // Theme toggle (day/night)
     const themeBtn=document.getElementById('themeToggle');
     const savedTheme=localStorage.getItem('theme');
-    if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');themeBtn.innerHTML='&#9728;';}
+    if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');themeBtn.textContent='Day';}
     themeBtn.addEventListener('click',()=>{
         const isLight=document.documentElement.getAttribute('data-theme')==='light';
         if(isLight){
             document.documentElement.removeAttribute('data-theme');
-            themeBtn.innerHTML='&#9790;';
+            themeBtn.textContent='Night';
             localStorage.setItem('theme','dark');
         } else {
             document.documentElement.setAttribute('data-theme','light');
-            themeBtn.innerHTML='&#9728;';
+            themeBtn.textContent='Day';
             localStorage.setItem('theme','light');
         }
     });
