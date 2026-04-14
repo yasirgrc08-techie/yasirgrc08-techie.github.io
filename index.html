@@ -1085,6 +1085,14 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS immediately on page load
+    (function() {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init('97FdG6E2hT9AYtA_4');
+        }
+    })();
+</script>
 
 <script>
     const nav=document.getElementById('nav');
@@ -1379,44 +1387,54 @@
     }
 
     function sendEmailNotification(paymentId) {
-        // Initialize EmailJS
-        if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                session: booking.name,
-                duration: booking.duration ? booking.duration + ' mins' : 'N/A',
-                date: booking.date,
-                time: booking.time,
-                name: booking.userName,
-                email: booking.userEmail,
-                phone: booking.userPhone,
-                message: booking.userMsg || 'No message',
-                amount: '₹' + booking.price,
-                payment_id: paymentId,
-                to_email: 'yasir.grc08@gmail.com'
-            }).then(() => {
-                console.log('Email notification sent successfully');
-            }).catch(err => {
-                console.error('Email sending failed:', err);
-            });
+        const templateParams = {
+            session: booking.name,
+            duration: booking.duration ? booking.duration + ' mins' : 'N/A',
+            date: booking.date,
+            time: booking.time,
+            name: booking.userName,
+            email: booking.userEmail,
+            phone: booking.userPhone,
+            message: booking.userMsg || 'No message',
+            amount: '₹' + booking.price,
+            payment_id: paymentId,
+            to_email: 'yasir.grc08@gmail.com',
+            reply_to: booking.userEmail
+        };
+
+        // Try EmailJS first
+        if (typeof emailjs !== 'undefined') {
+            emailjs.send('service_phdrjfp', 'template_k2ysz6k', templateParams)
+                .then(function() {
+                    console.log('✅ Booking confirmation email sent!');
+                })
+                .catch(function(err) {
+                    console.error('❌ EmailJS failed:', err);
+                    alert('Payment successful! But email notification failed. Please take a screenshot of this booking confirmation.');
+                    // Fallback: open mailto
+                    openMailtoFallback(paymentId);
+                });
         } else {
-            console.warn('EmailJS not configured. Set up EMAILJS keys to receive email notifications.');
-            // Fallback: Open mailto
-            const subject = encodeURIComponent('New Booking: ' + booking.name + ' — ' + booking.date);
-            const body = encodeURIComponent(
-                'New Session Booked!\n\n' +
-                'Session: ' + booking.name + '\n' +
-                'Date: ' + booking.date + '\n' +
-                'Time: ' + booking.time + '\n' +
-                'Customer: ' + booking.userName + '\n' +
-                'Email: ' + booking.userEmail + '\n' +
-                'Phone: ' + booking.userPhone + '\n' +
-                'Message: ' + (booking.userMsg || 'N/A') + '\n' +
-                'Amount: ₹' + booking.price + '\n' +
-                'Payment ID: ' + paymentId
-            );
-            window.open('mailto:yasir.grc08@gmail.com?subject=' + subject + '&body=' + body, '_blank');
+            console.warn('EmailJS SDK not loaded, using mailto fallback');
+            openMailtoFallback(paymentId);
         }
+    }
+
+    function openMailtoFallback(paymentId) {
+        const subject = encodeURIComponent('New Booking: ' + booking.name + ' — ' + booking.date);
+        const body = encodeURIComponent(
+            'New Session Booked!\n\n' +
+            'Session: ' + booking.name + '\n' +
+            'Date: ' + booking.date + '\n' +
+            'Time: ' + booking.time + '\n' +
+            'Customer: ' + booking.userName + '\n' +
+            'Email: ' + booking.userEmail + '\n' +
+            'Phone: ' + booking.userPhone + '\n' +
+            'Message: ' + (booking.userMsg || 'N/A') + '\n' +
+            'Amount: ₹' + booking.price + '\n' +
+            'Payment ID: ' + paymentId
+        );
+        window.open('mailto:yasir.grc08@gmail.com?subject=' + subject + '&body=' + body, '_blank');
     }
 </script>
 </body>
