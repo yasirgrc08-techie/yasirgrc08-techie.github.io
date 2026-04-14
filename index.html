@@ -33,9 +33,38 @@
             --max-w: 1200px;
             --r: 16px;
             --tr: 0.35s cubic-bezier(0.4,0,0.2,1);
+            --glass: rgba(10,10,15,0.6);
+            --nav-bg: rgba(10,10,15,0.85);
         }
+        /* Light theme */
+        [data-theme="light"] {
+            --bg: #f8f9fc;
+            --bg-2: #eef0f5;
+            --bg-card: #ffffff;
+            --border: #e2e4ea;
+            --text: #1a1a2e;
+            --text-2: #555566;
+            --text-3: #888899;
+            --accent-glow: rgba(99,102,241,0.08);
+            --glass: rgba(248,249,252,0.7);
+            --nav-bg: rgba(248,249,252,0.85);
+        }
+        [data-theme="light"] .dot-grid { background-image: radial-gradient(rgba(99,102,241,0.06) 1px, transparent 1px); }
+        [data-theme="light"] .hero-bg .orb { opacity: .1; }
+        [data-theme="light"] .mouse-glow { background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%); }
+        [data-theme="light"] .scroll-progress { height: 3px; }
+        [data-theme="light"] .co-chip { background: var(--bg-2); }
+        [data-theme="light"] .testi-wrapper::before { background: linear-gradient(90deg, var(--bg), transparent); }
+        [data-theme="light"] .testi-wrapper::after { background: linear-gradient(270deg, var(--bg), transparent); }
+        [data-theme="light"] .tag { background: var(--bg-2); }
+        [data-theme="light"] .skill-tags span { background: var(--bg-2); color: var(--text); }
+        [data-theme="light"] .proj-tags span { background: rgba(99,102,241,0.08); }
+        [data-theme="light"] .form-input { background: var(--bg-2); color: var(--text); border-color: var(--border); }
+        [data-theme="light"] .modal { background: var(--bg-card); }
+        [data-theme="light"] .modal-header { background: var(--bg-card); }
+        [data-theme="light"] img { filter: none; }
         html { scroll-behavior: smooth; }
-        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; transition: background .4s, color .4s; }
         a { color: var(--accent-l); text-decoration: none; transition: color var(--tr); }
         a:hover { color: #a5b4fc; }
         img { max-width: 100%; display: block; }
@@ -102,8 +131,8 @@
         .count-up { display: inline-block; }
 
         /* === Nav === */
-        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: all var(--tr); }
-        .nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: all var(--tr); }
+        .nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 4px 30px rgba(0,0,0,0.15); }
         .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
         .nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--text); display: flex; align-items: center; gap: 8px; }
         .nav-logo .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
@@ -114,8 +143,20 @@
         .nav-links a::after { content:''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width var(--tr); border-radius: 1px; }
         .nav-links a:hover::after { width: 100%; }
         .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+        .nav-right { display: flex; align-items: center; gap: .75rem; }
         .nav-cta { padding: 8px 20px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; font-size: .85rem; transition: all var(--tr); border: none; cursor: pointer; font-family: var(--sans); }
         .nav-cta:hover { background: var(--accent-l); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
+
+        /* === Theme Toggle === */
+        .theme-toggle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; transition: all var(--tr); flex-shrink: 0; }
+        .theme-toggle:hover { border-color: var(--accent); background: var(--accent-glow); transform: rotate(30deg); }
+
+        /* === Availability Banner === */
+        .avail-banner { background: linear-gradient(90deg, var(--accent), var(--cyan)); text-align: center; padding: 8px 1rem; font-size: .82rem; font-weight: 600; color: #fff; letter-spacing: .03em; position: relative; z-index: 101; }
+        .avail-banner .avail-dot { display: inline-block; width: 7px; height: 7px; background: var(--green); border-radius: 50%; margin-right: 8px; animation: blink 1.5s infinite; vertical-align: middle; }
+        .avail-banner a { color: #fff; text-decoration: underline; text-underline-offset: 2px; margin-left: 6px; font-weight: 700; }
+        .nav { top: 36px; }
+        .scroll-progress { top: 36px; }
 
         /* === Sections === */
         .section { max-width: var(--max-w); margin: 0 auto; padding: 6rem 2rem; }
@@ -394,6 +435,8 @@
             .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
             .nav-toggle { display: block; }
             .nav-cta { display: none; }
+            .theme-toggle { width: 36px; height: 36px; font-size: 1rem; }
+            .avail-banner { font-size: .75rem; padding: 6px .75rem; }
             .section { padding: 3.5rem 1.25rem; }
             .section-title { font-size: 2rem; }
             .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
@@ -410,6 +453,9 @@
     </style>
 </head>
 <body>
+<div class="avail-banner">
+    <span class="avail-dot"></span>Available for Collaboration &amp; Mentorship<a href="#sessions">Book Now &rarr;</a>
+</div>
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="dot-grid"></div>
 <div class="mouse-glow" id="mouseGlow"></div>
@@ -428,8 +474,11 @@
             <li><a href="#videos">Videos</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#sessions" class="nav-cta">Book a Session</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+        <div class="nav-right">
+            <a href="#sessions" class="nav-cta">Book a Session</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9790;</button>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+        </div>
     </div>
 </nav>
 
@@ -1095,6 +1144,24 @@
     const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
     toggle.addEventListener('click',()=>links.classList.toggle('open'));
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+    // Theme toggle (day/night)
+    const themeBtn=document.getElementById('themeToggle');
+    const savedTheme=localStorage.getItem('theme');
+    if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');themeBtn.innerHTML='&#9728;';}
+    themeBtn.addEventListener('click',()=>{
+        const isLight=document.documentElement.getAttribute('data-theme')==='light';
+        if(isLight){
+            document.documentElement.removeAttribute('data-theme');
+            themeBtn.innerHTML='&#9790;';
+            localStorage.setItem('theme','dark');
+        } else {
+            document.documentElement.setAttribute('data-theme','light');
+            themeBtn.innerHTML='&#9728;';
+            localStorage.setItem('theme','light');
+        }
+    });
+
     // Intersection Observer for reveals
     const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-stagger').forEach(el=>obs.observe(el));
