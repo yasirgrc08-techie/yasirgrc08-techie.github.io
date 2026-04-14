@@ -43,6 +43,64 @@
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+        /* === Scroll Progress Bar === */
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--cyan), var(--pink), var(--accent)); background-size: 300% 100%; animation: gradient-shift 4s ease infinite; z-index: 200; width: 0%; transition: width 0.1s linear; }
+        @keyframes gradient-shift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+        /* === Dot Grid Background === */
+        .dot-grid { position: fixed; inset: 0; z-index: -1; background-image: radial-gradient(rgba(99,102,241,0.08) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; }
+
+        /* === Mouse Spotlight === */
+        .mouse-glow { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%); pointer-events: none; z-index: -1; transform: translate(-50%,-50%); transition: left 0.3s ease, top 0.3s ease; }
+
+        /* === Animated Gradient Text === */
+        .grad-animated { background: linear-gradient(270deg, var(--accent-l), var(--cyan), var(--pink), var(--accent-l)); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: grad-flow 6s ease infinite; }
+        @keyframes grad-flow { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+        /* === Typing cursor === */
+        .typing-cursor::after { content: '|'; animation: cursor-blink .8s step-end infinite; color: var(--accent-l); font-weight: 300; }
+        @keyframes cursor-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+        /* === Card Glow on Hover === */
+        .glow-card { position: relative; overflow: hidden; }
+        .glow-card::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; background: radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(99,102,241,0.06), transparent 60%); pointer-events: none; z-index: 0; }
+        .glow-card:hover::after { opacity: 1; }
+        .glow-card > * { position: relative; z-index: 1; }
+
+        /* === Gradient Border Animation === */
+        .gradient-border { position: relative; }
+        .gradient-border::before { content: ''; position: absolute; inset: -1px; border-radius: inherit; background: linear-gradient(135deg, var(--accent), var(--cyan), var(--pink), var(--accent)); background-size: 300% 300%; animation: grad-flow 6s ease infinite; z-index: -1; opacity: 0; transition: opacity 0.4s; }
+        .gradient-border:hover::before { opacity: 1; }
+
+        /* === Staggered Reveals === */
+        .reveal-stagger > * { opacity: 0; transform: translateY(25px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+        .reveal-stagger.visible > *:nth-child(2) { transition-delay: .1s; }
+        .reveal-stagger.visible > *:nth-child(3) { transition-delay: .2s; }
+        .reveal-stagger.visible > *:nth-child(4) { transition-delay: .3s; }
+        .reveal-stagger.visible > *:nth-child(5) { transition-delay: .4s; }
+        .reveal-stagger.visible > *:nth-child(6) { transition-delay: .5s; }
+        .reveal-stagger.visible > *:nth-child(7) { transition-delay: .6s; }
+        .reveal-stagger.visible > *:nth-child(8) { transition-delay: .7s; }
+        .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+        /* === Floating animation for photo stack === */
+        .float-anim { animation: float-y 4s ease-in-out infinite; }
+        .float-anim:nth-child(2) { animation-delay: -1.5s; }
+        .float-anim:nth-child(3) { animation-delay: -3s; }
+        @keyframes float-y { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+
+        /* === Pulse ring on CTA buttons === */
+        .btn-p { position: relative; }
+        .btn-p::before { content: ''; position: absolute; inset: -4px; border-radius: 14px; border: 2px solid var(--accent); opacity: 0; animation: btn-ring 2.5s ease-out infinite; }
+        @keyframes btn-ring { 0%{opacity:.6;transform:scale(1);} 100%{opacity:0;transform:scale(1.15);} }
+
+        /* === Section divider glow line === */
+        .glow-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), var(--accent), transparent); margin: 0 auto; max-width: 600px; opacity: .5; }
+
+        /* === Smooth counter === */
+        .count-up { display: inline-block; }
+
         /* === Nav === */
         .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: all var(--tr); }
         .nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
@@ -72,12 +130,13 @@
         .hero-bg .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: .25; }
         .hero-bg .o1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -200px; animation: drift 12s ease-in-out infinite; }
         .hero-bg .o2 { width: 400px; height: 400px; background: var(--pink); bottom: -150px; left: -100px; animation: drift 12s ease-in-out infinite reverse; }
+        .hero-bg .o3 { width: 350px; height: 350px; background: var(--cyan); top: 50%; left: 30%; animation: drift 15s ease-in-out infinite; animation-delay: -4s; opacity: .15; }
         @keyframes drift { 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,-30px);} }
         .hero-left { position: relative; z-index: 1; }
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.25); padding: 6px 18px; border-radius: 100px; font-size: .85rem; color: var(--accent-l); font-weight: 500; margin-bottom: 2rem; }
         .hero-badge .pulse { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
         .hero h1 { font-size: clamp(2.5rem,5.5vw,4rem); font-weight: 900; line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: -.03em; }
-        .hero h1 .grad { background: linear-gradient(135deg, var(--accent-l), var(--cyan), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 .grad { background: linear-gradient(270deg, var(--accent-l), var(--cyan), var(--pink), var(--accent-l)); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: grad-flow 6s ease infinite; }
         .hero-desc { font-size: 1.1rem; color: var(--text-2); max-width: 520px; margin-bottom: 2rem; line-height: 1.8; }
         .hero-desc strong { color: var(--text); }
         .hero-actions { display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
@@ -97,7 +156,10 @@
         .photo-stack img:nth-child(1) { width: 320px; height: 420px; top: 0; left: 0; z-index: 3; }
         .photo-stack img:nth-child(2) { width: 200px; height: 260px; bottom: 10px; right: -20px; z-index: 2; }
         .photo-stack img:nth-child(3) { width: 170px; height: 220px; top: 20px; right: -10px; z-index: 1; opacity: .8; }
-        .photo-stack img:hover { z-index: 10; transform: scale(1.05); border-color: var(--accent); box-shadow: 0 25px 70px rgba(99,102,241,0.2); }
+        .photo-stack img:hover { z-index: 10; transform: scale(1.05) rotate(1deg); border-color: var(--accent); box-shadow: 0 25px 70px rgba(99,102,241,0.25); }
+        .photo-stack img { animation: float-y 5s ease-in-out infinite; }
+        .photo-stack img:nth-child(2) { animation-delay: -2s; animation-duration: 4s; }
+        .photo-stack img:nth-child(3) { animation-delay: -3.5s; animation-duration: 6s; }
 
         /* === Company Logos Marquee === */
         .marquee-wrap { padding: 3.5rem 0; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
@@ -254,8 +316,12 @@
         footer a { color: var(--accent-l); }
 
         /* === Animations === */
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
         /* === Philosophy === */
         .philosophy { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 3rem; margin-top: 2.5rem; text-align: center; }
@@ -302,6 +368,9 @@
     </style>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="dot-grid"></div>
+<div class="mouse-glow" id="mouseGlow"></div>
 
 <!-- Nav -->
 <nav class="nav" id="nav">
@@ -324,10 +393,11 @@
 
 <!-- Hero -->
 <section class="hero section" id="hero">
-    <div class="hero-bg"><div class="orb o1"></div><div class="orb o2"></div></div>
+    <div class="hero-bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
     <div class="hero-left">
         <div class="hero-badge"><span class="pulse"></span> Available for Mentorship</div>
         <h1>Hi, I'm <span class="grad">Yasir Arafat Sharfi</span></h1>
+        <p class="hero-role typing-cursor" id="heroTyping" style="font-family:var(--mono);font-size:.9rem;color:var(--accent-l);margin-bottom:1rem;"></p>
         <p class="hero-desc">
             Software Engineer at <strong>Microsoft Azure</strong> — building NVMe-based virtual disk architecture on DPUs &amp; SmartNICs.
             <strong>6.7+ years</strong> deep in systems programming, networking &amp; high-performance data planes.
@@ -337,9 +407,9 @@
             <a href="#experience" class="btn btn-o">View Experience</a>
         </div>
         <div class="hero-stats">
-            <div class="hero-stat"><div class="num">6.7+</div><div class="lbl">Years Experience</div></div>
-            <div class="hero-stat"><div class="num">13+</div><div class="lbl">Companies Cracked</div></div>
-            <div class="hero-stat"><div class="num">4</div><div class="lbl">Top Companies</div></div>
+            <div class="hero-stat"><div class="num count-up" data-target="6.7" data-suffix="+">0</div><div class="lbl">Years Experience</div></div>
+            <div class="hero-stat"><div class="num count-up" data-target="13" data-suffix="+">0</div><div class="lbl">Companies Cracked</div></div>
+            <div class="hero-stat"><div class="num count-up" data-target="4" data-suffix="">0</div><div class="lbl">Top Companies</div></div>
             <div class="hero-stat"><div class="num">ECE</div><div class="lbl">Non-CS Background</div></div>
         </div>
     </div>
@@ -498,7 +568,7 @@
         <span class="section-tag">Expertise</span>
         <h2 class="section-title">Technical Skills</h2>
     </div>
-    <div class="skills-grid reveal">
+    <div class="skills-grid reveal reveal-stagger">
         <div class="skill-card">
             <div class="skill-icon">⚙️</div>
             <div class="skill-name">Systems Programming</div>
@@ -575,7 +645,8 @@
         <h2 class="section-title">Book a Session</h2>
         <p class="section-sub" style="margin:0 auto;">Practical, focused sessions to help you crack top tech interviews and grow your career.</p>
     </div>
-    <div class="sessions-grid reveal">
+    <div class="glow-divider" style="margin-bottom:2rem;"></div>
+    <div class="sessions-grid reveal reveal-stagger">
         <div class="session-card popular">
             <div class="session-icon">🎯</div>
             <div class="session-name">Mock Interview</div>
@@ -718,7 +789,7 @@
         <span class="section-tag">Projects</span>
         <h2 class="section-title">Featured Work</h2>
     </div>
-    <div class="projects-grid reveal">
+    <div class="projects-grid reveal reveal-stagger">
         <div class="proj-card">
             <div class="proj-icon">🏫</div>
             <div class="proj-name">School Management System</div>
@@ -784,7 +855,7 @@
         <span class="section-tag">Achievements</span>
         <h2 class="section-title">Key Milestones</h2>
     </div>
-    <div class="achieve-grid reveal">
+    <div class="achieve-grid reveal reveal-stagger">
         <div class="achieve-card"><div class="achieve-icon">🏢</div><div><div class="achieve-title">Microsoft L62</div><div class="achieve-desc">Working on end-to-end DPU datapath for Azure Ultra-Disk</div></div></div>
         <div class="achieve-card"><div class="achieve-icon">🌐</div><div><div class="achieve-title">Cisco ASR9K</div><div class="achieve-desc">Developed SRv6/MPLS features deployed across global ISP networks</div></div></div>
         <div class="achieve-card"><div class="achieve-icon">🚗</div><div><div class="achieve-title">Bosch Automotive</div><div class="achieve-desc">Built ECU communication stacks for BMW, Audi &amp; Porsche</div></div></div>
@@ -876,13 +947,96 @@
     const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
     toggle.addEventListener('click',()=>links.classList.toggle('open'));
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+    // Intersection Observer for reveals
     const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-stagger').forEach(el=>obs.observe(el));
+
+    // Video carousel
     const vc=document.getElementById('vidCarousel'),vp=document.getElementById('vidPrev'),vn=document.getElementById('vidNext');
     if(vc&&vp&&vn){const s=400;vn.addEventListener('click',()=>vc.scrollBy({left:s,behavior:'smooth'}));vp.addEventListener('click',()=>vc.scrollBy({left:-s,behavior:'smooth'}));}
+
     // Auto-scroll testimonials
     const ts=document.getElementById('testiScroll');
     if(ts){let dir=1;setInterval(()=>{if(ts.scrollLeft>=ts.scrollWidth-ts.clientWidth-10)dir=-1;if(ts.scrollLeft<=0)dir=1;ts.scrollBy({left:dir*1,behavior:'auto'});},30);}
+
+    // Scroll progress bar
+    const prog=document.getElementById('scrollProgress');
+    window.addEventListener('scroll',()=>{
+        const h=document.documentElement.scrollHeight-window.innerHeight;
+        prog.style.width=(scrollY/h*100)+'%';
+    });
+
+    // Mouse spotlight glow
+    const glow=document.getElementById('mouseGlow');
+    document.addEventListener('mousemove',e=>{
+        glow.style.left=e.clientX+'px';
+        glow.style.top=e.clientY+'px';
+    });
+
+    // Card glow follow mouse
+    document.querySelectorAll('.skill-card,.proj-card,.session-card,.achieve-card,.expertise-card,.exp-card,.contact-card,.edu-card').forEach(card=>{
+        card.classList.add('glow-card');
+        card.addEventListener('mousemove',e=>{
+            const r=card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x',((e.clientX-r.left)/r.width*100)+'%');
+            card.style.setProperty('--mouse-y',((e.clientY-r.top)/r.height*100)+'%');
+        });
+    });
+
+    // Counter animation
+    const countObs=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(!entry.isIntersecting)return;
+            const el=entry.target;
+            const target=parseFloat(el.dataset.target);
+            const suffix=el.dataset.suffix||'';
+            const isFloat=target%1!==0;
+            const duration=1500;
+            const start=performance.now();
+            function update(now){
+                const p=Math.min((now-start)/duration,1);
+                const eased=1-Math.pow(1-p,3);
+                const val=eased*target;
+                el.textContent=(isFloat?val.toFixed(1):Math.floor(val))+suffix;
+                if(p<1)requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+            countObs.unobserve(el);
+        });
+    },{threshold:.5});
+    document.querySelectorAll('.count-up').forEach(el=>countObs.observe(el));
+
+    // Typing effect
+    const roles=['SWE II @ Microsoft Azure','NVMe / RDMA / DPU Engineer','13+ Companies Cracked','Career Mentor & YouTuber','Ex-Dell, Cisco, Bosch'];
+    let ri=0,ci=0,deleting=false;
+    const typeEl=document.getElementById('heroTyping');
+    function typeLoop(){
+        if(!typeEl)return;
+        const word=roles[ri];
+        if(!deleting){
+            typeEl.textContent=word.slice(0,++ci);
+            if(ci===word.length){deleting=true;setTimeout(typeLoop,2000);return;}
+            setTimeout(typeLoop,60);
+        }else{
+            typeEl.textContent=word.slice(0,--ci);
+            if(ci===0){deleting=false;ri=(ri+1)%roles.length;setTimeout(typeLoop,400);return;}
+            setTimeout(typeLoop,30);
+        }
+    }
+    typeLoop();
+
+    // Parallax orbs on mouse move
+    const heroBg=document.querySelector('.hero-bg');
+    if(heroBg){
+        document.addEventListener('mousemove',e=>{
+            const x=(e.clientX/window.innerWidth-.5)*20;
+            const y=(e.clientY/window.innerHeight-.5)*20;
+            heroBg.querySelectorAll('.orb').forEach((o,i)=>{
+                const s=(i+1)*0.5;
+                o.style.transform=`translate(${x*s}px,${y*s}px)`;
+            });
+        });
+    }
 </script>
 </body>
 </html>
