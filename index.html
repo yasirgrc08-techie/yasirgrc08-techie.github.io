@@ -271,6 +271,27 @@
         .session-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; font-size: .9rem; transition: all var(--tr); }
         .session-btn:hover { background: var(--accent-l); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
 
+        /* === Services (Hire Me) === */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2.5rem; position: relative; overflow: hidden; transition: all var(--tr); }
+        .service-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--accent), var(--cyan)); }
+        .service-card.premium::before { background: linear-gradient(90deg, var(--orange), var(--pink), var(--accent)); }
+        .service-badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 1.25rem; }
+        .service-badge-web { background: rgba(6,182,212,0.12); color: var(--cyan); border: 1px solid rgba(6,182,212,0.25); }
+        .service-badge-app { background: rgba(245,158,11,0.12); color: var(--orange); border: 1px solid rgba(245,158,11,0.25); }
+        .service-title { font-size: 1.4rem; font-weight: 800; margin-bottom: .5rem; }
+        .service-desc { color: var(--text-2); font-size: .95rem; line-height: 1.8; margin-bottom: 1.25rem; }
+        .service-features { list-style: none; margin-bottom: 1.5rem; }
+        .service-features li { padding: 6px 0; font-size: .9rem; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+        .service-features li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: .85rem; flex-shrink: 0; }
+        .service-price-row { display: flex; align-items: baseline; gap: .75rem; margin-bottom: 1.5rem; }
+        .service-price-row .price { font-size: 2rem; font-weight: 900; }
+        .service-price-row .price-note { font-size: .85rem; color: var(--text-3); }
+        .service-platforms { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+        .service-platforms span { font-size: .75rem; padding: 4px 10px; border-radius: 6px; background: var(--bg-2); border: 1px solid var(--border); color: var(--text-2); font-weight: 500; }
+        @media (max-width: 768px) { .services-grid { grid-template-columns: 1fr; } }
+
         /* === Projects === */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
         .proj-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; transition: all var(--tr); display: flex; flex-direction: column; position: relative; overflow: hidden; }
@@ -807,6 +828,61 @@
                 <span class="original">&#8377;300</span>
             </div>
             <a href="#" onclick="openBooking('dm','Priority DM',100,0);return false;" class="session-btn">Send DM &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services / Hire Me -->
+<section class="section" id="services">
+    <div class="reveal" style="text-align:center;">
+        <span class="section-tag">Hire Me</span>
+        <h2 class="section-title">Build Your Dream Product</h2>
+        <p class="section-sub" style="margin:0 auto;">Need a stunning website or a full-fledged cross-platform app? I'll build it for you from scratch.</p>
+    </div>
+    <div class="services-grid reveal">
+        <div class="service-card">
+            <span class="service-badge service-badge-web">Website / Portfolio</span>
+            <div class="service-title">Custom Website</div>
+            <div class="service-desc">Get a professional, responsive website tailored to your needs &mdash; whether it's for yourself, your caf&eacute;, hotel, restaurant, school, booking platform, or any business.</div>
+            <ul class="service-features">
+                <li>Portfolio &amp; Personal Websites</li>
+                <li>Caf&eacute;, Restaurant &amp; Hotel Sites</li>
+                <li>School &amp; Institute Websites</li>
+                <li>Booking &amp; Appointment Pages</li>
+                <li>Landing Pages &amp; Business Sites</li>
+                <li>Mobile Responsive Design</li>
+                <li>SEO Optimized</li>
+                <li>Payment Integration (if needed)</li>
+            </ul>
+            <div class="service-price-row">
+                <span class="price">&#8377;1,000</span>
+                <span class="price-note">starting price</span>
+            </div>
+            <a href="#" onclick="openBooking('website','Custom Website Development',1000,0);return false;" class="session-btn" style="display:inline-flex;">Get Started &rarr;</a>
+        </div>
+        <div class="service-card premium">
+            <span class="service-badge service-badge-app">Full-Stack App</span>
+            <div class="service-title">Cross-Platform App</div>
+            <div class="service-desc">A complete production-ready application built from the ground up &mdash; backend, frontend, database, API, deployment &mdash; running on every platform.</div>
+            <ul class="service-features">
+                <li>Android App</li>
+                <li>iOS App</li>
+                <li>Windows Desktop App</li>
+                <li>macOS Desktop App</li>
+                <li>Web App (Browser)</li>
+                <li>Backend API + Database</li>
+                <li>Admin Dashboard</li>
+                <li>Cloud Deployment &amp; CI/CD</li>
+                <li>Payment &amp; Auth Integration</li>
+            </ul>
+            <div class="service-platforms">
+                <span>Android</span><span>iOS</span><span>Windows</span><span>macOS</span><span>Web</span><span>React Native</span><span>Node.js</span><span>PostgreSQL</span>
+            </div>
+            <div class="service-price-row">
+                <span class="price">&#8377;5,000</span>
+                <span class="price-note">starting price</span>
+            </div>
+            <a href="#" onclick="openBooking('fullstack','Full-Stack Cross-Platform App',5000,0);return false;" class="session-btn" style="display:inline-flex;">Get Started &rarr;</a>
         </div>
     </div>
 </section>
