@@ -149,17 +149,17 @@
         .hero-stat .num { font-size: 1.75rem; font-weight: 800; }
         .hero-stat .lbl { font-size: .8rem; color: var(--text-3); margin-top: 2px; }
 
-        /* Hero photo stack */
+        /* Hero photo gallery */
         .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; }
-        .photo-stack { position: relative; width: 380px; height: 480px; }
-        .photo-stack img { position: absolute; border-radius: var(--r); object-fit: cover; border: 3px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: all 0.6s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
-        .photo-stack img:nth-child(1) { width: 320px; height: 420px; top: 0; left: 0; z-index: 3; }
-        .photo-stack img:nth-child(2) { width: 200px; height: 260px; bottom: 10px; right: -20px; z-index: 2; }
-        .photo-stack img:nth-child(3) { width: 170px; height: 220px; top: 20px; right: -10px; z-index: 1; opacity: .8; }
-        .photo-stack img:hover { z-index: 10; transform: scale(1.05) rotate(1deg); border-color: var(--accent); box-shadow: 0 25px 70px rgba(99,102,241,0.25); }
+        .photo-stack { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; width: 400px; height: 480px; }
+        .photo-stack img { border-radius: var(--r); object-fit: cover; object-position: top; border: 3px solid var(--border); box-shadow: 0 12px 40px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); cursor: pointer; width: 100%; height: 100%; }
+        .photo-stack img:nth-child(1) { grid-row: 1 / 3; }
+        .photo-stack img:nth-child(2) { grid-row: 1; grid-column: 2; }
+        .photo-stack img:nth-child(3) { grid-row: 2; grid-column: 2; }
+        .photo-stack img:hover { transform: scale(1.04); border-color: var(--accent); box-shadow: 0 20px 60px rgba(99,102,241,0.25); z-index: 2; }
         .photo-stack img { animation: float-y 5s ease-in-out infinite; }
-        .photo-stack img:nth-child(2) { animation-delay: -2s; animation-duration: 4s; }
-        .photo-stack img:nth-child(3) { animation-delay: -3.5s; animation-duration: 6s; }
+        .photo-stack img:nth-child(2) { animation-delay: -1.5s; animation-duration: 4.5s; }
+        .photo-stack img:nth-child(3) { animation-delay: -3s; animation-duration: 5.5s; }
 
         /* === Company Logos Marquee === */
         .marquee-wrap { padding: 3.5rem 0; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
@@ -218,7 +218,7 @@
         .edu-detail { color: var(--text-3); font-size: .85rem; font-family: var(--mono); margin-top: .4rem; }
         .edu-grade { display: inline-flex; align-items: center; gap: 6px; margin-top: .5rem; padding: 4px 12px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); border-radius: 100px; font-size: .8rem; color: var(--green); font-weight: 600; }
         .edu-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .edu-photos img { border-radius: var(--r); border: 1px solid var(--border); width: 100%; height: 200px; object-fit: cover; transition: all var(--tr); }
+        .edu-photos img { border-radius: var(--r); border: 1px solid var(--border); width: 100%; height: 200px; object-fit: cover; object-position: top center; transition: all var(--tr); }
         .edu-photos img:hover { border-color: var(--accent); transform: scale(1.03); }
 
         /* === Sessions === */
@@ -256,11 +256,15 @@
         .testi-badge .stars { color: var(--orange); font-size: 1.1rem; letter-spacing: 2px; }
         .testi-badge .info { color: var(--text-2); font-size: .88rem; font-weight: 500; }
         .testi-badge .info strong { color: var(--text); }
-        .testi-scroll { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 1rem .5rem 1.5rem; margin-top: 2rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
-        .testi-scroll::-webkit-scrollbar { height: 4px; }
-        .testi-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-        .testi-card { flex: 0 0 380px; scroll-snap-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; position: relative; transition: all var(--tr); }
-        .testi-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .testi-wrapper { overflow: hidden; margin-top: 2rem; padding: 1rem 0; position: relative; }
+        .testi-wrapper::before, .testi-wrapper::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+        .testi-wrapper::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+        .testi-wrapper::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+        .testi-track { display: flex; gap: 1.5rem; width: max-content; animation: testi-scroll 45s linear infinite; }
+        .testi-track:hover { animation-play-state: paused; }
+        @keyframes testi-scroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+        .testi-card { flex: 0 0 380px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; position: relative; transition: border-color var(--tr), box-shadow var(--tr); }
+        .testi-card:hover { border-color: var(--accent); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
         .testi-card::before { content:'\201C'; position: absolute; top: 12px; left: 18px; font-size: 3rem; color: var(--accent); opacity: .2; font-family: Georgia, serif; line-height: 1; }
         .testi-stars { color: var(--orange); font-size: .85rem; letter-spacing: 1px; margin-bottom: .75rem; }
         .testi-text { color: var(--text-2); font-size: .92rem; line-height: 1.8; margin-bottom: 1rem; position: relative; z-index: 1; }
@@ -335,10 +339,7 @@
         @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .hero-right { order: -1; }
-            .photo-stack { width: 280px; height: 360px; margin: 0 auto; }
-            .photo-stack img:nth-child(1) { width: 240px; height: 320px; }
-            .photo-stack img:nth-child(2) { width: 150px; height: 200px; }
-            .photo-stack img:nth-child(3) { display: none; }
+            .photo-stack { width: 300px; height: 380px; margin: 0 auto; }
             .hero-desc { margin: 0 auto 2rem; }
             .hero-actions { justify-content: center; }
             .hero-stats { justify-content: center; }
@@ -361,7 +362,7 @@
             .projects-grid { grid-template-columns: 1fr; }
             .achieve-grid { grid-template-columns: 1fr; }
             .contact-grid { flex-direction: column; align-items: center; }
-            .testi-card { flex: 0 0 85vw; }
+            .testi-card { flex: 0 0 300px; }
             .vid-item { flex: 0 0 85vw; }
             .edu-photos { grid-template-columns: 1fr; }
         }
@@ -724,36 +725,69 @@
             <span class="info"><strong>5.00 / 5</strong> &middot; 10 responses &middot; 100% rated 5 stars</span>
         </div>
     </div>
-    <div class="testi-scroll reveal" id="testiScroll">
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself. You clearly addressed all my doubts regarding DSA, system design, tech stack, C language, and core CSE subjects. Thank you so much for your time, honesty, and guidance.</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
-        </div>
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
-        </div>
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
-        </div>
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
-        </div>
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
-        </div>
-        <div class="testi-card">
-            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="testi-text">So helpful session &mdash; career guidance as well. Incredible and wonderful! Very Nice and Insightful!</p>
-            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+    <div class="testi-wrapper">
+        <div class="testi-track">
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself. You clearly addressed all my doubts regarding DSA, system design, tech stack, C language, and core CSE subjects. Thank you so much for your time, honesty, and guidance.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">So helpful session &mdash; career guidance as well. Incredible and wonderful! Very Nice and Insightful!</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself. You clearly addressed all my doubts regarding DSA, system design, tech stack, C language, and core CSE subjects. Thank you so much for your time, honesty, and guidance.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testi-text">So helpful session &mdash; career guidance as well. Incredible and wonderful! Very Nice and Insightful!</p>
+                <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+            </div>
         </div>
     </div>
 </section>
@@ -954,10 +988,6 @@
     // Video carousel
     const vc=document.getElementById('vidCarousel'),vp=document.getElementById('vidPrev'),vn=document.getElementById('vidNext');
     if(vc&&vp&&vn){const s=400;vn.addEventListener('click',()=>vc.scrollBy({left:s,behavior:'smooth'}));vp.addEventListener('click',()=>vc.scrollBy({left:-s,behavior:'smooth'}));}
-
-    // Auto-scroll testimonials
-    const ts=document.getElementById('testiScroll');
-    if(ts){let dir=1;setInterval(()=>{if(ts.scrollLeft>=ts.scrollWidth-ts.clientWidth-10)dir=-1;if(ts.scrollLeft<=0)dir=1;ts.scrollBy({left:dir*1,behavior:'auto'});},30);}
 
     // Scroll progress bar
     const prog=document.getElementById('scrollProgress');
