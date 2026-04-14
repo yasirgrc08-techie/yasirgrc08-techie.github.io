@@ -1183,18 +1183,15 @@
     // BOOKING SYSTEM + RAZORPAY PAYMENT INTEGRATION
     // ============================================
 
-    // ⚠️ TODO: Replace these with your REAL keys
-    // Razorpay: Dashboard > Settings > API Keys > Generate
-    const RAZORPAY_KEY = 'rzp_test_XXXXXXXXXXXX'; // Replace with your Key ID (safe for frontend)
+    // ⚠️ Razorpay Key ID (public, safe for frontend)
+    const RAZORPAY_KEY = 'rzp_live_SdMpxrq9I6XhNj';
 
-    // EmailJS: https://www.emailjs.com (Free: 200 emails/month)
-    // 1. Sign up at emailjs.com
-    // 2. Add Gmail service (Service ID)
-    // 3. Create email template with vars: {{session}}, {{date}}, {{time}}, {{name}}, {{email}}, {{phone}}, {{message}}, {{amount}}, {{payment_id}}
-    // 4. Get your Public Key from Account > General
-    const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY';
-    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    // EmailJS (Free: 200 emails/month)
+    // TODO: Create a Service (Email Services > Add Service > Gmail) and note the Service ID
+    // TODO: Create a Template (Email Templates > Create) with vars: {{session}}, {{date}}, {{time}}, {{name}}, {{email}}, {{phone}}, {{message}}, {{amount}}, {{payment_id}}
+    const EMAILJS_PUBLIC_KEY = '97FdG6E2hT9AYtA_4';
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Go to EmailJS > Email Services > copy Service ID
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Go to EmailJS > Email Templates > copy Template ID
 
     // Booking state
     let booking = { type: '', name: '', price: 0, duration: 0, date: '', time: '', userName: '', userEmail: '', userPhone: '', userMsg: '' };
