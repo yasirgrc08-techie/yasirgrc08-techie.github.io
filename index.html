@@ -149,17 +149,11 @@
         .hero-stat .num { font-size: 1.75rem; font-weight: 800; }
         .hero-stat .lbl { font-size: .8rem; color: var(--text-3); margin-top: 2px; }
 
-        /* Hero photo gallery */
+        /* Hero photo */
         .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; }
-        .photo-stack { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; width: 400px; height: 480px; }
-        .photo-stack img { border-radius: var(--r); object-fit: cover; object-position: top; border: 3px solid var(--border); box-shadow: 0 12px 40px rgba(0,0,0,0.4); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); cursor: pointer; width: 100%; height: 100%; }
-        .photo-stack img:nth-child(1) { grid-row: 1 / 3; }
-        .photo-stack img:nth-child(2) { grid-row: 1; grid-column: 2; }
-        .photo-stack img:nth-child(3) { grid-row: 2; grid-column: 2; }
-        .photo-stack img:hover { transform: scale(1.04); border-color: var(--accent); box-shadow: 0 20px 60px rgba(99,102,241,0.25); z-index: 2; }
-        .photo-stack img { animation: float-y 5s ease-in-out infinite; }
-        .photo-stack img:nth-child(2) { animation-delay: -1.5s; animation-duration: 4.5s; }
-        .photo-stack img:nth-child(3) { animation-delay: -3s; animation-duration: 5.5s; }
+        .hero-photo { width: 360px; height: 460px; border-radius: var(--r); overflow: hidden; border: 3px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); animation: float-y 5s ease-in-out infinite; }
+        .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+        .hero-photo:hover { border-color: var(--accent); box-shadow: 0 25px 70px rgba(99,102,241,0.25); transform: scale(1.03); }
 
         /* === Company Logos Marquee === */
         .marquee-wrap { padding: 3.5rem 0; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
@@ -218,7 +212,7 @@
         .edu-detail { color: var(--text-3); font-size: .85rem; font-family: var(--mono); margin-top: .4rem; }
         .edu-grade { display: inline-flex; align-items: center; gap: 6px; margin-top: .5rem; padding: 4px 12px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); border-radius: 100px; font-size: .8rem; color: var(--green); font-weight: 600; }
         .edu-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .edu-photos img { border-radius: var(--r); border: 1px solid var(--border); width: 100%; height: 200px; object-fit: cover; object-position: top center; transition: all var(--tr); }
+        .edu-photos img { border-radius: var(--r); border: 1px solid var(--border); width: 100%; height: 220px; object-fit: cover; object-position: top center; transition: all var(--tr); }
         .edu-photos img:hover { border-color: var(--accent); transform: scale(1.03); }
 
         /* === Sessions === */
@@ -275,6 +269,11 @@
 
         /* === Videos === */
         .video-section { text-align: center; }
+        .video-with-photo { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start; max-width: 800px; margin: 2rem auto 0; }
+        .video-photo { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); height: 100%; transition: all var(--tr); }
+        .video-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+        .video-photo:hover { border-color: var(--accent); box-shadow: 0 12px 40px rgba(99,102,241,0.15); }
+        @media (max-width: 768px) { .video-with-photo { grid-template-columns: 1fr; } .video-photo { height: 300px; } }
         .video-main { max-width: 800px; margin: 2rem auto 0; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 50px rgba(0,0,0,0.4); transition: all var(--tr); }
         .video-main:hover { border-color: var(--accent); box-shadow: 0 20px 60px rgba(99,102,241,0.15); }
         .video-resp { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
@@ -381,7 +380,7 @@
         @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .hero-right { order: -1; }
-            .photo-stack { width: 300px; height: 380px; margin: 0 auto; }
+            .hero-photo { width: 280px; height: 360px; margin: 0 auto; }
             .hero-desc { margin: 0 auto 2rem; }
             .hero-actions { justify-content: center; }
             .hero-stats { justify-content: center; }
@@ -457,10 +456,8 @@
         </div>
     </div>
     <div class="hero-right">
-        <div class="photo-stack">
+        <div class="hero-photo">
             <img src="images/personal/yasir_microsoft_wall.jpeg" alt="Yasir at Microsoft" loading="eager">
-            <img src="images/personal/yasir_amazon.jpeg" alt="Yasir at Amazon" loading="eager">
-            <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
         </div>
     </div>
 </section>
@@ -673,10 +670,8 @@
             </div>
         </div>
         <div class="edu-photos">
-            <img src="images/personal/yasir_microsoft_window.jpeg" alt="Yasir at Microsoft" loading="lazy">
-            <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
-            <img src="images/personal/yasir_microsoft_campus.jpeg" alt="Yasir at Microsoft Campus" loading="lazy">
             <img src="images/personal/yasir_amazon.jpeg" alt="Yasir at Amazon" loading="lazy">
+            <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
         </div>
     </div>
 </section>
@@ -841,9 +836,14 @@
         <h2 class="section-title">Watch &amp; Learn</h2>
         <p class="section-sub" style="margin:0 auto;">Career guidance, interview tips &amp; tech insights on my YouTube channel</p>
     </div>
-    <div class="video-main reveal">
-        <div class="video-resp">
-            <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-with-photo reveal">
+        <div class="video-main">
+            <div class="video-resp">
+                <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="video-photo">
+            <img src="images/personal/yasir_microsoft_window.jpeg" alt="Yasir at Microsoft" loading="lazy">
         </div>
     </div>
     <div class="video-carousel reveal" id="vidCarousel">
