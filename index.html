@@ -4,2015 +4,885 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yasir Arafat Sharfi — Software Engineer II @ Microsoft</title>
-    <meta name="description" content="Portfolio of Yasir Arafat Sharfi — Software Engineer II (L62) at Microsoft, working on Azure Cloud Storage, NVMe, RDMA, DPU. 6.7+ years experience across Microsoft, Dell, Cisco & Bosch.">
+    <meta name="description" content="Yasir Arafat Sharfi — SWE II (L62) at Microsoft Azure. NVMe, RDMA, DPU. 6.7+ years at Microsoft, Dell, Cisco & Bosch. 13+ companies cracked. Career mentor & YouTuber.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== CSS Reset & Variables ===== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #111119;
+            --bg: #0a0a0f;
+            --bg-2: #111119;
             --bg-card: #16161f;
-            --bg-card-hover: #1c1c28;
-            --border: #2a2a3a;
-            --text-primary: #e4e4ed;
-            --text-secondary: #9494a8;
-            --text-muted: #6b6b80;
+            --border: #1e1e2e;
+            --border-hover: #6366f1;
+            --text: #e4e4ed;
+            --text-2: #9494a8;
+            --text-3: #6b6b80;
             --accent: #6366f1;
-            --accent-light: #818cf8;
-            --accent-glow: rgba(99, 102, 241, 0.15);
+            --accent-l: #818cf8;
+            --accent-glow: rgba(99,102,241,0.12);
             --green: #22c55e;
             --blue: #3b82f6;
             --orange: #f59e0b;
             --red: #ef4444;
             --pink: #ec4899;
             --cyan: #06b6d4;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-            --max-width: 1200px;
-            --radius: 12px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --max-w: 1200px;
+            --r: 16px;
+            --tr: 0.35s cubic-bezier(0.4,0,0.2,1);
         }
-
         html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        a { color: var(--accent-l); text-decoration: none; transition: color var(--tr); }
+        a:hover { color: #a5b4fc; }
+        img { max-width: 100%; display: block; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        a { color: var(--accent-light); text-decoration: none; transition: color var(--transition); }
-        a:hover { color: var(--accent); }
-
-        /* ===== Scrollbar ===== */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-        /* ===== Navigation ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid transparent;
-            transition: border-color var(--transition), box-shadow var(--transition);
-        }
-        .nav.scrolled {
-            border-bottom-color: var(--border);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-        }
-        .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .nav-logo .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+        /* === Nav === */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: all var(--tr); }
+        .nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
+        .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .nav-logo .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: color var(--transition);
-            position: relative;
-        }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width var(--transition);
-        }
+        .nav-links a { color: var(--text-2); font-size: .85rem; font-weight: 500; letter-spacing: .02em; position: relative; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a::after { content:''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width var(--tr); border-radius: 1px; }
         .nav-links a:hover::after { width: 100%; }
+        .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+        .nav-cta { padding: 8px 20px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; font-size: .85rem; transition: all var(--tr); border: none; cursor: pointer; font-family: var(--sans); }
+        .nav-cta:hover { background: var(--accent-l); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
 
-        /* Mobile menu toggle */
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+        /* === Sections === */
+        .section { max-width: var(--max-w); margin: 0 auto; padding: 6rem 2rem; }
+        .section-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: .7rem; color: var(--accent-l); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .75rem; font-weight: 500; }
+        .section-tag::before { content:''; width: 24px; height: 1px; background: var(--accent); }
+        .section-title { font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -.02em; }
+        .section-sub { color: var(--text-2); font-size: 1.1rem; max-width: 600px; }
 
-        /* ===== Sections ===== */
-        section {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--accent-light);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-        .section-label::before {
-            content: '';
-            width: 20px;
-            height: 1px;
-            background: var(--accent);
-        }
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-        }
+        /* === Hero === */
+        .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; z-index: 0; }
+        .hero-bg .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: .25; }
+        .hero-bg .o1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -200px; animation: drift 12s ease-in-out infinite; }
+        .hero-bg .o2 { width: 400px; height: 400px; background: var(--pink); bottom: -150px; left: -100px; animation: drift 12s ease-in-out infinite reverse; }
+        @keyframes drift { 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,-30px);} }
+        .hero-left { position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.25); padding: 6px 18px; border-radius: 100px; font-size: .85rem; color: var(--accent-l); font-weight: 500; margin-bottom: 2rem; }
+        .hero-badge .pulse { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+        .hero h1 { font-size: clamp(2.5rem,5.5vw,4rem); font-weight: 900; line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: -.03em; }
+        .hero h1 .grad { background: linear-gradient(135deg, var(--accent-l), var(--cyan), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-2); max-width: 520px; margin-bottom: 2rem; line-height: 1.8; }
+        .hero-desc strong { color: var(--text); }
+        .hero-actions { display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 10px; font-weight: 600; font-size: .95rem; transition: all var(--tr); cursor: pointer; border: none; font-family: var(--sans); }
+        .btn-p { background: var(--accent); color: #fff; }
+        .btn-p:hover { background: var(--accent-l); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99,102,241,0.3); }
+        .btn-o { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-o:hover { border-color: var(--accent); color: var(--accent-l); transform: translateY(-2px); }
+        .hero-stats { display: flex; gap: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+        .hero-stat .num { font-size: 1.75rem; font-weight: 800; }
+        .hero-stat .lbl { font-size: .8rem; color: var(--text-3); margin-top: 2px; }
 
-        /* ===== Hero ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-        }
-        .hero-bg .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: float 10s ease-in-out infinite;
-        }
-        .hero-bg .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: var(--accent);
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-        .hero-bg .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: var(--pink);
-            bottom: -150px;
-            left: -100px;
-            animation-delay: -5s;
-        }
-        .hero-bg .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: var(--cyan);
-            top: 40%;
-            left: 40%;
-            animation-delay: -3s;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent-glow);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--accent-light);
-            font-weight: 500;
-            margin-bottom: 2rem;
-        }
-        .hero-badge .status {
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite;
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-light), var(--cyan), var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-desc {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
-        }
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all var(--transition);
-            cursor: pointer;
-            border: none;
-            font-family: var(--font-sans);
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--accent-light);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-        }
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent-light);
-            transform: translateY(-2px);
-        }
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-        .hero-stat .number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-        .hero-stat .label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-        .hero-avatar {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-        }
-        .hero-avatar img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            border: 3px solid var(--border);
-            object-fit: cover;
-            box-shadow: 0 0 80px rgba(99, 102, 241, 0.2);
-        }
+        /* Hero photo stack */
+        .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; }
+        .photo-stack { position: relative; width: 380px; height: 480px; }
+        .photo-stack img { position: absolute; border-radius: var(--r); object-fit: cover; border: 3px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: all 0.6s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
+        .photo-stack img:nth-child(1) { width: 320px; height: 420px; top: 0; left: 0; z-index: 3; }
+        .photo-stack img:nth-child(2) { width: 200px; height: 260px; bottom: 10px; right: -20px; z-index: 2; }
+        .photo-stack img:nth-child(3) { width: 170px; height: 220px; top: 20px; right: -10px; z-index: 1; opacity: .8; }
+        .photo-stack img:hover { z-index: 10; transform: scale(1.05); border-color: var(--accent); box-shadow: 0 25px 70px rgba(99,102,241,0.2); }
 
-        /* ===== About ===== */
-        #about { padding-top: 3rem; }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 2.5rem;
-        }
-        .about-text {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.9;
-        }
-        .about-text strong { color: var(--text-primary); }
-        .about-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        .info-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            transition: all var(--transition);
-        }
-        .info-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-        .info-card .icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .info-card .info-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 4px;
-        }
-        .info-card .info-value {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+        /* === Company Logos Marquee === */
+        .marquee-wrap { padding: 3.5rem 0; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
+        .marquee-label { text-align: center; font-family: var(--mono); font-size: .7rem; color: var(--text-3); letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1.25rem; }
+        .marquee-track { display: flex; width: max-content; animation: scroll-x 40s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-group { display: flex; gap: 2rem; padding: 0 1rem; align-items: center; }
+        .co-chip { display: flex; align-items: center; gap: 10px; padding: 10px 22px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; white-space: nowrap; transition: all var(--tr); flex-shrink: 0; }
+        .co-chip:hover { border-color: var(--accent); background: var(--accent-glow); transform: scale(1.05); }
+        .co-chip .icon { font-size: 1.2rem; }
+        .co-chip .name { font-weight: 600; font-size: .9rem; }
+        .co-chip .badge { font-size: .7rem; padding: 2px 8px; border-radius: 100px; font-weight: 600; }
+        .badge-ok { background: rgba(34,197,94,0.15); color: var(--green); }
+        .badge-join { background: rgba(99,102,241,0.15); color: var(--accent-l); }
+        @keyframes scroll-x { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-        /* ===== Experience ===== */
-        .timeline {
-            margin-top: 3rem;
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent), var(--pink), var(--cyan), var(--orange));
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 70px;
-            padding-bottom: 3rem;
-        }
-        .timeline-item:last-child { padding-bottom: 0; }
-        .timeline-dot {
-            position: absolute;
-            left: 14px;
-            top: 6px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            z-index: 2;
-        }
-        .timeline-dot.microsoft { background: var(--blue); }
-        .timeline-dot.dell { background: var(--green); }
-        .timeline-dot.cisco { background: var(--orange); }
-        .timeline-dot.bosch { background: var(--red); }
-        .timeline-header {
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
-        }
-        .timeline-company {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-        .timeline-role {
-            color: var(--accent-light);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        .timeline-period {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        .timeline-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-        }
-        .timeline-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.75rem;
-        }
-        .tag {
-            font-size: 0.75rem;
-            padding: 4px 12px;
-            border-radius: 100px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
+        /* === About === */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem; }
+        .about-text { color: var(--text-2); font-size: 1.05rem; line-height: 1.9; }
+        .about-text strong { color: var(--text); }
+        .about-photo { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+        .about-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ===== Tech Stack ===== */
-        .tech-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-        .tech-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.75rem;
-            transition: all var(--transition);
-        }
-        .tech-category:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-        }
-        .tech-category-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .tech-item {
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            transition: all var(--transition);
-        }
-        .tech-item:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-        }
+        /* === Experience === */
+        .exp-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 2rem; }
+        .exp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; transition: all var(--tr); }
+        .exp-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,0,0,0.3); }
+        .exp-logo { width: 56px; height: 56px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .exp-header { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: .4rem; }
+        .exp-company { font-size: 1.2rem; font-weight: 700; }
+        .exp-role { color: var(--accent-l); font-weight: 500; font-size: .95rem; }
+        .exp-period { font-family: var(--mono); font-size: .78rem; color: var(--text-3); }
+        .exp-desc { color: var(--text-2); font-size: .92rem; margin-top: .4rem; }
+        .exp-desc li { margin-left: 1.2rem; margin-bottom: .3rem; }
+        .exp-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+        .tag { font-size: .73rem; padding: 4px 12px; border-radius: 100px; background: var(--bg-2); border: 1px solid var(--border); color: var(--text-2); font-weight: 500; }
 
-        /* ===== Projects ===== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-        .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            transition: all var(--transition);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--cyan));
-            transform: scaleX(0);
-            transition: transform var(--transition);
-            transform-origin: left;
-        }
-        .project-card:hover::before { transform: scaleX(1); }
-        .project-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
-        }
-        .project-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .project-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            flex: 1;
-            margin-bottom: 1.25rem;
-        }
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 1.25rem;
-        }
-        .project-tech span {
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 6px;
-            background: var(--accent-glow);
-            color: var(--accent-light);
-            font-weight: 500;
-        }
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent-light);
-        }
-        .project-link:hover { gap: 10px; }
+        /* === Skills === */
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+        .skill-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; transition: all var(--tr); }
+        .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.3); }
+        .skill-icon { font-size: 2rem; margin-bottom: .75rem; }
+        .skill-name { font-weight: 700; font-size: 1.05rem; margin-bottom: .5rem; }
+        .skill-desc { color: var(--text-2); font-size: .88rem; margin-bottom: 1rem; line-height: 1.6; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-tags span { font-size: .78rem; padding: 4px 12px; border-radius: 8px; background: var(--bg-2); border: 1px solid var(--border); color: var(--text); font-weight: 500; transition: all var(--tr); }
+        .skill-tags span:hover { border-color: var(--accent); background: var(--accent-glow); }
 
-        /* ===== Achievements ===== */
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-        .achievement-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.75rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: all var(--transition);
-        }
-        .achievement-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-        }
-        .achievement-icon {
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-        .achievement-title {
-            font-weight: 600;
-            margin-bottom: 0.35rem;
-        }
-        .achievement-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+        /* === Education === */
+        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2.5rem; align-items: start; }
+        .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .edu-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; transition: all var(--tr); }
+        .edu-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .edu-school { font-weight: 700; font-size: 1.05rem; margin-bottom: .3rem; }
+        .edu-degree { color: var(--accent-l); font-size: .92rem; font-weight: 500; }
+        .edu-detail { color: var(--text-3); font-size: .85rem; font-family: var(--mono); margin-top: .4rem; }
+        .edu-grade { display: inline-flex; align-items: center; gap: 6px; margin-top: .5rem; padding: 4px 12px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); border-radius: 100px; font-size: .8rem; color: var(--green); font-weight: 600; }
+        .edu-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .edu-photos img { border-radius: var(--r); border: 1px solid var(--border); width: 100%; height: 200px; object-fit: cover; transition: all var(--tr); }
+        .edu-photos img:hover { border-color: var(--accent); transform: scale(1.03); }
 
-        /* ===== Expertise ===== */
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-        .expertise-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            text-align: center;
-            transition: all var(--transition);
-        }
-        .expertise-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
-        }
-        .expertise-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .expertise-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        .expertise-items {
-            list-style: none;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .expertise-items li {
-            padding: 4px 0;
-        }
+        /* === Sessions === */
+        .sessions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .session-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; text-align: center; transition: all var(--tr); position: relative; overflow: hidden; }
+        .session-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .session-card.popular::before { content: 'POPULAR'; position: absolute; top: 16px; right: -30px; background: var(--accent); color: #fff; font-size: .65rem; font-weight: 700; padding: 3px 36px; transform: rotate(45deg); letter-spacing: .05em; }
+        .session-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .session-name { font-weight: 700; font-size: 1.1rem; margin-bottom: .3rem; }
+        .session-type { color: var(--text-3); font-size: .82rem; margin-bottom: 1rem; }
+        .session-price { display: flex; align-items: center; justify-content: center; gap: .75rem; margin-bottom: 1.25rem; }
+        .session-price .current { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+        .session-price .original { font-size: .95rem; color: var(--text-3); text-decoration: line-through; }
+        .session-rating { color: var(--orange); font-size: .9rem; margin-bottom: 1rem; }
+        .session-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; font-size: .9rem; transition: all var(--tr); }
+        .session-btn:hover { background: var(--accent-l); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
 
-        /* ===== Philosophy ===== */
-        .philosophy-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 3rem;
-            margin-top: 2.5rem;
-            text-align: center;
-        }
-        .philosophy-quote {
-            font-size: 1.3rem;
-            font-style: italic;
-            color: var(--text-primary);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
-        }
-        .philosophy-principles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .principle {
-            text-align: center;
-        }
-        .principle-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .principle-title {
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-        }
-        .principle-desc {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
+        /* === Projects === */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .proj-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; transition: all var(--tr); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .proj-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--cyan)); transform: scaleX(0); transition: transform var(--tr); transform-origin: left; }
+        .proj-card:hover::before { transform: scaleX(1); }
+        .proj-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 50px rgba(0,0,0,0.4); }
+        .proj-icon { font-size: 2rem; margin-bottom: .75rem; }
+        .proj-name { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; }
+        .proj-desc { color: var(--text-2); font-size: .9rem; flex: 1; margin-bottom: 1rem; }
+        .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+        .proj-tags span { font-size: .73rem; padding: 3px 10px; border-radius: 6px; background: var(--accent-glow); color: var(--accent-l); font-weight: 500; }
+        .proj-link { display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 600; color: var(--accent-l); transition: gap var(--tr); }
+        .proj-link:hover { gap: 10px; }
 
-        /* ===== Contact ===== */
-        .contact-section {
-            text-align: center;
-            padding-bottom: 3rem;
-        }
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-        }
-        .contact-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.75rem 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all var(--transition);
-            min-width: 220px;
-            justify-content: center;
-        }
-        .contact-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-            color: var(--text-primary);
-        }
-        .contact-card .c-icon { font-size: 1.5rem; }
-        .contact-card .c-label {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .contact-card .c-value {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        /* === Testimonials === */
+        .testi-header { text-align: center; }
+        .testi-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 10px 24px; margin-top: 1rem; }
+        .testi-badge .stars { color: var(--orange); font-size: 1.1rem; letter-spacing: 2px; }
+        .testi-badge .info { color: var(--text-2); font-size: .88rem; font-weight: 500; }
+        .testi-badge .info strong { color: var(--text); }
+        .testi-scroll { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 1rem .5rem 1.5rem; margin-top: 2rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+        .testi-scroll::-webkit-scrollbar { height: 4px; }
+        .testi-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        .testi-card { flex: 0 0 380px; scroll-snap-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; position: relative; transition: all var(--tr); }
+        .testi-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .testi-card::before { content:'\201C'; position: absolute; top: 12px; left: 18px; font-size: 3rem; color: var(--accent); opacity: .2; font-family: Georgia, serif; line-height: 1; }
+        .testi-stars { color: var(--orange); font-size: .85rem; letter-spacing: 1px; margin-bottom: .75rem; }
+        .testi-text { color: var(--text-2); font-size: .92rem; line-height: 1.8; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .testi-author { display: flex; align-items: center; gap: 10px; }
+        .testi-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--cyan)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; color: #fff; flex-shrink: 0; }
+        .testi-name { font-weight: 600; font-size: .88rem; }
+        .testi-role { font-size: .78rem; color: var(--text-3); }
 
-        /* ===== Footer ===== */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        footer a { color: var(--accent-light); }
+        /* === Videos === */
+        .video-section { text-align: center; }
+        .video-main { max-width: 800px; margin: 2rem auto 0; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 50px rgba(0,0,0,0.4); transition: all var(--tr); }
+        .video-main:hover { border-color: var(--accent); box-shadow: 0 20px 60px rgba(99,102,241,0.15); }
+        .video-resp { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .video-resp iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-carousel { display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 2rem 1rem; margin-top: 2rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+        .video-carousel::-webkit-scrollbar { height: 4px; }
+        .video-carousel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        .vid-item { flex: 0 0 380px; scroll-snap-align: center; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); transition: all var(--tr); background: var(--bg-card); }
+        .vid-item:hover { border-color: var(--accent); box-shadow: 0 12px 40px rgba(99,102,241,0.15); }
+        .vid-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+        .vid-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); font-size: 1.1rem; cursor: pointer; transition: all var(--tr); display: flex; align-items: center; justify-content: center; }
+        .vid-btn:hover { border-color: var(--accent); background: var(--accent-glow); }
 
-        /* ===== Animations ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* === Achievements === */
+        .achieve-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .achieve-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; display: flex; align-items: flex-start; gap: 1rem; transition: all var(--tr); }
+        .achieve-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .achieve-icon { font-size: 2rem; flex-shrink: 0; }
+        .achieve-title { font-weight: 600; margin-bottom: .3rem; }
+        .achieve-desc { color: var(--text-2); font-size: .9rem; }
 
-        /* ===== Mobile Responsive ===== */
+        /* === Expertise === */
+        .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+        .expertise-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; text-align: center; transition: all var(--tr); }
+        .expertise-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 50px rgba(0,0,0,0.4); }
+        .expertise-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+        .expertise-name { font-size: 1.1rem; font-weight: 700; margin-bottom: .75rem; }
+        .expertise-items { list-style: none; color: var(--text-2); font-size: .9rem; }
+        .expertise-items li { padding: 4px 0; }
+
+        /* === Contact === */
+        .contact-center { text-align: center; }
+        .contact-grid { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2.5rem; }
+        .contact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem 2.5rem; display: flex; align-items: center; gap: 1rem; transition: all var(--tr); min-width: 220px; justify-content: center; }
+        .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); color: var(--text); }
+        .contact-card svg { width: 24px; height: 24px; fill: currentColor; flex-shrink: 0; }
+        .c-icon { font-size: 1.5rem; }
+        .c-label { font-weight: 600; font-size: .95rem; }
+        .c-value { font-size: .82rem; color: var(--text-3); }
+
+        /* === Footer === */
+        footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--border); color: var(--text-3); font-size: .85rem; }
+        footer a { color: var(--accent-l); }
+
+        /* === Animations === */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* === Philosophy === */
+        .philosophy { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 3rem; margin-top: 2.5rem; text-align: center; }
+        .philosophy-quote { font-size: 1.25rem; font-style: italic; color: var(--text); max-width: 700px; margin: 0 auto 2rem; line-height: 1.8; }
+        .philosophy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .principle-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+        .principle-title { font-weight: 600; font-size: .95rem; margin-bottom: .2rem; }
+        .principle-desc { color: var(--text-2); font-size: .82rem; }
+
+        /* === Responsive === */
         @media (max-width: 1024px) {
-            .hero-avatar { display: none; }
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-right { order: -1; }
+            .photo-stack { width: 280px; height: 360px; margin: 0 auto; }
+            .photo-stack img:nth-child(1) { width: 240px; height: 320px; }
+            .photo-stack img:nth-child(2) { width: 150px; height: 200px; }
+            .photo-stack img:nth-child(3) { display: none; }
+            .hero-desc { margin: 0 auto 2rem; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
             .about-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
             .expertise-grid { grid-template-columns: 1fr 1fr; }
+            .edu-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .nav-links.open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 15, 0.95);
-                backdrop-filter: blur(20px);
-                padding: 1.5rem 2rem;
-                border-bottom: 1px solid var(--border);
-                gap: 1.25rem;
-            }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
             .nav-toggle { display: block; }
-            section { padding: 3rem 1.25rem; }
+            .nav-cta { display: none; }
+            .section { padding: 3.5rem 1.25rem; }
             .section-title { font-size: 2rem; }
-            .hero { min-height: auto; padding-top: 6rem; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero-stats { gap: 1.5rem; }
-            .hero-stat .number { font-size: 1.5rem; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .achievements-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+            .hero-stat .num { font-size: 1.4rem; }
+            .skills-grid { grid-template-columns: 1fr; }
             .expertise-grid { grid-template-columns: 1fr; }
-            .about-info { grid-template-columns: 1fr; }
-            .contact-links { flex-direction: column; align-items: center; }
-        }
-
-        /* ===== Video Section ===== */
-        .video-wrapper {
-            max-width: 800px;
-            margin: 2.5rem auto 0;
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
-            transition: all var(--transition);
-        }
-        .video-wrapper:hover {
-            border-color: var(--accent);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
-        }
-        .video-responsive {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        .video-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* ===== Company Marquee ===== */
-        .marquee-section {
-            padding: 3rem 0;
-            overflow: hidden;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-secondary);
-        }
-        .marquee-label {
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        .marquee-track {
-            display: flex;
-            width: max-content;
-            animation: marquee-scroll 35s linear infinite;
-        }
-        .marquee-track:hover { animation-play-state: paused; }
-        .marquee-group {
-            display: flex;
-            gap: 3rem;
-            padding: 0 1.5rem;
-            align-items: center;
-        }
-        .marquee-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            white-space: nowrap;
-            transition: all var(--transition);
-            flex-shrink: 0;
-        }
-        .marquee-item:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-            transform: scale(1.05);
-        }
-        .marquee-item .company-icon {
-            font-size: 1.3rem;
-        }
-        .marquee-item .company-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-        }
-        .marquee-item .company-status {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 100px;
-            font-weight: 600;
-        }
-        .status-cleared {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--green);
-        }
-        .status-joined {
-            background: rgba(99, 102, 241, 0.15);
-            color: var(--accent-light);
-        }
-        @keyframes marquee-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* ===== Video Carousel ===== */
-        .video-carousel {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            padding: 0 2rem 1.5rem;
-            margin-top: 2rem;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border) transparent;
-        }
-        .video-carousel::-webkit-scrollbar { height: 6px; }
-        .video-carousel::-webkit-scrollbar-track { background: transparent; }
-        .video-carousel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        .video-carousel-item {
-            flex: 0 0 420px;
-            scroll-snap-align: center;
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-            background: var(--bg-card);
-        }
-        .video-carousel-item:hover {
-            border-color: var(--accent);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-        }
-        .video-carousel-item .video-responsive {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        .video-carousel-item .video-responsive iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
-        .video-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .video-nav-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .video-nav-btn:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-            transform: scale(1.1);
-        }
-        @media (max-width: 768px) {
-            .video-carousel-item { flex: 0 0 85vw; }
-        }
-
-        /* ===== Testimonials ===== */
-        .testimonials-header {
-            text-align: center;
-        }
-        .testimonials-rating {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 10px 24px;
-            margin-top: 1rem;
-        }
-        .testimonials-rating .stars {
-            color: #f59e0b;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-        .testimonials-rating .rating-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .testimonials-rating .rating-text strong {
-            color: var(--text-primary);
-        }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem;
-            position: relative;
-            transition: all var(--transition);
-        }
-        .testimonial-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
-        }
-        .testimonial-card::before {
-            content: '\201C';
-            position: absolute;
-            top: 14px;
-            left: 20px;
-            font-size: 3.5rem;
-            color: var(--accent);
-            opacity: 0.25;
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-        .testimonial-text {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 1.25rem;
-            position: relative;
-            z-index: 1;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .testimonial-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--cyan));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: white;
-            flex-shrink: 0;
-        }
-        .testimonial-meta .t-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .testimonial-meta .t-role {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        .testimonial-stars {
-            color: #f59e0b;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 0.75rem;
-        }
-        @media (max-width: 768px) {
-            .testimonials-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .achieve-grid { grid-template-columns: 1fr; }
+            .contact-grid { flex-direction: column; align-items: center; }
+            .testi-card { flex: 0 0 85vw; }
+            .vid-item { flex: 0 0 85vw; }
+            .edu-photos { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo">
-                <span class="dot"></span>
-                YAS
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#expertise">Expertise</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
-        </div>
-    </nav>
+<!-- Nav -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo"><span class="dot"></span> Yasir Sharfi</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Career</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#sessions">Sessions</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="https://topmate.io/yasir_arafat10" class="nav-cta" target="_blank" rel="noopener noreferrer">Book a Session</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    </div>
+</nav>
 
-    <!-- Hero -->
-    <section class="hero" id="hero">
-        <div class="hero-bg">
-            <div class="orb orb-1"></div>
-            <div class="orb orb-2"></div>
-            <div class="orb orb-3"></div>
+<!-- Hero -->
+<section class="hero section" id="hero">
+    <div class="hero-bg"><div class="orb o1"></div><div class="orb o2"></div></div>
+    <div class="hero-left">
+        <div class="hero-badge"><span class="pulse"></span> Available for Mentorship</div>
+        <h1>Hi, I'm <span class="grad">Yasir Arafat Sharfi</span></h1>
+        <p class="hero-desc">
+            Software Engineer at <strong>Microsoft Azure</strong> — building NVMe-based virtual disk architecture on DPUs &amp; SmartNICs.
+            <strong>6.7+ years</strong> deep in systems programming, networking &amp; high-performance data planes.
+        </p>
+        <div class="hero-actions">
+            <a href="https://topmate.io/yasir_arafat10" class="btn btn-p" target="_blank" rel="noopener noreferrer">Book a Session</a>
+            <a href="#experience" class="btn btn-o">View Experience</a>
         </div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="status"></span>
-                Software Engineer II (L62) @ Microsoft
-            </div>
-            <h1>
-                Hi, I'm <span class="gradient">Yasir Arafat<br>Sharfi</span>
-            </h1>
-            <p class="hero-desc">
-                Building ultra-fast NVMe-based virtual disk architecture for Azure Cloud.
-                6.7+ years driving innovation across <strong>Microsoft</strong>, <strong>Dell</strong>,
-                <strong>Cisco</strong> &amp; <strong>Bosch</strong>.
-            </p>
-            <div class="hero-actions">
-                <a href="#projects" class="btn btn-primary">View Projects &rarr;</a>
-                <a href="#contact" class="btn btn-outline">Get In Touch</a>
-            </div>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="number">6.7+</div>
-                    <div class="label">Years Experience</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="number">4</div>
-                    <div class="label">Companies</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="number">9</div>
-                    <div class="label">Public Repos</div>
-                </div>
-            </div>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="num">6.7+</div><div class="lbl">Years Experience</div></div>
+            <div class="hero-stat"><div class="num">13+</div><div class="lbl">Companies Cracked</div></div>
+            <div class="hero-stat"><div class="num">4</div><div class="lbl">Top Companies</div></div>
+            <div class="hero-stat"><div class="num">ECE</div><div class="lbl">Non-CS Background</div></div>
         </div>
-        <div class="hero-avatar">
-            <img src="https://avatars.githubusercontent.com/u/268230354?v=4" alt="Yasir Arafat Sharfi" loading="lazy">
+    </div>
+    <div class="hero-right">
+        <div class="photo-stack">
+            <img src="images/personal/yasir_microsoft_wall.jpeg" alt="Yasir at Microsoft" loading="eager">
+            <img src="images/personal/yasir_amazon.jpeg" alt="Yasir at Amazon" loading="eager">
+            <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Companies Marquee -->
-    <div class="marquee-section">
-        <div class="marquee-label">13+ Companies Cracked &mdash; Interviewed &amp; Cleared</div>
-        <div class="marquee-track">
-            <div class="marquee-group">
-                <div class="marquee-item">
-                    <span class="company-icon">🔵</span>
-                    <span class="company-name">Google</span>
-                    <span class="company-status status-cleared">Cleared</span>
+<!-- Companies Marquee -->
+<div class="marquee-wrap">
+    <div class="marquee-label">13+ Companies Cracked &mdash; Interviewed &amp; Cleared</div>
+    <div class="marquee-track">
+        <div class="marquee-group">
+            <div class="co-chip"><span class="icon">🔵</span><span class="name">Google</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟦</span><span class="name">Microsoft</span><span class="badge badge-join">Joined</span></div>
+            <div class="co-chip"><span class="icon">🟠</span><span class="name">Amazon</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟣</span><span class="name">Meta</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🍎</span><span class="name">Apple</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔴</span><span class="name">Netflix</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔴</span><span class="name">Oracle</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟢</span><span class="name">AMD</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔷</span><span class="name">Cisco</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟩</span><span class="name">Dell</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟥</span><span class="name">Bosch</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟦</span><span class="name">+ More</span><span class="badge badge-ok">13+ Total</span></div>
+        </div>
+        <div class="marquee-group">
+            <div class="co-chip"><span class="icon">🔵</span><span class="name">Google</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟦</span><span class="name">Microsoft</span><span class="badge badge-join">Joined</span></div>
+            <div class="co-chip"><span class="icon">🟠</span><span class="name">Amazon</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟣</span><span class="name">Meta</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🍎</span><span class="name">Apple</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔴</span><span class="name">Netflix</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔴</span><span class="name">Oracle</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟢</span><span class="name">AMD</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🔷</span><span class="name">Cisco</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟩</span><span class="name">Dell</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟥</span><span class="name">Bosch</span><span class="badge badge-ok">Cleared</span></div>
+            <div class="co-chip"><span class="icon">🟦</span><span class="name">+ More</span><span class="badge badge-ok">13+ Total</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- About -->
+<section class="section" id="about">
+    <div class="reveal">
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">Building Azure Cloud Storage Infrastructure</h2>
+    </div>
+    <div class="about-grid reveal">
+        <div class="about-text">
+            <p>I'm <strong>Yasir Arafat Sharfi</strong>, a <strong>Software Engineer II (L62)</strong> at <strong>Microsoft</strong>, currently on the <strong>Accelerated DPU DirectDrive (Ultra-Disk) DataPath</strong> team in Bengaluru, India.</p>
+            <br>
+            <p>I've interviewed with <strong>13+ top product companies</strong> (Google, Amazon, Microsoft, Oracle, AMD, and more) and <strong>cleared multiple rounds</strong> before joining Microsoft.</p>
+            <br>
+            <p>I help engineers prepare for <strong>system-level interviews</strong> (C, OS, Networking), <strong>FAANG/Big Tech transitions</strong>, and <strong>career growth strategies</strong>. My sessions are practical, focused on real interview patterns, and designed to help you stand out.</p>
+            <br>
+            <p>Let's work together to make your next big move happen.</p>
+        </div>
+        <div class="about-photo">
+            <img src="images/personal/yasir_microsoft_campus.jpeg" alt="Yasir at Microsoft Campus" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+    <div class="reveal">
+        <span class="section-tag">Career</span>
+        <h2 class="section-title">Work Experience</h2>
+    </div>
+    <div class="exp-list reveal">
+        <div class="exp-card">
+            <div class="exp-logo">🟦</div>
+            <div>
+                <div class="exp-header">
+                    <span class="exp-company">Microsoft</span>
+                    <span class="exp-role">Software Engineer II (L62)</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟦</span>
-                    <span class="company-name">Microsoft</span>
-                    <span class="company-status status-joined">Joined</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟠</span>
-                    <span class="company-name">Amazon</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟣</span>
-                    <span class="company-name">Meta</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🍎</span>
-                    <span class="company-name">Apple</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔴</span>
-                    <span class="company-name">Oracle</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟢</span>
-                    <span class="company-name">AMD</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔷</span>
-                    <span class="company-name">Cisco</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟩</span>
-                    <span class="company-name">Dell</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔴</span>
-                    <span class="company-name">Netflix</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟥</span>
-                    <span class="company-name">Bosch</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟦</span>
-                    <span class="company-name">+ More</span>
-                    <span class="company-status status-cleared">13+ Total</span>
+                <div class="exp-period">Full-time &middot; 2025 &ndash; Present &middot; Bengaluru, India</div>
+                <ul class="exp-desc">
+                    <li>Working on end-to-end DPU datapath for Azure Ultra-Disk</li>
+                    <li>Building NVMe-based virtual disk architecture for Azure Cloud</li>
+                    <li>Designing RDMA-enabled high-performance data paths</li>
+                    <li>Storage slicing, replication &amp; coordination on FunOS-powered DPUs</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="tag">C</span><span class="tag">NVMe</span><span class="tag">RDMA</span><span class="tag">DPU</span><span class="tag">FunOS</span><span class="tag">Azure</span>
                 </div>
             </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="marquee-group">
-                <div class="marquee-item">
-                    <span class="company-icon">🔵</span>
-                    <span class="company-name">Google</span>
-                    <span class="company-status status-cleared">Cleared</span>
+        </div>
+        <div class="exp-card">
+            <div class="exp-logo">🟩</div>
+            <div>
+                <div class="exp-header">
+                    <span class="exp-company">Dell Technologies</span>
+                    <span class="exp-role">Senior Software Engineer</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟦</span>
-                    <span class="company-name">Microsoft</span>
-                    <span class="company-status status-joined">Joined</span>
+                <div class="exp-period">Full-time &middot; 2025 &middot; India</div>
+                <ul class="exp-desc">
+                    <li>Contributed to PowerScale OneFS distributed storage core infrastructure</li>
+                    <li>Worked on FreeBSD-based distributed file system</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="tag">PowerScale</span><span class="tag">OneFS</span><span class="tag">FreeBSD</span><span class="tag">Distributed Storage</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟠</span>
-                    <span class="company-name">Amazon</span>
-                    <span class="company-status status-cleared">Cleared</span>
+            </div>
+        </div>
+        <div class="exp-card">
+            <div class="exp-logo">🔷</div>
+            <div>
+                <div class="exp-header">
+                    <span class="exp-company">Cisco Systems</span>
+                    <span class="exp-role">Senior Software Engineer</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟣</span>
-                    <span class="company-name">Meta</span>
-                    <span class="company-status status-cleared">Cleared</span>
+                <div class="exp-period">Full-time &middot; 2022 &ndash; 2025 &middot; ~2.7 yrs &middot; Bengaluru, India</div>
+                <ul class="exp-desc">
+                    <li>Built ASR9K router features — SRv6 &amp; MPLS deployed across global ISP networks</li>
+                    <li>Created Docker-based in-router health-check diagnostic tool</li>
+                    <li>Built AI-assisted troubleshooting tool for network engineers</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="tag">ASR9K</span><span class="tag">SRv6</span><span class="tag">MPLS</span><span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">C</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🍎</span>
-                    <span class="company-name">Apple</span>
-                    <span class="company-status status-cleared">Cleared</span>
+            </div>
+        </div>
+        <div class="exp-card">
+            <div class="exp-logo">🟥</div>
+            <div>
+                <div class="exp-header">
+                    <span class="exp-company">Bosch</span>
+                    <span class="exp-role">Software Engineer</span>
                 </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔴</span>
-                    <span class="company-name">Oracle</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟢</span>
-                    <span class="company-name">AMD</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔷</span>
-                    <span class="company-name">Cisco</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟩</span>
-                    <span class="company-name">Dell</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🔴</span>
-                    <span class="company-name">Netflix</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟥</span>
-                    <span class="company-name">Bosch</span>
-                    <span class="company-status status-cleared">Cleared</span>
-                </div>
-                <div class="marquee-item">
-                    <span class="company-icon">🟦</span>
-                    <span class="company-name">+ More</span>
-                    <span class="company-status status-cleared">13+ Total</span>
+                <div class="exp-period">Full-time &middot; 2019 &ndash; 2022 &middot; ~3.5 yrs &middot; Bengaluru, India</div>
+                <ul class="exp-desc">
+                    <li>One of only 2 ECE students selected from pool campus at AIEM</li>
+                    <li>Developed automotive ECU communication stacks for BMW, Audi &amp; Porsche</li>
+                    <li>Worked with CAN, CAN-FD, LIN, FlexRay protocols and ADC integration</li>
+                    <li>Transitioned from tester to developer role over 3.5 years</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="tag">Automotive ECU</span><span class="tag">CAN / FlexRay</span><span class="tag">BMW</span><span class="tag">Audi</span><span class="tag">Porsche</span>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- About -->
-    <section id="about">
-        <div class="fade-in">
-            <span class="section-label">About Me</span>
-            <h2 class="section-title">Driven by Systems Thinking</h2>
+<!-- Skills -->
+<section class="section" id="skills">
+    <div class="reveal">
+        <span class="section-tag">Expertise</span>
+        <h2 class="section-title">Technical Skills</h2>
+    </div>
+    <div class="skills-grid reveal">
+        <div class="skill-card">
+            <div class="skill-icon">⚙️</div>
+            <div class="skill-name">Systems Programming</div>
+            <div class="skill-desc">Low-level C/C++ development, kernel-level programming, OS internals, and high-performance data paths.</div>
+            <div class="skill-tags"><span>C</span><span>C++</span><span>Python</span><span>Bash</span><span>Kernel</span></div>
         </div>
-        <div class="about-grid fade-in">
-            <div class="about-text">
-                <p>
-                    I'm a <strong>Software Engineer II (L62)</strong> at <strong>Microsoft</strong>, currently working on the
-                    <strong>Accelerated DPU DirectDrive (Ultra-Disk) DataPath</strong> team in Bengaluru, India.
-                </p>
-                <br>
-                <p>
-                    My work focuses on building <strong>NVMe-based virtual disk architecture for Azure Cloud</strong>,
-                    <strong>RDMA-enabled high-performance data paths</strong>, and <strong>storage slicing, replication &amp;
-                    coordination on FunOS-powered DPUs</strong>.
-                </p>
-                <br>
-                <p>
-                    With <strong>6.7+ years</strong> across top tech companies, I've built ASR9K router features at Cisco,
-                    developed automotive ECU systems for BMW, Audi &amp; Porsche at Bosch, and contributed to
-                    OneFS distributed storage at Dell.
-                </p>
-            </div>
-            <div class="about-info">
-                <div class="info-card">
-                    <div class="icon">🏢</div>
-                    <div class="info-label">Company</div>
-                    <div class="info-value">Microsoft</div>
-                </div>
-                <div class="info-card">
-                    <div class="icon">💼</div>
-                    <div class="info-label">Role</div>
-                    <div class="info-value">SWE II (L62)</div>
-                </div>
-                <div class="info-card">
-                    <div class="icon">📍</div>
-                    <div class="info-label">Location</div>
-                    <div class="info-value">Bengaluru, India</div>
-                </div>
-                <div class="info-card">
-                    <div class="icon">🎓</div>
-                    <div class="info-label">Education</div>
-                    <div class="info-value">B.Tech ECE — MAKAUT</div>
-                </div>
-                <div class="info-card">
-                    <div class="icon">⚡</div>
-                    <div class="info-label">Focus</div>
-                    <div class="info-value">Azure Cloud Storage</div>
-                </div>
-                <div class="info-card">
-                    <div class="icon">🔧</div>
-                    <div class="info-label">Tech</div>
-                    <div class="info-value">NVMe · RDMA · DPU</div>
-                </div>
-            </div>
+        <div class="skill-card">
+            <div class="skill-icon">🌐</div>
+            <div class="skill-name">Networking &amp; Protocols</div>
+            <div class="skill-desc">High-performance networking with deep expertise in RDMA, NVMe-oF, SRv6, and MPLS.</div>
+            <div class="skill-tags"><span>RDMA</span><span>SRv6</span><span>MPLS</span><span>NVMe-oF</span><span>TCP/IP</span></div>
         </div>
-    </section>
+        <div class="skill-card">
+            <div class="skill-icon">💾</div>
+            <div class="skill-name">Storage Infrastructure</div>
+            <div class="skill-desc">NVMe-based storage architecture, distributed storage systems, replication &amp; coordination on DPUs.</div>
+            <div class="skill-tags"><span>NVMe</span><span>DPU</span><span>SmartNICs</span><span>FunOS</span><span>Low-Latency</span></div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">☁️</div>
+            <div class="skill-name">Cloud &amp; Scalability</div>
+            <div class="skill-desc">Azure cloud infrastructure, Docker, Kubernetes, CI/CD pipelines, and hyperscale solutions.</div>
+            <div class="skill-tags"><span>Azure</span><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>CI/CD</span></div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">🚗</div>
+            <div class="skill-name">Embedded &amp; Automotive</div>
+            <div class="skill-desc">FPGA, automotive ECU development, CAN/FlexRay protocols, HW-SW verification for premium OEMs.</div>
+            <div class="skill-tags"><span>CAN</span><span>FlexRay</span><span>AUTOSAR</span><span>ECU</span><span>RTOS</span></div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">🛠️</div>
+            <div class="skill-name">Tools &amp; Platforms</div>
+            <div class="skill-desc">Development tools, debugging, operating systems, and collaboration platforms.</div>
+            <div class="skill-tags"><span>Git</span><span>GDB</span><span>Linux</span><span>FreeBSD</span><span>Wireshark</span><span>Make</span></div>
+        </div>
+    </div>
+</section>
 
-    <!-- Experience -->
-    <section id="experience">
-        <div class="fade-in">
-            <span class="section-label">Experience</span>
-            <h2 class="section-title">Career Timeline</h2>
-            <p class="section-subtitle">A journey through world-class engineering organizations</p>
-        </div>
-        <div class="timeline fade-in">
-            <div class="timeline-item">
-                <div class="timeline-dot microsoft"></div>
-                <div class="timeline-header">
-                    <span class="timeline-company">Microsoft</span>
-                    <span class="timeline-role">Software Engineer II (L62)</span>
-                    <span class="timeline-period">2025 — Present</span>
-                </div>
-                <p class="timeline-desc">
-                    Working on end-to-end DPU datapath for Azure Ultra-Disk. Building NVMe-based virtual disk architecture,
-                    RDMA-enabled high-performance data paths, and storage coordination on FunOS-powered DPUs.
-                </p>
-                <div class="timeline-tags">
-                    <span class="tag">Azure Cloud</span>
-                    <span class="tag">NVMe</span>
-                    <span class="tag">RDMA</span>
-                    <span class="tag">DPU</span>
-                    <span class="tag">FunOS</span>
-                </div>
+<!-- Education -->
+<section class="section" id="education">
+    <div class="reveal">
+        <span class="section-tag">Education</span>
+        <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="edu-grid reveal">
+        <div class="edu-list">
+            <div class="edu-card">
+                <div class="edu-school">MAKAUT (Maulana Abul Kalam Azad University of Technology)</div>
+                <div class="edu-degree">Bachelor of Technology &mdash; Electronics &amp; Communication Engineering</div>
+                <div class="edu-detail">Jul 2015 &ndash; Jun 2019</div>
+                <div class="edu-grade">&#9733; CGPA: 9.6</div>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-dot dell"></div>
-                <div class="timeline-header">
-                    <span class="timeline-company">Dell Technologies</span>
-                    <span class="timeline-role">Senior Software Engineer</span>
-                    <span class="timeline-period">2025</span>
-                </div>
-                <p class="timeline-desc">
-                    Contributed to PowerScale OneFS distributed storage core infrastructure running on FreeBSD.
-                </p>
-                <div class="timeline-tags">
-                    <span class="tag">PowerScale</span>
-                    <span class="tag">OneFS</span>
-                    <span class="tag">FreeBSD</span>
-                    <span class="tag">Distributed Storage</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot cisco"></div>
-                <div class="timeline-header">
-                    <span class="timeline-company">Cisco Systems</span>
-                    <span class="timeline-role">Senior Software Engineer</span>
-                    <span class="timeline-period">2022 — 2025</span>
-                </div>
-                <p class="timeline-desc">
-                    Built ASR9K router features including SRv6 and MPLS deployed across global ISP networks.
-                    Created Docker-based in-router health-check tool and AI-assisted troubleshooting tool for network engineers.
-                </p>
-                <div class="timeline-tags">
-                    <span class="tag">ASR9K</span>
-                    <span class="tag">SRv6</span>
-                    <span class="tag">MPLS</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">AWS</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot bosch"></div>
-                <div class="timeline-header">
-                    <span class="timeline-company">Bosch</span>
-                    <span class="timeline-role">Software Engineer</span>
-                    <span class="timeline-period">2019 — 2022</span>
-                </div>
-                <p class="timeline-desc">
-                    Developed automotive ECU communication stacks for BMW, Audi &amp; Porsche. Worked with
-                    CAN, CAN-FD, LIN, FlexRay protocols and ADC integration with HW-SW verification.
-                </p>
-                <div class="timeline-tags">
-                    <span class="tag">Automotive ECU</span>
-                    <span class="tag">CAN / FlexRay</span>
-                    <span class="tag">BMW</span>
-                    <span class="tag">Audi</span>
-                    <span class="tag">Porsche</span>
-                </div>
+            <div class="edu-card">
+                <div class="edu-school">Kendriya Vidyalaya, Garden Reach</div>
+                <div class="edu-degree">Intermediate (12th) &mdash; Science</div>
+                <div class="edu-detail">Apr 2013 &ndash; Mar 2015</div>
+                <div class="edu-grade">&#9733; 95.5%</div>
             </div>
         </div>
-    </section>
+        <div class="edu-photos">
+            <img src="images/personal/yasir_microsoft_window.jpeg" alt="Yasir at Microsoft" loading="lazy">
+            <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
+            <img src="images/personal/yasir_microsoft_campus.jpeg" alt="Yasir at Microsoft Campus" loading="lazy">
+            <img src="images/personal/yasir_amazon.jpeg" alt="Yasir at Amazon" loading="lazy">
+        </div>
+    </div>
+</section>
 
-    <!-- Tech Stack -->
-    <section id="skills">
-        <div class="fade-in">
-            <span class="section-label">Tech Stack</span>
-            <h2 class="section-title">Tools &amp; Technologies</h2>
-            <p class="section-subtitle">Technologies I work with on a daily basis</p>
+<!-- Sessions -->
+<section class="section" id="sessions">
+    <div class="reveal" style="text-align:center;">
+        <span class="section-tag">Mentorship</span>
+        <h2 class="section-title">Book a Session</h2>
+        <p class="section-sub" style="margin:0 auto;">Practical, focused sessions to help you crack top tech interviews and grow your career.</p>
+    </div>
+    <div class="sessions-grid reveal">
+        <div class="session-card popular">
+            <div class="session-icon">🎯</div>
+            <div class="session-name">Mock Interview</div>
+            <div class="session-type">Technical Interview &middot; 60 mins</div>
+            <div class="session-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</div>
+            <div class="session-price">
+                <span class="current">&#8377;500</span>
+                <span class="original">&#8377;1,500</span>
+            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Book Now &rarr;</a>
         </div>
-        <div class="tech-categories fade-in">
-            <div class="tech-category">
-                <div class="tech-category-title">💻 Languages</div>
-                <div class="tech-list">
-                    <span class="tech-item">C</span>
-                    <span class="tech-item">C++</span>
-                    <span class="tech-item">Python</span>
-                    <span class="tech-item">Bash</span>
-                    <span class="tech-item">JavaScript</span>
-                    <span class="tech-item">SQL</span>
-                </div>
+        <div class="session-card popular">
+            <div class="session-icon">💼</div>
+            <div class="session-name">Career Guidance</div>
+            <div class="session-type">1:1 Career Strategy &middot; 30 mins</div>
+            <div class="session-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</div>
+            <div class="session-price">
+                <span class="current">&#8377;400</span>
+                <span class="original">&#8377;1,000</span>
             </div>
-            <div class="tech-category">
-                <div class="tech-category-title">☁️ Cloud &amp; Infra</div>
-                <div class="tech-list">
-                    <span class="tech-item">Azure</span>
-                    <span class="tech-item">AWS</span>
-                    <span class="tech-item">Docker</span>
-                    <span class="tech-item">Kubernetes</span>
-                    <span class="tech-item">CI/CD</span>
-                </div>
-            </div>
-            <div class="tech-category">
-                <div class="tech-category-title">🐧 OS &amp; Platforms</div>
-                <div class="tech-list">
-                    <span class="tech-item">Linux</span>
-                    <span class="tech-item">FreeBSD</span>
-                    <span class="tech-item">FunOS</span>
-                    <span class="tech-item">RTOS</span>
-                </div>
-            </div>
-            <div class="tech-category">
-                <div class="tech-category-title">💾 Storage &amp; Networking</div>
-                <div class="tech-list">
-                    <span class="tech-item">NVMe</span>
-                    <span class="tech-item">RDMA</span>
-                    <span class="tech-item">DPU</span>
-                    <span class="tech-item">SRv6</span>
-                    <span class="tech-item">MPLS</span>
-                    <span class="tech-item">Path Tracing</span>
-                </div>
-            </div>
-            <div class="tech-category">
-                <div class="tech-category-title">🚗 Embedded / Automotive</div>
-                <div class="tech-list">
-                    <span class="tech-item">CAN / CAN-FD</span>
-                    <span class="tech-item">LIN</span>
-                    <span class="tech-item">FlexRay</span>
-                    <span class="tech-item">AUTOSAR</span>
-                    <span class="tech-item">ADC</span>
-                    <span class="tech-item">ECU Dev</span>
-                </div>
-            </div>
-            <div class="tech-category">
-                <div class="tech-category-title">🛠️ Tools</div>
-                <div class="tech-list">
-                    <span class="tech-item">Git</span>
-                    <span class="tech-item">GDB</span>
-                    <span class="tech-item">Wireshark</span>
-                    <span class="tech-item">Make</span>
-                    <span class="tech-item">VS Code</span>
-                    <span class="tech-item">Jira</span>
-                </div>
-            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Book Now &rarr;</a>
         </div>
-    </section>
+        <div class="session-card">
+            <div class="session-icon">📋</div>
+            <div class="session-name">Interview Prep &amp; Tips</div>
+            <div class="session-type">Interview Preparation &middot; 30 mins</div>
+            <div class="session-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</div>
+            <div class="session-price">
+                <span class="current">&#8377;400</span>
+                <span class="original">&#8377;1,000</span>
+            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Book Now &rarr;</a>
+        </div>
+        <div class="session-card">
+            <div class="session-icon">📝</div>
+            <div class="session-name">Resume Review</div>
+            <div class="session-type">Resume Guidance &middot; 20 mins</div>
+            <div class="session-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</div>
+            <div class="session-price">
+                <span class="current">&#8377;400</span>
+                <span class="original">&#8377;800</span>
+            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Book Now &rarr;</a>
+        </div>
+        <div class="session-card popular">
+            <div class="session-icon">💬</div>
+            <div class="session-name">Quick Chat</div>
+            <div class="session-type">Quick 1:1 Call &middot; 15 mins</div>
+            <div class="session-price">
+                <span class="current">&#8377;400</span>
+                <span class="original">&#8377;800</span>
+            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Book Now &rarr;</a>
+        </div>
+        <div class="session-card">
+            <div class="session-icon">❓</div>
+            <div class="session-name">Have a Question?</div>
+            <div class="session-type">Priority DM &middot; Same day reply</div>
+            <div class="session-price">
+                <span class="current">&#8377;100</span>
+                <span class="original">&#8377;300</span>
+            </div>
+            <a href="https://topmate.io/yasir_arafat10" class="session-btn" target="_blank" rel="noopener noreferrer">Send DM &rarr;</a>
+        </div>
+    </div>
+</section>
 
-    <!-- Projects -->
-    <section id="projects">
-        <div class="fade-in">
-            <span class="section-label">Projects</span>
-            <h2 class="section-title">Featured Work</h2>
-            <p class="section-subtitle">Open-source projects showcasing system design and engineering</p>
+<!-- Testimonials -->
+<section class="section" id="reviews">
+    <div class="testi-header reveal">
+        <span class="section-tag">Reviews</span>
+        <h2 class="section-title">What People Say</h2>
+        <div class="testi-badge">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="info"><strong>5.00 / 5</strong> &middot; 10 responses &middot; 100% rated 5 stars</span>
         </div>
-        <div class="projects-grid fade-in">
-            <div class="project-card">
-                <div class="project-icon">🏫</div>
-                <div class="project-name">School Management System</div>
-                <p class="project-desc">
-                    Full-stack School Management System MVP with student enrollment, class management,
-                    and grade tracking.
-                </p>
-                <div class="project-tech">
-                    <span>React</span>
-                    <span>Express</span>
-                    <span>PostgreSQL</span>
-                    <span>JavaScript</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/school-management-system" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🔗</div>
-                <div class="project-name">URL Shortener</div>
-                <p class="project-desc">
-                    System Design: URL Shortener with Base62 encoding, deduplication,
-                    analytics, and TTL expiration — interview-ready.
-                </p>
-                <div class="project-tech">
-                    <span>Python</span>
-                    <span>System Design</span>
-                    <span>Base62</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/url-shortener" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🏢</div>
-                <div class="project-name">Elevator System Design</div>
-                <p class="project-desc">
-                    System Design: Elevator/Lift system with SCAN algorithm,
-                    multi-elevator dispatch — LLD interview-ready.
-                </p>
-                <div class="project-tech">
-                    <span>Python</span>
-                    <span>SCAN Algorithm</span>
-                    <span>LLD</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/elevator-system-design" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🅿️</div>
-                <div class="project-name">Parking Lot Design</div>
-                <p class="project-desc">
-                    System Design: Multi-floor Parking Lot with ticket billing,
-                    smart allocation, display board — LLD interview-ready.
-                </p>
-                <div class="project-tech">
-                    <span>Python</span>
-                    <span>System Design</span>
-                    <span>LLD</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/parking-lot-design" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🌤️</div>
-                <div class="project-name">Weather CLI</div>
-                <p class="project-desc">
-                    A lightweight command-line weather app in Python — current conditions &amp; 3-day forecast
-                    for any city. Zero dependencies, pure Python.
-                </p>
-                <div class="project-tech">
-                    <span>Python</span>
-                    <span>REST API</span>
-                    <span>argparse</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/weather-cli" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">📚</div>
-                <div class="project-name">C Data Structures</div>
-                <p class="project-desc">
-                    Clean, well-documented implementations of fundamental data structures from scratch —
-                    Linked List, Stack, Binary Search Tree.
-                </p>
-                <div class="project-tech">
-                    <span>C</span>
-                    <span>Makefile</span>
-                    <span>gcc</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/c-datastructures" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🖥️</div>
-                <div class="project-name">SysMonitor</div>
-                <p class="project-desc">
-                    Beautiful terminal-based Linux system monitoring dashboard with CPU, Memory, Disk,
-                    Network stats and color-coded alerts.
-                </p>
-                <div class="project-tech">
-                    <span>Bash</span>
-                    <span>Linux</span>
-                    <span>Shell</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/sysmonitor" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
-            <div class="project-card">
-                <div class="project-icon">🗺️</div>
-                <div class="project-name">Tech Giants Roadmap</div>
-                <p class="project-desc">
-                    A comprehensive roadmap and resource guide for aspiring engineers targeting
-                    top tech companies.
-                </p>
-                <div class="project-tech">
-                    <span>HTML</span>
-                    <span>Documentation</span>
-                </div>
-                <a href="https://github.com/yasirgrc08-techie/tech-giants-roadmap" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View on GitHub &rarr;
-                </a>
-            </div>
+    </div>
+    <div class="testi-scroll reveal" id="testiScroll">
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself. You clearly addressed all my doubts regarding DSA, system design, tech stack, C language, and core CSE subjects. Thank you so much for your time, honesty, and guidance.</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
         </div>
-    </section>
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-text">So helpful session &mdash; career guidance as well. Incredible and wonderful! Very Nice and Insightful!</p>
+            <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mentee</div><div class="testi-role">Career Guidance Session</div></div></div>
+        </div>
+    </div>
+</section>
 
-    <!-- Achievements -->
-    <section id="achievements">
-        <div class="fade-in">
-            <span class="section-label">Achievements</span>
-            <h2 class="section-title">Key Milestones</h2>
+<!-- Videos -->
+<section class="section video-section" id="videos">
+    <div class="reveal">
+        <span class="section-tag">YouTube</span>
+        <h2 class="section-title">Watch &amp; Learn</h2>
+        <p class="section-sub" style="margin:0 auto;">Career guidance, interview tips &amp; tech insights on my YouTube channel</p>
+    </div>
+    <div class="video-main reveal">
+        <div class="video-resp">
+            <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-        <div class="achievements-grid fade-in">
-            <div class="achievement-card">
-                <div class="achievement-icon">🏢</div>
-                <div>
-                    <div class="achievement-title">Microsoft L62</div>
-                    <div class="achievement-desc">Working on end-to-end DPU datapath for Azure Ultra-Disk</div>
-                </div>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon">🌐</div>
-                <div>
-                    <div class="achievement-title">Cisco ASR9K</div>
-                    <div class="achievement-desc">Developed SRv6/MPLS features deployed across global ISP networks</div>
-                </div>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon">🚗</div>
-                <div>
-                    <div class="achievement-title">Bosch Automotive</div>
-                    <div class="achievement-desc">Built ECU communication stacks for BMW, Audi &amp; Porsche</div>
-                </div>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon">💾</div>
-                <div>
-                    <div class="achievement-title">Dell PowerScale</div>
-                    <div class="achievement-desc">Contributed to OneFS distributed storage core infrastructure</div>
-                </div>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon">🐳</div>
-                <div>
-                    <div class="achievement-title">Containerized Diagnostics</div>
-                    <div class="achievement-desc">Built Docker-based in-router health-check tool at Cisco</div>
-                </div>
-            </div>
-            <div class="achievement-card">
-                <div class="achievement-icon">🤖</div>
-                <div>
-                    <div class="achievement-title">AI Diagnostic Tool</div>
-                    <div class="achievement-desc">Created AI-assisted troubleshooting tool for network engineers</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+    <div class="video-carousel reveal" id="vidCarousel">
+        <div class="vid-item"><div class="video-resp"><iframe src="https://www.youtube.com/embed/vet4IYJiER4?si=MqXu_BNI5Q23hE3g" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+        <div class="vid-item"><div class="video-resp"><iframe src="https://www.youtube.com/embed/6iQOrtpS03M?si=VDoiKJbjW0bIMPkb" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+        <div class="vid-item"><div class="video-resp"><iframe src="https://www.youtube.com/embed/Eu2z0yS9r48?si=otD6sd-sM2FjXvGI" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+        <div class="vid-item"><div class="video-resp"><iframe src="https://www.youtube.com/embed/eASJoeqOS_k?si=twlN25Jd6Rv6I7hM" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+        <div class="vid-item"><div class="video-resp"><iframe src="https://www.youtube.com/embed/5k299r-bG4U?si=B0Zt1UXQcQ3ynlhA" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></div>
+    </div>
+    <div class="vid-nav">
+        <button class="vid-btn" id="vidPrev" aria-label="Previous">&#8592;</button>
+        <button class="vid-btn" id="vidNext" aria-label="Next">&#8594;</button>
+    </div>
+</section>
 
-    <!-- Expertise -->
-    <section id="expertise">
-        <div class="fade-in">
-            <span class="section-label">Expertise</span>
-            <h2 class="section-title">Domain Knowledge</h2>
+<!-- Projects -->
+<section class="section" id="projects">
+    <div class="reveal">
+        <span class="section-tag">Projects</span>
+        <h2 class="section-title">Featured Work</h2>
+    </div>
+    <div class="projects-grid reveal">
+        <div class="proj-card">
+            <div class="proj-icon">🏫</div>
+            <div class="proj-name">School Management System</div>
+            <p class="proj-desc">Full-stack School Management System MVP with student enrollment, class management, and grade tracking.</p>
+            <div class="proj-tags"><span>React</span><span>Express</span><span>PostgreSQL</span><span>JavaScript</span></div>
+            <a href="https://github.com/yasirgrc08-techie/school-management-system" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
         </div>
-        <div class="expertise-grid fade-in">
-            <div class="expertise-card">
-                <div class="expertise-icon">⚙️</div>
-                <div class="expertise-name">Systems Engineering</div>
-                <ul class="expertise-items">
-                    <li>Storage Architecture</li>
-                    <li>NVMe / RDMA / DPU</li>
-                    <li>Distributed Systems</li>
-                    <li>Kernel &amp; OS Internals</li>
-                    <li>Performance Optimization</li>
-                </ul>
-            </div>
-            <div class="expertise-card">
-                <div class="expertise-icon">🌐</div>
-                <div class="expertise-name">Networking</div>
-                <ul class="expertise-items">
-                    <li>SRv6 / MPLS</li>
-                    <li>Path Tracing</li>
-                    <li>Performance Measurement</li>
-                    <li>Router Platforms (ASR9K)</li>
-                    <li>Network Simulation</li>
-                </ul>
-            </div>
-            <div class="expertise-card">
-                <div class="expertise-icon">🚗</div>
-                <div class="expertise-name">Embedded Systems</div>
-                <ul class="expertise-items">
-                    <li>CAN / CAN-FD / LIN</li>
-                    <li>FlexRay Protocols</li>
-                    <li>Automotive ECU</li>
-                    <li>ADC Integration</li>
-                    <li>HW-SW Verification</li>
-                </ul>
-            </div>
+        <div class="proj-card">
+            <div class="proj-icon">🔗</div>
+            <div class="proj-name">URL Shortener</div>
+            <p class="proj-desc">System Design: URL Shortener with Base62 encoding, deduplication, analytics, and TTL &mdash; interview-ready.</p>
+            <div class="proj-tags"><span>Python</span><span>System Design</span><span>Base62</span></div>
+            <a href="https://github.com/yasirgrc08-techie/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
         </div>
-    </section>
+        <div class="proj-card">
+            <div class="proj-icon">🏢</div>
+            <div class="proj-name">Elevator System Design</div>
+            <p class="proj-desc">Elevator/Lift system with SCAN algorithm, multi-elevator dispatch &mdash; LLD interview-ready.</p>
+            <div class="proj-tags"><span>Python</span><span>SCAN Algorithm</span><span>LLD</span></div>
+            <a href="https://github.com/yasirgrc08-techie/elevator-system-design" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+        <div class="proj-card">
+            <div class="proj-icon">🅿️</div>
+            <div class="proj-name">Parking Lot Design</div>
+            <p class="proj-desc">Multi-floor Parking Lot with ticket billing, smart allocation, display board &mdash; LLD interview-ready.</p>
+            <div class="proj-tags"><span>Python</span><span>System Design</span><span>LLD</span></div>
+            <a href="https://github.com/yasirgrc08-techie/parking-lot-design" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+        <div class="proj-card">
+            <div class="proj-icon">🌤️</div>
+            <div class="proj-name">Weather CLI</div>
+            <p class="proj-desc">Lightweight CLI weather app &mdash; current conditions &amp; 3-day forecast. Zero dependencies, pure Python.</p>
+            <div class="proj-tags"><span>Python</span><span>REST API</span><span>argparse</span></div>
+            <a href="https://github.com/yasirgrc08-techie/weather-cli" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+        <div class="proj-card">
+            <div class="proj-icon">📚</div>
+            <div class="proj-name">C Data Structures</div>
+            <p class="proj-desc">Clean implementations of Linked List, Stack, Binary Search Tree from scratch in C.</p>
+            <div class="proj-tags"><span>C</span><span>Makefile</span><span>gcc</span></div>
+            <a href="https://github.com/yasirgrc08-techie/c-datastructures" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+        <div class="proj-card">
+            <div class="proj-icon">🖥️</div>
+            <div class="proj-name">SysMonitor</div>
+            <p class="proj-desc">Terminal-based Linux system monitoring dashboard with CPU, Memory, Disk, Network stats.</p>
+            <div class="proj-tags"><span>Bash</span><span>Linux</span><span>Shell</span></div>
+            <a href="https://github.com/yasirgrc08-techie/sysmonitor" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+        <div class="proj-card">
+            <div class="proj-icon">🗺️</div>
+            <div class="proj-name">Tech Giants Roadmap</div>
+            <p class="proj-desc">Comprehensive roadmap for cracking top tech interviews &mdash; Google, Microsoft, Amazon &amp; more.</p>
+            <div class="proj-tags"><span>HTML</span><span>Career Guide</span></div>
+            <a href="https://github.com/yasirgrc08-techie/tech-giants-roadmap" class="proj-link" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
+        </div>
+    </div>
+</section>
 
-    <!-- Philosophy -->
-    <section id="philosophy">
-        <div class="fade-in">
-            <span class="section-label">Philosophy</span>
-            <h2 class="section-title">How I Think</h2>
-        </div>
-        <div class="philosophy-section fade-in">
-            <p class="philosophy-quote">
-                "Great systems aren't built in a day — they're designed with deep understanding,
-                 debugged with patience, and optimized with precision."
-            </p>
-            <div class="philosophy-principles">
-                <div class="principle">
-                    <div class="principle-icon">🎯</div>
-                    <div class="principle-title">Systems-First Design</div>
-                    <div class="principle-desc">Architecture should precede implementation</div>
-                </div>
-                <div class="principle">
-                    <div class="principle-icon">🔍</div>
-                    <div class="principle-title">Root-Cause Analysis</div>
-                    <div class="principle-desc">Fix the problem, not just the symptom</div>
-                </div>
-                <div class="principle">
-                    <div class="principle-icon">📐</div>
-                    <div class="principle-title">Performance-Driven</div>
-                    <div class="principle-desc">Every microsecond matters in datapath code</div>
-                </div>
-                <div class="principle">
-                    <div class="principle-icon">🔄</div>
-                    <div class="principle-title">Collaborative Growth</div>
-                    <div class="principle-desc">Best solutions emerge from diverse perspectives</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Achievements -->
+<section class="section" id="achievements">
+    <div class="reveal">
+        <span class="section-tag">Achievements</span>
+        <h2 class="section-title">Key Milestones</h2>
+    </div>
+    <div class="achieve-grid reveal">
+        <div class="achieve-card"><div class="achieve-icon">🏢</div><div><div class="achieve-title">Microsoft L62</div><div class="achieve-desc">Working on end-to-end DPU datapath for Azure Ultra-Disk</div></div></div>
+        <div class="achieve-card"><div class="achieve-icon">🌐</div><div><div class="achieve-title">Cisco ASR9K</div><div class="achieve-desc">Developed SRv6/MPLS features deployed across global ISP networks</div></div></div>
+        <div class="achieve-card"><div class="achieve-icon">🚗</div><div><div class="achieve-title">Bosch Automotive</div><div class="achieve-desc">Built ECU communication stacks for BMW, Audi &amp; Porsche</div></div></div>
+        <div class="achieve-card"><div class="achieve-icon">💾</div><div><div class="achieve-title">Dell PowerScale</div><div class="achieve-desc">Contributed to OneFS distributed storage core infrastructure</div></div></div>
+        <div class="achieve-card"><div class="achieve-icon">🐳</div><div><div class="achieve-title">Containerized Diagnostics</div><div class="achieve-desc">Built Docker-based in-router health-check tool at Cisco</div></div></div>
+        <div class="achieve-card"><div class="achieve-icon">🤖</div><div><div class="achieve-title">AI Diagnostic Tool</div><div class="achieve-desc">Created AI-assisted troubleshooting tool for network engineers</div></div></div>
+    </div>
+</section>
 
-    <!-- Currently Learning -->
-    <section id="learning">
-        <div class="fade-in">
-            <span class="section-label">What I'm Learning</span>
-            <h2 class="section-title">Always Growing</h2>
+<!-- Expertise -->
+<section class="section" id="expertise">
+    <div class="reveal">
+        <span class="section-tag">Domains</span>
+        <h2 class="section-title">Domain Knowledge</h2>
+    </div>
+    <div class="expertise-grid reveal">
+        <div class="expertise-card">
+            <div class="expertise-icon">⚙️</div>
+            <div class="expertise-name">Systems Engineering</div>
+            <ul class="expertise-items"><li>Storage Architecture</li><li>NVMe / RDMA / DPU</li><li>Distributed Systems</li><li>Kernel &amp; OS Internals</li><li>Performance Optimization</li></ul>
         </div>
-        <div class="tech-categories fade-in" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-            <div class="tech-category" style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔬</div>
-                <div class="tech-category-title" style="justify-content: center;">DPU Programming</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced DPU programming &amp; FunOS internals</p>
-            </div>
-            <div class="tech-category" style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">☁️</div>
-                <div class="tech-category-title" style="justify-content: center;">Azure Architecture</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">Cloud architecture patterns at scale</p>
-            </div>
-            <div class="tech-category" style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🦀</div>
-                <div class="tech-category-title" style="justify-content: center;">Rust</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">Exploring Rust for systems programming</p>
-            </div>
-            <div class="tech-category" style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
-                <div class="tech-category-title" style="justify-content: center;">Performance Profiling</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">Profiling &amp; optimization techniques</p>
-            </div>
+        <div class="expertise-card">
+            <div class="expertise-icon">🌐</div>
+            <div class="expertise-name">Networking</div>
+            <ul class="expertise-items"><li>SRv6 / MPLS</li><li>Path Tracing</li><li>Performance Measurement</li><li>Router Platforms (ASR9K)</li><li>Network Simulation</li></ul>
         </div>
-    </section>
-
-    <!-- Featured Video -->
-    <section id="video" style="text-align: center;">
-        <div class="fade-in">
-            <span class="section-label">YouTube Channel</span>
-            <h2 class="section-title">Watch &amp; Learn</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">Career guidance, interview tips &amp; tech insights on my YouTube channel</p>
+        <div class="expertise-card">
+            <div class="expertise-icon">🚗</div>
+            <div class="expertise-name">Embedded Systems</div>
+            <ul class="expertise-items"><li>CAN / CAN-FD / LIN</li><li>FlexRay Protocols</li><li>Automotive ECU</li><li>ADC Integration</li><li>HW-SW Verification</li></ul>
         </div>
+    </div>
+</section>
 
-        <!-- Main Featured Video -->
-        <div class="video-wrapper fade-in" style="margin-bottom: 2.5rem;">
-            <div class="video-responsive">
-                <iframe src="https://www.youtube.com/embed/bYkIH22wd5c?si=lMRr410DXgakhEqK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
+<!-- Philosophy -->
+<section class="section" id="philosophy">
+    <div class="reveal">
+        <span class="section-tag">Philosophy</span>
+        <h2 class="section-title">How I Think</h2>
+    </div>
+    <div class="philosophy reveal">
+        <p class="philosophy-quote">"Great systems aren't built in a day &mdash; they're designed with deep understanding, debugged with patience, and optimized with precision."</p>
+        <div class="philosophy-grid">
+            <div><div class="principle-icon">🎯</div><div class="principle-title">Systems-First Design</div><div class="principle-desc">Architecture before implementation</div></div>
+            <div><div class="principle-icon">🔍</div><div class="principle-title">Root-Cause Analysis</div><div class="principle-desc">Fix the problem, not the symptom</div></div>
+            <div><div class="principle-icon">📐</div><div class="principle-title">Performance-Driven</div><div class="principle-desc">Every microsecond matters</div></div>
+            <div><div class="principle-icon">🔄</div><div class="principle-title">Collaborative Growth</div><div class="principle-desc">Diverse perspectives win</div></div>
         </div>
+    </div>
+</section>
 
-        <!-- Rolling Video Carousel -->
-        <div class="video-carousel fade-in" id="videoCarousel">
-            <div class="video-carousel-item">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/vet4IYJiER4?si=MqXu_BNI5Q23hE3g" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="video-carousel-item">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/6iQOrtpS03M?si=VDoiKJbjW0bIMPkb" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="video-carousel-item">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/Eu2z0yS9r48?si=otD6sd-sM2FjXvGI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="video-carousel-item">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/eASJoeqOS_k?si=twlN25Jd6Rv6I7hM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="video-carousel-item">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/5k299r-bG4U?si=B0Zt1UXQcQ3ynlhA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-        <div class="video-nav">
-            <button class="video-nav-btn" id="vidPrev" aria-label="Previous video">&#8592;</button>
-            <button class="video-nav-btn" id="vidNext" aria-label="Next video">&#8594;</button>
-        </div>
-    </section>
+<!-- Contact -->
+<section class="section contact-center" id="contact">
+    <div class="reveal">
+        <span class="section-tag">Connect</span>
+        <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-grid reveal">
+        <a href="https://www.linkedin.com/in/yasir-arafat-sharfi/" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <div><div class="c-label">LinkedIn</div><div class="c-value">yasir-arafat-sharfi</div></div>
+        </a>
+        <a href="mailto:yasir.grc08@gmail.com" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <span class="c-icon">✉️</span>
+            <div><div class="c-label">Email</div><div class="c-value">yasir.grc08@gmail.com</div></div>
+        </a>
+        <a href="https://topmate.io/yasir_arafat10" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <span class="c-icon">📅</span>
+            <div><div class="c-label">Topmate</div><div class="c-value">Book a 1:1 session</div></div>
+        </a>
+        <a href="https://github.com/yasirgrc08-techie" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            <div><div class="c-label">GitHub</div><div class="c-value">yasirgrc08-techie</div></div>
+        </a>
+        <a href="https://www.youtube.com/@YasirArafatSharfi" class="contact-card" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <div><div class="c-label">YouTube</div><div class="c-value">Yasir Arafat Sharfi</div></div>
+        </a>
+    </div>
+</section>
 
-    <!-- Testimonials -->
-    <section id="testimonials">
-        <div class="testimonials-header fade-in">
-            <span class="section-label">Testimonials</span>
-            <h2 class="section-title">What Mentees Say</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">Feedback from 1-on-1 career guidance &amp; mentorship sessions</p>
-            <div class="testimonials-rating">
-                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="rating-text"><strong>5.00 / 5</strong> &nbsp;·&nbsp; 10 responses &nbsp;·&nbsp; 100% rated 5 stars</span>
-            </div>
-        </div>
-        <div class="testimonials-grid fade-in">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">The entire session was truly great and very inspiring. I was deeply motivated by your journey and the way you emphasized believing in yourself and consistently working hard to reach where you want to see yourself. You clearly addressed all my doubts regarding where I am currently lacking and how I can improve especially in areas like DSA, system design, tech stack, C language, and core CSE subjects. I also really appreciated you sharing your own mistakes and insights on how to approach upcoming interviews in a smarter and more effective way. Thank you so much for your time, honesty, and guidance.</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">Really enjoyed our one-on-one session today. You gave me some super helpful tips on improving my DSA and system design skills. Plus, you were really easy to talk to, which made everything so much better. Thanks a ton.</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">Had an excellent session with Yasir. Very insightful, practical, and motivating. Highly recommended for anyone preparing for top tech companies.</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">The session was great and insightful. Got very useful information about the interview, companies and package details. It helped to get overall idea of the interview.</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">Thank you, Yasir, for your mentorship and for generously sharing your valuable insights. It helped me to clear my doubts.</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">So helpful session — carrier guidance as well. Incredible and wonderful!</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testimonial-text">Very Nice and Insightful!</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">M</div>
-                    <div class="testimonial-meta">
-                        <div class="t-name">Mentee</div>
-                        <div class="t-role">Career Guidance Session</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer>
+    <p>&copy; 2026 <a href="https://github.com/yasirgrc08-techie" target="_blank" rel="noopener noreferrer">Yasir Arafat Sharfi</a>. Built with passion for systems engineering.</p>
+</footer>
 
-    <!-- Contact -->
-    <section id="contact" class="contact-section">
-        <div class="fade-in">
-            <span class="section-label">Get In Touch</span>
-            <h2 class="section-title">Let's Connect</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">
-                Open to collaborations in systems programming, cloud infrastructure, and technical knowledge sharing.
-            </p>
-        </div>
-        <div class="contact-links fade-in">
-            <a href="mailto:yasir.grc08@gmail.com" class="contact-card" target="_blank" rel="noopener noreferrer">
-                <span class="c-icon">✉️</span>
-                <div>
-                    <div class="c-label">Email</div>
-                    <div class="c-value">yasir.grc08@gmail.com</div>
-                </div>
-            </a>
-            <a href="https://github.com/yasirgrc08-techie" class="contact-card" target="_blank" rel="noopener noreferrer">
-                <span class="c-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                </span>
-                <div>
-                    <div class="c-label">GitHub</div>
-                    <div class="c-value">yasirgrc08-techie</div>
-                </div>
-            </a>
-            <a href="https://www.linkedin.com/in/yasir-arafat-sharfi/" class="contact-card" target="_blank" rel="noopener noreferrer">
-                <span class="c-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </span>
-                <div>
-                    <div class="c-label">LinkedIn</div>
-                    <div class="c-value">yasir-arafat-sharfi</div>
-                </div>
-            </a>
-            <a href="https://www.youtube.com/@YasirArafatSharfi" class="contact-card" target="_blank" rel="noopener noreferrer">
-                <span class="c-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                </span>
-                <div>
-                    <div class="c-label">YouTube</div>
-                    <div class="c-value">Yasir Arafat Sharfi</div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>
-            Designed &amp; Built by <a href="https://github.com/yasirgrc08-techie" target="_blank" rel="noopener noreferrer">Yasir Arafat Sharfi</a>
-            &nbsp;·&nbsp; &copy; 2026
-        </p>
-    </footer>
-
-    <script>
-        // Navbar scroll effect
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-
-        // Mobile toggle
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-        // Close mobile menu on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('open'));
-        });
-
-        // Fade-in on scroll using IntersectionObserver
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Video carousel navigation
-        const carousel = document.getElementById('videoCarousel');
-        const vidPrev = document.getElementById('vidPrev');
-        const vidNext = document.getElementById('vidNext');
-        if (carousel && vidPrev && vidNext) {
-            const scrollAmount = 436;
-            vidNext.addEventListener('click', () => {
-                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            });
-            vidPrev.addEventListener('click', () => {
-                carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            });
-        }
-    </script>
+<script>
+    const nav=document.getElementById('nav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+    const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+    toggle.addEventListener('click',()=>links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+    const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    const vc=document.getElementById('vidCarousel'),vp=document.getElementById('vidPrev'),vn=document.getElementById('vidNext');
+    if(vc&&vp&&vn){const s=400;vn.addEventListener('click',()=>vc.scrollBy({left:s,behavior:'smooth'}));vp.addEventListener('click',()=>vc.scrollBy({left:-s,behavior:'smooth'}));}
+    // Auto-scroll testimonials
+    const ts=document.getElementById('testiScroll');
+    if(ts){let dir=1;setInterval(()=>{if(ts.scrollLeft>=ts.scrollWidth-ts.clientWidth-10)dir=-1;if(ts.scrollLeft<=0)dir=1;ts.scrollBy({left:dir*1,behavior:'auto'});},30);}
+</script>
 </body>
 </html>
