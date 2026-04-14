@@ -380,6 +380,31 @@
         footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--border); color: var(--text-3); font-size: .85rem; }
         footer a { color: var(--accent-l); }
 
+        /* === Floating Rating Widget === */
+        .rating-tab { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 90; writing-mode: vertical-rl; text-orientation: mixed; background: var(--accent); color: #fff; padding: 12px 10px; border-radius: 10px 0 0 10px; font-size: .8rem; font-weight: 700; cursor: pointer; letter-spacing: .05em; transition: all var(--tr); box-shadow: -4px 0 20px rgba(99,102,241,0.3); }
+        .rating-tab:hover { padding-right: 14px; background: var(--accent-l); }
+        .rating-panel { position: fixed; right: -400px; top: 50%; transform: translateY(-50%); z-index: 91; width: 340px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r) 0 0 var(--r); box-shadow: -10px 0 40px rgba(0,0,0,0.5); transition: right 0.4s cubic-bezier(0.4,0,0.2,1); padding: 1.75rem; }
+        .rating-panel.open { right: 0; }
+        .rating-panel-close { position: absolute; top: 12px; right: 14px; background: none; border: none; color: var(--text-2); font-size: 1.3rem; cursor: pointer; }
+        .rating-panel h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: .25rem; }
+        .rating-panel .panel-sub { font-size: .85rem; color: var(--text-2); margin-bottom: 1.25rem; }
+        .star-row { display: flex; gap: 6px; margin-bottom: 1rem; }
+        .star-row .star { font-size: 2rem; cursor: pointer; color: var(--border); transition: color .15s, transform .15s; }
+        .star-row .star:hover, .star-row .star.active { color: var(--orange); transform: scale(1.15); }
+        .star-row .star.hovered { color: var(--orange); }
+        .rating-comment { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text); font-size: .9rem; font-family: var(--sans); resize: vertical; min-height: 70px; transition: border-color var(--tr); }
+        .rating-comment:focus { outline: none; border-color: var(--accent); }
+        .rating-comment::placeholder { color: var(--text-3); }
+        .rating-submit { width: 100%; margin-top: .75rem; padding: 12px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: .95rem; cursor: pointer; font-family: var(--sans); transition: all var(--tr); }
+        .rating-submit:hover { background: var(--accent-l); transform: translateY(-1px); }
+        .rating-submit:disabled { opacity: .5; cursor: not-allowed; }
+        .rating-avg { text-align: center; margin-bottom: 1rem; padding: 10px; background: var(--bg-2); border-radius: 10px; border: 1px solid var(--border); }
+        .rating-avg .avg-stars { color: var(--orange); font-size: 1.1rem; letter-spacing: 2px; }
+        .rating-avg .avg-text { font-size: .8rem; color: var(--text-3); margin-top: 2px; }
+        .rating-thanks { text-align: center; padding: 2rem 0; }
+        .rating-thanks .check { font-size: 2.5rem; margin-bottom: .5rem; }
+        @media (max-width: 768px) { .rating-panel { width: 300px; } .rating-tab { padding: 10px 8px; font-size: .75rem; } }
+
         /* === Booking Modal === */
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1rem; }
         .modal-overlay.active { display: flex; }
@@ -1136,6 +1161,33 @@
     <p>&copy; 2026 <a href="https://github.com/yasirgrc08-techie" target="_blank" rel="noopener noreferrer">Yasir Arafat Sharfi</a>. Built with passion for systems engineering.</p>
 </footer>
 
+<!-- Floating Rating Widget -->
+<div class="rating-tab" id="ratingTab" onclick="toggleRating()">&#9733; Rate</div>
+<div class="rating-panel" id="ratingPanel">
+    <button class="rating-panel-close" onclick="toggleRating()">&times;</button>
+    <h4>Rate This Website</h4>
+    <p class="panel-sub">Your feedback helps me improve!</p>
+    <div class="rating-avg" id="ratingAvg"></div>
+    <div id="ratingForm">
+        <div class="star-row" id="starRow">
+            <span class="star" data-v="1">&#9733;</span>
+            <span class="star" data-v="2">&#9733;</span>
+            <span class="star" data-v="3">&#9733;</span>
+            <span class="star" data-v="4">&#9733;</span>
+            <span class="star" data-v="5">&#9733;</span>
+        </div>
+        <textarea class="rating-comment" id="ratingComment" placeholder="Share your thoughts... (optional)" maxlength="200"></textarea>
+        <button class="rating-submit" id="ratingSubmit" disabled onclick="submitRating()">Submit Rating</button>
+    </div>
+    <div id="ratingThanks" style="display:none;">
+        <div class="rating-thanks">
+            <div class="check">&#9989;</div>
+            <p style="font-weight:600;">Thank you for your feedback!</p>
+            <p style="color:var(--text-2);font-size:.85rem;margin-top:.5rem;">Your rating has been recorded.</p>
+        </div>
+    </div>
+</div>
+
 <!-- Booking Modal -->
 <div class="modal-overlay" id="bookingModal">
     <div class="modal">
@@ -1323,6 +1375,85 @@
             });
         });
     }
+
+    // ============================================
+    // RATING WIDGET
+    // ============================================
+    let selectedStars = 0;
+    const stars = document.querySelectorAll('#starRow .star');
+    const submitBtn = document.getElementById('ratingSubmit');
+
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+            const v = parseInt(star.dataset.v);
+            stars.forEach(s => s.classList.toggle('hovered', parseInt(s.dataset.v) <= v));
+        });
+        star.addEventListener('mouseleave', () => {
+            stars.forEach(s => s.classList.remove('hovered'));
+        });
+        star.addEventListener('click', () => {
+            selectedStars = parseInt(star.dataset.v);
+            stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= selectedStars));
+            submitBtn.disabled = false;
+        });
+    });
+
+    function toggleRating() {
+        const panel = document.getElementById('ratingPanel');
+        const tab = document.getElementById('ratingTab');
+        panel.classList.toggle('open');
+        tab.style.display = panel.classList.contains('open') ? 'none' : '';
+    }
+
+    function loadRatings() {
+        const ratings = JSON.parse(localStorage.getItem('siteRatings') || '[]');
+        const avgDiv = document.getElementById('ratingAvg');
+        if (ratings.length === 0) {
+            avgDiv.style.display = 'none';
+            return;
+        }
+        const avg = (ratings.reduce((s, r) => s + r.stars, 0) / ratings.length).toFixed(1);
+        const fullStars = '★'.repeat(Math.round(parseFloat(avg))) + '☆'.repeat(5 - Math.round(parseFloat(avg)));
+        avgDiv.innerHTML = '<div class="avg-stars">' + fullStars + '</div><div class="avg-text">' + avg + ' / 5 &middot; ' + ratings.length + ' rating' + (ratings.length > 1 ? 's' : '') + '</div>';
+        avgDiv.style.display = '';
+
+        // Check if user already rated
+        const hasRated = localStorage.getItem('hasRatedSite');
+        if (hasRated) {
+            document.getElementById('ratingForm').style.display = 'none';
+            document.getElementById('ratingThanks').style.display = '';
+        }
+    }
+
+    function submitRating() {
+        if (selectedStars === 0) return;
+        const comment = document.getElementById('ratingComment').value.trim();
+        const ratings = JSON.parse(localStorage.getItem('siteRatings') || '[]');
+        ratings.push({ stars: selectedStars, comment: comment, date: new Date().toISOString() });
+        localStorage.setItem('siteRatings', JSON.stringify(ratings));
+        localStorage.setItem('hasRatedSite', 'true');
+        document.getElementById('ratingForm').style.display = 'none';
+        document.getElementById('ratingThanks').style.display = '';
+        loadRatings();
+
+        // Send rating via EmailJS too
+        if (typeof emailjs !== 'undefined') {
+            emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
+                session: 'Website Rating: ' + selectedStars + '/5 stars',
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString(),
+                name: 'Anonymous Visitor',
+                email: 'N/A',
+                phone: 'N/A',
+                message: comment || 'No comment',
+                amount: 'Free',
+                payment_id: 'N/A (Rating)',
+                to_email: 'yasir.grc08@gmail.com'
+            }).catch(() => {});
+        }
+    }
+
+    loadRatings();
 
     // ============================================
     // BOOKING SYSTEM + RAZORPAY PAYMENT INTEGRATION
