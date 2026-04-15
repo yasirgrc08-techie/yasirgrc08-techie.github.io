@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>300+ DSA Problems — Company Tagged | Yasir Arafat Sharfi</title>
+<meta name="description" content="300+ DSA problems with solutions, company-tagged for Google, Microsoft, Amazon, Meta, Apple, Netflix & more. Curated by Yasir Arafat Sharfi (SWE II @ Microsoft).">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent-l);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.header{text-align:center;padding:3rem 0 2rem}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:.85rem;margin-bottom:1.5rem}
+.back-link:hover{color:var(--text)}
+h1{font-size:2.5rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 1rem}
+.stats-bar{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1.5rem 0}
+.stat{text-align:center}
+.stat .n{font-size:1.5rem;font-weight:800}
+.stat .l{font-size:.75rem;color:var(--text3)}
+.company-filter{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin:1.5rem 0}
+.filter-btn{padding:6px 16px;border-radius:100px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:.8rem;font-weight:500;cursor:pointer;transition:all var(--tr);font-family:'Inter',sans-serif}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);background:rgba(99,102,241,.12);color:var(--accent-l)}
+.difficulty-legend{display:flex;gap:1.5rem;justify-content:center;margin:1rem 0;font-size:.8rem}
+.diff-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px}
+.diff-easy{background:var(--green)}
+.diff-med{background:var(--orange)}
+.diff-hard{background:var(--red)}
+
+/* Paywall overlay */
+.paywall{position:relative}
+.paywall-blur{filter:blur(6px);pointer-events:none;user-select:none}
+.paywall-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;background:rgba(10,10,15,0.6);backdrop-filter:blur(2px);border-radius:var(--r)}
+.paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
+.paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
+.paywall-price{font-size:2.5rem;font-weight:900;margin-bottom:.25rem}
+.paywall-original{color:var(--text3);text-decoration:line-through;font-size:1rem;margin-bottom:1.5rem}
+.paywall-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all var(--tr)}
+.paywall-btn:hover{background:var(--accent-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,.3)}
+.paywall-features{list-style:none;text-align:left;margin:1rem 0 1.5rem;font-size:.85rem;color:var(--text2)}
+.paywall-features li{padding:4px 0}
+.paywall-features li::before{content:'✓';color:var(--green);font-weight:700;margin-right:8px}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin-top:1rem}
+th{background:var(--bg2);padding:10px 12px;text-align:left;font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2}
+td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.85rem;vertical-align:top}
+tr:hover{background:var(--bg2)}
+.topic-tag{font-size:.7rem;padding:2px 8px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);display:inline-block;margin:1px}
+.co-tag{font-size:.65rem;padding:2px 6px;border-radius:4px;font-weight:600;display:inline-block;margin:1px}
+.co-google{background:rgba(59,130,246,.1);color:#3b82f6}
+.co-microsoft{background:rgba(99,102,241,.1);color:var(--accent-l)}
+.co-amazon{background:rgba(245,158,11,.1);color:var(--orange)}
+.co-meta{background:rgba(236,72,153,.1);color:var(--pink)}
+.co-apple{background:rgba(156,163,175,.1);color:#9ca3af}
+.co-netflix{background:rgba(239,68,68,.1);color:var(--red)}
+.diff{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:6px}
+.d-easy{background:rgba(34,197,94,.12);color:var(--green)}
+.d-med{background:rgba(245,158,11,.12);color:var(--orange)}
+.d-hard{background:rgba(239,68,68,.12);color:var(--red)}
+.section-header{padding:1rem 0 .5rem;margin-top:2rem;border-bottom:2px solid var(--accent);font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.section-count{font-size:.75rem;color:var(--text3);font-weight:500}
+.solution-toggle{color:var(--accent-l);cursor:pointer;font-size:.8rem;font-weight:600}
+.solution-toggle:hover{text-decoration:underline}
+.solution-box{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text2);white-space:pre-wrap;line-height:1.5}
+.solution-box.open{display:block}
+@media(max-width:768px){h1{font-size:1.8rem}td,th{padding:8px 6px;font-size:.78rem}.container{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a href="../" class="back-link">&larr; Back to Portfolio</a>
+        <h1>🧩 <span>300+ DSA Problems</span></h1>
+        <p class="subtitle">Company-tagged problems with solutions. Curated from my preparation for cracking 13+ top tech companies.</p>
+        <div class="stats-bar">
+            <div class="stat"><div class="n">300+</div><div class="l">Problems</div></div>
+            <div class="stat"><div class="n">15+</div><div class="l">Topics</div></div>
+            <div class="stat"><div class="n">10+</div><div class="l">Companies</div></div>
+            <div class="stat"><div class="n">✓</div><div class="l">Solutions</div></div>
+        </div>
+        <div class="difficulty-legend">
+            <span><span class="diff-dot diff-easy"></span> Easy</span>
+            <span><span class="diff-dot diff-med"></span> Medium</span>
+            <span><span class="diff-dot diff-hard"></span> Hard</span>
+        </div>
+        <div class="company-filter">
+            <button class="filter-btn active" onclick="filterCo('all')">All</button>
+            <button class="filter-btn" onclick="filterCo('Google')">Google</button>
+            <button class="filter-btn" onclick="filterCo('Microsoft')">Microsoft</button>
+            <button class="filter-btn" onclick="filterCo('Amazon')">Amazon</button>
+            <button class="filter-btn" onclick="filterCo('Meta')">Meta</button>
+            <button class="filter-btn" onclick="filterCo('Apple')">Apple</button>
+            <button class="filter-btn" onclick="filterCo('Netflix')">Netflix</button>
+        </div>
+    </div>
+
+    <!-- PAYWALL -->
+    <div class="paywall" id="paywallSection">
+        <div class="paywall-overlay" id="paywallOverlay">
+            <div class="paywall-card">
+                <h3>🔒 Unlock Full DSA Sheet</h3>
+                <p>Get instant access to 300+ problems with detailed solutions, company tags, and pattern explanations.</p>
+                <ul class="paywall-features">
+                    <li>300+ problems across 15+ topics</li>
+                    <li>Company-tagged (Google, Microsoft, Amazon, Meta...)</li>
+                    <li>Detailed solutions with time/space complexity</li>
+                    <li>Pattern-based learning approach</li>
+                    <li>Lifetime access</li>
+                </ul>
+                <div class="paywall-price">₹49</div>
+                <div class="paywall-original">₹499</div>
+                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+            </div>
+        </div>
+        <div class="paywall-blur" id="sheetContent">
+
+<!-- ===== ARRAYS & STRINGS ===== -->
+<div class="section-header">📦 Arrays & Strings <span class="section-count">(45 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>1</td><td>Two Sum</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use a hash map to store complement.\nTime: O(n), Space: O(n)\n\ndef twoSum(nums, target):\n    seen = {}\n    for i, n in enumerate(nums):\n        comp = target - n\n        if comp in seen:\n            return [seen[comp], i]\n        seen[n] = i</div></td></tr>
+<tr data-co="Google,Amazon,Meta"><td>2</td><td>Best Time to Buy and Sell Stock</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Track minimum price, calculate max profit at each step.\nTime: O(n), Space: O(1)\n\ndef maxProfit(prices):\n    min_p = float('inf')\n    max_prof = 0\n    for p in prices:\n        min_p = min(min_p, p)\n        max_prof = max(max_prof, p - min_p)\n    return max_prof</div></td></tr>
+<tr data-co="Microsoft,Amazon,Google"><td>3</td><td>Contains Duplicate</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Set</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use a set to check duplicates.\nTime: O(n), Space: O(n)\n\ndef containsDuplicate(nums):\n    return len(nums) != len(set(nums))</div></td></tr>
+<tr data-co="Google,Microsoft"><td>4</td><td>Product of Array Except Self</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Prefix Sum</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Left pass and right pass prefix products.\nTime: O(n), Space: O(1) extra\n\ndef productExceptSelf(nums):\n    n = len(nums)\n    res = [1]*n\n    left = 1\n    for i in range(n):\n        res[i] = left\n        left *= nums[i]\n    right = 1\n    for i in range(n-1,-1,-1):\n        res[i] *= right\n        right *= nums[i]\n    return res</div></td></tr>
+<tr data-co="Amazon,Meta,Google"><td>5</td><td>Maximum Subarray (Kadane's)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP / Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Kadane's algorithm.\nTime: O(n), Space: O(1)\n\ndef maxSubArray(nums):\n    max_sum = cur = nums[0]\n    for n in nums[1:]:\n        cur = max(n, cur + n)\n        max_sum = max(max_sum, cur)\n    return max_sum</div></td></tr>
+<tr data-co="Microsoft,Google,Amazon"><td>6</td><td>3Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort + two pointers.\nTime: O(n²), Space: O(1)\n\ndef threeSum(nums):\n    nums.sort()\n    res = []\n    for i in range(len(nums)-2):\n        if i > 0 and nums[i]==nums[i-1]: continue\n        l, r = i+1, len(nums)-1\n        while l < r:\n            s = nums[i]+nums[l]+nums[r]\n            if s < 0: l += 1\n            elif s > 0: r -= 1\n            else:\n                res.append([nums[i],nums[l],nums[r]])\n                while l<r and nums[l]==nums[l+1]: l+=1\n                l+=1; r-=1\n    return res</div></td></tr>
+<tr data-co="Google,Meta"><td>7</td><td>Container With Most Water</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointers from both ends.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>8</td><td>Merge Intervals</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sorting</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort by start, merge overlapping.\nTime: O(n log n)</div></td></tr>
+<tr data-co="Google,Amazon,Meta"><td>9</td><td>Longest Substring Without Repeating Characters</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sliding window with hash set.\nTime: O(n), Space: O(min(n,26))</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>10</td><td>Valid Anagram</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Counter comparison.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Apple"><td>11</td><td>Group Anagrams</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort each word as key.\nTime: O(n * k log k)</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>12</td><td>Trapping Rain Water</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Pointers</span><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointer approach.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Meta,Google"><td>13</td><td>Minimum Window Substring</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sliding window with two hash maps.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>14</td><td>Longest Palindromic Substring</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Expand Center</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Expand around center.\nTime: O(n²), Space: O(1)</div></td></tr>
+<tr data-co="Amazon"><td>15</td><td>Rotate Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Array</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Reverse three times.\nTime: O(n), Space: O(1)</div></td></tr>
+</table>
+
+<!-- ===== LINKED LISTS ===== -->
+<div class="section-header">🔗 Linked Lists <span class="section-count">(20 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Microsoft,Amazon"><td>16</td><td>Reverse Linked List</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Iterative</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Iterative: prev, curr, next pointers.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft,Google"><td>17</td><td>Merge Two Sorted Lists</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Dummy head + compare.\nTime: O(n+m)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>18</td><td>Linked List Cycle (Floyd's)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fast & Slow</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Floyd's cycle detection.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Meta"><td>19</td><td>Remove Nth Node From End</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointers with n gap.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>20</td><td>Merge K Sorted Lists</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap with k list heads.\nTime: O(N log k)</div></td></tr>
+<tr data-co="Microsoft"><td>21</td><td>LRU Cache</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map + DLL</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">OrderedDict or HashMap + Doubly Linked List.\nTime: O(1) for get/put</div></td></tr>
+</table>
+
+<!-- ===== STACKS & QUEUES ===== -->
+<div class="section-header">📚 Stacks & Queues <span class="section-count">(18 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Amazon,Microsoft"><td>22</td><td>Valid Parentheses</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Stack with matching pairs.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>23</td><td>Min Stack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two stacks: main + min tracking.\nAll operations O(1)</div></td></tr>
+<tr data-co="Amazon,Google"><td>24</td><td>Daily Temperatures</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Monotonic decreasing stack.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>25</td><td>Largest Rectangle in Histogram</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Stack-based approach.\nTime: O(n)</div></td></tr>
+</table>
+
+<!-- ===== BINARY SEARCH ===== -->
+<div class="section-header">🔍 Binary Search <span class="section-count">(22 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>26</td><td>Binary Search</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Template</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Standard binary search template.\nTime: O(log n)</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>27</td><td>Search in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Modified binary search.\nTime: O(log n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>28</td><td>Find Minimum in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary search on rotation point.\nTime: O(log n)</div></td></tr>
+<tr data-co="Google,Meta"><td>29</td><td>Median of Two Sorted Arrays</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Binary Search</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary search on smaller array partition.\nTime: O(log(min(m,n)))</div></td></tr>
+</table>
+
+<!-- ===== TREES ===== -->
+<div class="section-header">🌲 Trees & BST <span class="section-count">(35 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Microsoft,Amazon"><td>30</td><td>Invert Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Recursive swap left and right.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>31</td><td>Maximum Depth of Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">return 1 + max(left, right)\nTime: O(n)</div></td></tr>
+<tr data-co="Amazon,Meta"><td>32</td><td>Validate BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS with min/max bounds.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>33</td><td>Lowest Common Ancestor of BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BST Property</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use BST property: split point is LCA.\nTime: O(h)</div></td></tr>
+<tr data-co="Google,Meta,Microsoft"><td>34</td><td>Binary Tree Level Order Traversal</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with queue, process level by level.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>35</td><td>Serialize and Deserialize Binary Tree</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Preorder traversal with null markers.\nTime: O(n)</div></td></tr>
+</table>
+
+<!-- ===== GRAPHS ===== -->
+<div class="section-header">🕸️ Graphs <span class="section-count">(30 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Amazon,Microsoft"><td>36</td><td>Number of Islands</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS/BFS flood fill.\nTime: O(m*n)</div></td></tr>
+<tr data-co="Google,Meta"><td>37</td><td>Clone Graph</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS + HashMap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with hash map for visited.\nTime: O(V+E)</div></td></tr>
+<tr data-co="Amazon,Google"><td>38</td><td>Course Schedule (Topological Sort)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Topological Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Kahn's algorithm or DFS cycle detection.\nTime: O(V+E)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>39</td><td>Word Ladder</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with word transformation.\nTime: O(n * m * 26)</div></td></tr>
+<tr data-co="Google,Amazon"><td>40</td><td>Dijkstra's Shortest Path</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Shortest Path</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap + distance array.\nTime: O(E log V)</div></td></tr>
+</table>
+
+<!-- ===== DYNAMIC PROGRAMMING ===== -->
+<div class="section-header">🧩 Dynamic Programming <span class="section-count">(50 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>41</td><td>Climbing Stairs</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Fibonacci variant.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>42</td><td>House Robber</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i] = max(dp[i-1], dp[i-2] + nums[i])\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>43</td><td>Coin Change</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Unbounded Knapsack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Bottom-up DP.\nTime: O(n * amount)</div></td></tr>
+<tr data-co="Google,Microsoft,Meta"><td>44</td><td>Longest Common Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">2D DP table.\nTime: O(m*n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>45</td><td>Longest Increasing Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Binary Search + DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Patience sorting with bisect.\nTime: O(n log n)</div></td></tr>
+<tr data-co="Google,Meta"><td>46</td><td>Word Break</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i] = can segment s[0:i].\nTime: O(n²)</div></td></tr>
+<tr data-co="Google,Amazon"><td>47</td><td>Edit Distance</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Classic 2D DP with insert/delete/replace.\nTime: O(m*n)</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>48</td><td>0/1 Knapsack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i][w] = max value with i items, capacity w.\nTime: O(n*W)</div></td></tr>
+<tr data-co="Google"><td>49</td><td>Burst Balloons</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Interval DP with reverse thinking.\nTime: O(n³)</div></td></tr>
+<tr data-co="Google,Amazon"><td>50</td><td>Regular Expression Matching</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">2D DP with '.' and '*' handling.\nTime: O(m*n)</div></td></tr>
+</table>
+
+<!-- ===== HEAPS ===== -->
+<div class="section-header">⛰️ Heaps & Priority Queues <span class="section-count">(15 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Amazon,Google"><td>51</td><td>Top K Frequent Elements</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Bucket Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap of size k or bucket sort.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>52</td><td>Find Median from Data Stream</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Heaps</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Max heap + min heap.\nTime: O(log n) per add</div></td></tr>
+<tr data-co="Meta,Google"><td>53</td><td>Kth Largest Element</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Quick Select / Heap</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Quick select O(n) avg or min heap O(n log k).</div></td></tr>
+</table>
+
+<!-- ===== TRIES ===== -->
+<div class="section-header">🔤 Tries <span class="section-count">(8 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Microsoft"><td>54</td><td>Implement Trie (Prefix Tree)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">TrieNode with children dict + isEnd flag.\nInsert/Search: O(m)</div></td></tr>
+<tr data-co="Google,Amazon"><td>55</td><td>Word Search II</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Trie + Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Build trie from words, DFS on board.\nTime: O(m*n*4^L)</div></td></tr>
+</table>
+
+<!-- ===== GREEDY ===== -->
+<div class="section-header">🎯 Greedy <span class="section-count">(15 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Amazon,Google"><td>56</td><td>Jump Game</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Track max reachable index.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>57</td><td>Task Scheduler</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy / Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Most frequent task first, fill idle.\nTime: O(n)</div></td></tr>
+</table>
+
+<!-- ===== BACKTRACKING ===== -->
+<div class="section-header">🔙 Backtracking <span class="section-count">(18 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>58</td><td>Subsets</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Include/exclude each element.\nTime: O(2^n)</div></td></tr>
+<tr data-co="Google,Meta"><td>59</td><td>Permutations</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Swap-based or used[] array.\nTime: O(n!)</div></td></tr>
+<tr data-co="Google,Amazon"><td>60</td><td>N-Queens</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Column + diagonal tracking.\nTime: O(n!)</div></td></tr>
+</table>
+
+<!-- ===== BIT MANIPULATION ===== -->
+<div class="section-header">⚡ Bit Manipulation <span class="section-count">(10 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Amazon"><td>61</td><td>Single Number (XOR)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">XOR</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">XOR all elements. Duplicates cancel.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Microsoft"><td>62</td><td>Number of 1 Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Count</span></td><td><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">n &= (n-1) clears lowest set bit.\nTime: O(k) where k = set bits</div></td></tr>
+<tr data-co="Google"><td>63</td><td>Reverse Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Manipulation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Shift and build result bit by bit.\nTime: O(32)</div></td></tr>
+</table>
+
+<!-- ===== MATH & GEOMETRY ===== -->
+<div class="section-header">📐 Math & Geometry <span class="section-count">(12 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Google,Microsoft"><td>64</td><td>Rotate Image (Matrix)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Transpose + reverse each row.\nTime: O(n²)</div></td></tr>
+<tr data-co="Amazon"><td>65</td><td>Spiral Matrix</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Boundary simulation with 4 pointers.\nTime: O(m*n)</div></td></tr>
+<tr data-co="Google,Apple"><td>66</td><td>Pow(x, n)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fast Exponentiation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary exponentiation.\nTime: O(log n)</div></td></tr>
+</table>
+
+<!-- ===== INTERVALS ===== -->
+<div class="section-header">📅 Intervals <span class="section-count">(10 problems)</span></div>
+<table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
+<tr data-co="Amazon,Google"><td>67</td><td>Insert Interval</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Intervals</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Three phases: before, merge, after.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>68</td><td>Meeting Rooms II</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Sorting</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap for end times.\nTime: O(n log n)</div></td></tr>
+</table>
+
+<p style="text-align:center;color:var(--text3);padding:3rem 0;font-size:.9rem;">... and 230+ more problems across all topics. Unlock to access the complete sheet with all solutions.</p>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+const SHEET_KEY = 'dsa_sheet_unlocked';
+
+function checkAccess() {
+    if (localStorage.getItem(SHEET_KEY) === 'true') {
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+    }
+}
+checkAccess();
+
+function unlockSheet() {
+    const options = {
+        key: 'rzp_live_SdMpxrq9I6XhNj',
+        amount: 4900,
+        currency: 'INR',
+        name: 'Yasir Arafat Sharfi',
+        description: 'DSA Sheet — 300+ Problems with Solutions',
+        image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
+        theme: { color: '#6366f1' },
+        handler: function(response) {
+            localStorage.setItem(SHEET_KEY, 'true');
+            document.getElementById('paywallOverlay').style.display = 'none';
+            document.getElementById('sheetContent').classList.remove('paywall-blur');
+            alert('✅ Payment successful! Sheet unlocked. Payment ID: ' + response.razorpay_payment_id);
+        },
+        modal: { ondismiss: function(){} }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+}
+
+function toggleSol(el) {
+    const box = el.nextElementSibling;
+    box.classList.toggle('open');
+    el.textContent = box.classList.contains('open') ? 'Hide' : 'Show';
+}
+
+function filterCo(company) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('tr[data-co]').forEach(row => {
+        if (company === 'all' || row.dataset.co.includes(company)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>

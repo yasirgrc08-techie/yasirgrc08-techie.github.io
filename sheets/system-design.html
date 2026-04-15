@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20+ System Design Problems — HLD + LLD | Yasir Arafat Sharfi</title>
+<meta name="description" content="20+ System Design problems (HLD + LLD) with diagrams and solutions, company-tagged for Google, Microsoft, Amazon, Meta & more.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--accent-l);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.header{text-align:center;padding:3rem 0 2rem}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:.85rem;margin-bottom:1.5rem}
+.back-link:hover{color:var(--text)}
+h1{font-size:2.5rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 1rem}
+.stats-bar{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1.5rem 0}
+.stat{text-align:center}
+.stat .n{font-size:1.5rem;font-weight:800}
+.stat .l{font-size:.75rem;color:var(--text3)}
+.type-toggle{display:flex;gap:.5rem;justify-content:center;margin:1.5rem 0}
+.type-btn{padding:8px 20px;border-radius:100px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:.85rem;font-weight:600;cursor:pointer;transition:all var(--tr);font-family:'Inter',sans-serif}
+.type-btn:hover,.type-btn.active{border-color:var(--accent);background:rgba(99,102,241,.12);color:var(--accent-l)}
+.paywall{position:relative}
+.paywall-blur{filter:blur(6px);pointer-events:none;user-select:none}
+.paywall-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;background:rgba(10,10,15,0.6);backdrop-filter:blur(2px);border-radius:var(--r)}
+.paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
+.paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
+.paywall-price{font-size:2.5rem;font-weight:900;margin-bottom:.25rem}
+.paywall-original{color:var(--text3);text-decoration:line-through;font-size:1rem;margin-bottom:1.5rem}
+.paywall-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all var(--tr)}
+.paywall-btn:hover{background:var(--accent-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,.3)}
+.paywall-features{list-style:none;text-align:left;margin:1rem 0 1.5rem;font-size:.85rem;color:var(--text2)}
+.paywall-features li{padding:4px 0}
+.paywall-features li::before{content:'✓';color:var(--green);font-weight:700;margin-right:8px}
+
+/* Cards */
+.sd-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:2rem}
+.sd-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all var(--tr)}
+.sd-card:hover{border-color:var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.sd-header{padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem;cursor:pointer}
+.sd-num{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0}
+.sd-hld .sd-num{background:rgba(236,72,153,.12);color:var(--pink)}
+.sd-lld .sd-num{background:rgba(6,182,212,.12);color:var(--cyan)}
+.sd-title{font-size:1.1rem;font-weight:700;flex:1}
+.sd-tags{display:flex;gap:4px;flex-wrap:wrap}
+.sd-tag{font-size:.65rem;padding:2px 8px;border-radius:4px;font-weight:600}
+.co-google{background:rgba(59,130,246,.1);color:#3b82f6}
+.co-microsoft{background:rgba(99,102,241,.1);color:var(--accent-l)}
+.co-amazon{background:rgba(245,158,11,.1);color:var(--orange)}
+.co-meta{background:rgba(236,72,153,.1);color:var(--pink)}
+.co-apple{background:rgba(156,163,175,.1);color:#9ca3af}
+.co-netflix{background:rgba(239,68,68,.1);color:var(--red)}
+.sd-type-badge{font-size:.7rem;padding:3px 10px;border-radius:100px;font-weight:600}
+.badge-hld{background:rgba(236,72,153,.12);color:var(--pink);border:1px solid rgba(236,72,153,.25)}
+.badge-lld{background:rgba(6,182,212,.12);color:var(--cyan);border:1px solid rgba(6,182,212,.25)}
+.sd-arrow{font-size:1.2rem;color:var(--text3);transition:transform var(--tr)}
+.sd-card.open .sd-arrow{transform:rotate(90deg)}
+.sd-body{display:none;padding:0 2rem 2rem;border-top:1px solid var(--border)}
+.sd-card.open .sd-body{display:block}
+.sd-section{margin-top:1.25rem}
+.sd-section h4{font-size:.85rem;color:var(--accent-l);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.sd-section p,.sd-section li{font-size:.9rem;color:var(--text2);line-height:1.7}
+.sd-section ul{margin-left:1.2rem}
+.sd-section li{margin-bottom:.3rem}
+.sd-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin:.75rem 0;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text2);white-space:pre;overflow-x:auto;line-height:1.5}
+.sd-key-points{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+.sd-kp{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem;font-size:.82rem}
+.sd-kp strong{color:var(--text);display:block;margin-bottom:2px;font-size:.78rem}
+@media(max-width:768px){h1{font-size:1.8rem}.sd-key-points{grid-template-columns:1fr}.sd-header{padding:1rem}.container{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a href="../" class="back-link">&larr; Back to Portfolio</a>
+        <h1>🏛️ <span>System Design Sheet</span></h1>
+        <p class="subtitle">HLD + LLD problems with architecture diagrams, solutions, and company tags. From my prep for 13+ companies.</p>
+        <div class="stats-bar">
+            <div class="stat"><div class="n">20+</div><div class="l">Problems</div></div>
+            <div class="stat"><div class="n">HLD</div><div class="l">High-Level</div></div>
+            <div class="stat"><div class="n">LLD</div><div class="l">Low-Level</div></div>
+            <div class="stat"><div class="n">✓</div><div class="l">Diagrams</div></div>
+        </div>
+        <div class="type-toggle">
+            <button class="type-btn active" onclick="filterType('all')">All</button>
+            <button class="type-btn" onclick="filterType('hld')">HLD</button>
+            <button class="type-btn" onclick="filterType('lld')">LLD</button>
+        </div>
+    </div>
+
+    <div class="paywall" id="paywallSection">
+        <div class="paywall-overlay" id="paywallOverlay">
+            <div class="paywall-card">
+                <h3>🔒 Unlock System Design Sheet</h3>
+                <p>Get instant access to 20+ HLD/LLD problems with architecture diagrams, solutions, and interview strategies.</p>
+                <ul class="paywall-features">
+                    <li>20+ problems (HLD + LLD)</li>
+                    <li>ASCII architecture diagrams</li>
+                    <li>Company-tagged (Google, Microsoft, Amazon...)</li>
+                    <li>Key decisions & trade-offs</li>
+                    <li>Lifetime access</li>
+                </ul>
+                <div class="paywall-price">₹49</div>
+                <div class="paywall-original">₹499</div>
+                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+            </div>
+        </div>
+        <div class="paywall-blur" id="sheetContent">
+            <div class="sd-grid">
+
+<!-- HLD 1: URL Shortener -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">1</div>
+        <div class="sd-title">URL Shortener (TinyURL)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a URL shortening service like TinyURL/bit.ly that converts long URLs to short ones and redirects.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Client → Load Balancer → API Servers → Cache (Redis)
+                                         ↓
+                                    Database (NoSQL)
+                                         ↓
+                               Analytics Service → Dashboard
+
+Key Components:
+• Base62 encoding for short URL generation
+• Consistent hashing for DB sharding
+• Redis cache for hot URLs (80/20 rule)
+• TTL-based expiration
+• Analytics pipeline for click tracking</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Encoding</strong>Base62 (a-z, A-Z, 0-9) → 6 chars = 56B URLs</div>
+                <div class="sd-kp"><strong>Database</strong>NoSQL (DynamoDB/Cassandra) for write-heavy workload</div>
+                <div class="sd-kp"><strong>Caching</strong>Redis with LRU eviction, 80% hit rate</div>
+                <div class="sd-kp"><strong>Scale</strong>100M URLs/day, 10:1 read-write ratio</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 2: Twitter/X -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">2</div>
+        <div class="sd-title">Twitter / X (Social Feed)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a social media platform with tweets, follows, news feed, and real-time updates.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">                    ┌── Tweet Service ──→ Tweet DB
+Client → LB → API ─┼── User Service  ──→ User DB
+                    ├── Feed Service  ──→ Feed Cache (Redis)
+                    ├── Search Service ─→ Elasticsearch
+                    └── Notification   ─→ Push/WebSocket
+
+Fan-out approaches:
+• Fan-out on write (push) for users with < 1000 followers
+• Fan-out on read (pull) for celebrities (> 100K followers)
+• Hybrid approach for optimal performance</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Feed Generation</strong>Hybrid fan-out (push for normal, pull for celebrities)</div>
+                <div class="sd-kp"><strong>Storage</strong>Tweet DB (sharded by userID) + media in S3/CDN</div>
+                <div class="sd-kp"><strong>Real-time</strong>WebSocket for live updates, Kafka for async</div>
+                <div class="sd-kp"><strong>Scale</strong>500M users, 600K tweets/sec read</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 3: WhatsApp -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">3</div>
+        <div class="sd-title">WhatsApp / Chat System</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a real-time messaging system with 1:1 chat, group chat, read receipts, and media sharing.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Client ←WebSocket→ Chat Server ──→ Message Queue (Kafka)
+                                          ↓
+                                    Message DB (Cassandra)
+                                          ↓
+                              Push Notification Service
+                              
+• WebSocket for real-time bidirectional
+• Kafka for async delivery guarantee
+• Cassandra for write-heavy message storage
+• E2E encryption at client level</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 4: Netflix -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">4</div>
+        <div class="sd-title">Netflix / YouTube (Video Streaming)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-netflix">Netflix</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a video streaming service with upload, transcoding, CDN delivery, and recommendations.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Upload → Transcoding Pipeline → Object Storage (S3)
+                                      ↓
+                              CDN (CloudFront) → Client
+                              
+Playback: Client → CDN Edge → Origin
+Recommendation: User Activity → ML Pipeline → Personalized Feed
+
+• Adaptive bitrate streaming (HLS/DASH)
+• Multi-resolution transcoding (480p, 720p, 1080p, 4K)
+• Global CDN with edge caching
+• Recommendation engine (collaborative filtering)</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 5: Uber -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">5</div>
+        <div class="sd-title">Uber / Ride Sharing</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a ride-sharing platform with real-time matching, GPS tracking, surge pricing, and payments.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Driver App ──→ Location Service (QuadTree/Geohash)
+Rider App  ──→ Matching Service ──→ Trip Service
+                    ↓                    ↓
+              Pricing Engine      Payment Service
+              (Surge/Dynamic)     (Razorpay/Stripe)
+
+• QuadTree / S2 Geometry for spatial indexing
+• WebSocket for real-time location updates
+• Kafka for event streaming
+• Dynamic pricing based on demand/supply ratio</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 6: Google Drive -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">6</div>
+        <div class="sd-title">Google Drive / Dropbox</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a cloud file storage with sync, versioning, sharing, and real-time collaboration.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Client → Block Server → Object Storage (S3)
+  ↕                        ↓
+Sync Service ← Meta DB (file tree, versions)
+  ↕
+Notification Service → Other Clients
+
+• Chunked upload with dedup (block-level)
+• Delta sync (only changed blocks)
+• Metadata DB for file hierarchy
+• Conflict resolution (last-write-wins or merge)</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 7: Rate Limiter -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">7</div>
+        <div class="sd-title">Rate Limiter</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a distributed rate limiter to throttle API requests per user/IP.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Client → API Gateway (Rate Limiter) → Backend
+                    ↓
+              Redis (Counters)
+
+Algorithms:
+• Token Bucket — steady rate with burst
+• Sliding Window Log — precise but memory heavy  
+• Sliding Window Counter — good balance
+• Fixed Window — simple but edge spikes</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 8: Notification System -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">8</div>
+        <div class="sd-title">Notification System</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-apple">Apple</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a scalable notification service supporting push, SMS, email, and in-app notifications.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Event Source → Kafka → Notification Service
+                              ↓
+                    ┌── Push (APNs/FCM)
+                    ├── Email (SES/SendGrid)
+                    ├── SMS (Twilio)
+                    └── In-App (WebSocket)
+                    
+• Priority queue for urgent vs batch
+• User preferences for channel selection
+• Rate limiting per user
+• Template engine for consistent formatting</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 9: Search Engine -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">9</div>
+        <div class="sd-title">Search Autocomplete / Typeahead</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a real-time search autocomplete system with trending queries and personalization.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">User Input → API → Trie Service (in-memory)
+                          ↓
+                  Aggregation Service → Analytics DB
+                  
+• Trie data structure for prefix matching
+• Top-K results per prefix node
+• Periodic rebuild from query logs
+• Edge caching for popular prefixes</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 10: Instagram -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">10</div>
+        <div class="sd-title">Instagram (Photo Sharing)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a photo/video sharing platform with feed, stories, likes, comments, and explore.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Upload → Image Processing → CDN + S3
+Feed → Pre-computed feed per user (Redis)
+Explore → ML Recommendation Engine
+• Sharded by userID
+• CDN for media delivery
+• Async processing for filters/thumbnails</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 1: Parking Lot -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">11</div>
+        <div class="sd-title">Parking Lot System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a multi-floor parking lot with entry/exit, ticket, billing, and vehicle type support.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">ParkingLot
+├── floors: List[ParkingFloor]
+├── entry_panels: List[EntryPanel]
+├── exit_panels: List[ExitPanel]
+└── display_boards: List[DisplayBoard]
+
+ParkingFloor
+├── spots: Dict[SpotType, List[ParkingSpot]]
+└── display_board: DisplayBoard
+
+ParkingSpot (Abstract)
+├── CompactSpot
+├── LargeSpot
+├── HandicappedSpot
+└── MotorcycleSpot
+
+Vehicle → Ticket → Payment
+• Strategy pattern for pricing
+• Observer pattern for display board updates
+• Factory pattern for spot allocation</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 2: Elevator -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">12</div>
+        <div class="sd-title">Elevator System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-microsoft">Microsoft</span><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design an elevator system with multiple elevators, optimal dispatching, and SCAN algorithm.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">ElevatorSystem
+├── elevators: List[Elevator]
+├── dispatcher: Dispatcher (Strategy)
+└── building: Building
+
+Elevator
+├── current_floor: int
+├── direction: Direction (UP/DOWN/IDLE)
+├── requests: PriorityQueue
+└── state: State (MOVING/STOPPED/MAINTENANCE)
+
+Dispatcher (Strategy Pattern)
+├── NearestElevator
+├── SCANAlgorithm  
+└── ZoneBasedDispatch
+
+• SCAN (elevator) algorithm for direction-based
+• State pattern for elevator states
+• Command pattern for button requests</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 3: LRU Cache -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">13</div>
+        <div class="sd-title">LRU Cache</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a Least Recently Used cache with O(1) get and put operations.</p></div>
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">HashMap + Doubly Linked List
+
+HashMap: key → Node (O(1) lookup)
+DLL: maintains access order (O(1) insert/remove)
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = {}
+        self.capacity = capacity
+        self.head = Node(0,0)
+        self.tail = Node(0,0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def get(self, key):  # O(1)
+        if key in self.cache:
+            node = self.cache[key]
+            self._remove(node)
+            self._add(node)
+            return node.val
+        return -1
+
+    def put(self, key, val):  # O(1)
+        if key in self.cache:
+            self._remove(self.cache[key])
+        node = Node(key, val)
+        self._add(node)
+        self.cache[key] = node
+        if len(self.cache) > self.capacity:
+            lru = self.head.next
+            self._remove(lru)
+            del self.cache[lru.key]</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 4: Book My Show -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">14</div>
+        <div class="sd-title">Movie Ticket Booking (BookMyShow)</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a movie ticket booking system with seat selection, concurrency, and payment.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">Theater → Screen → Show → Seat
+User → Booking → Payment
+
+• Pessimistic locking for seat reservation (5 min hold)
+• Observer pattern for seat availability updates
+• Strategy pattern for pricing (weekday/weekend/premium)</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 5: Tic Tac Toe -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">15</div>
+        <div class="sd-title">Tic-Tac-Toe</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">Board (n x n) → Player1, Player2
+Game manages turns, win check, draw
+
+Win check: O(1) using row/col/diag counters
+• Extensible for n x n board
+• Strategy pattern for AI player
+• Command pattern for undo support</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 6: Library Management -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">16</div>
+        <div class="sd-title">Library Management System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-microsoft">Microsoft</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">Library → Catalog → BookItem
+Member → BookReservation → BookLending
+Fine calculation based on return date
+
+• Singleton for Library
+• Observer for availability notifications
+• Strategy for fine calculation</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 11: Payment System -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">17</div>
+        <div class="sd-title">Payment System (Razorpay/Stripe)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Merchant → Payment Gateway → PSP (Processor)
+                              ↓
+                    Payment DB (idempotency keys)
+                              ↓
+                    Ledger Service (double-entry)
+                    
+• Idempotency for dedup
+• Saga pattern for distributed transactions
+• Reconciliation service for consistency
+• PCI-DSS compliance at every layer</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 12: E-commerce -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">18</div>
+        <div class="sd-title">E-Commerce Platform (Amazon)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Product Catalog → Search (Elasticsearch)
+Cart Service → Order Service → Payment
+Inventory → Warehouse → Delivery Tracking
+Recommendation Engine → Personalized Feed
+
+• Microservices architecture
+• Event-driven with Kafka
+• CQRS for product catalog
+• Distributed caching (Redis)</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 7: Snake & Ladder -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">19</div>
+        <div class="sd-title">Snake & Ladder Game</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">Board (100 cells) → Snakes + Ladders
+Players queue → Dice → Move → Check win
+
+• Board with HashMap[position → destination]
+• Queue for player turns
+• Observer for game events</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 8: Chess -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">20</div>
+        <div class="sd-title">Chess Game</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">Board (8x8) → Piece (Abstract)
+├── King, Queen, Rook, Bishop, Knight, Pawn
+Each piece: canMove(from, to, board) → bool
+
+Game: manages turns, check/checkmate detection
+• Strategy pattern per piece type
+• Command pattern for move history + undo
+• Observer for check/checkmate alerts</div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 13: Web Crawler -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">21</div>
+        <div class="sd-title">Web Crawler</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">Seed URLs → URL Frontier (Priority Queue)
+    ↓
+Fetcher (multi-threaded) → HTML Parser
+    ↓
+URL Extractor → Dedup (Bloom Filter) → Frontier
+    ↓
+Content Store → Indexer
+
+• Politeness: robots.txt, rate limiting per domain
+• Bloom filter for URL dedup
+• BFS for broad crawling, DFS for deep
+• Consistent hashing for distributed crawling</div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 9: Vending Machine -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">22</div>
+        <div class="sd-title">Vending Machine</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">States: Idle → HasMoney → Dispensing → Error
+• State pattern for machine states
+• Inventory tracking per slot
+• Change calculation (greedy)
+• Singleton for machine instance</div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+const SHEET_KEY = 'sd_sheet_unlocked';
+
+function checkAccess() {
+    if (localStorage.getItem(SHEET_KEY) === 'true') {
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+    }
+}
+checkAccess();
+
+function unlockSheet() {
+    const options = {
+        key: 'rzp_live_SdMpxrq9I6XhNj',
+        amount: 4900,
+        currency: 'INR',
+        name: 'Yasir Arafat Sharfi',
+        description: 'System Design Sheet — 20+ HLD/LLD with Diagrams',
+        image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
+        theme: { color: '#6366f1' },
+        handler: function(response) {
+            localStorage.setItem(SHEET_KEY, 'true');
+            document.getElementById('paywallOverlay').style.display = 'none';
+            document.getElementById('sheetContent').classList.remove('paywall-blur');
+            alert('✅ Payment successful! Sheet unlocked. Payment ID: ' + response.razorpay_payment_id);
+        },
+        modal: { ondismiss: function(){} }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+}
+
+function filterType(type) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.sd-card').forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>
