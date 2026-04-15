@@ -212,10 +212,12 @@
         .hero-action-card.card-hire::before { background: var(--cyan); }
         .hero-action-card.card-dsa::before { background: var(--orange); }
         .hero-action-card.card-sd::before { background: var(--pink); }
+        .hero-action-card.card-beh::before { background: var(--green); }
         .hero-action-card .card-icon { font-size: 2rem; flex-shrink: 0; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
         .card-hire .card-icon { background: rgba(6,182,212,0.12); }
         .card-dsa .card-icon { background: rgba(245,158,11,0.12); }
         .card-sd .card-icon { background: rgba(236,72,153,0.12); }
+        .card-beh .card-icon { background: rgba(34,197,94,0.12); }
         .hero-action-card .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 2px; }
         .hero-action-card .card-desc { font-size: .8rem; color: var(--text-3); }
         .hero-action-card .card-arrow { margin-left: auto; font-size: 1.2rem; color: var(--text-3); transition: transform var(--tr), color var(--tr); }
@@ -224,6 +226,7 @@
         .hero-cards .hero-action-card:nth-child(1) { animation: card-slide-in 0.6s ease both; animation-delay: 0.3s; }
         .hero-cards .hero-action-card:nth-child(2) { animation: card-slide-in 0.6s ease both; animation-delay: 0.5s; }
         .hero-cards .hero-action-card:nth-child(3) { animation: card-slide-in 0.6s ease both; animation-delay: 0.7s; }
+        .hero-cards .hero-action-card:nth-child(4) { animation: card-slide-in 0.6s ease both; animation-delay: 0.9s; }
 
         /* === Company Logos Marquee === */
         .marquee-wrap { padding: 3.5rem 0; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
@@ -627,6 +630,14 @@
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
+            <a href="sheets/behavioral.html" class="hero-action-card card-beh">
+                <div class="card-icon">🗣️</div>
+                <div>
+                    <div class="card-title">Behavioral Prep — ₹49</div>
+                    <div class="card-desc">STAR stories · Amazon LPs · 50+ questions</div>
+                </div>
+                <span class="card-arrow">&rarr;</span>
+            </a>
         </div>
     </div>
 </section>
@@ -916,6 +927,37 @@
                 <span class="original">&#8377;200</span>
             </div>
             <a href="#" onclick="openBooking('referral','Resume Review + Microsoft Referral',50,0);return false;" class="session-btn">Submit Resume &rarr;</a>
+        </div>
+        <div class="session-card popular">
+            <div class="session-icon">🏛️</div>
+            <div class="session-name">Mock System Design Interview (VC)</div>
+            <div class="session-type">HLD + LLD Mock &middot; Real-time Feedback &middot; 60 mins</div>
+            <div class="session-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</div>
+            <div class="session-price">
+                <span class="current">&#8377;700</span>
+                <span class="original">&#8377;2,000</span>
+            </div>
+            <a href="#" onclick="openBooking('sd_mock','Mock System Design Interview (VC)',700,60);return false;" class="session-btn">Book Now &rarr;</a>
+        </div>
+        <div class="session-card">
+            <div class="session-icon">📋</div>
+            <div class="session-name">Personalized 90-Day Study Plan</div>
+            <div class="session-type">Custom Plan &middot; Target Company + Level &middot; PDF via Email</div>
+            <div class="session-price">
+                <span class="current">&#8377;149</span>
+                <span class="original">&#8377;500</span>
+            </div>
+            <a href="#" onclick="openBooking('studyplan','Personalized 90-Day Study Plan',149,0);return false;" class="session-btn">Get Plan &rarr;</a>
+        </div>
+        <div class="session-card">
+            <div class="session-icon">🎯</div>
+            <div class="session-name">Company-Specific Interview Roadmap</div>
+            <div class="session-type">"How to Crack Microsoft/Google/Amazon" &middot; Tailored to Your Level</div>
+            <div class="session-price">
+                <span class="current">&#8377;99</span>
+                <span class="original">&#8377;400</span>
+            </div>
+            <a href="#" onclick="openBooking('roadmap','Company-Specific Interview Roadmap',99,0);return false;" class="session-btn">Get Roadmap &rarr;</a>
         </div>
     </div>
 </section>

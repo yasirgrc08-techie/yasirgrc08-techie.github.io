@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavioral Interview Prep — STAR Stories + Amazon LPs | Yasir Arafat Sharfi</title>
+<meta name="description" content="50+ behavioral interview questions with STAR frameworks, Amazon Leadership Principles guide, company-tagged for FAANG.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--accent-l);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.header{text-align:center;padding:3rem 0 2rem}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:.85rem;margin-bottom:1.5rem}
+.back-link:hover{color:var(--text)}
+h1{font-size:2.5rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 1rem}
+.stats-bar{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1.5rem 0}
+.stat{text-align:center}
+.stat .n{font-size:1.5rem;font-weight:800}
+.stat .l{font-size:.75rem;color:var(--text3)}
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin:1.5rem 0}
+.filter-btn{padding:6px 16px;border-radius:100px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:.8rem;font-weight:500;cursor:pointer;transition:all var(--tr);font-family:'Inter',sans-serif}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);background:rgba(99,102,241,.12);color:var(--accent-l)}
+
+.paywall{position:relative}
+.paywall-blur{filter:blur(6px);pointer-events:none;user-select:none}
+.paywall-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;background:rgba(10,10,15,0.6);backdrop-filter:blur(2px);border-radius:var(--r)}
+.paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
+.paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
+.paywall-price{font-size:2.5rem;font-weight:900;margin-bottom:.25rem}
+.paywall-original{color:var(--text3);text-decoration:line-through;font-size:1rem;margin-bottom:1.5rem}
+.paywall-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all var(--tr)}
+.paywall-btn:hover{background:var(--accent-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,.3)}
+.paywall-features{list-style:none;text-align:left;margin:1rem 0 1.5rem;font-size:.85rem;color:var(--text2)}
+.paywall-features li{padding:4px 0}
+.paywall-features li::before{content:'✓';color:var(--green);font-weight:700;margin-right:8px}
+
+.section-header{padding:1rem 0 .5rem;margin-top:2rem;border-bottom:2px solid var(--green);font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.section-count{font-size:.75rem;color:var(--text3);font-weight:500}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-top:1rem;cursor:pointer;transition:all var(--tr)}
+.q-card:hover{border-color:var(--accent);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.q-header{display:flex;align-items:center;gap:1rem}
+.q-num{width:32px;height:32px;border-radius:8px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.q-title{font-weight:600;font-size:.95rem;flex:1}
+.q-tags{display:flex;gap:4px;flex-wrap:wrap}
+.q-tag{font-size:.65rem;padding:2px 8px;border-radius:4px;font-weight:600}
+.q-arrow{font-size:1rem;color:var(--text3);transition:transform var(--tr)}
+.q-card.open .q-arrow{transform:rotate(90deg)}
+.q-body{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.q-card.open .q-body{display:block}
+.star-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin:.75rem 0}
+.star-label{font-size:.75rem;font-weight:700;color:var(--accent-l);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem}
+.star-text{font-size:.88rem;color:var(--text2);line-height:1.7}
+.tips-box{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:1rem;margin-top:.75rem}
+.tips-box h5{font-size:.8rem;color:var(--green);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+.tips-box p{font-size:.85rem;color:var(--text2)}
+.co-google{background:rgba(59,130,246,.1);color:#3b82f6}
+.co-microsoft{background:rgba(99,102,241,.1);color:var(--accent-l)}
+.co-amazon{background:rgba(245,158,11,.1);color:var(--orange)}
+.co-meta{background:rgba(236,72,153,.1);color:var(--pink)}
+.co-apple{background:rgba(156,163,175,.1);color:#9ca3af}
+.theme-tag{font-size:.65rem;padding:2px 8px;border-radius:4px;background:rgba(34,197,94,.1);color:var(--green);font-weight:600}
+.lp-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-top:.75rem}
+.lp-name{font-weight:700;font-size:.95rem;color:var(--orange);margin-bottom:.3rem}
+.lp-desc{font-size:.85rem;color:var(--text2)}
+@media(max-width:768px){h1{font-size:1.8rem}.container{padding:1rem}.q-header{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a href="../" class="back-link">&larr; Back to Portfolio</a>
+        <h1>🗣️ <span>Behavioral Interview Prep</span></h1>
+        <p class="subtitle">STAR stories, Amazon Leadership Principles, and 50+ questions with frameworks. The round most people underestimate.</p>
+        <div class="stats-bar">
+            <div class="stat"><div class="n">50+</div><div class="l">Questions</div></div>
+            <div class="stat"><div class="n">STAR</div><div class="l">Framework</div></div>
+            <div class="stat"><div class="n">16</div><div class="l">Amazon LPs</div></div>
+            <div class="stat"><div class="n">✓</div><div class="l">Sample Answers</div></div>
+        </div>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterTheme('all')">All</button>
+            <button class="filter-btn" onclick="filterTheme('Leadership')">Leadership</button>
+            <button class="filter-btn" onclick="filterTheme('Conflict')">Conflict</button>
+            <button class="filter-btn" onclick="filterTheme('Failure')">Failure</button>
+            <button class="filter-btn" onclick="filterTheme('Teamwork')">Teamwork</button>
+            <button class="filter-btn" onclick="filterTheme('Innovation')">Innovation</button>
+            <button class="filter-btn" onclick="filterTheme('Ownership')">Ownership</button>
+        </div>
+    </div>
+
+    <div class="paywall" id="paywallSection">
+        <div class="paywall-overlay" id="paywallOverlay">
+            <div class="paywall-card">
+                <h3>🔒 Unlock Behavioral Prep Pack</h3>
+                <p>Master the round that most strong coders fail. STAR frameworks, Amazon LPs, and sample answers.</p>
+                <ul class="paywall-features">
+                    <li>50+ behavioral questions with frameworks</li>
+                    <li>STAR story templates for every theme</li>
+                    <li>All 16 Amazon Leadership Principles explained</li>
+                    <li>Company-specific tips (Google, Microsoft, Amazon, Meta)</li>
+                    <li>Lifetime access with access code</li>
+                </ul>
+                <div class="paywall-price">₹49</div>
+                <div class="paywall-original">₹499</div>
+                <div style="margin-bottom:1rem;">
+                    <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
+                </div>
+                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+                <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
+                    <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
+                    <div style="display:flex;gap:.5rem;">
+                        <input type="text" id="accessCodeInput" placeholder="Enter access code" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.85rem;font-family:Inter,sans-serif;">
+                        <button onclick="redeemCode()" style="padding:8px 16px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;font-family:Inter,sans-serif;">Redeem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="paywall-blur" id="sheetContent">
+
+<!-- STAR FRAMEWORK -->
+<div class="section-header">⭐ The STAR Framework <span class="section-count">(Master this first)</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+    <div class="star-box"><div class="star-label">S — Situation</div><div class="star-text">Set the context. Where were you? What was the project? Keep it to 2-3 sentences.</div></div>
+    <div class="star-box"><div class="star-label">T — Task</div><div class="star-text">What was your specific responsibility? What was expected of you?</div></div>
+    <div class="star-box"><div class="star-label">A — Action</div><div class="star-text">What did YOU do? Use "I" not "we". This is 60% of your answer. Be specific.</div></div>
+    <div class="star-box"><div class="star-label">R — Result</div><div class="star-text">What was the outcome? Use numbers. "Reduced latency by 40%", "Saved 2 hours/week".</div></div>
+</div>
+<div class="tips-box" style="margin-top:1rem;">
+    <h5>Pro Tips</h5>
+    <p>Keep each story to 2-3 minutes. Prepare 10-15 stories covering all themes. Practice aloud. Record yourself and review.</p>
+</div>
+
+<!-- AMAZON LPs -->
+<div class="section-header">📋 Amazon Leadership Principles <span class="section-count">(16 LPs)</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem;">
+    <div class="lp-card"><div class="lp-name">1. Customer Obsession</div><div class="lp-desc">Start with the customer and work backwards. Earn and keep customer trust.</div></div>
+    <div class="lp-card"><div class="lp-name">2. Ownership</div><div class="lp-desc">Think long term. Act on behalf of the entire company. Never say "that's not my job."</div></div>
+    <div class="lp-card"><div class="lp-name">3. Invent and Simplify</div><div class="lp-desc">Seek new ideas from everywhere. Find ways to simplify.</div></div>
+    <div class="lp-card"><div class="lp-name">4. Are Right, A Lot</div><div class="lp-desc">Strong judgment and good instincts. Seek diverse perspectives.</div></div>
+    <div class="lp-card"><div class="lp-name">5. Learn and Be Curious</div><div class="lp-desc">Never done learning. Always seek to improve yourself.</div></div>
+    <div class="lp-card"><div class="lp-name">6. Hire and Develop the Best</div><div class="lp-desc">Raise the performance bar. Develop leaders.</div></div>
+    <div class="lp-card"><div class="lp-name">7. Insist on Highest Standards</div><div class="lp-desc">Continually raise the bar. Drive quality.</div></div>
+    <div class="lp-card"><div class="lp-name">8. Think Big</div><div class="lp-desc">Create and communicate a bold direction that inspires results.</div></div>
+    <div class="lp-card"><div class="lp-name">9. Bias for Action</div><div class="lp-desc">Speed matters. Many decisions are reversible. Don't over-analyze.</div></div>
+    <div class="lp-card"><div class="lp-name">10. Frugality</div><div class="lp-desc">Accomplish more with less. Constraints breed resourcefulness.</div></div>
+    <div class="lp-card"><div class="lp-name">11. Earn Trust</div><div class="lp-desc">Listen attentively, speak candidly, treat others respectfully.</div></div>
+    <div class="lp-card"><div class="lp-name">12. Dive Deep</div><div class="lp-desc">Operate at all levels. Stay connected to the details.</div></div>
+    <div class="lp-card"><div class="lp-name">13. Have Backbone; Disagree and Commit</div><div class="lp-desc">Challenge decisions respectfully. Once decided, commit wholly.</div></div>
+    <div class="lp-card"><div class="lp-name">14. Deliver Results</div><div class="lp-desc">Focus on key inputs. Deliver them with the right quality and timely fashion.</div></div>
+    <div class="lp-card"><div class="lp-name">15. Strive to be Earth's Best Employer</div><div class="lp-desc">Create a safer, more diverse, more productive work environment.</div></div>
+    <div class="lp-card"><div class="lp-name">16. Success and Scale Bring Broad Responsibility</div><div class="lp-desc">Be humble. Make the world better for future generations.</div></div>
+</div>
+
+<!-- QUESTIONS -->
+<div class="section-header">🎯 Leadership & Ownership <span class="section-count">(10 questions)</span></div>
+<div class="q-card" data-theme="Leadership,Ownership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">1</div><div class="q-title">Tell me about a time you took ownership of a project beyond your role.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Ownership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Sample STAR</div><div class="star-text"><strong>S:</strong> Our team's deployment pipeline was breaking 3x/week, but it wasn't anyone's responsibility.\n<strong>T:</strong> I volunteered to own the CI/CD reliability even though I was a feature developer.\n<strong>A:</strong> I spent 2 weekends analyzing failure patterns, added retry logic, set up monitoring alerts, and created a runbook.\n<strong>R:</strong> Pipeline failures dropped from 3x/week to 0 in the next quarter. Team velocity improved 25%.</div></div><div class="tips-box"><h5>What they're looking for</h5><p>Initiative without being asked. Going beyond your job description. Long-term thinking.</p></div></div></div>
+
+<div class="q-card" data-theme="Leadership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">2</div><div class="q-title">Describe a time you led a team through a difficult situation.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-amazon">Amazon</span><span class="theme-tag">Leadership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Focus on: clear communication, decision-making under pressure, rallying the team. Show empathy + results.</div></div></div></div>
+
+<div class="q-card" data-theme="Leadership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">3</div><div class="q-title">Tell me about a time you had to make a decision without all the information.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="theme-tag">Leadership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Maps to Amazon LP "Bias for Action". Show calculated risk-taking. What data did you use? What was the fallback plan?</div></div></div></div>
+
+<div class="q-card" data-theme="Leadership,Ownership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">4</div><div class="q-title">Tell me about a time you influenced others without authority.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-meta">Meta</span><span class="theme-tag">Leadership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show persuasion through data, building consensus, understanding others' motivations. Not command, but influence.</div></div></div></div>
+
+<div class="q-card" data-theme="Leadership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">5</div><div class="q-title">Tell me about a time you mentored someone.</div><div class="q-tags"><span class="q-tag co-microsoft">Microsoft</span><span class="q-tag co-google">Google</span><span class="theme-tag">Leadership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show: identifying the gap, creating a plan, patience, measuring improvement. Impact on the mentee's career.</div></div></div></div>
+
+<div class="section-header">💥 Conflict & Disagreement <span class="section-count">(8 questions)</span></div>
+<div class="q-card" data-theme="Conflict" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">6</div><div class="q-title">Tell me about a time you disagreed with your manager.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-google">Google</span><span class="theme-tag">Conflict</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Sample STAR</div><div class="star-text"><strong>S:</strong> Manager wanted to ship a feature without load testing.\n<strong>T:</strong> I believed this was risky for our 10K daily users.\n<strong>A:</strong> I presented data from similar past incidents, proposed a 2-day testing window, and offered to own the testing myself.\n<strong>R:</strong> We found a critical bug during load testing that would have caused outages. Manager thanked me and made load testing mandatory.</div></div><div class="tips-box"><h5>Key</h5><p>Never badmouth the manager. Show respect + data-driven disagreement. Show you committed after the decision.</p></div></div></div>
+
+<div class="q-card" data-theme="Conflict" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">7</div><div class="q-title">Describe a time you had a conflict with a teammate.</div><div class="q-tags"><span class="q-tag co-meta">Meta</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Conflict</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show empathy, active listening, finding common ground. Focus on the resolution, not the drama.</div></div></div></div>
+
+<div class="q-card" data-theme="Conflict" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">8</div><div class="q-title">Tell me about a time you received harsh feedback.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-amazon">Amazon</span><span class="theme-tag">Conflict</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show maturity: listened without being defensive, extracted the actionable parts, made concrete changes. Growth mindset.</div></div></div></div>
+
+<div class="section-header">❌ Failure & Learning <span class="section-count">(8 questions)</span></div>
+<div class="q-card" data-theme="Failure" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">9</div><div class="q-title">Tell me about your biggest professional failure.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-google">Google</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Failure</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Sample STAR</div><div class="star-text"><strong>S:</strong> I deployed a config change to production without proper validation.\n<strong>T:</strong> The change caused 15 minutes of downtime for 5K users.\n<strong>A:</strong> I immediately rolled back, wrote a postmortem, implemented a pre-deploy checklist, and added automated config validation.\n<strong>R:</strong> Zero config-related incidents in the following year. The checklist was adopted team-wide.</div></div><div class="tips-box"><h5>Key</h5><p>Pick a REAL failure (not a humble brag). Show accountability, root cause analysis, and concrete prevention steps.</p></div></div></div>
+
+<div class="q-card" data-theme="Failure" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">10</div><div class="q-title">Tell me about a time you missed a deadline.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-meta">Meta</span><span class="theme-tag">Failure</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show early communication, re-prioritization, what you learned about estimation and planning.</div></div></div></div>
+
+<div class="q-card" data-theme="Failure" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">11</div><div class="q-title">Describe a project that didn't go as planned.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Failure</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Focus on adaptability. How did you pivot? What signals did you notice early? What would you do differently?</div></div></div></div>
+
+<div class="section-header">🤝 Teamwork & Collaboration <span class="section-count">(10 questions)</span></div>
+<div class="q-card" data-theme="Teamwork" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">12</div><div class="q-title">Tell me about a time you worked with a difficult colleague.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-meta">Meta</span><span class="theme-tag">Teamwork</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show empathy, understanding their perspective, finding a working arrangement. Never paint anyone as the villain.</div></div></div></div>
+
+<div class="q-card" data-theme="Teamwork" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">13</div><div class="q-title">Describe a time you helped a struggling teammate.</div><div class="q-tags"><span class="q-tag co-microsoft">Microsoft</span><span class="q-tag co-google">Google</span><span class="theme-tag">Teamwork</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show observation, initiative to help, teaching approach, and the teammate's improvement. Don't be condescending.</div></div></div></div>
+
+<div class="q-card" data-theme="Teamwork" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">14</div><div class="q-title">Tell me about a successful cross-team collaboration.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Teamwork</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show alignment of different goals, communication strategies, shared documentation, and combined impact.</div></div></div></div>
+
+<div class="section-header">💡 Innovation & Problem Solving <span class="section-count">(8 questions)</span></div>
+<div class="q-card" data-theme="Innovation" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">15</div><div class="q-title">Tell me about a time you improved a process or system.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Innovation</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Sample STAR</div><div class="star-text"><strong>S:</strong> Our team spent 4 hours/week on manual deployment verification.\n<strong>T:</strong> I proposed automating the process.\n<strong>A:</strong> Built a CI/CD pipeline with automated smoke tests, Slack notifications, and rollback triggers.\n<strong>R:</strong> Saved 200+ engineering hours/year. Adopted by 3 other teams.</div></div></div></div>
+
+<div class="q-card" data-theme="Innovation" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">16</div><div class="q-title">Describe a creative solution to a technical problem.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-meta">Meta</span><span class="theme-tag">Innovation</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show the constraints, why standard approaches didn't work, your creative insight, and measurable impact.</div></div></div></div>
+
+<div class="q-card" data-theme="Innovation" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">17</div><div class="q-title">Tell me about a time you simplified something complex.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-apple">Apple</span><span class="theme-tag">Innovation</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Maps to "Invent and Simplify". Show understanding of the complexity, your simplification approach, and reduced cognitive load.</div></div></div></div>
+
+<div class="section-header">🔥 Ownership & Drive <span class="section-count">(8 questions)</span></div>
+<div class="q-card" data-theme="Ownership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">18</div><div class="q-title">Tell me about a time you went above and beyond.</div><div class="q-tags"><span class="q-tag co-amazon">Amazon</span><span class="q-tag co-microsoft">Microsoft</span><span class="q-tag co-google">Google</span><span class="theme-tag">Ownership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show intrinsic motivation, not just doing your job well but doing what's RIGHT for the product/team/customer.</div></div></div></div>
+
+<div class="q-card" data-theme="Ownership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">19</div><div class="q-title">Describe a time you delivered under tight constraints.</div><div class="q-tags"><span class="q-tag co-meta">Meta</span><span class="q-tag co-amazon">Amazon</span><span class="theme-tag">Ownership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show prioritization, scope management, clear communication about trade-offs, and still delivering quality.</div></div></div></div>
+
+<div class="q-card" data-theme="Ownership" onclick="this.classList.toggle('open')"><div class="q-header"><div class="q-num">20</div><div class="q-title">Tell me about a time you identified a risk early and acted on it.</div><div class="q-tags"><span class="q-tag co-google">Google</span><span class="q-tag co-microsoft">Microsoft</span><span class="theme-tag">Ownership</span></div><span class="q-arrow">&rarr;</span></div><div class="q-body"><div class="star-box"><div class="star-label">Framework</div><div class="star-text">Show proactive thinking, risk assessment, early escalation, and prevention vs firefighting.</div></div></div></div>
+
+<!-- COMPANY SPECIFIC TIPS -->
+<div class="section-header">🏢 Company-Specific Behavioral Tips <span class="section-count">(4 companies)</span></div>
+<div class="lp-card"><div class="lp-name">Google — "Googleyness"</div><div class="lp-desc">Focus on: intellectual humility, doing the right thing, working well with diverse teams. They want collaborative, curious, and principled engineers. Avoid ego.</div></div>
+<div class="lp-card"><div class="lp-name">Microsoft — Growth Mindset</div><div class="lp-desc">Focus on: learning from mistakes, empathy, customer obsession, collaborative spirit. "How did you grow from this experience?" is key. Show curiosity and adaptability.</div></div>
+<div class="lp-card"><div class="lp-name">Amazon — Leadership Principles</div><div class="lp-desc">Every behavioral question maps to 1-2 LPs. Prepare 2 stories per LP. Use data and metrics heavily. "Disagree and Commit" and "Dive Deep" are favorites for SDE-2+.</div></div>
+<div class="lp-card"><div class="lp-name">Meta — "Move Fast"</div><div class="lp-desc">Focus on: speed of execution, impact at scale, handling ambiguity. They value engineers who ship fast, iterate, and aren't afraid of breaking things (responsibly).</div></div>
+
+<!-- TELL ME ABOUT YOURSELF -->
+<div class="section-header">🎤 "Tell Me About Yourself" — Template <span class="section-count">(The opener)</span></div>
+<div class="star-box" style="margin-top:1rem;">
+    <div class="star-label">90-Second Script Template</div>
+    <div class="star-text">
+<strong>1. Current Role (15 sec):</strong> "I'm currently a [role] at [company], where I work on [specific project/tech]."
+
+<strong>2. Past Highlights (30 sec):</strong> "Before this, I was at [previous company] where I [specific achievement with numbers]. I also [another highlight]."
+
+<strong>3. Why This Role (15 sec):</strong> "I'm excited about this opportunity because [specific reason tied to the role/company]."
+
+<strong>4. Transition (10 sec):</strong> "I'd love to tell you more about any of these experiences. Where would you like to start?"
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+if(typeof emailjs!=='undefined')emailjs.init('97FdG6E2hT9AYtA_4');
+
+const SHEET_KEY = 'beh_sheet_unlocked';
+const CODE_KEY = 'beh_access_code';
+
+function generateCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = 'BEH-';
+    for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+}
+
+function checkAccess() {
+    if (localStorage.getItem(SHEET_KEY) === 'true') {
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+    }
+}
+checkAccess();
+
+(function(){
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if (code) {
+        document.getElementById('accessCodeInput').value = code;
+        setTimeout(() => redeemCode(), 500);
+    }
+})();
+
+function unlockSheet() {
+    const email = document.getElementById('purchaseEmail').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email to receive your access code.');
+        return;
+    }
+    const options = {
+        key: 'rzp_live_SdMpxrq9I6XhNj',
+        amount: 4900,
+        currency: 'INR',
+        name: 'Yasir Arafat Sharfi',
+        description: 'Behavioral Interview Prep — 50+ Questions',
+        image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
+        prefill: { email: email },
+        theme: { color: '#6366f1' },
+        handler: function(response) {
+            const code = generateCode();
+            localStorage.setItem(SHEET_KEY, 'true');
+            localStorage.setItem(CODE_KEY, code);
+            document.getElementById('paywallOverlay').style.display = 'none';
+            document.getElementById('sheetContent').classList.remove('paywall-blur');
+            alert('✅ Sheet unlocked!\n\nYour access code: ' + code + '\n\nSave this code — you can use it on any device/browser to unlock again.\n\nPayment ID: ' + response.razorpay_payment_id);
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
+                    session: 'Behavioral Prep Purchased — Access Code: ' + code,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString(),
+                    name: email,
+                    email: email,
+                    phone: 'N/A',
+                    message: 'Access Code: ' + code + '\nUse this code at: https://yasirgrc08-techie.github.io/sheets/behavioral.html?code=' + code,
+                    amount: '₹49',
+                    payment_id: response.razorpay_payment_id,
+                    to_email: 'yasir.grc08@gmail.com'
+                }).catch(() => {});
+            }
+        },
+        modal: { ondismiss: function(){} }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+}
+
+function redeemCode() {
+    const input = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+    if (!input) { alert('Please enter an access code.'); return; }
+    if (/^BEH-[A-Z0-9]{8}$/.test(input)) {
+        localStorage.setItem(SHEET_KEY, 'true');
+        localStorage.setItem(CODE_KEY, input);
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+        alert('✅ Access code accepted! Sheet unlocked.');
+    } else {
+        alert('❌ Invalid access code. Please check and try again.');
+    }
+}
+
+function filterTheme(theme) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.q-card').forEach(card => {
+        if (theme === 'all' || (card.dataset.theme && card.dataset.theme.includes(theme))) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>
