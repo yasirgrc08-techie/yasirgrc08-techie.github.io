@@ -1256,9 +1256,13 @@
                 <div style="text-align:center;">
                     <div class="success-check">&#9989;</div>
                     <h3 style="margin-bottom:.5rem;">Booking Confirmed!</h3>
-                    <p style="color:var(--text-2);margin-bottom:1.5rem;">A confirmation has been sent to <strong>yasir.grc08@gmail.com</strong>. You'll receive a meeting link shortly.</p>
+                    <p style="color:var(--text-2);margin-bottom:1rem;">A confirmation has been sent to <strong>yasir.grc08@gmail.com</strong>.</p>
                     <div class="booking-summary" id="successSummary"></div>
-                    <button class="modal-btn modal-btn-primary" onclick="closeBooking()">Done</button>
+                    <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+                        <button class="modal-btn-primary" style="width:auto;padding:10px 20px;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;font-family:var(--sans);" onclick="downloadICS()">&#128197; Add to Calendar (.ics)</button>
+                        <button class="modal-btn-primary" style="width:auto;padding:10px 20px;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;font-family:var(--sans);background:var(--cyan);" onclick="openTeamsMeeting()">&#128247; Create Teams Meeting</button>
+                    </div>
+                    <button class="modal-btn modal-btn-primary" style="margin-top:1rem;" onclick="closeBooking()">Done</button>
                 </div>
             </div>
         </div>
@@ -1488,17 +1492,53 @@
     const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-    const TIME_SLOTS = [
+    const TIME_SLOTS_WEEKDAY = [
+        '5:00 PM – 5:30 PM',
+        '5:30 PM – 6:00 PM',
+        '6:00 PM – 6:30 PM',
+        '6:30 PM – 7:00 PM',
         '7:00 PM – 7:30 PM',
         '7:30 PM – 8:00 PM',
         '8:00 PM – 8:30 PM',
         '8:30 PM – 9:00 PM',
         '9:00 PM – 9:30 PM',
         '9:30 PM – 10:00 PM',
+        '10:00 PM – 10:30 PM',
+        '10:30 PM – 11:00 PM',
+    ];
+    const TIME_SLOTS_WEEKEND = [
+        '9:00 AM – 9:30 AM',
+        '9:30 AM – 10:00 AM',
+        '10:00 AM – 10:30 AM',
+        '10:30 AM – 11:00 AM',
+        '11:00 AM – 11:30 AM',
+        '11:30 AM – 12:00 PM',
+        '12:00 PM – 12:30 PM',
+        '12:30 PM – 1:00 PM',
+        '1:00 PM – 1:30 PM',
+        '1:30 PM – 2:00 PM',
+        '2:00 PM – 2:30 PM',
+        '2:30 PM – 3:00 PM',
+        '3:00 PM – 3:30 PM',
+        '3:30 PM – 4:00 PM',
+        '4:00 PM – 4:30 PM',
+        '4:30 PM – 5:00 PM',
+        '5:00 PM – 5:30 PM',
+        '5:30 PM – 6:00 PM',
+        '6:00 PM – 6:30 PM',
+        '6:30 PM – 7:00 PM',
+        '7:00 PM – 7:30 PM',
+        '7:30 PM – 8:00 PM',
+        '8:00 PM – 8:30 PM',
+        '8:30 PM – 9:00 PM',
+        '9:00 PM – 9:30 PM',
+        '9:30 PM – 10:00 PM',
+        '10:00 PM – 10:30 PM',
+        '10:30 PM – 11:00 PM',
     ];
 
     function openBooking(type, name, price, duration) {
-        booking = { type, name, price, duration, date: '', time: '', userName: '', userEmail: '', userPhone: '', userMsg: '' };
+        booking = { type, name, price, duration, date: '', time: '', userName: '', userEmail: '', userPhone: '', userMsg: '', dateRaw: '', dateDow: 0 };
         document.getElementById('modalTitle').textContent = 'Book: ' + name;
         updateTags();
         generateDates();
@@ -1537,23 +1577,27 @@
         grid.innerHTML = '';
         const today = new Date();
         let count = 0;
-        for (let i = 1; count < 10; i++) {
+        for (let i = 1; count < 14; i++) {
             const d = new Date(today);
             d.setDate(today.getDate() + i);
             const dow = d.getDay();
-            if (dow === 0 || dow === 6) continue; // Skip weekends
             const btn = document.createElement('button');
             btn.className = 'date-btn';
             const dateStr = d.getDate() + ' ' + MONTHS[d.getMonth()];
-            btn.innerHTML = '<span class="day-name">' + DAYS[dow] + '</span>' + dateStr;
+            const isWeekend = (dow === 0 || dow === 6);
+            btn.innerHTML = '<span class="day-name">' + DAYS[dow] + (isWeekend ? ' 🎮' : '') + '</span>' + dateStr;
             btn.dataset.date = d.toISOString().split('T')[0];
             btn.dataset.display = DAYS[dow] + ', ' + dateStr + ' ' + d.getFullYear();
+            btn.dataset.dow = dow;
             btn.onclick = function() {
                 grid.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
                 this.classList.add('selected');
                 booking.date = this.dataset.display;
                 booking.dateRaw = this.dataset.date;
+                booking.dateDow = parseInt(this.dataset.dow);
                 document.getElementById('toStep2Btn').disabled = false;
+                // Regenerate time slots based on weekday/weekend
+                generateTimes();
             };
             grid.appendChild(btn);
             count++;
@@ -1563,7 +1607,9 @@
     function generateTimes() {
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '';
-        TIME_SLOTS.forEach(slot => {
+        const isWeekend = (booking.dateDow === 0 || booking.dateDow === 6);
+        const slots = isWeekend ? TIME_SLOTS_WEEKEND : TIME_SLOTS_WEEKDAY;
+        slots.forEach(slot => {
             const btn = document.createElement('button');
             btn.className = 'time-btn';
             btn.textContent = slot;
@@ -1716,6 +1762,95 @@
             'Payment ID: ' + paymentId
         );
         window.open('mailto:yasir.grc08@gmail.com?subject=' + subject + '&body=' + body, '_blank');
+    }
+
+    // Parse time slot to get start hour/min in 24h format
+    function parseSlotTime(slot) {
+        const match = slot.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)/);
+        if (!match) return { h: 17, m: 0 };
+        let h = parseInt(match[1]);
+        const m = parseInt(match[2]);
+        const ampm = match[3];
+        if (ampm === 'PM' && h !== 12) h += 12;
+        if (ampm === 'AM' && h === 12) h = 0;
+        return { h, m };
+    }
+
+    // Generate .ics calendar file and trigger download
+    function downloadICS() {
+        const start = parseSlotTime(booking.time);
+        const dateStr = booking.dateRaw; // YYYY-MM-DD
+        const parts = dateStr.split('-');
+        const y = parts[0], mo = parts[1], d = parts[2];
+        const dur = booking.duration || 30;
+        const startDT = y + mo + d + 'T' + String(start.h).padStart(2,'0') + String(start.m).padStart(2,'0') + '00';
+        const endH = start.h + Math.floor((start.m + dur) / 60);
+        const endM = (start.m + dur) % 60;
+        const endDT = y + mo + d + 'T' + String(endH).padStart(2,'0') + String(endM).padStart(2,'0') + '00';
+        const now = new Date();
+        const stamp = now.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+
+        const ics = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//YasirSharfi//BookingSystem//EN',
+            'BEGIN:VEVENT',
+            'DTSTART;TZID=Asia/Kolkata:' + startDT,
+            'DTEND;TZID=Asia/Kolkata:' + endDT,
+            'DTSTAMP:' + stamp,
+            'UID:booking-' + Date.now() + '@yasirgrc08-techie.github.io',
+            'SUMMARY:' + booking.name + ' with ' + booking.userName,
+            'DESCRIPTION:Session: ' + booking.name + '\\nBooked By: ' + booking.userName + '\\nEmail: ' + booking.userEmail + '\\nPhone: ' + booking.userPhone + '\\nMessage: ' + (booking.userMsg || 'N/A') + '\\nAmount: Rs ' + booking.price,
+            'ORGANIZER;CN=Yasir Arafat Sharfi:mailto:yasir.grc08@gmail.com',
+            'ATTENDEE;CN=' + booking.userName + ':mailto:' + booking.userEmail,
+            'STATUS:CONFIRMED',
+            'BEGIN:VALARM',
+            'TRIGGER:-PT15M',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Reminder: ' + booking.name + ' in 15 minutes',
+            'END:VALARM',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = booking.name.replace(/[^a-zA-Z0-9]/g, '_') + '_' + dateStr + '.ics';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    // Open Microsoft Teams new meeting with pre-filled details
+    function openTeamsMeeting() {
+        const start = parseSlotTime(booking.time);
+        const dateStr = booking.dateRaw;
+        const parts = dateStr.split('-');
+        const dur = booking.duration || 30;
+
+        // Build ISO datetime for Teams deep link
+        const startDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]), start.h, start.m);
+        const endDate = new Date(startDate.getTime() + dur * 60000);
+
+        const formatDT = (d) => d.toISOString().replace(/[-:]/g,'').split('.')[0];
+        const subject = encodeURIComponent(booking.name + ' — ' + booking.userName);
+        const content = encodeURIComponent(
+            'Session: ' + booking.name + '\n' +
+            'Booked By: ' + booking.userName + '\n' +
+            'Email: ' + booking.userEmail + '\n' +
+            'Phone: ' + booking.userPhone + '\n' +
+            'Amount: ₹' + booking.price
+        );
+        const attendees = encodeURIComponent(booking.userEmail);
+        const startTime = encodeURIComponent(startDate.toISOString());
+        const endTime = encodeURIComponent(endDate.toISOString());
+
+        // Teams deep link to create new meeting
+        const teamsUrl = 'https://teams.microsoft.com/l/meeting/new?subject=' + subject + '&startTime=' + startTime + '&endTime=' + endTime + '&attendees=' + attendees + '&content=' + content;
+        window.open(teamsUrl, '_blank');
     }
 </script>
 </body>
