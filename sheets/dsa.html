@@ -115,7 +115,17 @@ tr:hover{background:var(--bg2)}
                 </ul>
                 <div class="paywall-price">₹49</div>
                 <div class="paywall-original">₹499</div>
+                <div style="margin-bottom:1rem;">
+                    <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
+                </div>
                 <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+                <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
+                    <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
+                    <div style="display:flex;gap:.5rem;">
+                        <input type="text" id="accessCodeInput" placeholder="Enter access code" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.85rem;font-family:Inter,sans-serif;">
+                        <button onclick="redeemCode()" style="padding:8px 16px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;font-family:Inter,sans-serif;">Redeem</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="paywall-blur" id="sheetContent">
@@ -265,8 +275,19 @@ tr:hover{background:var(--bg2)}
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+if(typeof emailjs!=='undefined')emailjs.init('97FdG6E2hT9AYtA_4');
+
 const SHEET_KEY = 'dsa_sheet_unlocked';
+const CODE_KEY = 'dsa_access_code';
+
+function generateCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = 'DSA-';
+    for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+}
 
 function checkAccess() {
     if (localStorage.getItem(SHEET_KEY) === 'true') {
@@ -276,7 +297,22 @@ function checkAccess() {
 }
 checkAccess();
 
+// Check URL for access code
+(function(){
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if (code) {
+        document.getElementById('accessCodeInput').value = code;
+        setTimeout(() => redeemCode(), 500);
+    }
+})();
+
 function unlockSheet() {
+    const email = document.getElementById('purchaseEmail').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email to receive your access code.');
+        return;
+    }
     const options = {
         key: 'rzp_live_SdMpxrq9I6XhNj',
         amount: 4900,
@@ -284,17 +320,50 @@ function unlockSheet() {
         name: 'Yasir Arafat Sharfi',
         description: 'DSA Sheet — 300+ Problems with Solutions',
         image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
+        prefill: { email: email },
         theme: { color: '#6366f1' },
         handler: function(response) {
+            const code = generateCode();
             localStorage.setItem(SHEET_KEY, 'true');
+            localStorage.setItem(CODE_KEY, code);
             document.getElementById('paywallOverlay').style.display = 'none';
             document.getElementById('sheetContent').classList.remove('paywall-blur');
-            alert('✅ Payment successful! Sheet unlocked. Payment ID: ' + response.razorpay_payment_id);
+            alert('✅ Sheet unlocked!\n\nYour access code: ' + code + '\n\nSave this code — you can use it on any device/browser to unlock again.\n\nPayment ID: ' + response.razorpay_payment_id);
+            // Email code to customer + owner
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
+                    session: 'DSA Sheet Purchased — Access Code: ' + code,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString(),
+                    name: email,
+                    email: email,
+                    phone: 'N/A',
+                    message: 'Access Code: ' + code + '\nUse this code at: https://yasirgrc08-techie.github.io/sheets/dsa.html?code=' + code,
+                    amount: '₹49',
+                    payment_id: response.razorpay_payment_id,
+                    to_email: 'yasir.grc08@gmail.com'
+                }).catch(() => {});
+            }
         },
         modal: { ondismiss: function(){} }
     };
     const rzp = new Razorpay(options);
     rzp.open();
+}
+
+function redeemCode() {
+    const input = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+    if (!input) { alert('Please enter an access code.'); return; }
+    // Valid format: DSA-XXXXXXXX
+    if (/^DSA-[A-Z0-9]{8}$/.test(input)) {
+        localStorage.setItem(SHEET_KEY, 'true');
+        localStorage.setItem(CODE_KEY, input);
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+        alert('✅ Access code accepted! Sheet unlocked.');
+    } else {
+        alert('❌ Invalid access code. Please check and try again.');
+    }
 }
 
 function toggleSol(el) {
