@@ -417,6 +417,28 @@
         .rating-thanks .check { font-size: 2.5rem; margin-bottom: .5rem; }
         @media (max-width: 768px) { .rating-panel { width: 300px; } .rating-tab { padding: 10px 8px; font-size: .75rem; } }
 
+        /* === Feedback Modal === */
+        .feedback-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1rem; }
+        .feedback-overlay.active { display: flex; }
+        .feedback-modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); max-width: 480px; width: 100%; padding: 2.5rem; text-align: center; position: relative; }
+        .feedback-modal h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+        .feedback-modal .fb-sub { color: var(--text-2); font-size: .9rem; margin-bottom: 1.5rem; }
+        .fb-star-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 1.25rem; }
+        .fb-star-row .fb-star { font-size: 2.5rem; cursor: pointer; color: var(--border); transition: color .15s, transform .15s; }
+        .fb-star-row .fb-star:hover, .fb-star-row .fb-star.active { color: var(--orange); transform: scale(1.15); }
+        .fb-star-row .fb-star.hovered { color: var(--orange); }
+        .fb-name-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text); font-size: .9rem; font-family: var(--sans); margin-bottom: .75rem; }
+        .fb-name-input:focus { outline: none; border-color: var(--accent); }
+        .fb-textarea { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text); font-size: .9rem; font-family: var(--sans); resize: vertical; min-height: 80px; margin-bottom: .75rem; }
+        .fb-textarea:focus { outline: none; border-color: var(--accent); }
+        .fb-submit { width: 100%; padding: 12px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: .95rem; cursor: pointer; font-family: var(--sans); transition: all var(--tr); }
+        .fb-submit:hover { background: var(--accent-l); }
+        .fb-submit:disabled { opacity: .5; cursor: not-allowed; }
+        .fb-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: var(--text-2); font-size: 1.5rem; cursor: pointer; }
+        .fb-session-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.3); padding: 5px 14px; border-radius: 100px; font-size: .82rem; color: var(--accent-l); margin-bottom: 1rem; }
+        .dynamic-reviews { margin-top: 1.5rem; }
+        .dynamic-reviews-title { text-align: center; font-size: .85rem; color: var(--text-3); margin-bottom: 1rem; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+
         /* === Booking Modal === */
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1rem; }
         .modal-overlay.active { display: flex; }
@@ -989,6 +1011,8 @@
             </div>
         </div>
     </div>
+    <!-- Dynamic reviews from feedback form -->
+    <div class="dynamic-reviews" id="dynamicReviews"></div>
 </section>
 
 <!-- Videos -->
@@ -1262,8 +1286,39 @@
                         <button class="modal-btn-primary" style="width:auto;padding:10px 20px;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;font-family:var(--sans);" onclick="downloadICS()">&#128197; Add to Calendar (.ics)</button>
                         <button class="modal-btn-primary" style="width:auto;padding:10px 20px;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;font-family:var(--sans);background:var(--cyan);" onclick="openTeamsMeeting()">&#128247; Create Teams Meeting</button>
                     </div>
+                    <p style="color:var(--text-3);font-size:.8rem;margin-top:1rem;">After the session, a feedback link will be included in your confirmation email.</p>
                     <button class="modal-btn modal-btn-primary" style="margin-top:1rem;" onclick="closeBooking()">Done</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Modal -->
+<div class="feedback-overlay" id="feedbackOverlay">
+    <div class="feedback-modal">
+        <button class="fb-close" onclick="closeFeedback()">&times;</button>
+        <h3>&#11088; How Was Your Session?</h3>
+        <p class="fb-sub">Your feedback helps others and improves my mentorship.</p>
+        <div class="fb-session-tag" id="fbSessionTag"></div>
+        <div id="fbForm">
+            <div class="fb-star-row" id="fbStarRow">
+                <span class="fb-star" data-v="1">&#9733;</span>
+                <span class="fb-star" data-v="2">&#9733;</span>
+                <span class="fb-star" data-v="3">&#9733;</span>
+                <span class="fb-star" data-v="4">&#9733;</span>
+                <span class="fb-star" data-v="5">&#9733;</span>
+            </div>
+            <input type="text" class="fb-name-input" id="fbName" placeholder="Your name *" maxlength="50">
+            <textarea class="fb-textarea" id="fbComment" placeholder="Share your experience... *" maxlength="300"></textarea>
+            <button class="fb-submit" id="fbSubmit" disabled onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+        <div id="fbThanks" style="display:none;">
+            <div style="padding:2rem 0;">
+                <div style="font-size:3rem;margin-bottom:.75rem;">&#127881;</div>
+                <h3>Thank You!</h3>
+                <p style="color:var(--text-2);margin-top:.5rem;">Your review is now live on the website.</p>
+                <button class="fb-submit" style="margin-top:1.5rem;" onclick="closeFeedback()">Close</button>
             </div>
         </div>
     </div>
@@ -1714,6 +1769,7 @@
     }
 
     function sendEmailNotification(paymentId) {
+        const feedbackLink = generateFeedbackLink(booking.name);
         const templateParams = {
             session: booking.name,
             duration: booking.duration ? booking.duration + ' mins' : 'N/A',
@@ -1722,7 +1778,7 @@
             name: booking.userName,
             email: booking.userEmail,
             phone: booking.userPhone,
-            message: booking.userMsg || 'No message',
+            message: (booking.userMsg || 'No message') + '\n\nFeedback Link (share with customer after session): ' + feedbackLink,
             amount: '₹' + booking.price,
             payment_id: paymentId,
             to_email: 'yasir.grc08@gmail.com',
@@ -1852,6 +1908,143 @@
         const teamsUrl = 'https://teams.microsoft.com/l/meeting/new?subject=' + subject + '&startTime=' + startTime + '&endTime=' + endTime + '&attendees=' + attendees + '&content=' + content;
         window.open(teamsUrl, '_blank');
     }
+
+    // ============================================
+    // POST-SESSION FEEDBACK SYSTEM
+    // ============================================
+
+    let fbSelectedStars = 0;
+    const fbStars = document.querySelectorAll('#fbStarRow .fb-star');
+    const fbSubmitBtn = document.getElementById('fbSubmit');
+
+    fbStars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+            const v = parseInt(star.dataset.v);
+            fbStars.forEach(s => s.classList.toggle('hovered', parseInt(s.dataset.v) <= v));
+        });
+        star.addEventListener('mouseleave', () => {
+            fbStars.forEach(s => s.classList.remove('hovered'));
+        });
+        star.addEventListener('click', () => {
+            fbSelectedStars = parseInt(star.dataset.v);
+            fbStars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= fbSelectedStars));
+            checkFbReady();
+        });
+    });
+
+    function checkFbReady() {
+        const name = document.getElementById('fbName').value.trim();
+        const comment = document.getElementById('fbComment').value.trim();
+        fbSubmitBtn.disabled = !(fbSelectedStars > 0 && name && comment);
+    }
+    document.getElementById('fbName').addEventListener('input', checkFbReady);
+    document.getElementById('fbComment').addEventListener('input', checkFbReady);
+
+    function generateFeedbackLink(sessionName) {
+        const encoded = encodeURIComponent(sessionName);
+        return 'https://yasirgrc08-techie.github.io/?feedback=' + encoded;
+    }
+
+    function openFeedbackForm(sessionName) {
+        document.getElementById('fbSessionTag').textContent = sessionName || 'Session';
+        document.getElementById('fbForm').style.display = '';
+        document.getElementById('fbThanks').style.display = 'none';
+        fbSelectedStars = 0;
+        fbStars.forEach(s => s.classList.remove('active','hovered'));
+        document.getElementById('fbName').value = '';
+        document.getElementById('fbComment').value = '';
+        fbSubmitBtn.disabled = true;
+        document.getElementById('feedbackOverlay').classList.add('active');
+    }
+
+    function closeFeedback() {
+        document.getElementById('feedbackOverlay').classList.remove('active');
+    }
+
+    document.getElementById('feedbackOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeFeedback();
+    });
+
+    function submitFeedback() {
+        const name = document.getElementById('fbName').value.trim();
+        const comment = document.getElementById('fbComment').value.trim();
+        if (!fbSelectedStars || !name || !comment) return;
+
+        const sessionName = document.getElementById('fbSessionTag').textContent;
+        const review = {
+            name: name,
+            stars: fbSelectedStars,
+            comment: comment,
+            session: sessionName,
+            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+        };
+
+        // Save to localStorage
+        const reviews = JSON.parse(localStorage.getItem('sessionReviews') || '[]');
+        reviews.push(review);
+        localStorage.setItem('sessionReviews', JSON.stringify(reviews));
+
+        // Show thank you
+        document.getElementById('fbForm').style.display = 'none';
+        document.getElementById('fbThanks').style.display = '';
+
+        // Render reviews
+        renderDynamicReviews();
+
+        // Send email notification
+        if (typeof emailjs !== 'undefined') {
+            emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
+                session: 'New Review: ' + fbSelectedStars + '/5 stars — ' + sessionName,
+                date: review.date,
+                time: 'N/A',
+                name: name,
+                email: 'N/A',
+                phone: 'N/A',
+                message: comment,
+                amount: 'Feedback',
+                payment_id: 'N/A (Review)',
+                to_email: 'yasir.grc08@gmail.com'
+            }).catch(() => {});
+        }
+    }
+
+    function renderDynamicReviews() {
+        const container = document.getElementById('dynamicReviews');
+        const reviews = JSON.parse(localStorage.getItem('sessionReviews') || '[]');
+        if (reviews.length === 0) { container.innerHTML = ''; return; }
+
+        let html = '<div class="dynamic-reviews-title">Recent Session Reviews</div>';
+        html += '<div style="display:flex;gap:1.25rem;overflow-x:auto;padding:0 .5rem 1rem;scroll-snap-type:x mandatory;">';
+        reviews.slice().reverse().forEach(r => {
+            const starsHtml = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+            html += `
+                <div class="testi-card" style="flex:0 0 340px;scroll-snap-align:center;">
+                    <div class="testi-stars">${starsHtml}</div>
+                    <p class="testi-text">${r.comment}</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">${r.name.charAt(0).toUpperCase()}</div>
+                        <div>
+                            <div class="testi-name">${r.name}</div>
+                            <div class="testi-role">${r.session} &middot; ${r.date}</div>
+                        </div>
+                    </div>
+                </div>`;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    // Auto-open feedback form if URL has ?feedback=SessionName
+    (function checkFeedbackUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const fb = params.get('feedback');
+        if (fb) {
+            setTimeout(() => openFeedbackForm(decodeURIComponent(fb)), 1000);
+        }
+    })();
+
+    // Render any existing dynamic reviews on page load
+    renderDynamicReviews();
 </script>
 </body>
 </html>
