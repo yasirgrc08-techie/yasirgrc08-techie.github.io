@@ -851,12 +851,12 @@
         <div class="session-card">
             <div class="session-icon">📞</div>
             <div class="session-name">Quick Call</div>
-            <div class="session-type">Phone Call &middot; Queries &amp; Clarification &middot; 30 mins</div>
+            <div class="session-type">Phone Call &middot; Queries &amp; Clarification &middot; 20 mins</div>
             <div class="session-price">
                 <span class="current">&#8377;100</span>
                 <span class="original">&#8377;300</span>
             </div>
-            <a href="#" onclick="openBooking('call','Quick Call',100,30);return false;" class="session-btn">Book Now &rarr;</a>
+            <a href="#" onclick="openBooking('call','Quick Call',100,20);return false;" class="session-btn">Book Now &rarr;</a>
         </div>
         <div class="session-card">
             <div class="session-icon">💬</div>
@@ -871,7 +871,7 @@
         <div class="session-card">
             <div class="session-icon">📄</div>
             <div class="session-name">Resume Review + Microsoft Referral</div>
-            <div class="session-type">Resume Lookup &middot; Short Feedback &middot; If Strong &rarr; Referral</div>
+            <div class="session-type">Quick CV Feedback &middot; Align with Job ID &middot; If Strong &rarr; Referral</div>
             <div class="session-price">
                 <span class="current">&#8377;50</span>
                 <span class="original">&#8377;200</span>
@@ -1237,7 +1237,7 @@
             <div class="modal-step active" id="step1">
                 <div class="selected-session-tag" id="selectedTag"></div>
                 <div class="form-group">
-                    <label class="form-label">Select a Date (Weekdays Only)</label>
+                    <label class="form-label">Select a Date</label>
                     <div class="date-grid" id="dateGrid"></div>
                 </div>
                 <button class="modal-btn modal-btn-primary" id="toStep2Btn" disabled onclick="goStep(2)">Select Time Slot &rarr;</button>
@@ -1270,6 +1270,14 @@
                 <div class="form-group">
                     <label class="form-label">Message (optional)</label>
                     <textarea class="form-input" id="bookMsg" rows="3" placeholder="What would you like to discuss?"></textarea>
+                </div>
+                <div class="form-group" id="jobIdGroup" style="display:none;">
+                    <label class="form-label">Job ID / Job Link *</label>
+                    <input type="text" class="form-input" id="bookJobId" placeholder="e.g., Microsoft Job ID or LinkedIn job URL">
+                </div>
+                <div class="form-group" id="resumeGroup" style="display:none;">
+                    <label class="form-label">Resume Link (Google Drive / Dropbox) *</label>
+                    <input type="url" class="form-input" id="bookResume" placeholder="https://drive.google.com/file/d/...">
                 </div>
                 <div class="booking-summary" id="bookingSummary"></div>
                 <button class="modal-btn modal-btn-back" onclick="goStep(2)">&larr; Back</button>
@@ -1596,9 +1604,22 @@
         booking = { type, name, price, duration, date: '', time: '', userName: '', userEmail: '', userPhone: '', userMsg: '', dateRaw: '', dateDow: 0 };
         document.getElementById('modalTitle').textContent = 'Book: ' + name;
         updateTags();
-        generateDates();
-        generateTimes();
-        goStep(1);
+
+        // Show/hide Job ID + Resume fields for referral
+        const isReferral = (type === 'referral');
+        document.getElementById('jobIdGroup').style.display = isReferral ? '' : 'none';
+        document.getElementById('resumeGroup').style.display = isReferral ? '' : 'none';
+
+        // For referral: skip date/time, go straight to details
+        if (isReferral) {
+            booking.date = 'Async Review';
+            booking.time = 'N/A';
+            goStep(3);
+        } else {
+            generateDates();
+            generateTimes();
+            goStep(1);
+        }
         document.getElementById('bookingModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -1663,7 +1684,33 @@
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '';
         const isWeekend = (booking.dateDow === 0 || booking.dateDow === 6);
-        const slots = isWeekend ? TIME_SLOTS_WEEKEND : TIME_SLOTS_WEEKDAY;
+        const baseSlots = isWeekend ? TIME_SLOTS_WEEKEND : TIME_SLOTS_WEEKDAY;
+
+        // Determine interval based on session type
+        let interval = 30; // default 30 min
+        if (booking.type === 'call') interval = 20;
+        else if (booking.type === 'chat') interval = 15;
+
+        // Generate custom interval slots
+        const startHour = isWeekend ? 9 : 17; // 9 AM or 5 PM
+        const endHour = 23; // 11 PM
+        const slots = [];
+        for (let h = startHour; h < endHour; h++) {
+            for (let m = 0; m < 60; m += interval) {
+                if (h === endHour - 1 && m + interval > 60) break;
+                const endM = m + interval;
+                const endH = h + Math.floor(endM / 60);
+                const endMM = endM % 60;
+                if (endH > endHour || (endH === endHour && endMM > 0)) break;
+                const fmt = (hh, mm) => {
+                    const ampm = hh >= 12 ? 'PM' : 'AM';
+                    const h12 = hh > 12 ? hh - 12 : (hh === 0 ? 12 : hh);
+                    return h12 + ':' + String(mm).padStart(2,'0') + ' ' + ampm;
+                };
+                slots.push(fmt(h, m) + ' \u2013 ' + fmt(endH, endMM));
+            }
+        }
+
         slots.forEach(slot => {
             const btn = document.createElement('button');
             btn.className = 'time-btn';
@@ -1702,10 +1749,24 @@
             alert('Please enter a valid email address.');
             return false;
         }
+        // Validate Job ID + Resume for referral
+        if (booking.type === 'referral') {
+            const jobId = document.getElementById('bookJobId').value.trim();
+            const resume = document.getElementById('bookResume').value.trim();
+            if (!jobId || !resume) {
+                alert('Please provide both the Job ID and Resume link for referral review.');
+                return false;
+            }
+            booking.jobId = jobId;
+            booking.resumeLink = resume;
+        }
         booking.userName = name;
         booking.userEmail = email;
         booking.userPhone = phone;
         booking.userMsg = document.getElementById('bookMsg').value.trim();
+        if (booking.type === 'referral') {
+            booking.userMsg = 'Job ID: ' + booking.jobId + '\nResume: ' + booking.resumeLink + (booking.userMsg ? '\nMessage: ' + booking.userMsg : '');
+        }
         return true;
     }
 
