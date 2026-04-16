@@ -551,6 +551,27 @@
             .edu-photos { grid-template-columns: 1fr; }
         }
 
+        /* Coding Stats */
+        .coding-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+        .coding-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; transition: all .35s; overflow: hidden; }
+        .coding-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+        .coding-card img { max-width: 100%; border-radius: 10px; }
+        .coding-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .coding-card .platform-icon { font-size: 1.5rem; }
+        .coding-stats-row { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+        .coding-stat { text-align: center; }
+        .coding-stat .cs-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+        .coding-stat .cs-label { font-size: .75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .1em; margin-top: 2px; }
+        .lc-progress { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+        .lc-bar { background: var(--bg); border-radius: 8px; padding: 8px 16px; border: 1px solid var(--border); min-width: 90px; }
+        .lc-bar .lc-diff { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
+        .lc-bar .lc-count { font-size: 1.1rem; font-weight: 800; font-family: var(--mono); }
+        .lc-easy .lc-diff { color: #22c55e; }
+        .lc-medium .lc-diff { color: #f59e0b; }
+        .lc-hard .lc-diff { color: #ef4444; }
+        .coding-note { font-size: .8rem; color: var(--text-3); margin-top: 1.5rem; font-style: italic; }
+        @media (max-width: 768px) { .coding-stats-grid { grid-template-columns: 1fr; } }
+
         /* Booking Tracker Badge */
         .booking-badge{position:fixed;bottom:24px;right:24px;z-index:150;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .35s;box-shadow:0 8px 30px rgba(0,0,0,.4);font-family:var(--mono)}
         .booking-badge:hover{border-color:var(--accent);box-shadow:0 0 25px rgba(99,102,241,.2),0 8px 30px rgba(0,0,0,.5);transform:translateY(-3px)}
@@ -594,6 +615,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Career</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="#coding-stats">CP Stats</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#sessions">Sessions</a></li>
             <li><a href="#reviews">Reviews</a></li>
@@ -804,6 +826,40 @@
                     <span class="tag">Automotive ECU</span><span class="tag">CAN / FlexRay</span><span class="tag">BMW</span><span class="tag">Audi</span><span class="tag">Porsche</span>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Coding Stats -->
+<section class="section" id="coding-stats">
+    <div class="reveal" style="text-align:center;">
+        <span class="section-tag">Competitive Programming</span>
+        <h2 class="section-title">Coding Stats</h2>
+        <p class="section-sub" style="margin:0 auto;">Consistent problem-solving across platforms — building algorithmic muscle every day.</p>
+    </div>
+    <div class="coding-stats-grid reveal">
+        <div class="coding-card">
+            <h3><span class="platform-icon">🟡</span> LeetCode</h3>
+            <img src="https://leetcard.jacoblin.cool/yasirgrc08?theme=dark&font=JetBrains%20Mono&ext=heatmap" alt="LeetCode Stats" loading="lazy" id="lcCard">
+            <p class="coding-note">Update username in site code if different</p>
+        </div>
+        <div class="coding-card">
+            <h3><span class="platform-icon">⭐</span> CodeChef</h3>
+            <div class="coding-stats-row">
+                <div class="coding-stat">
+                    <div class="cs-num" id="ccRating">—</div>
+                    <div class="cs-label">Rating</div>
+                </div>
+                <div class="coding-stat">
+                    <div class="cs-num" id="ccSolved">—</div>
+                    <div class="cs-label">Solved</div>
+                </div>
+                <div class="coding-stat">
+                    <div class="cs-num" id="ccStars">—</div>
+                    <div class="cs-label">Stars</div>
+                </div>
+            </div>
+            <p class="coding-note" style="margin-top:2rem;">Set your CodeChef username in <code>CODECHEF_USER</code> variable in the script below</p>
         </div>
     </div>
 </section>
