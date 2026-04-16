@@ -551,26 +551,44 @@
             .edu-photos { grid-template-columns: 1fr; }
         }
 
-        /* Coding Stats */
-        .coding-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
-        .coding-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; transition: all .35s; overflow: hidden; }
-        .coding-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
-        .coding-card img { max-width: 100%; border-radius: 10px; }
-        .coding-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .coding-card .platform-icon { font-size: 1.5rem; }
-        .coding-stats-row { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
-        .coding-stat { text-align: center; }
-        .coding-stat .cs-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
-        .coding-stat .cs-label { font-size: .75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .1em; margin-top: 2px; }
-        .lc-progress { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
-        .lc-bar { background: var(--bg); border-radius: 8px; padding: 8px 16px; border: 1px solid var(--border); min-width: 90px; }
-        .lc-bar .lc-diff { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
-        .lc-bar .lc-count { font-size: 1.1rem; font-weight: 800; font-family: var(--mono); }
-        .lc-easy .lc-diff { color: #22c55e; }
-        .lc-medium .lc-diff { color: #f59e0b; }
-        .lc-hard .lc-diff { color: #ef4444; }
-        .coding-note { font-size: .8rem; color: var(--text-3); margin-top: 1.5rem; font-style: italic; }
-        @media (max-width: 768px) { .coding-stats-grid { grid-template-columns: 1fr; } }
+        /* DSA & System Design Tracker */
+        .dsa-summary { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+        .dsa-stat { text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 2rem; min-width: 130px; transition: all .35s; }
+        .dsa-stat:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
+        .dsa-stat .ds-num { font-size: 2rem; font-weight: 800; font-family: var(--mono); color: var(--accent); }
+        .dsa-stat .ds-label { font-size: .72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+        .dsa-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .dsa-cat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: all .35s; }
+        .dsa-cat-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
+        .dsa-cat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .dsa-cat-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .dsa-cat-header .cat-count { font-size: .8rem; font-family: var(--mono); color: var(--accent); background: var(--accent-glow); padding: 2px 10px; border-radius: 12px; }
+        .dsa-problem { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
+        .dsa-problem:last-child { border-bottom: none; }
+        .dsa-problem .prob-name { color: var(--text); font-weight: 500; }
+        .dsa-problem .prob-diff { font-size: .72rem; font-weight: 600; padding: 2px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: .05em; }
+        .diff-easy { background: rgba(34,197,94,.12); color: #22c55e; }
+        .diff-medium { background: rgba(245,158,11,.12); color: #f59e0b; }
+        .diff-hard { background: rgba(239,68,68,.12); color: #ef4444; }
+        .dsa-empty { text-align: center; padding: 1.5rem; color: var(--text-3); font-size: .85rem; font-style: italic; }
+        /* DSA Admin */
+        .dsa-admin-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.8); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 1rem; }
+        .dsa-admin-overlay.active { display: flex; }
+        .dsa-admin { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; max-width: 550px; width: 100%; max-height: 85vh; overflow-y: auto; }
+        .dsa-admin-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg-card); z-index: 2; border-radius: 16px 16px 0 0; }
+        .dsa-admin-header h3 { font-size: 1rem; font-weight: 700; font-family: var(--mono); color: var(--accent); }
+        .dsa-admin-body { padding: 1.5rem; }
+        .dsa-form-group { margin-bottom: 1rem; }
+        .dsa-form-group label { display: block; font-size: .82rem; font-weight: 600; color: var(--text-2); margin-bottom: .4rem; }
+        .dsa-form-group input, .dsa-form-group select { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: .9rem; font-family: var(--sans); }
+        .dsa-form-group input:focus, .dsa-form-group select:focus { outline: none; border-color: var(--accent); }
+        .dsa-add-btn { width: 100%; padding: 12px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; font-family: var(--sans); transition: all .3s; }
+        .dsa-add-btn:hover { opacity: .85; transform: translateY(-1px); }
+        .dsa-manage-list { margin-top: 1.5rem; }
+        .dsa-manage-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .82rem; }
+        .dsa-manage-item button { background: none; border: none; color: #ef4444; cursor: pointer; font-size: .9rem; }
+        .dsa-manage-item button:hover { color: #dc2626; }
+        @media (max-width: 768px) { .dsa-categories { grid-template-columns: 1fr; } .dsa-summary { gap: 1rem; } .dsa-stat { min-width: 100px; padding: 1rem 1.25rem; } }
 
         /* Booking Tracker Badge */
         .booking-badge{position:fixed;bottom:24px;right:24px;z-index:150;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .35s;box-shadow:0 8px 30px rgba(0,0,0,.4);font-family:var(--mono)}
@@ -615,7 +633,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Career</a></li>
             <li><a href="#skills">Skills</a></li>
-            <li><a href="#coding-stats">CP Stats</a></li>
+            <li><a href="#coding-stats">DSA</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#sessions">Sessions</a></li>
             <li><a href="#reviews">Reviews</a></li>
@@ -830,39 +848,64 @@
     </div>
 </section>
 
-<!-- Coding Stats -->
+<!-- DSA & System Design Tracker -->
 <section class="section" id="coding-stats">
     <div class="reveal" style="text-align:center;">
-        <span class="section-tag">Competitive Programming</span>
-        <h2 class="section-title">Coding Stats</h2>
-        <p class="section-sub" style="margin:0 auto;">Consistent problem-solving across platforms — building algorithmic muscle every day.</p>
+        <span class="section-tag">Problem Solving</span>
+        <h2 class="section-title">DSA & System Design</h2>
+        <p class="section-sub" style="margin:0 auto;">Problems I've solved — building strong fundamentals one problem at a time.</p>
     </div>
-    <div class="coding-stats-grid reveal">
-        <div class="coding-card">
-            <h3><span class="platform-icon">🟡</span> LeetCode</h3>
-            <img src="https://leetcard.jacoblin.cool/yasirgrc08?theme=dark&font=JetBrains%20Mono&ext=heatmap" alt="LeetCode Stats" loading="lazy" id="lcCard">
-            <p class="coding-note">Update username in site code if different</p>
-        </div>
-        <div class="coding-card">
-            <h3><span class="platform-icon">⭐</span> CodeChef</h3>
-            <div class="coding-stats-row">
-                <div class="coding-stat">
-                    <div class="cs-num" id="ccRating">—</div>
-                    <div class="cs-label">Rating</div>
-                </div>
-                <div class="coding-stat">
-                    <div class="cs-num" id="ccSolved">—</div>
-                    <div class="cs-label">Solved</div>
-                </div>
-                <div class="coding-stat">
-                    <div class="cs-num" id="ccStars">—</div>
-                    <div class="cs-label">Stars</div>
-                </div>
-            </div>
-            <p class="coding-note" style="margin-top:2rem;">Set your CodeChef username in <code>CODECHEF_USER</code> variable in the script below</p>
-        </div>
-    </div>
+    <div class="dsa-summary reveal" id="dsaSummary"></div>
+    <div class="dsa-categories reveal" id="dsaCategories"></div>
 </section>
+
+<!-- DSA Admin Panel -->
+<div class="dsa-admin-overlay" id="dsaAdminOverlay">
+    <div class="dsa-admin">
+        <div class="dsa-admin-header">
+            <h3>> add_problem</h3>
+            <button class="modal-close" onclick="toggleDsaAdmin()">&times;</button>
+        </div>
+        <div class="dsa-admin-body">
+            <div class="dsa-form-group">
+                <label>Problem Name *</label>
+                <input type="text" id="dsaProbName" placeholder="e.g., Two Sum, LRU Cache">
+            </div>
+            <div class="dsa-form-group">
+                <label>Category *</label>
+                <select id="dsaProbCat">
+                    <option value="Arrays & Hashing">Arrays & Hashing</option>
+                    <option value="Two Pointers">Two Pointers</option>
+                    <option value="Sliding Window">Sliding Window</option>
+                    <option value="Stack">Stack</option>
+                    <option value="Binary Search">Binary Search</option>
+                    <option value="Linked List">Linked List</option>
+                    <option value="Trees">Trees</option>
+                    <option value="Graphs">Graphs</option>
+                    <option value="Dynamic Programming">Dynamic Programming</option>
+                    <option value="Greedy">Greedy</option>
+                    <option value="Backtracking">Backtracking</option>
+                    <option value="Heap / Priority Queue">Heap / Priority Queue</option>
+                    <option value="Intervals">Intervals</option>
+                    <option value="Math & Bit Manipulation">Math & Bit Manipulation</option>
+                    <option value="Trie">Trie</option>
+                    <option value="System Design - HLD">System Design - HLD</option>
+                    <option value="System Design - LLD">System Design - LLD</option>
+                </select>
+            </div>
+            <div class="dsa-form-group">
+                <label>Difficulty *</label>
+                <select id="dsaProbDiff">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+            <button class="dsa-add-btn" onclick="addDsaProblem()">+ Add Problem</button>
+            <div class="dsa-manage-list" id="dsaManageList"></div>
+        </div>
+    </div>
+</div>
 
 <!-- Skills -->
 <section class="section" id="skills">
@@ -2337,6 +2380,192 @@
     }
     document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='B'){e.preventDefault();toggleAdmin();}});
     updateBadge();
+
+    // ============ DSA & SYSTEM DESIGN TRACKER ============
+    var DEFAULT_PROBLEMS = [
+        // Arrays & Hashing
+        {name:'Two Sum',cat:'Arrays & Hashing',diff:'Easy'},
+        {name:'Contains Duplicate',cat:'Arrays & Hashing',diff:'Easy'},
+        {name:'Valid Anagram',cat:'Arrays & Hashing',diff:'Easy'},
+        {name:'Group Anagrams',cat:'Arrays & Hashing',diff:'Medium'},
+        {name:'Top K Frequent Elements',cat:'Arrays & Hashing',diff:'Medium'},
+        {name:'Product of Array Except Self',cat:'Arrays & Hashing',diff:'Medium'},
+        {name:'Longest Consecutive Sequence',cat:'Arrays & Hashing',diff:'Medium'},
+        // Two Pointers
+        {name:'Valid Palindrome',cat:'Two Pointers',diff:'Easy'},
+        {name:'Two Sum II - Sorted Array',cat:'Two Pointers',diff:'Medium'},
+        {name:'3Sum',cat:'Two Pointers',diff:'Medium'},
+        {name:'Container With Most Water',cat:'Two Pointers',diff:'Medium'},
+        {name:'Trapping Rain Water',cat:'Two Pointers',diff:'Hard'},
+        // Sliding Window
+        {name:'Best Time to Buy and Sell Stock',cat:'Sliding Window',diff:'Easy'},
+        {name:'Longest Substring Without Repeating Characters',cat:'Sliding Window',diff:'Medium'},
+        {name:'Minimum Window Substring',cat:'Sliding Window',diff:'Hard'},
+        // Stack
+        {name:'Valid Parentheses',cat:'Stack',diff:'Easy'},
+        {name:'Min Stack',cat:'Stack',diff:'Medium'},
+        {name:'Daily Temperatures',cat:'Stack',diff:'Medium'},
+        {name:'Stack Implementation (C)',cat:'Stack',diff:'Easy'},
+        // Binary Search
+        {name:'Binary Search',cat:'Binary Search',diff:'Easy'},
+        {name:'Search in Rotated Sorted Array',cat:'Binary Search',diff:'Medium'},
+        {name:'Find Minimum in Rotated Sorted Array',cat:'Binary Search',diff:'Medium'},
+        {name:'Median of Two Sorted Arrays',cat:'Binary Search',diff:'Hard'},
+        // Linked List
+        {name:'Reverse Linked List',cat:'Linked List',diff:'Easy'},
+        {name:'Merge Two Sorted Lists',cat:'Linked List',diff:'Easy'},
+        {name:'Linked List Cycle',cat:'Linked List',diff:'Easy'},
+        {name:'Remove Nth Node From End',cat:'Linked List',diff:'Medium'},
+        {name:'Reorder List',cat:'Linked List',diff:'Medium'},
+        {name:'Linked List Implementation (C)',cat:'Linked List',diff:'Easy'},
+        // Trees
+        {name:'Invert Binary Tree',cat:'Trees',diff:'Easy'},
+        {name:'Maximum Depth of Binary Tree',cat:'Trees',diff:'Easy'},
+        {name:'Same Tree',cat:'Trees',diff:'Easy'},
+        {name:'Binary Tree Level Order Traversal',cat:'Trees',diff:'Medium'},
+        {name:'Validate BST',cat:'Trees',diff:'Medium'},
+        {name:'BST Implementation (C)',cat:'Trees',diff:'Medium'},
+        {name:'Lowest Common Ancestor of BST',cat:'Trees',diff:'Medium'},
+        {name:'Serialize and Deserialize Binary Tree',cat:'Trees',diff:'Hard'},
+        // Graphs
+        {name:'Number of Islands',cat:'Graphs',diff:'Medium'},
+        {name:'Clone Graph',cat:'Graphs',diff:'Medium'},
+        {name:'Course Schedule',cat:'Graphs',diff:'Medium'},
+        {name:'Pacific Atlantic Water Flow',cat:'Graphs',diff:'Medium'},
+        {name:'Graph Valid Tree',cat:'Graphs',diff:'Medium'},
+        // Dynamic Programming
+        {name:'Climbing Stairs',cat:'Dynamic Programming',diff:'Easy'},
+        {name:'House Robber',cat:'Dynamic Programming',diff:'Medium'},
+        {name:'Coin Change',cat:'Dynamic Programming',diff:'Medium'},
+        {name:'Longest Increasing Subsequence',cat:'Dynamic Programming',diff:'Medium'},
+        {name:'Word Break',cat:'Dynamic Programming',diff:'Medium'},
+        {name:'Longest Common Subsequence',cat:'Dynamic Programming',diff:'Medium'},
+        {name:'Edit Distance',cat:'Dynamic Programming',diff:'Hard'},
+        // Greedy
+        {name:'Maximum Subarray',cat:'Greedy',diff:'Medium'},
+        {name:'Jump Game',cat:'Greedy',diff:'Medium'},
+        {name:'Jump Game II',cat:'Greedy',diff:'Medium'},
+        // Backtracking
+        {name:'Subsets',cat:'Backtracking',diff:'Medium'},
+        {name:'Combination Sum',cat:'Backtracking',diff:'Medium'},
+        {name:'Permutations',cat:'Backtracking',diff:'Medium'},
+        {name:'N-Queens',cat:'Backtracking',diff:'Hard'},
+        // Heap / Priority Queue
+        {name:'Kth Largest Element in Array',cat:'Heap / Priority Queue',diff:'Medium'},
+        {name:'Merge K Sorted Lists',cat:'Heap / Priority Queue',diff:'Hard'},
+        {name:'Find Median from Data Stream',cat:'Heap / Priority Queue',diff:'Hard'},
+        // Intervals
+        {name:'Merge Intervals',cat:'Intervals',diff:'Medium'},
+        {name:'Non-overlapping Intervals',cat:'Intervals',diff:'Medium'},
+        // Math & Bit Manipulation
+        {name:'Number of 1 Bits',cat:'Math & Bit Manipulation',diff:'Easy'},
+        {name:'Counting Bits',cat:'Math & Bit Manipulation',diff:'Easy'},
+        {name:'Reverse Bits',cat:'Math & Bit Manipulation',diff:'Easy'},
+        {name:'Missing Number',cat:'Math & Bit Manipulation',diff:'Easy'},
+        // Trie
+        {name:'Implement Trie',cat:'Trie',diff:'Medium'},
+        {name:'Word Search II',cat:'Trie',diff:'Hard'},
+        // System Design - HLD
+        {name:'URL Shortener (TinyURL)',cat:'System Design - HLD',diff:'Medium'},
+        {name:'Design Twitter / News Feed',cat:'System Design - HLD',diff:'Hard'},
+        {name:'Design WhatsApp / Chat System',cat:'System Design - HLD',diff:'Hard'},
+        {name:'Design Rate Limiter',cat:'System Design - HLD',diff:'Medium'},
+        {name:'Design Notification Service',cat:'System Design - HLD',diff:'Medium'},
+        {name:'Design Distributed Cache',cat:'System Design - HLD',diff:'Hard'},
+        // System Design - LLD
+        {name:'Parking Lot System',cat:'System Design - LLD',diff:'Medium'},
+        {name:'Elevator / Lift System',cat:'System Design - LLD',diff:'Medium'},
+        {name:'URL Shortener (Base62 + Dedup)',cat:'System Design - LLD',diff:'Medium'},
+        {name:'LRU Cache',cat:'System Design - LLD',diff:'Medium'},
+        {name:'Tic-Tac-Toe Game',cat:'System Design - LLD',diff:'Easy'},
+        {name:'Snake & Ladder Game',cat:'System Design - LLD',diff:'Medium'},
+    ];
+
+    var CAT_ICONS = {
+        'Arrays & Hashing':'\ud83d\udcca','Two Pointers':'\ud83d\udc49','Sliding Window':'\ud83e\ude9f',
+        'Stack':'\ud83d\udcda','Binary Search':'\ud83d\udd0d','Linked List':'\ud83d\udd17',
+        'Trees':'\ud83c\udf33','Graphs':'\ud83d\uddd3\ufe0f','Dynamic Programming':'\ud83e\udde0',
+        'Greedy':'\ud83c\udfaf','Backtracking':'\ud83d\udd04','Heap / Priority Queue':'\u2b50',
+        'Intervals':'\ud83d\udcc5','Math & Bit Manipulation':'\ud83e\uddee','Trie':'\ud83c\udd70\ufe0f',
+        'System Design - HLD':'\ud83c\udfd7\ufe0f','System Design - LLD':'\u2699\ufe0f'
+    };
+
+    function getDsaProblems(){
+        var custom = JSON.parse(localStorage.getItem('yas_dsa_custom')||'[]');
+        return DEFAULT_PROBLEMS.concat(custom);
+    }
+    function renderDsa(){
+        var problems = getDsaProblems();
+        var cats = {};
+        var easy=0, medium=0, hard=0;
+        problems.forEach(function(p){
+            if(!cats[p.cat]) cats[p.cat]=[];
+            cats[p.cat].push(p);
+            if(p.diff==='Easy') easy++;
+            else if(p.diff==='Medium') medium++;
+            else hard++;
+        });
+        // Summary
+        var sumHtml = '';
+        sumHtml += '<div class="dsa-stat"><div class="ds-num">'+problems.length+'</div><div class="ds-label">Total Solved</div></div>';
+        sumHtml += '<div class="dsa-stat" style="--accent:#22c55e;"><div class="ds-num" style="color:#22c55e;">'+easy+'</div><div class="ds-label">Easy</div></div>';
+        sumHtml += '<div class="dsa-stat" style="--accent:#f59e0b;"><div class="ds-num" style="color:#f59e0b;">'+medium+'</div><div class="ds-label">Medium</div></div>';
+        sumHtml += '<div class="dsa-stat" style="--accent:#ef4444;"><div class="ds-num" style="color:#ef4444;">'+hard+'</div><div class="ds-label">Hard</div></div>';
+        sumHtml += '<div class="dsa-stat"><div class="ds-num">'+Object.keys(cats).length+'</div><div class="ds-label">Categories</div></div>';
+        document.getElementById('dsaSummary').innerHTML = sumHtml;
+        // Categories
+        var catHtml = '';
+        var catOrder = ['Arrays & Hashing','Two Pointers','Sliding Window','Stack','Binary Search','Linked List','Trees','Graphs','Dynamic Programming','Greedy','Backtracking','Heap / Priority Queue','Intervals','Math & Bit Manipulation','Trie','System Design - HLD','System Design - LLD'];
+        catOrder.forEach(function(cat){
+            if(!cats[cat]) return;
+            var icon = CAT_ICONS[cat]||'\ud83d\udcdd';
+            catHtml += '<div class="dsa-cat-card">';
+            catHtml += '<div class="dsa-cat-header"><h3>'+icon+' '+cat+'</h3><span class="cat-count">'+cats[cat].length+'</span></div>';
+            cats[cat].forEach(function(p){
+                var dc = p.diff==='Easy'?'diff-easy':p.diff==='Medium'?'diff-medium':'diff-hard';
+                catHtml += '<div class="dsa-problem"><span class="prob-name">'+p.name+'</span><span class="prob-diff '+dc+'">'+p.diff+'</span></div>';
+            });
+            catHtml += '</div>';
+        });
+        document.getElementById('dsaCategories').innerHTML = catHtml;
+    }
+    function addDsaProblem(){
+        var name = document.getElementById('dsaProbName').value.trim();
+        var cat = document.getElementById('dsaProbCat').value;
+        var diff = document.getElementById('dsaProbDiff').value;
+        if(!name){alert('Enter a problem name');return;}
+        var custom = JSON.parse(localStorage.getItem('yas_dsa_custom')||'[]');
+        custom.push({name:name,cat:cat,diff:diff,id:Date.now()});
+        localStorage.setItem('yas_dsa_custom',JSON.stringify(custom));
+        document.getElementById('dsaProbName').value='';
+        renderDsa();
+        renderDsaManage();
+    }
+    function removeDsaProblem(id){
+        var custom = JSON.parse(localStorage.getItem('yas_dsa_custom')||'[]');
+        custom = custom.filter(function(p){return p.id!==id;});
+        localStorage.setItem('yas_dsa_custom',JSON.stringify(custom));
+        renderDsa();
+        renderDsaManage();
+    }
+    function renderDsaManage(){
+        var custom = JSON.parse(localStorage.getItem('yas_dsa_custom')||'[]');
+        var el = document.getElementById('dsaManageList');
+        if(custom.length===0){el.innerHTML='<p style="color:var(--text-3);font-size:.82rem;margin-top:1rem;">No custom problems added yet. Default problems are built-in.</p>';return;}
+        var html='<p style="font-size:.82rem;color:var(--text-2);margin-bottom:.75rem;font-weight:600;">Custom problems ('+custom.length+'):</p>';
+        custom.forEach(function(p){
+            html+='<div class="dsa-manage-item"><span>'+p.name+' <small style="color:var(--text-3);">('+p.cat+')</small></span><button onclick="removeDsaProblem('+p.id+')">\u2715</button></div>';
+        });
+        el.innerHTML=html;
+    }
+    function toggleDsaAdmin(){
+        var o=document.getElementById('dsaAdminOverlay');
+        o.classList.toggle('active');
+        if(o.classList.contains('active'))renderDsaManage();
+    }
+    document.getElementById('dsaAdminOverlay').addEventListener('click',function(e){if(e.target===this)toggleDsaAdmin();});
+    document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='D'){e.preventDefault();toggleDsaAdmin();}});
+    renderDsa();
 </script>
 </body>
 </html>
