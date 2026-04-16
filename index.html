@@ -550,6 +550,32 @@
             .vid-item { flex: 0 0 85vw; }
             .edu-photos { grid-template-columns: 1fr; }
         }
+
+        /* Booking Tracker Badge */
+        .booking-badge{position:fixed;bottom:24px;right:24px;z-index:150;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .35s;box-shadow:0 8px 30px rgba(0,0,0,.4);font-family:var(--mono)}
+        .booking-badge:hover{border-color:var(--accent);box-shadow:0 0 25px rgba(99,102,241,.2),0 8px 30px rgba(0,0,0,.5);transform:translateY(-3px)}
+        .booking-badge .badge-count{background:var(--accent);color:#fff;font-weight:800;font-size:1rem;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(99,102,241,.4)}
+        .booking-badge .badge-label{font-size:.8rem;color:var(--text-2);font-weight:500}
+        .booking-badge.has-bookings .badge-count{animation:pulse-badge 2s infinite}
+        @keyframes pulse-badge{0%,100%{transform:scale(1)}50%{transform:scale(1.15);box-shadow:0 0 20px rgba(99,102,241,.6)}}
+        .admin-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem}
+        .admin-overlay.active{display:flex}
+        .admin-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+        .admin-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg-card);z-index:2;border-radius:16px 16px 0 0}
+        .admin-header h3{font-size:1.1rem;font-weight:700;font-family:var(--mono);color:var(--accent)}
+        .admin-body{padding:1.5rem}
+        .admin-empty{text-align:center;padding:2rem;color:var(--text-3);font-family:var(--mono)}
+        .admin-booking{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:.75rem;position:relative}
+        .admin-booking .ab-service{font-weight:700;font-size:.95rem;color:var(--accent);margin-bottom:4px}
+        .admin-booking .ab-client{font-size:.85rem;color:var(--text-2)}
+        .admin-booking .ab-details{font-size:.78rem;color:var(--text-3);margin-top:4px;font-family:var(--mono)}
+        .admin-booking .ab-date-time{font-size:.8rem;color:var(--cyan,#06b6d4);margin-top:2px}
+        .admin-booking .ab-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--text-3);font-size:1.2rem;cursor:pointer;transition:color .2s}
+        .admin-booking .ab-close:hover{color:#ef4444}
+        .admin-actions{display:flex;gap:.75rem;margin-top:1rem}
+        .admin-actions button{padding:8px 16px;border-radius:8px;border:none;font-weight:600;font-size:.82rem;cursor:pointer;font-family:var(--sans);transition:all .3s}
+        .btn-clear-all{background:#ef4444;color:#fff}
+        .btn-clear-all:hover{opacity:.8}
     </style>
 </head>
 <body>
@@ -1306,6 +1332,23 @@
     </div>
 </div>
 
+<!-- Booking Tracker Badge -->
+<div class="booking-badge" id="bookingBadge" onclick="toggleAdmin()" title="Active Bookings (Ctrl+Shift+B)">
+    <div class="badge-count" id="badgeCount">0</div>
+    <div class="badge-label">Active<br>Bookings</div>
+</div>
+
+<!-- Admin Panel -->
+<div class="admin-overlay" id="adminOverlay">
+    <div class="admin-panel">
+        <div class="admin-header">
+            <h3>&gt; active_bookings</h3>
+            <button class="modal-close" onclick="toggleAdmin()">&times;</button>
+        </div>
+        <div class="admin-body" id="adminBody"></div>
+    </div>
+</div>
+
 <!-- Booking Modal -->
 <div class="modal-overlay" id="bookingModal">
     <div class="modal">
@@ -1894,6 +1937,8 @@
     }
 
     function onPaymentSuccess(paymentId) {
+        // Track booking
+        addBookingTracker(booking.name, booking.userName, booking.userEmail, booking.userPhone, booking.price, paymentId, booking.date, booking.time);
         // Show success step
         const successHtml = `
             <div class="summary-row"><span class="label">Session</span><span class="value">${booking.name}</span></div>
@@ -2187,6 +2232,55 @@
 
     // Render any existing dynamic reviews on page load
     renderDynamicReviews();
+
+    // ============ BOOKING TRACKER ============
+    function getTrackedBookings(){return JSON.parse(localStorage.getItem('yas_bookings')||'[]');}
+    function saveTrackedBookings(b){localStorage.setItem('yas_bookings',JSON.stringify(b));updateBadge();}
+    function addBookingTracker(service,client,email,phone,amount,paymentId,date,time){
+        var b=getTrackedBookings();
+        b.push({id:Date.now(),service:service,client:client,email:email,phone:phone,amount:amount,paymentId:paymentId,date:date||'',time:time||'',booked:new Date().toISOString()});
+        saveTrackedBookings(b);
+    }
+    function removeTrackedBooking(id){
+        var b=getTrackedBookings().filter(function(x){return x.id!==id;});
+        saveTrackedBookings(b);
+        renderAdmin();
+    }
+    function clearAllTrackedBookings(){
+        if(!confirm('Clear ALL active bookings?'))return;
+        saveTrackedBookings([]);
+        renderAdmin();
+    }
+    function updateBadge(){
+        var count=getTrackedBookings().length;
+        document.getElementById('badgeCount').textContent=count;
+        document.getElementById('bookingBadge').classList.toggle('has-bookings',count>0);
+    }
+    function toggleAdmin(){
+        var o=document.getElementById('adminOverlay');
+        o.classList.toggle('active');
+        if(o.classList.contains('active'))renderAdmin();
+    }
+    document.getElementById('adminOverlay').addEventListener('click',function(e){if(e.target===this)toggleAdmin();});
+    function renderAdmin(){
+        var b=getTrackedBookings();
+        var body=document.getElementById('adminBody');
+        if(b.length===0){body.innerHTML='<div class="admin-empty">// no active bookings<br>all clear \u2713</div>';return;}
+        var html='';
+        b.forEach(function(item){
+            html+='<div class="admin-booking">';
+            html+='<button class="ab-close" onclick="removeTrackedBooking('+item.id+')" title="Mark as addressed">\u2715</button>';
+            html+='<div class="ab-service">'+item.service+'</div>';
+            html+='<div class="ab-client">'+item.client+' &middot; '+item.email+'</div>';
+            if(item.date)html+='<div class="ab-date-time">'+item.date+(item.time?' &middot; '+item.time:'')+'</div>';
+            html+='<div class="ab-details">\u20b9'+item.amount+' &middot; '+item.paymentId+' &middot; '+new Date(item.booked).toLocaleDateString()+'</div>';
+            html+='</div>';
+        });
+        html+='<div class="admin-actions"><button class="btn-clear-all" onclick="clearAllTrackedBookings()">Clear All ('+b.length+')</button></div>';
+        body.innerHTML=html;
+    }
+    document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='B'){e.preventDefault();toggleAdmin();}});
+    updateBadge();
 </script>
 </body>
 </html>
