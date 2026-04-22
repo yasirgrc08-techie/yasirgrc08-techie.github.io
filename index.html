@@ -2711,48 +2711,100 @@ async function attemptLogin(){
 function showAdminToolbar(){
     var toolbar=document.getElementById('adminToolbar');
     toolbar.classList.add('active');
+    // Take snapshot of current saved state as draft
+    adminDraft=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]').slice();
+    adminHasChanges=false;
+    renderToolbarButtons();
+    applyDraftPreview();
+    document.querySelector('.nav').style.top='calc(36px + 44px)';
+}
+
+var adminDraft=[];
+var adminHasChanges=false;
+
+function renderToolbarButtons(){
     var actions=document.getElementById('toolbarActions');
-    var hidden=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
+    var saved=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
     var html='';
     ADMIN_SECTIONS.forEach(function(s){
-        var isHidden=hidden.indexOf(s.id)!==-1;
-        html+='<button class="'+(isHidden?'':'active-toggle')+'" onclick="toggleSection(\''+s.id+'\',this)">'+(isHidden?'👁️‍🗨️ Show':'✓ ')+s.label+'</button>';
+        var isHidden=adminDraft.indexOf(s.id)!==-1;
+        html+='<button class="'+(isHidden?'':'active-toggle')+'" onclick="toggleSectionDraft(\''+s.id+'\')">'+(isHidden?'👁️‍🗨️ Show':'✓ ')+s.label+'</button>';
     });
-    html+='<button onclick="showAllSections()" style="background:rgba(34,197,94,0.3);border-color:rgba(34,197,94,0.5)">Show All</button>';
-    html+='<button onclick="hideAllSections()" style="background:rgba(245,158,11,0.3);border-color:rgba(245,158,11,0.5)">Hide All</button>';
+    html+='<button onclick="draftShowAll()" style="background:rgba(34,197,94,0.3);border-color:rgba(34,197,94,0.5)">Show All</button>';
+    html+='<button onclick="draftHideAll()" style="background:rgba(245,158,11,0.3);border-color:rgba(245,158,11,0.5)">Hide All</button>';
+    if(adminHasChanges){
+        html+='<button onclick="saveAdminChanges()" style="background:rgba(34,197,94,0.6);border-color:rgba(34,197,94,0.8);font-weight:800">💾 Save</button>';
+        html+='<button onclick="discardAdminChanges()" style="background:rgba(239,68,68,0.3);border-color:rgba(239,68,68,0.5)">✕ Discard</button>';
+    }
     html+='<button class="logout-btn" onclick="adminLogout()">Logout</button>';
     actions.innerHTML=html;
+}
+
+function toggleSectionDraft(id){
+    var idx=adminDraft.indexOf(id);
+    if(idx===-1){adminDraft.push(id)}else{adminDraft.splice(idx,1)}
+    adminHasChanges=true;
+    renderToolbarButtons();
+    applyDraftPreview();
+}
+
+function draftShowAll(){
+    adminDraft=[];
+    adminHasChanges=true;
+    renderToolbarButtons();
+    applyDraftPreview();
+}
+function draftHideAll(){
+    adminDraft=ADMIN_SECTIONS.map(function(s){return s.id});
+    adminHasChanges=true;
+    renderToolbarButtons();
+    applyDraftPreview();
+}
+
+function applyDraftPreview(){
+    ADMIN_SECTIONS.forEach(function(s){
+        var el=document.getElementById(s.id);
+        if(!el)return;
+        var sec=el.closest('.section')||el.closest('.marquee-wrap')||el;
+        if(adminDraft.indexOf(s.id)!==-1){
+            sec.classList.add('section-hidden');sec.style.position='relative';
+        } else {
+            sec.classList.remove('section-hidden');sec.style.display='';sec.style.position='';
+        }
+    });
+}
+
+function saveAdminChanges(){
+    localStorage.setItem('yas_hidden_sections',JSON.stringify(adminDraft));
+    adminHasChanges=false;
+    renderToolbarButtons();
     applyHiddenSections();
-    // Shift nav down
-    document.querySelector('.nav').style.top='calc(36px + 44px)';
+    // Brief flash confirmation
+    var tb=document.getElementById('adminToolbar');
+    tb.style.background='linear-gradient(135deg,rgba(34,197,94,0.95),rgba(22,163,74,0.95))';
+    setTimeout(function(){tb.style.background=''},800);
+}
+
+function discardAdminChanges(){
+    adminDraft=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]').slice();
+    adminHasChanges=false;
+    renderToolbarButtons();
+    applyDraftPreview();
+    // Brief flash
+    var tb=document.getElementById('adminToolbar');
+    tb.style.background='linear-gradient(135deg,rgba(239,68,68,0.95),rgba(220,38,38,0.95))';
+    setTimeout(function(){tb.style.background=''},800);
 }
 
 function toggleAdminToolbar(){
     var toolbar=document.getElementById('adminToolbar');
     if(toolbar.classList.contains('active')){
+        if(adminHasChanges){if(!confirm('You have unsaved changes. Discard?'))return;discardAdminChanges();}
         toolbar.classList.remove('active');
         document.querySelector('.nav').style.top='36px';
     } else {
         showAdminToolbar();
     }
-}
-
-function toggleSection(id,btn){
-    var hidden=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
-    var idx=hidden.indexOf(id);
-    if(idx===-1){hidden.push(id)}else{hidden.splice(idx,1)}
-    localStorage.setItem('yas_hidden_sections',JSON.stringify(hidden));
-    showAdminToolbar();
-}
-
-function showAllSections(){
-    localStorage.setItem('yas_hidden_sections','[]');
-    showAdminToolbar();
-}
-function hideAllSections(){
-    var all=ADMIN_SECTIONS.map(function(s){return s.id});
-    localStorage.setItem('yas_hidden_sections',JSON.stringify(all));
-    showAdminToolbar();
 }
 
 function applyHiddenSections(){
@@ -2779,6 +2831,7 @@ function applyHiddenSections(){
 }
 
 function adminLogout(){
+    if(adminHasChanges){if(!confirm('You have unsaved changes. Discard and logout?'))return;discardAdminChanges();}
     adminLoggedIn=false;
     sessionStorage.removeItem('yas_admin');
     document.getElementById('adminFab').classList.remove('logged-in');
