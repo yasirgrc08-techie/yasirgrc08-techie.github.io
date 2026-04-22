@@ -2695,7 +2695,7 @@ async function attemptLogin(){
     var pass=document.getElementById('adminPass').value;
     var hash=await sha256(user+':'+pass);
     // Check against known hash
-    if(user==='admin'&&pass==='Yasir@2026'){
+    if(user==='admin'&&pass==='Yasir@1908'){
         adminLoggedIn=true;
         closeAdminLogin();
         document.getElementById('adminFab').classList.add('logged-in');
