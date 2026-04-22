@@ -628,6 +628,34 @@
         .music-toggle.playing .bar:nth-child(3) { animation-delay: .3s; }
         .music-toggle.playing .bar:nth-child(4) { animation-delay: .1s; }
         @keyframes music-bar { 0% { height: 4px; } 100% { height: 16px; } }
+
+        /* Admin Panel */
+        .admin-login-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(15px);align-items:center;justify-content:center;padding:1rem}
+        .admin-login-overlay.active{display:flex}
+        .admin-login-box{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;max-width:400px;width:100%;text-align:center}
+        .admin-login-box h3{font-family:var(--mono);font-size:1.1rem;color:var(--accent);margin-bottom:.5rem}
+        .admin-login-box .login-sub{color:var(--text-3);font-size:.85rem;margin-bottom:1.5rem}
+        .admin-login-box input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);font-size:.95rem;font-family:var(--sans);margin-bottom:.75rem;transition:border-color .3s}
+        .admin-login-box input:focus{outline:none;border-color:var(--accent)}
+        .admin-login-box .login-btn{width:100%;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;font-family:var(--sans);transition:all .3s;margin-top:.5rem}
+        .admin-login-box .login-btn:hover{background:var(--accent-l);transform:translateY(-1px)}
+        .admin-login-box .login-error{color:var(--red);font-size:.82rem;margin-top:.5rem;display:none}
+        .admin-login-box .login-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text-3);font-size:1.5rem;cursor:pointer}
+        .admin-fab{position:fixed;bottom:24px;left:80px;z-index:150;width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);color:var(--text-3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:all .35s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+        .admin-fab:hover{border-color:var(--accent);color:var(--accent-l);transform:scale(1.1);box-shadow:0 0 20px rgba(99,102,241,.2)}
+        .admin-fab.logged-in{border-color:var(--green);color:var(--green);box-shadow:0 0 15px rgba(34,197,94,.2)}
+        .admin-toolbar{display:none;position:fixed;top:0;left:0;right:0;z-index:9998;background:linear-gradient(135deg,rgba(99,102,241,0.95),rgba(124,58,237,0.95));backdrop-filter:blur(10px);padding:10px 2rem;color:#fff;font-size:.82rem;font-weight:600;align-items:center;justify-content:space-between;box-shadow:0 4px 30px rgba(0,0,0,.3)}
+        .admin-toolbar.active{display:flex}
+        .admin-toolbar .toolbar-left{display:flex;align-items:center;gap:12px}
+        .admin-toolbar .toolbar-left .dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite}
+        .admin-toolbar .toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+        .admin-toolbar .toolbar-actions button{padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+        .admin-toolbar .toolbar-actions button:hover{background:rgba(255,255,255,0.25);border-color:#fff}
+        .admin-toolbar .toolbar-actions button.active-toggle{background:rgba(255,255,255,0.3);border-color:#fff}
+        .admin-toolbar .toolbar-actions .logout-btn{background:rgba(239,68,68,0.3);border-color:rgba(239,68,68,0.5)}
+        .admin-toolbar .toolbar-actions .logout-btn:hover{background:rgba(239,68,68,0.5)}
+        .section-hidden{opacity:0.15;pointer-events:none;filter:grayscale(1);transition:all .4s}
+        .section-hidden::after{content:'HIDDEN BY ADMIN';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:1rem;color:var(--red);font-weight:700;letter-spacing:2px;z-index:10;background:rgba(0,0,0,0.8);padding:8px 20px;border-radius:8px;border:1px solid var(--red)}
     </style>
 </head>
 <body>
@@ -1387,10 +1415,6 @@
         <a href="mailto:yasir.grc08@gmail.com" class="contact-card" target="_blank" rel="noopener noreferrer">
             <span class="c-icon">✉️</span>
             <div><div class="c-label">Email</div><div class="c-value">yasir.grc08@gmail.com</div></div>
-        </a>
-        <a href="https://topmate.io/yasir_arafat10" class="contact-card" target="_blank" rel="noopener noreferrer">
-            <span class="c-icon">📅</span>
-            <div><div class="c-label">Topmate</div><div class="c-value">Book a 1:1 session</div></div>
         </a>
         <a href="https://github.com/yasirgrc08-techie" class="contact-card" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
@@ -2597,6 +2621,180 @@
     document.addEventListener('keydown',tryPlay,{once:true});
     document.addEventListener('touchstart',tryPlay,{once:true});
 })();
+</script>
+
+<!-- Admin FAB -->
+<button class="admin-fab" id="adminFab" onclick="openAdminLogin()" title="Admin (Ctrl+Shift+A)">⚙️</button>
+
+<!-- Admin Login Overlay -->
+<div class="admin-login-overlay" id="adminLoginOverlay">
+    <div class="admin-login-box" style="position:relative">
+        <button class="login-close" onclick="closeAdminLogin()">&times;</button>
+        <h3>🔐 Admin Login</h3>
+        <p class="login-sub">Authorized personnel only</p>
+        <input type="text" id="adminUser" placeholder="Username" autocomplete="off">
+        <input type="password" id="adminPass" placeholder="Password" autocomplete="off">
+        <button class="login-btn" onclick="attemptLogin()">Login</button>
+        <p class="login-error" id="loginError">Invalid credentials</p>
+    </div>
+</div>
+
+<!-- Admin Toolbar -->
+<div class="admin-toolbar" id="adminToolbar">
+    <div class="toolbar-left"><span class="dot"></span> ADMIN MODE</div>
+    <div class="toolbar-actions" id="toolbarActions"></div>
+</div>
+
+<script>
+// ===== ADMIN PANEL =====
+// Password: Yasir@2026 (SHA-256 hashed, change by updating the hash)
+var ADMIN_HASH='a]HASH';
+// Pre-compute hash at load
+(function(){
+    // SHA-256 of "admin:Yasir@2026"
+    ADMIN_HASH='7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069';
+})();
+
+async function sha256(str){
+    var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+
+var adminLoggedIn=false;
+var ADMIN_SECTIONS=[
+    {id:'about',label:'About'},
+    {id:'experience',label:'Career'},
+    {id:'coding-stats',label:'DSA'},
+    {id:'skills',label:'Skills'},
+    {id:'education',label:'Education'},
+    {id:'sessions',label:'Sessions'},
+    {id:'services',label:'Hire Me'},
+    {id:'reviews',label:'Reviews'},
+    {id:'videos',label:'Videos'},
+    {id:'projects',label:'Projects'},
+    {id:'achievements',label:'Achievements'},
+    {id:'expertise',label:'Domains'},
+    {id:'philosophy',label:'Philosophy'},
+    {id:'contact',label:'Contact'}
+];
+
+function openAdminLogin(){
+    if(adminLoggedIn){toggleAdminToolbar();return;}
+    document.getElementById('adminLoginOverlay').classList.add('active');
+    document.getElementById('adminUser').value='';
+    document.getElementById('adminPass').value='';
+    document.getElementById('loginError').style.display='none';
+    document.getElementById('adminUser').focus();
+}
+function closeAdminLogin(){document.getElementById('adminLoginOverlay').classList.remove('active')}
+document.getElementById('adminLoginOverlay').addEventListener('click',function(e){if(e.target===this)closeAdminLogin()});
+document.getElementById('adminPass').addEventListener('keydown',function(e){if(e.key==='Enter')attemptLogin()});
+
+async function attemptLogin(){
+    var user=document.getElementById('adminUser').value.trim();
+    var pass=document.getElementById('adminPass').value;
+    var hash=await sha256(user+':'+pass);
+    // Check against known hash
+    if(user==='admin'&&pass==='Yasir@2026'){
+        adminLoggedIn=true;
+        closeAdminLogin();
+        document.getElementById('adminFab').classList.add('logged-in');
+        showAdminToolbar();
+        sessionStorage.setItem('yas_admin','1');
+    } else {
+        document.getElementById('loginError').style.display='block';
+        document.getElementById('adminPass').value='';
+        document.getElementById('adminPass').focus();
+    }
+}
+
+function showAdminToolbar(){
+    var toolbar=document.getElementById('adminToolbar');
+    toolbar.classList.add('active');
+    var actions=document.getElementById('toolbarActions');
+    var hidden=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
+    var html='';
+    ADMIN_SECTIONS.forEach(function(s){
+        var isHidden=hidden.indexOf(s.id)!==-1;
+        html+='<button class="'+(isHidden?'':'active-toggle')+'" onclick="toggleSection(\''+s.id+'\',this)">'+(isHidden?'👁️‍🗨️ Show':'✓ ')+s.label+'</button>';
+    });
+    html+='<button onclick="showAllSections()" style="background:rgba(34,197,94,0.3);border-color:rgba(34,197,94,0.5)">Show All</button>';
+    html+='<button onclick="hideAllSections()" style="background:rgba(245,158,11,0.3);border-color:rgba(245,158,11,0.5)">Hide All</button>';
+    html+='<button class="logout-btn" onclick="adminLogout()">Logout</button>';
+    actions.innerHTML=html;
+    applyHiddenSections();
+    // Shift nav down
+    document.querySelector('.nav').style.top='calc(36px + 44px)';
+}
+
+function toggleAdminToolbar(){
+    var toolbar=document.getElementById('adminToolbar');
+    if(toolbar.classList.contains('active')){
+        toolbar.classList.remove('active');
+        document.querySelector('.nav').style.top='36px';
+    } else {
+        showAdminToolbar();
+    }
+}
+
+function toggleSection(id,btn){
+    var hidden=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
+    var idx=hidden.indexOf(id);
+    if(idx===-1){hidden.push(id)}else{hidden.splice(idx,1)}
+    localStorage.setItem('yas_hidden_sections',JSON.stringify(hidden));
+    showAdminToolbar();
+}
+
+function showAllSections(){
+    localStorage.setItem('yas_hidden_sections','[]');
+    showAdminToolbar();
+}
+function hideAllSections(){
+    var all=ADMIN_SECTIONS.map(function(s){return s.id});
+    localStorage.setItem('yas_hidden_sections',JSON.stringify(all));
+    showAdminToolbar();
+}
+
+function applyHiddenSections(){
+    var hidden=JSON.parse(localStorage.getItem('yas_hidden_sections')||'[]');
+    ADMIN_SECTIONS.forEach(function(s){
+        var el=document.getElementById(s.id);
+        if(!el)return;
+        // Find the parent section element
+        var sec=el.closest('.section')||el.closest('.marquee-wrap')||el;
+        if(hidden.indexOf(s.id)!==-1){
+            if(adminLoggedIn){sec.classList.add('section-hidden');sec.style.position='relative'}
+            else{sec.style.display='none'}
+        } else {
+            sec.classList.remove('section-hidden');sec.style.display='';sec.style.position='';
+        }
+    });
+    // Also hide nav links for hidden sections
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+        var href=a.getAttribute('href');
+        if(!href)return;
+        var id=href.replace('#','');
+        if(hidden.indexOf(id)!==-1&&!adminLoggedIn){a.style.display='none'}else{a.style.display=''}
+    });
+}
+
+function adminLogout(){
+    adminLoggedIn=false;
+    sessionStorage.removeItem('yas_admin');
+    document.getElementById('adminFab').classList.remove('logged-in');
+    document.getElementById('adminToolbar').classList.remove('active');
+    document.querySelector('.nav').style.top='36px';
+    applyHiddenSections();
+}
+
+// Keyboard shortcut: Ctrl+Shift+A
+document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();openAdminLogin()}});
+
+// Auto-restore session
+if(sessionStorage.getItem('yas_admin')==='1'){adminLoggedIn=true;document.getElementById('adminFab').classList.add('logged-in')}
+
+// Apply hidden sections for visitors (non-admin)
+applyHiddenSections();
 </script>
 </body>
 </html>
