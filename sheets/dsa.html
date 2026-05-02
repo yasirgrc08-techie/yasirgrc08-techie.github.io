@@ -145,202 +145,1607 @@ tr:hover{background:var(--bg2)}
         <div class="paywall-blur" id="sheetContent">
 
 <!-- ===== ARRAYS & STRINGS ===== -->
-<div class="section-header">📦 Arrays & Strings <span class="section-count">(45 problems)</span></div>
+<div class="section-header">ðŸ“¦ Arrays &amp; Strings <span class="section-count">(15 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon,Microsoft"><td>1</td><td>Two Sum</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use a hash map to store complement.\nTime: O(n), Space: O(n)\n\ndef twoSum(nums, target):\n    seen = {}\n    for i, n in enumerate(nums):\n        comp = target - n\n        if comp in seen:\n            return [seen[comp], i]\n        seen[n] = i</div></td></tr>
-<tr data-co="Google,Amazon,Meta"><td>2</td><td>Best Time to Buy and Sell Stock</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Track minimum price, calculate max profit at each step.\nTime: O(n), Space: O(1)\n\ndef maxProfit(prices):\n    min_p = float('inf')\n    max_prof = 0\n    for p in prices:\n        min_p = min(min_p, p)\n        max_prof = max(max_prof, p - min_p)\n    return max_prof</div></td></tr>
-<tr data-co="Microsoft,Amazon,Google"><td>3</td><td>Contains Duplicate</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Set</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use a set to check duplicates.\nTime: O(n), Space: O(n)\n\ndef containsDuplicate(nums):\n    return len(nums) != len(set(nums))</div></td></tr>
-<tr data-co="Google,Microsoft"><td>4</td><td>Product of Array Except Self</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Prefix Sum</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Left pass and right pass prefix products.\nTime: O(n), Space: O(1) extra\n\ndef productExceptSelf(nums):\n    n = len(nums)\n    res = [1]*n\n    left = 1\n    for i in range(n):\n        res[i] = left\n        left *= nums[i]\n    right = 1\n    for i in range(n-1,-1,-1):\n        res[i] *= right\n        right *= nums[i]\n    return res</div></td></tr>
-<tr data-co="Amazon,Meta,Google"><td>5</td><td>Maximum Subarray (Kadane's)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP / Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Kadane's algorithm.\nTime: O(n), Space: O(1)\n\ndef maxSubArray(nums):\n    max_sum = cur = nums[0]\n    for n in nums[1:]:\n        cur = max(n, cur + n)\n        max_sum = max(max_sum, cur)\n    return max_sum</div></td></tr>
-<tr data-co="Microsoft,Google,Amazon"><td>6</td><td>3Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort + two pointers.\nTime: O(n²), Space: O(1)\n\ndef threeSum(nums):\n    nums.sort()\n    res = []\n    for i in range(len(nums)-2):\n        if i > 0 and nums[i]==nums[i-1]: continue\n        l, r = i+1, len(nums)-1\n        while l < r:\n            s = nums[i]+nums[l]+nums[r]\n            if s < 0: l += 1\n            elif s > 0: r -= 1\n            else:\n                res.append([nums[i],nums[l],nums[r]])\n                while l<r and nums[l]==nums[l+1]: l+=1\n                l+=1; r-=1\n    return res</div></td></tr>
-<tr data-co="Google,Meta"><td>7</td><td>Container With Most Water</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointers from both ends.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Amazon,Microsoft"><td>8</td><td>Merge Intervals</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sorting</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort by start, merge overlapping.\nTime: O(n log n)</div></td></tr>
-<tr data-co="Google,Amazon,Meta"><td>9</td><td>Longest Substring Without Repeating Characters</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sliding window with hash set.\nTime: O(n), Space: O(min(n,26))</div></td></tr>
-<tr data-co="Microsoft,Amazon"><td>10</td><td>Valid Anagram</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Counter comparison.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Google,Apple"><td>11</td><td>Group Anagrams</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort each word as key.\nTime: O(n * k log k)</div></td></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>12</td><td>Trapping Rain Water</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Pointers</span><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointer approach.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Meta,Google"><td>13</td><td>Minimum Window Substring</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sliding window with two hash maps.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Microsoft,Amazon"><td>14</td><td>Longest Palindromic Substring</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Expand Center</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Expand around center.\nTime: O(n²), Space: O(1)</div></td></tr>
-<tr data-co="Amazon"><td>15</td><td>Rotate Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Array</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Reverse three times.\nTime: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>1</td><td>Two Sum</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Store each number's complement in a hash map. For each number, check if its complement exists.
+
+def twoSum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        comp = target - n
+        if comp in seen:
+            return [seen[comp], i]
+        seen[n] = i
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Meta"><td>2</td><td>Best Time to Buy and Sell Stock</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Track the minimum price seen so far. At each price, calculate profit if we sold today.
+
+def maxProfit(prices):
+    min_p = float('inf')
+    max_prof = 0
+    for p in prices:
+        min_p = min(min_p, p)
+        max_prof = max(max_prof, p - min_p)
+    return max_prof
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Microsoft,Amazon,Google"><td>3</td><td>Contains Duplicate</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Set</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Put all numbers in a set. If set size differs from array size, duplicates exist.
+
+def containsDuplicate(nums):
+    return len(nums) != len(set(nums))
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>4</td><td>Product of Array Except Self</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Prefix Sum</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Two passes â€” build left products, then multiply by right products. No division needed.
+
+def productExceptSelf(nums):
+    n = len(nums)
+    res = [1] * n
+    left = 1
+    for i in range(n):
+        res[i] = left
+        left *= nums[i]
+    right = 1
+    for i in range(n-1, -1, -1):
+        res[i] *= right
+        right *= nums[i]
+    return res
+
+Time: O(n), Space: O(1) extra</div></td></tr>
+<tr data-co="Amazon,Meta,Google"><td>5</td><td>Maximum Subarray (Kadane's)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP / Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Kadane's â€” extend current subarray or start fresh. Keep running sum, reset if it drops below current element.
+
+def maxSubArray(nums):
+    max_sum = cur = nums[0]
+    for n in nums[1:]:
+        cur = max(n, cur + n)
+        max_sum = max(max_sum, cur)
+    return max_sum
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Microsoft,Google,Amazon"><td>6</td><td>3Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sort array. Fix one number, use two pointers on remaining to find pairs summing to its negative. Skip duplicates.
+
+def threeSum(nums):
+    nums.sort()
+    res = []
+    for i in range(len(nums)-2):
+        if i > 0 and nums[i] == nums[i-1]: continue
+        l, r = i+1, len(nums)-1
+        while l < r:
+            s = nums[i] + nums[l] + nums[r]
+            if s < 0: l += 1
+            elif s > 0: r -= 1
+            else:
+                res.append([nums[i], nums[l], nums[r]])
+                while l < r and nums[l] == nums[l+1]: l += 1
+                l += 1; r -= 1
+    return res
+
+Time: O(nu00b2), Space: O(1)</div></td></tr>
+<tr data-co="Google,Meta"><td>7</td><td>Container With Most Water</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Two pointers at both ends. Area = min(heights) * width. Move the shorter pointer inward â€” it limits the height.
+
+def maxArea(height):
+    l, r = 0, len(height) - 1
+    best = 0
+    while l < r:
+        best = max(best, min(height[l], height[r]) * (r - l))
+        if height[l] < height[r]: l += 1
+        else: r -= 1
+    return best
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>8</td><td>Merge Intervals</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sorting</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sort by start time. Merge overlapping by comparing current end with next start.
+
+def merge(intervals):
+    intervals.sort(key=lambda x: x[0])
+    res = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= res[-1][1]:
+            res[-1][1] = max(res[-1][1], end)
+        else:
+            res.append([start, end])
+    return res
+
+Time: O(n log n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Meta"><td>9</td><td>Longest Substring Without Repeating Characters</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sliding window â€” expand right, if duplicate shrink left. Track max window size.
+
+def lengthOfLongestSubstring(s):
+    seen = set()
+    l = res = 0
+    for r in range(len(s)):
+        while s[r] in seen:
+            seen.remove(s[l]); l += 1
+        seen.add(s[r])
+        res = max(res, r - l + 1)
+    return res
+
+Time: O(n), Space: O(min(n, 26))</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>10</td><td>Valid Anagram</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Count character frequencies in both strings. If counts match, they're anagrams.
+
+def isAnagram(s, t):
+    if len(s) != len(t): return False
+    count = {}
+    for c in s: count[c] = count.get(c, 0) + 1
+    for c in t:
+        count[c] = count.get(c, 0) - 1
+        if count[c] < 0: return False
+    return True
+
+Time: O(n), Space: O(1) â€” at most 26 letters</div></td></tr>
+<tr data-co="Google,Apple"><td>11</td><td>Group Anagrams</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Anagrams produce the same sorted string. Use sorted word as dictionary key to group.
+
+def groupAnagrams(strs):
+    groups = {}
+    for s in strs:
+        key = ''.join(sorted(s))
+        groups.setdefault(key, []).append(s)
+    return list(groups.values())
+
+Time: O(n * k log k), Space: O(n * k)</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>12</td><td>Trapping Rain Water</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Pointers</span><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Water at each bar = min(maxLeft, maxRight) - height. Two pointers tracking max from each side.
+
+def trap(height):
+    l, r = 0, len(height) - 1
+    lmax = rmax = res = 0
+    while l < r:
+        if height[l] < height[r]:
+            if height[l] >= lmax: lmax = height[l]
+            else: res += lmax - height[l]
+            l += 1
+        else:
+            if height[r] >= rmax: rmax = height[r]
+            else: res += rmax - height[r]
+            r -= 1
+    return res
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Meta,Google"><td>13</td><td>Minimum Window Substring</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Expand window right until all chars of t are covered, then shrink left to find minimum.
+
+def minWindow(s, t):
+    need = {}
+    for c in t: need[c] = need.get(c, 0) + 1
+    required = len(need); have = 0
+    window = {}; l = 0; res = ""; resLen = float('inf')
+    for r in range(len(s)):
+        c = s[r]
+        window[c] = window.get(c, 0) + 1
+        if c in need and window[c] == need[c]: have += 1
+        while have == required:
+            if (r - l + 1) < resLen:
+                res = s[l:r+1]; resLen = r - l + 1
+            window[s[l]] -= 1
+            if s[l] in need and window[s[l]] < need[s[l]]: have -= 1
+            l += 1
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>14</td><td>Longest Palindromic Substring</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Expand Center</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: For each index, expand outward while chars match. Check both odd (single center) and even (two centers).
+
+def longestPalindrome(s):
+    res = ""
+    def expand(l, r):
+        nonlocal res
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if r - l + 1 > len(res): res = s[l:r+1]
+            l -= 1; r += 1
+    for i in range(len(s)):
+        expand(i, i)      # odd length
+        expand(i, i + 1)  # even length
+    return res
+
+Time: O(nu00b2), Space: O(1)</div></td></tr>
+<tr data-co="Amazon"><td>15</td><td>Rotate Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Array</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Three reverses = rotation. Reverse all, reverse first k, reverse rest. All in-place.
+
+def rotate(nums, k):
+    k %= len(nums)
+    def rev(l, r):
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1; r -= 1
+    rev(0, len(nums) - 1)
+    rev(0, k - 1)
+    rev(k, len(nums) - 1)
+
+Time: O(n), Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== LINKED LISTS ===== -->
-<div class="section-header">🔗 Linked Lists <span class="section-count">(20 problems)</span></div>
+<div class="section-header">ðŸ”— Linked Lists <span class="section-count">(6 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Microsoft,Amazon"><td>16</td><td>Reverse Linked List</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Iterative</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Iterative: prev, curr, next pointers.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Amazon,Microsoft,Google"><td>17</td><td>Merge Two Sorted Lists</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Dummy head + compare.\nTime: O(n+m)</div></td></tr>
-<tr data-co="Google,Microsoft"><td>18</td><td>Linked List Cycle (Floyd's)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fast & Slow</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Floyd's cycle detection.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Amazon,Meta"><td>19</td><td>Remove Nth Node From End</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two pointers with n gap.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>20</td><td>Merge K Sorted Lists</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap with k list heads.\nTime: O(N log k)</div></td></tr>
-<tr data-co="Microsoft"><td>21</td><td>LRU Cache</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map + DLL</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">OrderedDict or HashMap + Doubly Linked List.\nTime: O(1) for get/put</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>16</td><td>Reverse Linked List</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Iterative</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Walk through list. At each node, point next to previous. Track prev, curr, nxt.
+
+def reverseList(head):
+    prev = None
+    curr = head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft,Google"><td>17</td><td>Merge Two Sorted Lists</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Dummy head node. Compare both lists, attach smaller node. Advance that pointer.
+
+def mergeTwoLists(l1, l2):
+    dummy = ListNode()
+    curr = dummy
+    while l1 and l2:
+        if l1.val <= l2.val:
+            curr.next = l1; l1 = l1.next
+        else:
+            curr.next = l2; l2 = l2.next
+        curr = curr.next
+    curr.next = l1 or l2
+    return dummy.next
+
+Time: O(n + m), Space: O(1)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>18</td><td>Linked List Cycle (Floyd's)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fast &amp; Slow</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Slow pointer moves 1 step, fast moves 2. If they ever meet, there's a cycle.
+
+def hasCycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast: return True
+    return False
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Meta"><td>19</td><td>Remove Nth Node From End</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Two Pointers</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Advance fast pointer n+1 steps ahead. Move both until fast=null. Slow is before target.
+
+def removeNthFromEnd(head, n):
+    dummy = ListNode(0, head)
+    slow = fast = dummy
+    for _ in range(n + 1): fast = fast.next
+    while fast:
+        slow = slow.next; fast = fast.next
+    slow.next = slow.next.next
+    return dummy.next
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>20</td><td>Merge K Sorted Lists</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Min-heap picks smallest head among k lists. Pop min, push its next node back.
+
+import heapq
+def mergeKLists(lists):
+    heap = []
+    for i, l in enumerate(lists):
+        if l: heapq.heappush(heap, (l.val, i, l))
+    dummy = curr = ListNode()
+    while heap:
+        val, i, node = heapq.heappop(heap)
+        curr.next = node; curr = curr.next
+        if node.next:
+            heapq.heappush(heap, (node.next.val, i, node.next))
+    return dummy.next
+
+Time: O(N log k), Space: O(k)</div></td></tr>
+<tr data-co="Microsoft"><td>21</td><td>LRU Cache</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map + DLL</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: HashMap for O(1) lookup + Doubly Linked List for O(1) eviction. Most recent at tail.
+
+class LRUCache:
+    def __init__(self, cap):
+        self.cache = {}
+        self.cap = cap
+        self.head = Node(0,0)
+        self.tail = Node(0,0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def get(self, key):
+        if key in self.cache:
+            node = self.cache[key]
+            self._remove(node)
+            self._add(node)
+            return node.val
+        return -1
+
+    def put(self, key, val):
+        if key in self.cache:
+            self._remove(self.cache[key])
+        node = Node(key, val)
+        self._add(node)
+        self.cache[key] = node
+        if len(self.cache) > self.cap:
+            lru = self.head.next
+            self._remove(lru)
+            del self.cache[lru.key]
+
+Time: O(1) get/put, Space: O(capacity)</div></td></tr>
 </table>
 
 <!-- ===== STACKS & QUEUES ===== -->
-<div class="section-header">📚 Stacks & Queues <span class="section-count">(18 problems)</span></div>
+<div class="section-header">ðŸ“š Stacks &amp; Queues <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Microsoft"><td>22</td><td>Valid Parentheses</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Stack with matching pairs.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>23</td><td>Min Stack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Two stacks: main + min tracking.\nAll operations O(1)</div></td></tr>
-<tr data-co="Amazon,Google"><td>24</td><td>Daily Temperatures</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Monotonic decreasing stack.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Meta"><td>25</td><td>Largest Rectangle in Histogram</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Stack-based approach.\nTime: O(n)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>22</td><td>Valid Parentheses</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Push open brackets onto stack. For closing, check if top matches. Stack must be empty at end.
+
+def isValid(s):
+    stack = []
+    pairs = {')':'(', ']':'[', '}':'{'}
+    for c in s:
+        if c in pairs:
+            if not stack or stack[-1] != pairs[c]:
+                return False
+            stack.pop()
+        else:
+            stack.append(c)
+    return len(stack) == 0
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>23</td><td>Min Stack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Two stacks â€” main + min stack. Min stack always holds current minimum at each level.
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+
+    def push(self, val):
+        self.stack.append(val)
+        m = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(m)
+
+    def pop(self):
+        self.stack.pop()
+        self.minStack.pop()
+
+    def top(self): return self.stack[-1]
+    def getMin(self): return self.minStack[-1]
+
+All operations O(1), Space: O(n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>24</td><td>Daily Temperatures</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Monotonic decreasing stack of indices. When warmer day comes, pop cooler days, record gap.
+
+def dailyTemperatures(temps):
+    res = [0] * len(temps)
+    stack = []
+    for i, t in enumerate(temps):
+        while stack and temps[stack[-1]] < t:
+            j = stack.pop()
+            res[j] = i - j
+        stack.append(i)
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>25</td><td>Largest Rectangle in Histogram</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Monotonic Stack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Stack tracks ascending bar heights. When a shorter bar comes, pop and calculate areas.
+
+def largestRectangleArea(heights):
+    stack = []  # (index, height)
+    maxArea = 0
+    for i, h in enumerate(heights):
+        start = i
+        while stack and stack[-1][1] > h:
+            idx, ht = stack.pop()
+            maxArea = max(maxArea, ht * (i - idx))
+            start = idx
+        stack.append((start, h))
+    for idx, ht in stack:
+        maxArea = max(maxArea, ht * (len(heights) - idx))
+    return maxArea
+
+Time: O(n), Space: O(n)</div></td></tr>
 </table>
 
 <!-- ===== BINARY SEARCH ===== -->
-<div class="section-header">🔍 Binary Search <span class="section-count">(22 problems)</span></div>
+<div class="section-header">ðŸ” Binary Search <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Microsoft,Amazon"><td>26</td><td>Binary Search</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Template</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Standard binary search template.\nTime: O(log n)</div></td></tr>
-<tr data-co="Microsoft,Amazon"><td>27</td><td>Search in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Modified binary search.\nTime: O(log n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>28</td><td>Find Minimum in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary search on rotation point.\nTime: O(log n)</div></td></tr>
-<tr data-co="Google,Meta"><td>29</td><td>Median of Two Sorted Arrays</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Binary Search</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary search on smaller array partition.\nTime: O(log(min(m,n)))</div></td></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>26</td><td>Binary Search</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Template</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Compare middle element with target. Smaller â†’ search right. Larger â†’ search left.
+
+def search(nums, target):
+    l, r = 0, len(nums) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        if nums[mid] == target: return mid
+        elif nums[mid] < target: l = mid + 1
+        else: r = mid - 1
+    return -1
+
+Time: O(log n), Space: O(1)</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>27</td><td>Search in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Determine which half is sorted. Check if target lies in the sorted half. Narrow search.
+
+def search(nums, target):
+    l, r = 0, len(nums) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        if nums[mid] == target: return mid
+        if nums[l] <= nums[mid]:  # left sorted
+            if nums[l] <= target < nums[mid]: r = mid - 1
+            else: l = mid + 1
+        else:  # right sorted
+            if nums[mid] < target <= nums[r]: l = mid + 1
+            else: r = mid - 1
+    return -1
+
+Time: O(log n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>28</td><td>Find Minimum in Rotated Sorted Array</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Modified BS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: If mid > right, rotation point is to the right. Otherwise it's to the left or at mid.
+
+def findMin(nums):
+    l, r = 0, len(nums) - 1
+    while l < r:
+        mid = (l + r) // 2
+        if nums[mid] > nums[r]: l = mid + 1
+        else: r = mid
+    return nums[l]
+
+Time: O(log n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Meta"><td>29</td><td>Median of Two Sorted Arrays</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Binary Search</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Binary search on smaller array to find correct partition. All left elements must be â‰¤ all right.
+
+def findMedianSortedArrays(A, B):
+    if len(A) > len(B): A, B = B, A
+    m, n = len(A), len(B)
+    l, r = 0, m
+    while l <= r:
+        i = (l + r) // 2
+        j = (m + n + 1) // 2 - i
+        aL = A[i-1] if i > 0 else float('-inf')
+        aR = A[i] if i < m else float('inf')
+        bL = B[j-1] if j > 0 else float('-inf')
+        bR = B[j] if j < n else float('inf')
+        if aL <= bR and bL <= aR:
+            if (m+n) % 2: return max(aL, bL)
+            return (max(aL,bL) + min(aR,bR)) / 2
+        elif aL > bR: r = i - 1
+        else: l = i + 1
+
+Time: O(log(min(m,n))), Space: O(1)</div></td></tr>
 </table>
 
-<!-- ===== TREES ===== -->
-<div class="section-header">🌲 Trees & BST <span class="section-count">(35 problems)</span></div>
+<!-- ===== TREES & BST ===== -->
+<div class="section-header">ðŸŒ² Trees &amp; BST <span class="section-count">(6 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Microsoft,Amazon"><td>30</td><td>Invert Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Recursive swap left and right.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Microsoft,Amazon"><td>31</td><td>Maximum Depth of Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">return 1 + max(left, right)\nTime: O(n)</div></td></tr>
-<tr data-co="Amazon,Meta"><td>32</td><td>Validate BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS with min/max bounds.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>33</td><td>Lowest Common Ancestor of BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BST Property</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Use BST property: split point is LCA.\nTime: O(h)</div></td></tr>
-<tr data-co="Google,Meta,Microsoft"><td>34</td><td>Binary Tree Level Order Traversal</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with queue, process level by level.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>35</td><td>Serialize and Deserialize Binary Tree</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Preorder traversal with null markers.\nTime: O(n)</div></td></tr>
+<tr data-co="Microsoft,Amazon"><td>30</td><td>Invert Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Recursively swap left and right children of every node.
+
+def invertTree(root):
+    if not root: return None
+    root.left, root.right = root.right, root.left
+    invertTree(root.left)
+    invertTree(root.right)
+    return root
+
+Time: O(n), Space: O(h) recursion depth</div></td></tr>
+<tr data-co="Google,Microsoft,Amazon"><td>31</td><td>Maximum Depth of Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Depth = 1 + max(left subtree depth, right subtree depth). Null node = depth 0.
+
+def maxDepth(root):
+    if not root: return 0
+    return 1 + max(maxDepth(root.left), maxDepth(root.right))
+
+Time: O(n), Space: O(h)</div></td></tr>
+<tr data-co="Amazon,Meta"><td>32</td><td>Validate BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Every node must be within (lo, hi) range. Left child tightens upper bound, right tightens lower.
+
+def isValidBST(root):
+    def check(node, lo, hi):
+        if not node: return True
+        if node.val <= lo or node.val >= hi:
+            return False
+        return (check(node.left, lo, node.val) and
+                check(node.right, node.val, hi))
+    return check(root, float('-inf'), float('inf'))
+
+Time: O(n), Space: O(h)</div></td></tr>
+<tr data-co="Google,Amazon"><td>33</td><td>Lowest Common Ancestor of BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BST Property</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: In BST, if both values smaller go left, both larger go right. Split point = LCA.
+
+def lowestCommonAncestor(root, p, q):
+    while root:
+        if p.val < root.val and q.val < root.val:
+            root = root.left
+        elif p.val > root.val and q.val > root.val:
+            root = root.right
+        else:
+            return root
+
+Time: O(h), Space: O(1)</div></td></tr>
+<tr data-co="Google,Meta,Microsoft"><td>34</td><td>Binary Tree Level Order Traversal</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: BFS using a queue. Process all nodes at current level, enqueue their children for next.
+
+from collections import deque
+def levelOrder(root):
+    if not root: return []
+    res, q = [], deque([root])
+    while q:
+        level = []
+        for _ in range(len(q)):
+            node = q.popleft()
+            level.append(node.val)
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+        res.append(level)
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>35</td><td>Serialize and Deserialize Binary Tree</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Preorder DFS to serialize (val or 'N' for null). Deserialize reads in same order.
+
+class Codec:
+    def serialize(self, root):
+        res = []
+        def dfs(node):
+            if not node: res.append('N'); return
+            res.append(str(node.val))
+            dfs(node.left); dfs(node.right)
+        dfs(root)
+        return ','.join(res)
+
+    def deserialize(self, data):
+        vals = iter(data.split(','))
+        def dfs():
+            v = next(vals)
+            if v == 'N': return None
+            node = TreeNode(int(v))
+            node.left = dfs()
+            node.right = dfs()
+            return node
+        return dfs()
+
+Time: O(n), Space: O(n)</div></td></tr>
 </table>
 
 <!-- ===== GRAPHS ===== -->
-<div class="section-header">🕸️ Graphs <span class="section-count">(30 problems)</span></div>
+<div class="section-header">ðŸ•¸ï¸ Graphs <span class="section-count">(5 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Microsoft"><td>36</td><td>Number of Islands</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS/BFS flood fill.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Google,Meta"><td>37</td><td>Clone Graph</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS + HashMap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with hash map for visited.\nTime: O(V+E)</div></td></tr>
-<tr data-co="Amazon,Google"><td>38</td><td>Course Schedule (Topological Sort)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Topological Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Kahn's algorithm or DFS cycle detection.\nTime: O(V+E)</div></td></tr>
-<tr data-co="Google,Microsoft"><td>39</td><td>Word Ladder</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS with word transformation.\nTime: O(n * m * 26)</div></td></tr>
-<tr data-co="Google,Amazon"><td>40</td><td>Dijkstra's Shortest Path</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Shortest Path</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap + distance array.\nTime: O(E log V)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>36</td><td>Number of Islands</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS/DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Scan for '1'. When found, DFS to mark all connected '1's as visited. Count DFS starts.
+
+def numIslands(grid):
+    count = 0
+    def dfs(i, j):
+        if (i < 0 or j < 0 or i >= len(grid)
+            or j >= len(grid[0]) or grid[i][j] != '1'):
+            return
+        grid[i][j] = '0'
+        dfs(i+1,j); dfs(i-1,j); dfs(i,j+1); dfs(i,j-1)
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1':
+                count += 1; dfs(i, j)
+    return count
+
+Time: O(m*n), Space: O(m*n) recursion</div></td></tr>
+<tr data-co="Google,Meta"><td>37</td><td>Clone Graph</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS + HashMap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: BFS with HashMap {original node â†’ clone}. Create clones, then wire up neighbors.
+
+def cloneGraph(node):
+    if not node: return None
+    clones = {node: Node(node.val)}
+    q = deque([node])
+    while q:
+        curr = q.popleft()
+        for nei in curr.neighbors:
+            if nei not in clones:
+                clones[nei] = Node(nei.val)
+                q.append(nei)
+            clones[curr].neighbors.append(clones[nei])
+    return clones[node]
+
+Time: O(V + E), Space: O(V)</div></td></tr>
+<tr data-co="Amazon,Google"><td>38</td><td>Course Schedule (Topological Sort)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Topological Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Topological sort (Kahn's BFS). Build indegree map. Process zero-indegree nodes. Cycle = can't finish.
+
+def canFinish(numCourses, prereqs):
+    graph = [[] for _ in range(numCourses)]
+    indegree = [0] * numCourses
+    for a, b in prereqs:
+        graph[b].append(a)
+        indegree[a] += 1
+    q = deque([i for i in range(numCourses) if indegree[i] == 0])
+    count = 0
+    while q:
+        node = q.popleft(); count += 1
+        for nei in graph[node]:
+            indegree[nei] -= 1
+            if indegree[nei] == 0: q.append(nei)
+    return count == numCourses
+
+Time: O(V + E), Space: O(V + E)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>39</td><td>Word Ladder</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: BFS from beginWord. Each step tries changing each char to a-z. Track visited words.
+
+def ladderLength(begin, end, wordList):
+    wordSet = set(wordList)
+    if end not in wordSet: return 0
+    q = deque([(begin, 1)])
+    visited = {begin}
+    while q:
+        word, steps = q.popleft()
+        for i in range(len(word)):
+            for c in 'abcdefghijklmnopqrstuvwxyz':
+                nw = word[:i] + c + word[i+1:]
+                if nw == end: return steps + 1
+                if nw in wordSet and nw not in visited:
+                    visited.add(nw)
+                    q.append((nw, steps + 1))
+    return 0
+
+Time: O(n * m * 26), Space: O(n * m)</div></td></tr>
+<tr data-co="Google,Amazon"><td>40</td><td>Dijkstra's Shortest Path</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Shortest Path</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Min-heap BFS from source. Pop smallest dist, relax neighbors. Skip already-finalized.
+
+import heapq
+def dijkstra(graph, src, n):
+    dist = [float('inf')] * n
+    dist[src] = 0
+    heap = [(0, src)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if d > dist[u]: continue
+        for v, w in graph[u]:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(heap, (dist[v], v))
+    return dist
+
+Time: O(E log V), Space: O(V + E)</div></td></tr>
 </table>
 
 <!-- ===== DYNAMIC PROGRAMMING ===== -->
-<div class="section-header">🧩 Dynamic Programming <span class="section-count">(50 problems)</span></div>
+<div class="section-header">ðŸ§© Dynamic Programming <span class="section-count">(10 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon,Microsoft"><td>41</td><td>Climbing Stairs</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Fibonacci variant.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Amazon,Microsoft"><td>42</td><td>House Robber</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i] = max(dp[i-1], dp[i-2] + nums[i])\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>43</td><td>Coin Change</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Unbounded Knapsack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Bottom-up DP.\nTime: O(n * amount)</div></td></tr>
-<tr data-co="Google,Microsoft,Meta"><td>44</td><td>Longest Common Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">2D DP table.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Amazon,Google"><td>45</td><td>Longest Increasing Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Binary Search + DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Patience sorting with bisect.\nTime: O(n log n)</div></td></tr>
-<tr data-co="Google,Meta"><td>46</td><td>Word Break</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i] = can segment s[0:i].\nTime: O(n²)</div></td></tr>
-<tr data-co="Google,Amazon"><td>47</td><td>Edit Distance</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Classic 2D DP with insert/delete/replace.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>48</td><td>0/1 Knapsack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i][w] = max value with i items, capacity w.\nTime: O(n*W)</div></td></tr>
-<tr data-co="Google"><td>49</td><td>Burst Balloons</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Interval DP with reverse thinking.\nTime: O(n³)</div></td></tr>
-<tr data-co="Google,Amazon"><td>50</td><td>Regular Expression Matching</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">2D DP with '.' and '*' handling.\nTime: O(m*n)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>41</td><td>Climbing Stairs</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Fibonacci â€” ways(n) = ways(n-1) + ways(n-2). Reach step n from n-1 or n-2.
+
+def climbStairs(n):
+    a, b = 1, 1
+    for _ in range(n - 1):
+        a, b = b, a + b
+    return b
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>42</td><td>House Robber</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each house: max of skip (prev best) or rob (prev-prev + current). Can't rob adjacent.
+
+def rob(nums):
+    prev2, prev1 = 0, 0
+    for n in nums:
+        prev2, prev1 = prev1, max(prev1, prev2 + n)
+    return prev1
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>43</td><td>Coin Change</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Unbounded Knapsack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[amount] = min coins. For each amount, try every coin: dp[a] = min(dp[a], dp[a-coin]+1).
+
+def coinChange(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c <= a:
+                dp[a] = min(dp[a], dp[a - c] + 1)
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+Time: O(amount * coins), Space: O(amount)</div></td></tr>
+<tr data-co="Google,Microsoft,Meta"><td>44</td><td>Longest Common Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: If chars match, dp[i][j] = dp[i-1][j-1]+1. Else take max of skipping from either string.
+
+def longestCommonSubsequence(t1, t2):
+    m, n = len(t1), len(t2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if t1[i-1] == t2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>45</td><td>Longest Increasing Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Binary Search + DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Maintain sorted 'tails' array. Binary search for position of each num. Append or replace.
+
+import bisect
+def lengthOfLIS(nums):
+    tails = []
+    for n in nums:
+        pos = bisect.bisect_left(tails, n)
+        if pos == len(tails): tails.append(n)
+        else: tails[pos] = n
+    return len(tails)
+
+Time: O(n log n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>46</td><td>Word Break</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i] = can s[0:i] be segmented? For each position, check if any word in dict ends there.
+
+def wordBreak(s, wordDict):
+    dp = [False] * (len(s) + 1)
+    dp[0] = True
+    for i in range(1, len(s) + 1):
+        for w in wordDict:
+            if (i >= len(w) and dp[i - len(w)]
+                and s[i-len(w):i] == w):
+                dp[i] = True; break
+    return dp[len(s)]
+
+Time: O(n * m * k), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>47</td><td>Edit Distance</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i][j] = min edits for word1[0..i] to word2[0..j]. Match = no cost. Else min(insert, delete, replace)+1.
+
+def minDistance(w1, w2):
+    m, n = len(w1), len(w2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(m+1): dp[i][0] = i
+    for j in range(n+1): dp[0][j] = j
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if w1[i-1] == w2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j],
+                    dp[i][j-1], dp[i-1][j-1])
+    return dp[m][n]
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>48</td><td>0/1 Knapsack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i][w] = max value with first i items and capacity w. Skip or take each item.
+
+def knapsack(weights, values, W):
+    n = len(weights)
+    dp = [[0]*(W+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        for w in range(W+1):
+            dp[i][w] = dp[i-1][w]  # skip
+            if weights[i-1] <= w:
+                dp[i][w] = max(dp[i][w],
+                    dp[i-1][w-weights[i-1]] + values[i-1])
+    return dp[n][W]
+
+Time: O(n*W), Space: O(n*W)</div></td></tr>
+<tr data-co="Google"><td>49</td><td>Burst Balloons</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Think reverse â€” which balloon to burst LAST in range? dp[l][r] = max coins in (l,r).
+
+def maxCoins(nums):
+    nums = [1] + nums + [1]
+    n = len(nums)
+    dp = [[0]*n for _ in range(n)]
+    for length in range(2, n):
+        for l in range(n - length):
+            r = l + length
+            for k in range(l+1, r):
+                dp[l][r] = max(dp[l][r],
+                    dp[l][k] + dp[k][r]
+                    + nums[l]*nums[k]*nums[r])
+    return dp[0][n-1]
+
+Time: O(nu00b3), Space: O(nu00b2)</div></td></tr>
+<tr data-co="Google,Amazon"><td>50</td><td>Regular Expression Matching</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i][j] = does s[0..i] match p[0..j]? Handle '.' (any char) and '*' (zero or more of prev).
+
+def isMatch(s, p):
+    m, n = len(s), len(p)
+    dp = [[False]*(n+1) for _ in range(m+1)]
+    dp[0][0] = True
+    for j in range(2, n+1):
+        if p[j-1] == '*': dp[0][j] = dp[0][j-2]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if p[j-1] == '.' or p[j-1] == s[i-1]:
+                dp[i][j] = dp[i-1][j-1]
+            elif p[j-1] == '*':
+                dp[i][j] = dp[i][j-2]  # zero
+                if p[j-2]=='.' or p[j-2]==s[i-1]:
+                    dp[i][j] |= dp[i-1][j]  # one+
+
+    return dp[m][n]
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
 </table>
 
 <!-- ===== HEAPS ===== -->
-<div class="section-header">⛰️ Heaps & Priority Queues <span class="section-count">(15 problems)</span></div>
+<div class="section-header">â›°ï¸ Heaps &amp; Priority Queues <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google"><td>51</td><td>Top K Frequent Elements</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Bucket Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap of size k or bucket sort.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon,Microsoft"><td>52</td><td>Find Median from Data Stream</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Heaps</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Max heap + min heap.\nTime: O(log n) per add</div></td></tr>
-<tr data-co="Meta,Google"><td>53</td><td>Kth Largest Element</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Quick Select / Heap</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Quick select O(n) avg or min heap O(n log k).</div></td></tr>
+<tr data-co="Amazon,Google"><td>51</td><td>Top K Frequent Elements</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Bucket Sort</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Count frequencies. Bucket sort â€” index=frequency, value=list of nums. Scan from highest.
+
+def topKFrequent(nums, k):
+    count = {}
+    for n in nums: count[n] = count.get(n, 0) + 1
+    buckets = [[] for _ in range(len(nums) + 1)]
+    for num, freq in count.items():
+        buckets[freq].append(num)
+    res = []
+    for i in range(len(buckets)-1, 0, -1):
+        for n in buckets[i]:
+            res.append(n)
+            if len(res) == k: return res
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>52</td><td>Find Median from Data Stream</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Two Heaps</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Max-heap for lower half, min-heap for upper half. Balance sizes. Median from heap tops.
+
+import heapq
+class MedianFinder:
+    def __init__(self):
+        self.lo = []  # max-heap (negate)
+        self.hi = []  # min-heap
+
+    def addNum(self, num):
+        heapq.heappush(self.lo, -num)
+        heapq.heappush(self.hi, -heapq.heappop(self.lo))
+        if len(self.hi) > len(self.lo):
+            heapq.heappush(self.lo, -heapq.heappop(self.hi))
+
+    def findMedian(self):
+        if len(self.lo) > len(self.hi):
+            return -self.lo[0]
+        return (-self.lo[0] + self.hi[0]) / 2
+
+Time: O(log n) add, O(1) find</div></td></tr>
+<tr data-co="Meta,Google"><td>53</td><td>Kth Largest Element</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Quick Select / Heap</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: QuickSelect â€” partition, if pivot at k done, else recurse on correct side. Avg O(n).
+
+def findKthLargest(nums, k):
+    k = len(nums) - k
+    def qs(l, r):
+        pivot, p = nums[r], l
+        for i in range(l, r):
+            if nums[i] <= pivot:
+                nums[p], nums[i] = nums[i], nums[p]
+                p += 1
+        nums[p], nums[r] = nums[r], nums[p]
+        if p == k: return nums[p]
+        elif p < k: return qs(p+1, r)
+        else: return qs(l, p-1)
+    return qs(0, len(nums)-1)
+
+Time: O(n) avg, O(nu00b2) worst, Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== TRIES ===== -->
-<div class="section-header">🔤 Tries <span class="section-count">(8 problems)</span></div>
+<div class="section-header">ðŸ”¤ Tries <span class="section-count">(2 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Microsoft"><td>54</td><td>Implement Trie (Prefix Tree)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">TrieNode with children dict + isEnd flag.\nInsert/Search: O(m)</div></td></tr>
-<tr data-co="Google,Amazon"><td>55</td><td>Word Search II</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Trie + Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Build trie from words, DFS on board.\nTime: O(m*n*4^L)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>54</td><td>Implement Trie (Prefix Tree)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Tree of nodes, each with children dict + isEnd flag. Insert creates path, search follows it.
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEnd = False
+
+class Trie:
+    def __init__(self): self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.isEnd = True
+
+    def search(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children: return False
+            node = node.children[c]
+        return node.isEnd
+
+    def startsWith(self, prefix):
+        node = self.root
+        for c in prefix:
+            if c not in node.children: return False
+            node = node.children[c]
+        return True
+
+Time: O(m) per op, Space: O(total chars)</div></td></tr>
+<tr data-co="Google,Amazon"><td>55</td><td>Word Search II</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Trie + Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Build trie from word list. DFS on board following trie. Prune trie to avoid duplicates.
+
+def findWords(board, words):
+    root = {}
+    for w in words:
+        node = root
+        for c in w: node = node.setdefault(c, {})
+        node['#'] = w
+    res = []
+    def dfs(i, j, node):
+        if '#' in node: res.append(node.pop('#'))
+        if i<0 or j<0 or i>=len(board) or j>=len(board[0]):
+            return
+        c = board[i][j]
+        if c not in node: return
+        board[i][j] = '.'
+        for di,dj in [(0,1),(0,-1),(1,0),(-1,0)]:
+            dfs(i+di, j+dj, node[c])
+        board[i][j] = c
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            dfs(i, j, root)
+    return res
+
+Time: O(m*n*4^L), Space: O(word chars)</div></td></tr>
 </table>
 
 <!-- ===== GREEDY ===== -->
-<div class="section-header">🎯 Greedy <span class="section-count">(15 problems)</span></div>
+<div class="section-header">ðŸŽ¯ Greedy <span class="section-count">(2 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google"><td>56</td><td>Jump Game</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Track max reachable index.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>57</td><td>Task Scheduler</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy / Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Most frequent task first, fill idle.\nTime: O(n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>56</td><td>Jump Game</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Track farthest reachable index. If current index exceeds farthest, you're stuck.
+
+def canJump(nums):
+    farthest = 0
+    for i in range(len(nums)):
+        if i > farthest: return False
+        farthest = max(farthest, i + nums[i])
+    return True
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>57</td><td>Task Scheduler</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy / Heap</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Most frequent task determines idle time. Fill idle slots with other tasks.
+
+def leastInterval(tasks, n):
+    freq = {}
+    for t in tasks: freq[t] = freq.get(t, 0) + 1
+    maxFreq = max(freq.values())
+    maxCount = sum(1 for v in freq.values() if v == maxFreq)
+    result = (maxFreq - 1) * (n + 1) + maxCount
+    return max(result, len(tasks))
+
+Time: O(n), Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== BACKTRACKING ===== -->
-<div class="section-header">🔙 Backtracking <span class="section-count">(18 problems)</span></div>
+<div class="section-header">ðŸ”™ Backtracking <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon,Microsoft"><td>58</td><td>Subsets</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Include/exclude each element.\nTime: O(2^n)</div></td></tr>
-<tr data-co="Google,Meta"><td>59</td><td>Permutations</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Swap-based or used[] array.\nTime: O(n!)</div></td></tr>
-<tr data-co="Google,Amazon"><td>60</td><td>N-Queens</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Column + diagonal tracking.\nTime: O(n!)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>58</td><td>Subsets</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: For each element, include or exclude. Backtrack: add, recurse, remove.
+
+def subsets(nums):
+    res = []
+    def bt(start, path):
+        res.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            bt(i + 1, path)
+            path.pop()
+    bt(0, [])
+    return res
+
+Time: O(n * 2^n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>59</td><td>Permutations</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: For each position, try every unused number. Track used with a set.
+
+def permute(nums):
+    res = []
+    def bt(path, used):
+        if len(path) == len(nums):
+            res.append(path[:]); return
+        for i in range(len(nums)):
+            if i in used: continue
+            used.add(i); path.append(nums[i])
+            bt(path, used)
+            path.pop(); used.remove(i)
+    bt([], set())
+    return res
+
+Time: O(n * n!), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>60</td><td>N-Queens</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Backtracking</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Place queens row by row. Track attacked cols, diags (r-c), anti-diags (r+c) with sets.
+
+def solveNQueens(n):
+    res = []
+    cols, diag, anti = set(), set(), set()
+    board = [['.']*n for _ in range(n)]
+    def bt(r):
+        if r == n:
+            res.append([''.join(row) for row in board])
+            return
+        for c in range(n):
+            if c in cols or (r-c) in diag or (r+c) in anti:
+                continue
+            cols.add(c); diag.add(r-c); anti.add(r+c)
+            board[r][c] = 'Q'
+            bt(r + 1)
+            board[r][c] = '.'
+            cols.remove(c); diag.remove(r-c); anti.remove(r+c)
+    bt(0)
+    return res
+
+Time: O(n!), Space: O(nu00b2)</div></td></tr>
 </table>
 
 <!-- ===== BIT MANIPULATION ===== -->
-<div class="section-header">⚡ Bit Manipulation <span class="section-count">(10 problems)</span></div>
+<div class="section-header">âš¡ Bit Manipulation <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon"><td>61</td><td>Single Number (XOR)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">XOR</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">XOR all elements. Duplicates cancel.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Microsoft"><td>62</td><td>Number of 1 Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Count</span></td><td><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">n &= (n-1) clears lowest set bit.\nTime: O(k) where k = set bits</div></td></tr>
-<tr data-co="Google"><td>63</td><td>Reverse Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Manipulation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Shift and build result bit by bit.\nTime: O(32)</div></td></tr>
+<tr data-co="Google,Amazon"><td>61</td><td>Single Number (XOR)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">XOR</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: XOR cancels pairs (a^a=0, a^0=a). XOR all elements â€” result is the unique number.
+
+def singleNumber(nums):
+    res = 0
+    for n in nums: res ^= n
+    return res
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Microsoft"><td>62</td><td>Number of 1 Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Count</span></td><td><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: n &amp; (n-1) clears the lowest set bit. Count iterations until n = 0.
+
+def hammingWeight(n):
+    count = 0
+    while n:
+        n &amp;= n - 1
+        count += 1
+    return count
+
+Time: O(k) where k = set bits, Space: O(1)</div></td></tr>
+<tr data-co="Google"><td>63</td><td>Reverse Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Manipulation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Extract each bit from right, shift result left and OR the bit in.
+
+def reverseBits(n):
+    res = 0
+    for _ in range(32):
+        res = (res &lt;&lt; 1) | (n &amp; 1)
+        n &gt;&gt;= 1
+    return res
+
+Time: O(32) = O(1), Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== MATH & GEOMETRY ===== -->
-<div class="section-header">📐 Math & Geometry <span class="section-count">(12 problems)</span></div>
+<div class="section-header">ðŸ“ Math &amp; Geometry <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Microsoft"><td>64</td><td>Rotate Image (Matrix)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Transpose + reverse each row.\nTime: O(n²)</div></td></tr>
-<tr data-co="Amazon"><td>65</td><td>Spiral Matrix</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Boundary simulation with 4 pointers.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Google,Apple"><td>66</td><td>Pow(x, n)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fast Exponentiation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Binary exponentiation.\nTime: O(log n)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>64</td><td>Rotate Image (Matrix)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Transpose matrix (swap rows/cols), then reverse each row. Rotates 90u00b0 clockwise.
+
+def rotate(matrix):
+    n = len(matrix)
+    for i in range(n):
+        for j in range(i+1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    for row in matrix:
+        row.reverse()
+
+Time: O(nu00b2), Space: O(1)</div></td></tr>
+<tr data-co="Amazon"><td>65</td><td>Spiral Matrix</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Matrix</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: 4 boundaries (top, bottom, left, right). Traverse right-down-left-up, shrink after each.
+
+def spiralOrder(matrix):
+    res = []
+    top, bot = 0, len(matrix)-1
+    left, right = 0, len(matrix[0])-1
+    while top <= bot and left <= right:
+        for j in range(left, right+1): res.append(matrix[top][j])
+        top += 1
+        for i in range(top, bot+1): res.append(matrix[i][right])
+        right -= 1
+        if top <= bot:
+            for j in range(right, left-1, -1): res.append(matrix[bot][j])
+            bot -= 1
+        if left <= right:
+            for i in range(bot, top-1, -1): res.append(matrix[i][left])
+            left += 1
+    return res
+
+Time: O(m*n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Apple"><td>66</td><td>Pow(x, n)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fast Exponentiation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Binary exponentiation â€” if n even: x^n = (xu00b2)^(n/2). If odd: x * x^(n-1). Handle negative n.
+
+def myPow(x, n):
+    if n < 0: x, n = 1/x, -n
+    res = 1
+    while n:
+        if n % 2: res *= x
+        x *= x
+        n //= 2
+    return res
+
+Time: O(log n), Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== INTERVALS ===== -->
-<div class="section-header">📅 Intervals <span class="section-count">(10 problems)</span></div>
+<div class="section-header">ðŸ“… Intervals <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google"><td>67</td><td>Insert Interval</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Intervals</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Three phases: before, merge, after.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Meta"><td>68</td><td>Meeting Rooms II</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Sorting</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Min heap for end times.\nTime: O(n log n)</div></td></tr>
-<tr data-co="Amazon,Google"><td>69</td><td>Non-overlapping Intervals</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort by end time, greedily pick non-overlapping.\nTime: O(n log n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>67</td><td>Insert Interval</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Intervals</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Three phases â€” add intervals before new, merge overlapping with new, add rest after.
+
+def insert(intervals, new):
+    res = []
+    for i, intv in enumerate(intervals):
+        if intv[1] < new[0]:
+            res.append(intv)
+        elif intv[0] > new[1]:
+            res.append(new)
+            return res + intervals[i:]
+        else:
+            new = [min(new[0], intv[0]),
+                   max(new[1], intv[1])]
+    res.append(new)
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>68</td><td>Meeting Rooms II</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Heap / Sorting</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sort by start. Min-heap of end times. If earliest room is free (end u2264 start), reuse; else new room.
+
+import heapq
+def minMeetingRooms(intervals):
+    intervals.sort()
+    heap = []
+    for start, end in intervals:
+        if heap and heap[0] <= start:
+            heapq.heappop(heap)
+        heapq.heappush(heap, end)
+    return len(heap)
+
+Time: O(n log n), Space: O(n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>69</td><td>Non-overlapping Intervals</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sort by end time. Greedily keep non-overlapping intervals. Count removals.
+
+def eraseOverlapIntervals(intervals):
+    intervals.sort(key=lambda x: x[1])
+    count = 0; prevEnd = float('-inf')
+    for start, end in intervals:
+        if start >= prevEnd: prevEnd = end
+        else: count += 1
+    return count
+
+Time: O(n log n), Space: O(1)</div></td></tr>
 </table>
 
 <!-- ===== SLIDING WINDOW ===== -->
-<div class="section-header">🪟 Sliding Window <span class="section-count">(8 problems)</span></div>
+<div class="section-header">ðŸªŸ Sliding Window <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>70</td><td>Maximum Sum Subarray of Size K</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Fixed-size sliding window, subtract left add right.\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Google,Meta,Amazon"><td>71</td><td>Longest Repeating Character Replacement</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Variable Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Window size - max_freq <= k → valid window.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>72</td><td>Permutation in String</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Frequency map comparison in sliding window of size len(s1).\nTime: O(n)</div></td></tr>
-<tr data-co="Meta,Google,Amazon"><td>73</td><td>Sliding Window Maximum</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Monotonic Deque</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Monotonic decreasing deque, pop from both ends.\nTime: O(n)</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>70</td><td>Maximum Sum Subarray of Size K</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Fixed window of size k. Add right, subtract left when window exceeds k. Track max.
+
+def maxSumSubarray(nums, k):
+    wSum = sum(nums[:k])
+    maxSum = wSum
+    for i in range(k, len(nums)):
+        wSum += nums[i] - nums[i - k]
+        maxSum = max(maxSum, wSum)
+    return maxSum
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Meta,Amazon"><td>71</td><td>Longest Repeating Character Replacement</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Variable Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sliding window. Window is valid if windowSize - maxFreq u2264 k (can replace u2264 k chars).
+
+def characterReplacement(s, k):
+    count = {}; l = maxFreq = res = 0
+    for r in range(len(s)):
+        count[s[r]] = count.get(s[r], 0) + 1
+        maxFreq = max(maxFreq, count[s[r]])
+        while (r - l + 1) - maxFreq > k:
+            count[s[l]] -= 1; l += 1
+        res = max(res, r - l + 1)
+    return res
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>72</td><td>Permutation in String</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Fixed window of size len(s1). Compare char frequencies of window with s1. Match = True.
+
+def checkInclusion(s1, s2):
+    if len(s1) > len(s2): return False
+    c1, c2 = {}, {}
+    for c in s1: c1[c] = c1.get(c,0)+1
+    for i in range(len(s2)):
+        c2[s2[i]] = c2.get(s2[i],0)+1
+        if i >= len(s1):
+            c2[s2[i-len(s1)]] -= 1
+            if c2[s2[i-len(s1)]] == 0:
+                del c2[s2[i-len(s1)]]
+        if c1 == c2: return True
+    return False
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Meta,Google,Amazon"><td>73</td><td>Sliding Window Maximum</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Monotonic Deque</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Monotonic decreasing deque. Front = max of window. Remove out-of-window and smaller elements.
+
+from collections import deque
+def maxSlidingWindow(nums, k):
+    dq = deque()  # indices
+    res = []
+    for i in range(len(nums)):
+        while dq and dq[0] < i - k + 1: dq.popleft()
+        while dq and nums[dq[-1]] < nums[i]: dq.pop()
+        dq.append(i)
+        if i >= k - 1: res.append(nums[dq[0]])
+    return res
+
+Time: O(n), Space: O(k)</div></td></tr>
 </table>
 
 <!-- ===== UNION FIND ===== -->
-<div class="section-header">🔗 Union Find <span class="section-count">(5 problems)</span></div>
+<div class="section-header">ðŸ”— Union Find <span class="section-count">(3 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon"><td>74</td><td>Number of Connected Components</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Union-Find with path compression + rank.\nTime: O(n * α(n)), nearly O(n)</div></td></tr>
-<tr data-co="Google,Microsoft"><td>75</td><td>Redundant Connection</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Add edges one by one, return first edge that creates cycle.\nTime: O(n * α(n))</div></td></tr>
-<tr data-co="Google"><td>76</td><td>Accounts Merge</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find + Sort</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Union emails belonging to same person, then group.\nTime: O(n * α(n))</div></td></tr>
+<tr data-co="Google,Amazon"><td>74</td><td>Number of Connected Components</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Union-Find with path compression + rank. Start with n components, decrement on each union.
+
+def countComponents(n, edges):
+    parent = list(range(n))
+    rank = [0] * n
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra == rb: return 0
+        if rank[ra] < rank[rb]: ra, rb = rb, ra
+        parent[rb] = ra
+        if rank[ra] == rank[rb]: rank[ra] += 1
+        return 1
+    return n - sum(union(a,b) for a,b in edges)
+
+Time: O(n * u03b1(n)) u2248 O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>75</td><td>Redundant Connection</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Add edges one by one with Union-Find. First edge connecting already-connected nodes = redundant.
+
+def findRedundantConnection(edges):
+    parent = list(range(len(edges) + 1))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for a, b in edges:
+        ra, rb = find(a), find(b)
+        if ra == rb: return [a, b]
+        parent[ra] = rb
+
+Time: O(n * u03b1(n)), Space: O(n)</div></td></tr>
+<tr data-co="Google"><td>76</td><td>Accounts Merge</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find + Sort</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Union-Find on emails. Map emails to owner. Union same-account emails. Group by root.
+
+def accountsMerge(accounts):
+    parent = {}; emailToName = {}
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for acc in accounts:
+        for email in acc[1:]:
+            emailToName[email] = acc[0]
+            if email not in parent: parent[email] = email
+            parent[find(email)] = find(acc[1])
+    groups = {}
+    for email in parent:
+        root = find(email)
+        groups.setdefault(root, []).append(email)
+    return [[emailToName[r]] + sorted(e) for r, e in groups.items()]
+
+Time: O(n * u03b1(n)), Space: O(n)</div></td></tr>
 </table>
 
-<!-- ===== MORE TREES ===== -->
-<div class="section-header">🌳 Advanced Trees <span class="section-count">(8 problems)</span></div>
+<!-- ===== ADVANCED TREES ===== -->
+<div class="section-header">ðŸŒ³ Advanced Trees <span class="section-count">(7 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Meta"><td>77</td><td>Diameter of Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">At each node: diameter = left_height + right_height.\nTrack global max. Time: O(n)</div></td></tr>
-<tr data-co="Amazon,Microsoft"><td>78</td><td>Same Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Recursive compare: both null → true, one null → false, val match + recurse.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>79</td><td>Subtree of Another Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS on main tree, at each node check isSameTree.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Microsoft,Google"><td>80</td><td>Binary Tree Right Side View</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS level order, take last element of each level.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon,Meta"><td>81</td><td>Kth Smallest Element in BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Inorder</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Inorder traversal gives sorted order, return kth.\nTime: O(H + k)</div></td></tr>
-<tr data-co="Google,Meta"><td>82</td><td>Construct Binary Tree from Preorder and Inorder</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Recursion</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Preorder[0] = root, find root in inorder to split left/right.\nTime: O(n) with hashmap</div></td></tr>
-<tr data-co="Amazon,Google"><td>83</td><td>Binary Tree Maximum Path Sum</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">At each node: max_gain = node.val + max(left, right, 0).\nUpdate global max with node.val + left + right.\nTime: O(n)</div></td></tr>
+<tr data-co="Google,Meta"><td>77</td><td>Diameter of Binary Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each node, diameter = left_height + right_height. Track global max. Return height up.
+
+def diameterOfBinaryTree(root):
+    res = [0]
+    def dfs(node):
+        if not node: return 0
+        l, r = dfs(node.left), dfs(node.right)
+        res[0] = max(res[0], l + r)
+        return 1 + max(l, r)
+    dfs(root)
+    return res[0]
+
+Time: O(n), Space: O(h)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>78</td><td>Same Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Both null = equal. One null = not equal. Both exist = vals match AND subtrees match.
+
+def isSameTree(p, q):
+    if not p and not q: return True
+    if not p or not q: return False
+    return (p.val == q.val and
+            isSameTree(p.left, q.left) and
+            isSameTree(p.right, q.right))
+
+Time: O(n), Space: O(h)</div></td></tr>
+<tr data-co="Google,Amazon"><td>79</td><td>Subtree of Another Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each node in main tree, check if subtree rooted there is identical to subRoot.
+
+def isSubtree(root, subRoot):
+    if not root: return False
+    if isSameTree(root, subRoot): return True
+    return (isSubtree(root.left, subRoot) or
+            isSubtree(root.right, subRoot))
+
+Time: O(m*n), Space: O(h)</div></td></tr>
+<tr data-co="Microsoft,Google"><td>80</td><td>Binary Tree Right Side View</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BFS</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: BFS level-by-level. The last node processed at each level is visible from right side.
+
+def rightSideView(root):
+    if not root: return []
+    res, q = [], deque([root])
+    while q:
+        for i in range(len(q)):
+            node = q.popleft()
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+        res.append(node.val)
+    return res
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Meta"><td>81</td><td>Kth Smallest Element in BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Inorder</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Inorder traversal of BST = sorted order. Do inorder iteratively, return k-th element.
+
+def kthSmallest(root, k):
+    stack = []; curr = root
+    while stack or curr:
+        while curr:
+            stack.append(curr)
+            curr = curr.left
+        curr = stack.pop()
+        k -= 1
+        if k == 0: return curr.val
+        curr = curr.right
+
+Time: O(H + k), Space: O(H)</div></td></tr>
+<tr data-co="Google,Meta"><td>82</td><td>Construct Binary Tree from Preorder and Inorder</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Recursion</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: preorder[0] is root. Find it in inorder to split left/right subtrees. Recurse.
+
+def buildTree(preorder, inorder):
+    if not inorder: return None
+    root = TreeNode(preorder.pop(0))
+    mid = inorder.index(root.val)
+    root.left = buildTree(preorder, inorder[:mid])
+    root.right = buildTree(preorder, inorder[mid+1:])
+    return root
+
+Tip: Use hashmap for inorder index lookup for O(n) total.
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>83</td><td>Binary Tree Maximum Path Sum</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each node, max path = val + max(left,0) + max(right,0). Return single-branch gain upward.
+
+def maxPathSum(root):
+    res = [float('-inf')]
+    def dfs(node):
+        if not node: return 0
+        left = max(dfs(node.left), 0)
+        right = max(dfs(node.right), 0)
+        res[0] = max(res[0], node.val + left + right)
+        return node.val + max(left, right)
+    dfs(root)
+    return res[0]
+
+Time: O(n), Space: O(h)</div></td></tr>
 </table>
 
-<!-- ===== MORE GRAPHS ===== -->
-<div class="section-header">🗺️ Advanced Graphs <span class="section-count">(7 problems)</span></div>
+<!-- ===== ADVANCED GRAPHS ===== -->
+<div class="section-header">ðŸ—ºï¸ Advanced Graphs <span class="section-count">(5 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Amazon"><td>84</td><td>Pacific Atlantic Water Flow</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Multi-source BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS/DFS from both oceans, find intersection.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Google,Meta"><td>85</td><td>Surrounded Regions</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">DFS from border O's (mark safe), flip remaining O's to X.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Amazon,Google"><td>86</td><td>Rotting Oranges</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Multi-source BFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">BFS from all rotten oranges simultaneously, count levels.\nTime: O(m*n)</div></td></tr>
-<tr data-co="Google,Microsoft"><td>87</td><td>Graph Valid Tree</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find / DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Tree = connected + no cycles. edges == n-1 + union-find.\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>88</td><td>Alien Dictionary</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Topological Sort</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Build DAG from adjacent word pairs, topological sort.\nTime: O(C) where C = total chars</div></td></tr>
+<tr data-co="Google,Amazon"><td>84</td><td>Pacific Atlantic Water Flow</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Multi-source BFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: DFS/BFS from ocean borders inward (reverse flow). Find cells reachable from BOTH oceans.
+
+def pacificAtlantic(heights):
+    m, n = len(heights), len(heights[0])
+    pac, atl = set(), set()
+    def dfs(r, c, visit, prevH):
+        if (r<0 or c<0 or r>=m or c>=n or
+            (r,c) in visit or heights[r][c] < prevH): return
+        visit.add((r,c))
+        for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+            dfs(r+dr, c+dc, visit, heights[r][c])
+    for c in range(n): dfs(0,c,pac,0); dfs(m-1,c,atl,0)
+    for r in range(m): dfs(r,0,pac,0); dfs(r,n-1,atl,0)
+    return list(pac &amp; atl)
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Google,Meta"><td>85</td><td>Surrounded Regions</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: DFS from border O's, mark safe (T). Then flip remaining Ou2192X and Tu2192O.
+
+def solve(board):
+    m, n = len(board), len(board[0])
+    def dfs(r, c):
+        if r<0 or c<0 or r>=m or c>=n or board[r][c]!='O': return
+        board[r][c] = 'T'
+        for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+            dfs(r+dr, c+dc)
+    for r in range(m):
+        for c in range(n):
+            if (r in (0,m-1) or c in (0,n-1)) and board[r][c]=='O':
+                dfs(r,c)
+    for r in range(m):
+        for c in range(n):
+            if board[r][c]=='O': board[r][c]='X'
+            elif board[r][c]=='T': board[r][c]='O'
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Amazon,Google"><td>86</td><td>Rotting Oranges</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Multi-source BFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Multi-source BFS from all rotten oranges at once. Each BFS level = 1 minute.
+
+def orangesRotting(grid):
+    m, n = len(grid), len(grid[0])
+    q = deque(); fresh = 0
+    for r in range(m):
+        for c in range(n):
+            if grid[r][c]==2: q.append((r,c))
+            elif grid[r][c]==1: fresh += 1
+    mins = 0
+    while q and fresh:
+        mins += 1
+        for _ in range(len(q)):
+            r,c = q.popleft()
+            for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+                nr,nc = r+dr, c+dc
+                if 0<=nr<m and 0<=nc<n and grid[nr][nc]==1:
+                    grid[nr][nc]=2; fresh-=1; q.append((nr,nc))
+    return mins if fresh==0 else -1
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>87</td><td>Graph Valid Tree</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Union Find / DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Tree = (1) edges == n-1 AND (2) all connected. Use Union-Find to check both.
+
+def validTree(n, edges):
+    if len(edges) != n - 1: return False
+    parent = list(range(n))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for a, b in edges:
+        ra, rb = find(a), find(b)
+        if ra == rb: return False
+        parent[ra] = rb
+    return True
+
+Time: O(n * u03b1(n)), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>88</td><td>Alien Dictionary</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Topological Sort</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Compare adjacent words for char ordering edges. Build graph, topological sort. Cycle = invalid.
+
+def alienOrder(words):
+    graph = {c: set() for w in words for c in w}
+    indeg = {c: 0 for c in graph}
+    for i in range(len(words)-1):
+        w1, w2 = words[i], words[i+1]
+        ml = min(len(w1), len(w2))
+        if len(w1)>len(w2) and w1[:ml]==w2[:ml]: return ""
+        for j in range(ml):
+            if w1[j] != w2[j]:
+                if w2[j] not in graph[w1[j]]:
+                    graph[w1[j]].add(w2[j])
+                    indeg[w2[j]] += 1
+                break
+    q = deque([c for c in indeg if indeg[c]==0])
+    res = []
+    while q:
+        c = q.popleft(); res.append(c)
+        for nei in graph[c]:
+            indeg[nei] -= 1
+            if indeg[nei]==0: q.append(nei)
+    return ''.join(res) if len(res)==len(graph) else ""
+
+Time: O(C), Space: O(C)</div></td></tr>
 </table>
 
-<!-- ===== MORE DP ===== -->
-<div class="section-header">🎲 Advanced DP <span class="section-count">(7 problems)</span></div>
+<!-- ===== ADVANCED DP ===== -->
+<div class="section-header">ðŸŽ² Advanced DP <span class="section-count">(7 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google"><td>89</td><td>Decode Ways</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i] = dp[i-1] (if valid single) + dp[i-2] (if valid pair).\nTime: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Google,Amazon"><td>90</td><td>Unique Paths</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i][j] = dp[i-1][j] + dp[i][j-1].\nTime: O(m*n), can optimize to O(n) space</div></td></tr>
-<tr data-co="Microsoft,Google"><td>91</td><td>Partition Equal Subset Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">0/1 Knapsack</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Target = sum/2, 0/1 knapsack with boolean DP.\nTime: O(n * sum/2)</div></td></tr>
-<tr data-co="Google,Amazon"><td>92</td><td>Target Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP / Knapsack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Convert to subset sum: find subset with sum = (total + target) / 2.\nTime: O(n * sum)</div></td></tr>
-<tr data-co="Amazon,Microsoft"><td>93</td><td>Longest Palindromic Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">LCS of string and its reverse.\nTime: O(n²)</div></td></tr>
-<tr data-co="Google"><td>94</td><td>Interleaving String</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">dp[i][j] = can s3[0:i+j] be formed by interleaving s1[0:i] and s2[0:j].\nTime: O(m*n)</div></td></tr>
-<tr data-co="Google,Amazon"><td>95</td><td>Minimum Cost to Cut a Stick</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Sort cuts, interval DP: dp[i][j] = min cost to process cuts[i..j].\nTime: O(c³)</div></td></tr>
+<tr data-co="Amazon,Google"><td>89</td><td>Decode Ways</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">1D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i] = ways to decode. Single digit (1-9): add dp[i-1]. Two digits (10-26): add dp[i-2].
+
+def numDecodings(s):
+    if not s or s[0] == '0': return 0
+    prev2, prev1 = 1, 1
+    for i in range(1, len(s)):
+        curr = 0
+        if s[i] != '0': curr += prev1
+        two = int(s[i-1:i+1])
+        if 10 <= two <= 26: curr += prev2
+        prev2, prev1 = prev1, curr
+    return prev1
+
+Time: O(n), Space: O(1)</div></td></tr>
+<tr data-co="Google,Amazon"><td>90</td><td>Unique Paths</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[j] = paths to column j. Each cell = above + left. Space-optimized to 1D.
+
+def uniquePaths(m, n):
+    dp = [1] * n
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[j] += dp[j-1]
+    return dp[-1]
+
+Time: O(m*n), Space: O(n)</div></td></tr>
+<tr data-co="Microsoft,Google"><td>91</td><td>Partition Equal Subset Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">0/1 Knapsack</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Find if subset sums to total/2. 0/1 knapsack with boolean DP.
+
+def canPartition(nums):
+    total = sum(nums)
+    if total % 2: return False
+    target = total // 2
+    dp = {0}
+    for n in nums:
+        dp = dp | {s + n for s in dp if s + n <= target}
+    return target in dp
+
+Time: O(n * sum/2), Space: O(sum/2)</div></td></tr>
+<tr data-co="Google,Amazon"><td>92</td><td>Target Sum</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">DP / Knapsack</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Rephrase: find subset P where sum(P) = (total + target) / 2. Then subset sum DP.
+
+def findTargetSumWays(nums, target):
+    total = sum(nums)
+    if (total + target) % 2 or abs(target) > total: return 0
+    t = (total + target) // 2
+    dp = [0] * (t + 1)
+    dp[0] = 1
+    for n in nums:
+        for j in range(t, n - 1, -1):
+            dp[j] += dp[j - n]
+    return dp[t]
+
+Time: O(n * target), Space: O(target)</div></td></tr>
+<tr data-co="Amazon,Microsoft"><td>93</td><td>Longest Palindromic Subsequence</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: LPS(s) = LCS(s, reverse(s)). Standard 2D DP for Longest Common Subsequence.
+
+def longestPalindromeSubseq(s):
+    n = len(s); rev = s[::-1]
+    dp = [[0]*(n+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        for j in range(1, n+1):
+            if s[i-1] == rev[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[n][n]
+
+Time: O(nu00b2), Space: O(nu00b2)</div></td></tr>
+<tr data-co="Google"><td>94</td><td>Interleaving String</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i][j] = can s3[0..i+j] be formed by interleaving s1[0..i] and s2[0..j]?
+
+def isInterleave(s1, s2, s3):
+    m, n = len(s1), len(s2)
+    if m + n != len(s3): return False
+    dp = [[False]*(n+1) for _ in range(m+1)]
+    dp[0][0] = True
+    for i in range(m+1):
+        for j in range(n+1):
+            if i>0 and s1[i-1]==s3[i+j-1]:
+                dp[i][j] |= dp[i-1][j]
+            if j>0 and s2[j-1]==s3[i+j-1]:
+                dp[i][j] |= dp[i][j-1]
+    return dp[m][n]
+
+Time: O(m*n), Space: O(m*n)</div></td></tr>
+<tr data-co="Google,Amazon"><td>95</td><td>Minimum Cost to Cut a Stick</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sort cuts, add 0 and n as boundaries. dp[i][j] = min cost to cut between cuts[i]..cuts[j].
+
+def minCost(n, cuts):
+    cuts = sorted([0] + cuts + [n])
+    m = len(cuts)
+    dp = [[0]*m for _ in range(m)]
+    for length in range(2, m):
+        for i in range(m - length):
+            j = i + length
+            dp[i][j] = float('inf')
+            for k in range(i+1, j):
+                dp[i][j] = min(dp[i][j],
+                    dp[i][k] + dp[k][j] + cuts[j] - cuts[i])
+    return dp[0][m-1]
+
+Time: O(cu00b3), Space: O(cu00b2)</div></td></tr>
 </table>
 
 <!-- ===== DESIGN ===== -->
-<div class="section-header">🏗️ Design Problems <span class="section-count">(4 problems)</span></div>
+<div class="section-header">ðŸ—ï¸ Design Problems <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>96</td><td>Design Twitter</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">OOP + Heap</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">HashMap for follows, HashMap for tweets.\ngetNewsFeed: merge k sorted lists with min-heap.\nTime: O(k log n) for feed</div></td></tr>
-<tr data-co="Google,Microsoft"><td>97</td><td>Design Add and Search Words (Trie)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Trie + DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Trie with DFS for '.' wildcard matching.\nInsert: O(m), Search: O(m) avg, O(26^m) worst for '.'</div></td></tr>
-<tr data-co="Meta,Google"><td>98</td><td>Serialize and Deserialize BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BST + Preorder</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Preorder traversal for serialize.\nUse upper bound for deserialize (no null markers needed).\nTime: O(n)</div></td></tr>
-<tr data-co="Google,Amazon,Microsoft"><td>99</td><td>Design HashMap</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">Array of buckets with linked list chaining.\nHash function: key % bucket_size.\nTime: O(1) avg, O(n/k) worst</div></td></tr>
+<tr data-co="Amazon,Google,Microsoft"><td>96</td><td>Design Twitter</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">OOP + Heap</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: HashMap for follows, list for tweets with timestamps. News feed = merge k sorted (most recent).
+
+class Twitter:
+    def __init__(self):
+        self.time = 0
+        self.tweets = {}
+        self.follows = {}
+
+    def postTweet(self, userId, tweetId):
+        self.tweets.setdefault(userId, []).append(
+            (self.time, tweetId))
+        self.time += 1
+
+    def getNewsFeed(self, userId):
+        self.follows.setdefault(userId, set()).add(userId)
+        tweets = []
+        for fid in self.follows[userId]:
+            tweets.extend(self.tweets.get(fid, []))
+        tweets.sort(reverse=True)
+        return [t[1] for t in tweets[:10]]
+
+Time: O(k log n) for feed, Space: O(users * tweets)</div></td></tr>
+<tr data-co="Google,Microsoft"><td>97</td><td>Design Add and Search Words (Trie)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Trie + DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Trie for insert. Search uses DFS â€” for '.', try all 26 children. Regular chars follow match.
+
+class WordDictionary:
+    def __init__(self): self.root = {}
+
+    def addWord(self, word):
+        node = self.root
+        for c in word: node = node.setdefault(c, {})
+        node['#'] = True
+
+    def search(self, word):
+        def dfs(node, i):
+            if i == len(word): return '#' in node
+            if word[i] == '.':
+                return any(dfs(node[c], i+1)
+                    for c in node if c != '#')
+            if word[i] not in node: return False
+            return dfs(node[word[i]], i+1)
+        return dfs(self.root, 0)
+
+Insert: O(m), Search: O(m) avg</div></td></tr>
+<tr data-co="Meta,Google"><td>98</td><td>Serialize and Deserialize BST</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">BST + Preorder</span></td><td><span class="co-tag co-meta">Meta</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Preorder traversal to serialize (BST = no null markers needed). Deserialize with bounds.
+
+class Codec:
+    def serialize(self, root):
+        vals = []
+        def dfs(node):
+            if node:
+                vals.append(str(node.val))
+                dfs(node.left); dfs(node.right)
+        dfs(root)
+        return ' '.join(vals)
+
+    def deserialize(self, data):
+        if not data: return None
+        q = deque(map(int, data.split()))
+        def build(lo, hi):
+            if not q or q[0] < lo or q[0] > hi:
+                return None
+            val = q.popleft()
+            node = TreeNode(val)
+            node.left = build(lo, val)
+            node.right = build(val, hi)
+            return node
+        return build(float('-inf'), float('inf'))
+
+Time: O(n), Space: O(n)</div></td></tr>
+<tr data-co="Google,Amazon,Microsoft"><td>99</td><td>Design HashMap</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Design</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Array of buckets with linked-list chaining. Hash = key % size. Handle collisions.
+
+class MyHashMap:
+    def __init__(self):
+        self.size = 1000
+        self.buckets = [[] for _ in range(self.size)]
+
+    def put(self, key, val):
+        bucket = self.buckets[key % self.size]
+        for i, (k, v) in enumerate(bucket):
+            if k == key: bucket[i] = (key, val); return
+        bucket.append((key, val))
+
+    def get(self, key):
+        for k, v in self.buckets[key % self.size]:
+            if k == key: return v
+        return -1
+
+    def remove(self, key):
+        bucket = self.buckets[key % self.size]
+        for i, (k, v) in enumerate(bucket):
+            if k == key: bucket.pop(i); return
+
+Time: O(1) avg, O(n/k) worst</div></td></tr>
 </table>
 
         </div>
