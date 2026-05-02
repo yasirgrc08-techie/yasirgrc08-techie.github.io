@@ -31,10 +31,18 @@ h1 span{background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-bac
 .diff-med{background:var(--orange)}
 .diff-hard{background:var(--red)}
 
-/* Paywall overlay */
+/* Paywall */
 .paywall{position:relative}
 .paywall-blur{filter:blur(6px);pointer-events:none;user-select:none}
 .paywall-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;background:rgba(10,10,15,0.6);backdrop-filter:blur(2px);border-radius:var(--r)}
+/* Inline paywall card */
+.paywall-inline{max-width:520px;margin:1.5rem auto;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2rem 2.5rem;text-align:center}
+.paywall-inline h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-inline p{color:var(--text2);font-size:.9rem;margin-bottom:1rem}
+/* Download button */
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:#22c55e;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .3s ease;margin:1rem auto;}
+.download-btn:hover{background:#16a34a;transform:translateY(-2px);box-shadow:0 10px 30px rgba(34,197,94,.3)}
+.download-btn:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:none}
 .paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
 .paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
 .paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
@@ -100,34 +108,40 @@ tr:hover{background:var(--bg2)}
         </div>
     </div>
 
-    <!-- PAYWALL -->
-    <div class="paywall" id="paywallSection">
-        <div class="paywall-overlay" id="paywallOverlay">
-            <div class="paywall-card">
-                <h3>🔒 Unlock Full DSA Sheet</h3>
-                <p>Get instant access to 99 curated problems with detailed solutions, company tags, and pattern explanations.</p>
-                <ul class="paywall-features">
-                    <li>99 curated problems across 15+ topics</li>
-                    <li>Company-tagged (Google, Microsoft, Amazon, Meta...)</li>
-                    <li>Detailed solutions with time/space complexity</li>
-                    <li>Pattern-based learning approach</li>
-                    <li>Lifetime access</li>
-                </ul>
-                <div class="paywall-price">₹49</div>
-                <div class="paywall-original">₹499</div>
-                <div style="margin-bottom:1rem;">
-                    <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
-                </div>
-                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
-                <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
-                    <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
-                    <div style="display:flex;gap:.5rem;">
-                        <input type="text" id="accessCodeInput" placeholder="Enter access code" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.85rem;font-family:Inter,sans-serif;">
-                        <button onclick="redeemCode()" style="padding:8px 16px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;font-family:Inter,sans-serif;">Redeem</button>
-                    </div>
-                </div>
+    <!-- INLINE PAYWALL (right below filters) -->
+    <div class="paywall-inline" id="paywallInline">
+        <h3>🔒 Unlock Full DSA Sheet</h3>
+        <p>Get instant access to 99 curated problems with detailed solutions, company tags, and pattern explanations.</p>
+        <ul class="paywall-features">
+            <li>99 curated problems across 15+ topics</li>
+            <li>Company-tagged (Google, Microsoft, Amazon, Meta...)</li>
+            <li>Detailed solutions with time/space complexity</li>
+            <li>Pattern-based learning approach</li>
+            <li>Lifetime access + downloadable PDF</li>
+        </ul>
+        <div class="paywall-price">₹49</div>
+        <div class="paywall-original">₹499</div>
+        <div style="margin-bottom:1rem;">
+            <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
+        </div>
+        <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
+            <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
+            <div style="display:flex;gap:.5rem;">
+                <input type="text" id="accessCodeInput" placeholder="Enter access code" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.85rem;font-family:Inter,sans-serif;">
+                <button onclick="redeemCode()" style="padding:8px 16px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;font-family:Inter,sans-serif;">Redeem</button>
             </div>
         </div>
+    </div>
+
+    <!-- Download PDF button (shown after unlock) -->
+    <div id="downloadArea" style="text-align:center;display:none;margin:1.5rem auto;">
+        <button class="download-btn" id="downloadPdfBtn" onclick="downloadPDF()">📥 Download DSA Sheet as PDF</button>
+    </div>
+
+    <!-- PAYWALL -->
+    <div class="paywall" id="paywallSection">
+        <div class="paywall-overlay" id="paywallOverlay" style="display:none"></div>
         <div class="paywall-blur" id="sheetContent">
 
 <!-- ===== ARRAYS & STRINGS ===== -->
@@ -333,6 +347,7 @@ tr:hover{background:var(--bg2)}
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
@@ -352,6 +367,8 @@ function checkAccess() {
     if (localStorage.getItem(SHEET_KEY) === 'true') {
         document.getElementById('paywallOverlay').style.display = 'none';
         document.getElementById('sheetContent').classList.remove('paywall-blur');
+        document.getElementById('paywallInline').style.display = 'none';
+        document.getElementById('downloadArea').style.display = 'block';
     }
 }
 checkAccess();
@@ -387,7 +404,11 @@ function unlockSheet() {
             localStorage.setItem(CODE_KEY, code);
             document.getElementById('paywallOverlay').style.display = 'none';
             document.getElementById('sheetContent').classList.remove('paywall-blur');
+            document.getElementById('paywallInline').style.display = 'none';
+            document.getElementById('downloadArea').style.display = 'block';
             alert('✅ Sheet unlocked!\n\nYour access code: ' + code + '\n\nSave this code — you can use it on any device/browser to unlock again.\n\nPayment ID: ' + response.razorpay_payment_id);
+            // Auto-trigger PDF download after payment
+            setTimeout(function(){ downloadPDF(); }, 1000);
             // Email code to customer + owner
             if (typeof emailjs !== 'undefined') {
                 emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
@@ -419,6 +440,8 @@ function redeemCode() {
         localStorage.setItem(CODE_KEY, input);
         document.getElementById('paywallOverlay').style.display = 'none';
         document.getElementById('sheetContent').classList.remove('paywall-blur');
+        document.getElementById('paywallInline').style.display = 'none';
+        document.getElementById('downloadArea').style.display = 'block';
         alert('✅ Access code accepted! Sheet unlocked.');
     } else {
         alert('❌ Invalid access code. Please check and try again.');
@@ -429,6 +452,31 @@ function toggleSol(el) {
     const box = el.nextElementSibling;
     box.classList.toggle('open');
     el.textContent = box.classList.contains('open') ? 'Hide' : 'Show';
+}
+
+function downloadPDF() {
+    const btn = document.getElementById('downloadPdfBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Generating PDF...';
+    const content = document.getElementById('sheetContent');
+    // Expand all solutions for PDF
+    content.querySelectorAll('.solution-box').forEach(b => b.classList.add('open'));
+    content.querySelectorAll('.solution-toggle').forEach(t => t.textContent = 'Hide');
+    const opt = {
+        margin: [8, 6, 8, 6],
+        filename: 'DSA_Sheet_Top_99_Problems_Yasir.pdf',
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0, backgroundColor: '#0a0a0f' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+    html2pdf().set(opt).from(content).save().then(function() {
+        btn.disabled = false;
+        btn.textContent = '📥 Download DSA Sheet as PDF';
+    }).catch(function() {
+        btn.disabled = false;
+        btn.textContent = '📥 Download DSA Sheet as PDF';
+    });
 }
 
 function filterCo(company) {
