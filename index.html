@@ -1903,7 +1903,7 @@
         grid.innerHTML = '';
         const today = new Date();
         let count = 0;
-        for (let i = 1; count < 14; i++) {
+        for (let i = 0; count < 14; i++) {
             const d = new Date(today);
             d.setDate(today.getDate() + i);
             const dow = d.getDay();
@@ -1936,10 +1936,8 @@
         const isWeekend = (booking.dateDow === 0 || booking.dateDow === 6);
         const baseSlots = isWeekend ? TIME_SLOTS_WEEKEND : TIME_SLOTS_WEEKDAY;
 
-        // Determine interval based on session type
-        let interval = 30; // default 30 min
-        if (booking.type === 'call') interval = 20;
-        else if (booking.type === 'chat') interval = 15;
+        // Use session's actual duration as slot interval
+        let interval = booking.duration || 30;
 
         // Generate custom interval slots
         const startHour = isWeekend ? 9 : 17; // 9 AM or 5 PM
@@ -1961,7 +1959,24 @@
             }
         }
 
+        // Filter out past time slots if today is selected
+        const now = new Date();
+        const todayStr = now.toISOString().split('T')[0];
+        const isToday = (booking.dateRaw === todayStr);
+
         slots.forEach(slot => {
+            // If today, skip slots that have already passed
+            if (isToday) {
+                const match = slot.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)/);
+                if (match) {
+                    let sh = parseInt(match[1]);
+                    const sm = parseInt(match[2]);
+                    const ap = match[3];
+                    if (ap === 'PM' && sh !== 12) sh += 12;
+                    if (ap === 'AM' && sh === 12) sh = 0;
+                    if (sh < now.getHours() || (sh === now.getHours() && sm <= now.getMinutes())) return;
+                }
+            }
             const btn = document.createElement('button');
             btn.className = 'time-btn';
             btn.textContent = slot;
