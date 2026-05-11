@@ -160,7 +160,7 @@ def twoSum(nums, target):
         seen[n] = i
 
 Time: O(n), Space: O(n)</div></td></tr>
-<tr data-co="Google,Amazon,Meta"><td>2</td><td>Best Time to Buy and Sell Stock</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Sliding Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Track the minimum price seen so far. At each price, calculate profit if we sold today.
+<tr data-co="Google,Amazon,Meta"><td>2</td><td>Best Time to Buy and Sell Stock</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Greedy</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Track the minimum price seen so far. At each price, calculate profit if we sold today.
 
 def maxProfit(prices):
     min_p = float('inf')
@@ -272,7 +272,7 @@ def isAnagram(s, t):
     return True
 
 Time: O(n), Space: O(1) â€” at most 26 letters</div></td></tr>
-<tr data-co="Google,Apple"><td>11</td><td>Group Anagrams</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Anagrams produce the same sorted string. Use sorted word as dictionary key to group.
+<tr data-co="Google,Amazon,Meta"><td>11</td><td>Group Anagrams</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Anagrams produce the same sorted string. Use sorted word as dictionary key to group.
 
 def groupAnagrams(strs):
     groups = {}
@@ -421,14 +421,24 @@ def mergeKLists(lists):
 Time: O(N log k), Space: O(k)</div></td></tr>
 <tr data-co="Microsoft"><td>21</td><td>LRU Cache</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Hash Map + DLL</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: HashMap for O(1) lookup + Doubly Linked List for O(1) eviction. Most recent at tail.
 
+class Node:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
+        self.prev = self.next = None
+
 class LRUCache:
     def __init__(self, cap):
         self.cache = {}
         self.cap = cap
-        self.head = Node(0,0)
-        self.tail = Node(0,0)
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head, self.tail = Node(0,0), Node(0,0)
+        self.head.next, self.tail.prev = self.tail, self.head
+
+    def _remove(self, node):
+        node.prev.next, node.next.prev = node.next, node.prev
+
+    def _add(self, node):  # add before tail
+        node.prev, node.next = self.tail.prev, self.tail
+        self.tail.prev.next = self.tail.prev = node
 
     def get(self, key):
         if key in self.cache:
@@ -525,7 +535,7 @@ Time: O(n), Space: O(n)</div></td></tr>
 <!-- ===== BINARY SEARCH ===== -->
 <div class="section-header">ðŸ” Binary Search <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Google,Microsoft,Amazon"><td>26</td><td>Binary Search</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Template</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Compare middle element with target. Smaller â†’ search right. Larger â†’ search left.
+<tr data-co="Google,Microsoft,Amazon"><td>26</td><td>Binary Search</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Binary Search</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Compare middle element with target. Smaller â†’ search right. Larger â†’ search left.
 
 def search(nums, target):
     l, r = 0, len(nums) - 1
@@ -746,13 +756,16 @@ def ladderLength(begin, end, wordList):
     return 0
 
 Time: O(n * m * 26), Space: O(n * m)</div></td></tr>
-<tr data-co="Google,Amazon"><td>40</td><td>Dijkstra's Shortest Path</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Shortest Path</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Min-heap BFS from source. Pop smallest dist, relax neighbors. Skip already-finalized.
+<tr data-co="Google,Amazon,Microsoft"><td>40</td><td>Network Delay Time (LC #743)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Dijkstra / Shortest Path</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Dijkstra from source node k. Find shortest time to reach all nodes. Answer = max of all distances.
 
 import heapq
-def dijkstra(graph, src, n):
-    dist = [float('inf')] * n
-    dist[src] = 0
-    heap = [(0, src)]
+def networkDelayTime(times, n, k):
+    graph = [[] for _ in range(n + 1)]
+    for u, v, w in times:
+        graph[u].append((v, w))
+    dist = [float('inf')] * (n + 1)
+    dist[k] = 0
+    heap = [(0, k)]
     while heap:
         d, u = heapq.heappop(heap)
         if d > dist[u]: continue
@@ -760,7 +773,8 @@ def dijkstra(graph, src, n):
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 heapq.heappush(heap, (dist[v], v))
-    return dist
+    mx = max(dist[1:])
+    return mx if mx < float('inf') else -1
 
 Time: O(E log V), Space: O(V + E)</div></td></tr>
 </table>
@@ -854,20 +868,17 @@ def minDistance(w1, w2):
     return dp[m][n]
 
 Time: O(m*n), Space: O(m*n)</div></td></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>48</td><td>0/1 Knapsack</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">2D DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: dp[i][w] = max value with first i items and capacity w. Skip or take each item.
+<tr data-co="Amazon,Google,Meta"><td>48</td><td>Last Stone Weight II (LC #1049)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">0/1 Knapsack DP</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Split stones into two groups. Minimize |sum1 - sum2|. This is 0/1 Knapsack — find closest subset sum to total/2.
 
-def knapsack(weights, values, W):
-    n = len(weights)
-    dp = [[0]*(W+1) for _ in range(n+1)]
-    for i in range(1, n+1):
-        for w in range(W+1):
-            dp[i][w] = dp[i-1][w]  # skip
-            if weights[i-1] <= w:
-                dp[i][w] = max(dp[i][w],
-                    dp[i-1][w-weights[i-1]] + values[i-1])
-    return dp[n][W]
+def lastStoneWeightII(stones):
+    total = sum(stones)
+    target = total // 2
+    dp = {0}
+    for s in stones:
+        dp = dp | {t + s for t in dp if t + s &lt;= target}
+    return total - 2 * max(dp)
 
-Time: O(n*W), Space: O(n*W)</div></td></tr>
+Time: O(n * sum/2), Space: O(sum/2)</div></td></tr>
 <tr data-co="Google"><td>49</td><td>Burst Balloons</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">Interval DP</span></td><td><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Think reverse â€” which balloon to burst LAST in range? dp[l][r] = max coins in (l,r).
 
 def maxCoins(nums):
@@ -1121,7 +1132,7 @@ def singleNumber(nums):
     return res
 
 Time: O(n), Space: O(1)</div></td></tr>
-<tr data-co="Microsoft"><td>62</td><td>Number of 1 Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Count</span></td><td><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: n &amp; (n-1) clears the lowest set bit. Count iterations until n = 0.
+<tr data-co="Microsoft,Apple"><td>62</td><td>Number of 1 Bits</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Bit Count</span></td><td><span class="co-tag co-microsoft">Microsoft</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: n &amp; (n-1) clears the lowest set bit. Count iterations until n = 0.
 
 def hammingWeight(n):
     count = 0
@@ -1177,7 +1188,7 @@ def spiralOrder(matrix):
     return res
 
 Time: O(m*n), Space: O(1)</div></td></tr>
-<tr data-co="Google,Apple"><td>66</td><td>Pow(x, n)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fast Exponentiation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-apple">Apple</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Binary exponentiation â€” if n even: x^n = (xu00b2)^(n/2). If odd: x * x^(n-1). Handle negative n.
+<tr data-co="Google,Meta,Amazon"><td>66</td><td>Pow(x, n)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Fast Exponentiation</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Binary exponentiation â€” if n even: x^n = (xu00b2)^(n/2). If odd: x * x^(n-1). Handle negative n.
 
 def myPow(x, n):
     if n < 0: x, n = 1/x, -n
@@ -1240,15 +1251,15 @@ Time: O(n log n), Space: O(1)</div></td></tr>
 <!-- ===== SLIDING WINDOW ===== -->
 <div class="section-header">ðŸªŸ Sliding Window <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>70</td><td>Maximum Sum Subarray of Size K</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Fixed window of size k. Add right, subtract left when window exceeds k. Track max.
+<tr data-co="Amazon,Google,Microsoft"><td>70</td><td>Maximum Average Subarray I (LC #643)</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">Fixed Window</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Fixed window of size k. Add right element, subtract left. Track max sum, return max/k.
 
-def maxSumSubarray(nums, k):
+def findMaxAverage(nums, k):
     wSum = sum(nums[:k])
     maxSum = wSum
     for i in range(k, len(nums)):
         wSum += nums[i] - nums[i - k]
         maxSum = max(maxSum, wSum)
-    return maxSum
+    return maxSum / k
 
 Time: O(n), Space: O(1)</div></td></tr>
 <tr data-co="Google,Meta,Amazon"><td>71</td><td>Longest Repeating Character Replacement</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Variable Window</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Sliding window. Window is valid if windowSize - maxFreq u2264 k (can replace u2264 k chars).
@@ -1385,6 +1396,13 @@ def isSameTree(p, q):
 Time: O(n), Space: O(h)</div></td></tr>
 <tr data-co="Google,Amazon"><td>79</td><td>Subtree of Another Tree</td><td><span class="diff d-easy">Easy</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-amazon">Amazon</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each node in main tree, check if subtree rooted there is identical to subRoot.
 
+def isSameTree(p, q):
+    if not p and not q: return True
+    if not p or not q: return False
+    return (p.val == q.val and
+            isSameTree(p.left, q.left) and
+            isSameTree(p.right, q.right))
+
 def isSubtree(root, subRoot):
     if not root: return False
     if isSameTree(root, subRoot): return True
@@ -1420,17 +1438,24 @@ def kthSmallest(root, k):
         curr = curr.right
 
 Time: O(H + k), Space: O(H)</div></td></tr>
-<tr data-co="Google,Meta"><td>82</td><td>Construct Binary Tree from Preorder and Inorder</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Recursion</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: preorder[0] is root. Find it in inorder to split left/right subtrees. Recurse.
+<tr data-co="Google,Meta"><td>82</td><td>Construct Binary Tree from Preorder and Inorder</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Recursion</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-meta">Meta</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: preorder[0] is root. Find it in inorder to split left/right. Use hashmap for O(1) index lookup.
 
 def buildTree(preorder, inorder):
-    if not inorder: return None
-    root = TreeNode(preorder.pop(0))
-    mid = inorder.index(root.val)
-    root.left = buildTree(preorder, inorder[:mid])
-    root.right = buildTree(preorder, inorder[mid+1:])
-    return root
+    inorder_map = {v: i for i, v in enumerate(inorder)}
+    idx = [0]  # preorder index
 
-Tip: Use hashmap for inorder index lookup for O(n) total.
+    def build(lo, hi):
+        if lo > hi: return None
+        val = preorder[idx[0]]
+        idx[0] += 1
+        root = TreeNode(val)
+        mid = inorder_map[val]
+        root.left = build(lo, mid - 1)
+        root.right = build(mid + 1, hi)
+        return root
+
+    return build(0, len(inorder) - 1)
+
 Time: O(n), Space: O(n)</div></td></tr>
 <tr data-co="Amazon,Google"><td>83</td><td>Binary Tree Maximum Path Sum</td><td><span class="diff d-hard">Hard</span></td><td><span class="topic-tag">DFS</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: At each node, max path = val + max(left,0) + max(right,0). Return single-branch gain upward.
 
@@ -1655,28 +1680,39 @@ Time: O(cu00b3), Space: O(cu00b2)</div></td></tr>
 <!-- ===== DESIGN ===== -->
 <div class="section-header">ðŸ—ï¸ Design Problems <span class="section-count">(4 problems)</span></div>
 <table><tr><th>#</th><th>Problem</th><th>Difficulty</th><th>Pattern</th><th>Companies</th><th>Solution</th></tr>
-<tr data-co="Amazon,Google,Microsoft"><td>96</td><td>Design Twitter</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">OOP + Heap</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: HashMap for follows, list for tweets with timestamps. News feed = merge k sorted (most recent).
+<tr data-co="Amazon,Google,Microsoft"><td>96</td><td>Design Twitter</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">OOP + Heap</span></td><td><span class="co-tag co-amazon">Amazon</span><span class="co-tag co-google">Google</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: HashMap for follows + tweets. News feed = merge latest from each followee using max-heap.
 
+import heapq
 class Twitter:
     def __init__(self):
         self.time = 0
-        self.tweets = {}
-        self.follows = {}
+        self.tweets = {}   # userId -> [(time, tweetId)]
+        self.follows = {}  # userId -> set(followeeIds)
 
     def postTweet(self, userId, tweetId):
         self.tweets.setdefault(userId, []).append(
             (self.time, tweetId))
-        self.time += 1
+        self.time -= 1  # negative for max-heap
 
     def getNewsFeed(self, userId):
         self.follows.setdefault(userId, set()).add(userId)
-        tweets = []
+        heap = []
         for fid in self.follows[userId]:
-            tweets.extend(self.tweets.get(fid, []))
-        tweets.sort(reverse=True)
-        return [t[1] for t in tweets[:10]]
+            tw = self.tweets.get(fid, [])
+            if tw:
+                i = len(tw) - 1
+                heapq.heappush(heap, (tw[i][0], tw[i][1], fid, i))
+        res = []
+        while heap and len(res) < 10:
+            t, tid, fid, i = heapq.heappop(heap)
+            res.append(tid)
+            if i > 0:
+                i -= 1
+                tw = self.tweets[fid]
+                heapq.heappush(heap, (tw[i][0], tw[i][1], fid, i))
+        return res
 
-Time: O(k log n) for feed, Space: O(users * tweets)</div></td></tr>
+Time: O(F * log F) for feed (F=followees), Space: O(tweets)</div></td></tr>
 <tr data-co="Google,Microsoft"><td>97</td><td>Design Add and Search Words (Trie)</td><td><span class="diff d-med">Medium</span></td><td><span class="topic-tag">Trie + DFS</span></td><td><span class="co-tag co-google">Google</span><span class="co-tag co-microsoft">Microsoft</span></td><td><span class="solution-toggle" onclick="toggleSol(this)">Show</span><div class="solution-box">IDEA: Trie for insert. Search uses DFS â€” for '.', try all 26 children. Regular chars follow match.
 
 class WordDictionary:
