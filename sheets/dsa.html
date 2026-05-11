@@ -43,6 +43,7 @@ h1 span{background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-bac
 .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:#22c55e;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .3s ease;margin:1rem auto;}
 .download-btn:hover{background:#16a34a;transform:translateY(-2px);box-shadow:0 10px 30px rgba(34,197,94,.3)}
 .download-btn:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:none}
+@media print{body{background:#fff!important;color:#000!important}.paywall-inline,.download-btn,.back-link,.company-filter,.difficulty-legend,.stats-bar{display:none!important}.paywall-blur{filter:none!important;pointer-events:auto!important;user-select:auto!important}.solution-box{display:block!important;background:#f5f5f5!important;color:#222!important;border:1px solid #ccc!important}.solution-toggle{display:none!important}table{page-break-inside:auto}tr{page-break-inside:avoid}.section-header{page-break-after:avoid;color:#000!important;border-color:#6366f1!important}th{background:#eee!important;color:#333!important}td{color:#222!important}.co-tag,.topic-tag,.diff{print-color-adjust:exact;-webkit-print-color-adjust:exact}h1 span{-webkit-text-fill-color:#000!important;color:#000!important}}
 .paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
 .paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
 .paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
@@ -137,6 +138,7 @@ tr:hover{background:var(--bg2)}
     <!-- Download PDF button (shown after unlock) -->
     <div id="downloadArea" style="text-align:center;display:none;margin:1.5rem auto;">
         <button class="download-btn" id="downloadPdfBtn" onclick="downloadPDF()">📥 Download DSA Sheet as PDF</button>
+        <p style="color:#6b6b80;font-size:.78rem;margin-top:.5rem;">Opens your browser's print dialog — choose "Save as PDF" to download</p>
     </div>
 
     <!-- PAYWALL -->
@@ -1861,27 +1863,12 @@ function toggleSol(el) {
 
 function downloadPDF() {
     const btn = document.getElementById('downloadPdfBtn');
-    btn.disabled = true;
-    btn.textContent = '⏳ Generating PDF...';
+    // Expand all solutions for complete PDF
     const content = document.getElementById('sheetContent');
-    // Expand all solutions for PDF
     content.querySelectorAll('.solution-box').forEach(b => b.classList.add('open'));
     content.querySelectorAll('.solution-toggle').forEach(t => t.textContent = 'Hide');
-    const opt = {
-        margin: [8, 6, 8, 6],
-        filename: 'DSA_Sheet_Top_99_Problems_Yasir.pdf',
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, scrollY: 0, backgroundColor: '#0a0a0f' },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-    html2pdf().set(opt).from(content).save().then(function() {
-        btn.disabled = false;
-        btn.textContent = '📥 Download DSA Sheet as PDF';
-    }).catch(function() {
-        btn.disabled = false;
-        btn.textContent = '📥 Download DSA Sheet as PDF';
-    });
+    // Use browser print — works on all devices, produces clean PDF
+    window.print();
 }
 
 function filterCo(company) {

@@ -106,12 +106,12 @@ h1 span{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-back
                     <li>Company-specific tips (Google, Microsoft, Amazon, Meta)</li>
                     <li>Lifetime access with access code</li>
                 </ul>
-                <div class="paywall-price">₹49</div>
-                <div class="paywall-original">₹499</div>
+                <div class="paywall-price">₹29</div>
+                <div class="paywall-original">₹299</div>
                 <div style="margin-bottom:1rem;">
                     <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
                 </div>
-                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+                <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹29</button>
                 <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
                     <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
                     <div style="display:flex;gap:.5rem;">
@@ -270,7 +270,7 @@ function unlockSheet() {
     }
     const options = {
         key: 'rzp_live_SdMpxrq9I6XhNj',
-        amount: 4900,
+        amount: 2900,
         currency: 'INR',
         name: 'Yasir Arafat Sharfi',
         description: 'Behavioral Interview Prep — 50+ Questions',
@@ -293,7 +293,7 @@ function unlockSheet() {
                     email: email,
                     phone: 'N/A',
                     message: 'Access Code: ' + code + '\nUse this code at: https://yasirgrc08-techie.github.io/sheets/behavioral.html?code=' + code,
-                    amount: '₹49',
+                    amount: '₹29',
                     payment_id: response.razorpay_payment_id,
                     to_email: 'yasir.grc08@gmail.com'
                 }).catch(() => {});
