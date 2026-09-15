@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Top 99 DSA Problems — Company Tagged | Yasir Arafat Sharfi</title>
-<meta name="description" content="Top 99 DSA problems with solutions, company-tagged for Google, Microsoft, Amazon, Meta, Apple, Netflix & more. Curated by Yasir Arafat Sharfi (SWE II @ Microsoft).">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>150 DSA Practice Questions | Yasir Arafat Sharfi</title>
+<meta name="description" content="150 curated DSA practice questions across 18 patterns, study hints, bookmarks, and progress tracking. Plus the original 99-problem paid solution sheet by Yasir Arafat Sharfi.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
@@ -80,19 +80,31 @@ tr:hover{background:var(--bg2)}
 .solution-box.open{display:block}
 @media(max-width:768px){h1{font-size:1.8rem}td,th{padding:8px 6px;font-size:.78rem}.container{padding:1rem}}
 </style>
+<link rel="stylesheet" href="../assets/site-refresh.css">
+<script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script defer src="../assets/interview-data.js"></script>
+<script defer src="../assets/interview-prep.js"></script>
 </head>
-<body>
+<body class="sheet-page">
 <div class="container">
     <div class="header">
         <a href="../" class="back-link">&larr; Back to Portfolio</a>
-        <h1>🧩 <span>Top 99 DSA Problems</span></h1>
-        <p class="subtitle">Company-tagged problems with solutions. Curated from my preparation for cracking 13+ top tech companies.</p>
+        <span class="prep-edition">THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
+        <h1><span>DSA Interview Library</span></h1>
+        <p class="subtitle">Core patterns, deliberate practice, and the edge cases that make the difference.</p>
         <div class="stats-bar">
-            <div class="stat"><div class="n">99</div><div class="l">Problems</div></div>
-            <div class="stat"><div class="n">15+</div><div class="l">Topics</div></div>
-            <div class="stat"><div class="n">10+</div><div class="l">Companies</div></div>
-            <div class="stat"><div class="n">✓</div><div class="l">Solutions</div></div>
+            <div class="stat"><div class="n">150</div><div class="l">Practice questions</div></div>
+            <div class="stat"><div class="n">18</div><div class="l">Core patterns</div></div>
+            <div class="stat"><div class="n">99</div><div class="l">Original paid notes</div></div>
         </div>
+        <div class="prep-resource-links"><a href="system-design.html">System design library &rarr;</a><a href="#paywallSection">Original solution sheet &middot; &#8377;49</a><a href="../index.html#packages">Mentorship packages</a></div>
+    </div>
+    <section class="sheet-library" id="interview-prep" aria-label="DSA practice questions">
+        <div data-interview-library="dsa"></div>
+        <noscript><p>Enable JavaScript to open the interactive practice library.</p></noscript>
+    </section>
+    <div>
+        <h2 class="sheet-paid-heading">Original DSA solution sheet</h2>
         <div class="difficulty-legend">
             <span><span class="diff-dot diff-easy"></span> Easy</span>
             <span><span class="diff-dot diff-med"></span> Medium</span>

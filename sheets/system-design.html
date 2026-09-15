@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20+ System Design Problems — HLD + LLD | Yasir Arafat Sharfi</title>
-<meta name="description" content="20+ System Design problems (HLD + LLD) with diagrams and solutions, company-tagged for Google, Microsoft, Amazon, Meta & more.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>45 System Design Questions: HLD, LLD &amp; AI | Yasir Arafat Sharfi</title>
+<meta name="description" content="45 curated system design questions spanning HLD, LLD, AI serving, RAG, storage, and distributed systems. Discussion guides and follow-ups, plus the original paid design notes.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
@@ -83,19 +83,32 @@ h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-b
 .sd-kp strong{color:var(--text);display:block;margin-bottom:2px;font-size:.78rem}
 @media(max-width:768px){h1{font-size:1.8rem}.sd-key-points{grid-template-columns:1fr}.sd-header{padding:1rem}.container{padding:1rem}}
 </style>
+<link rel="stylesheet" href="../assets/site-refresh.css">
+<script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script defer src="../assets/interview-data.js"></script>
+<script defer src="../assets/interview-prep.js"></script>
 </head>
-<body>
+<body class="sheet-page">
 <div class="container">
     <div class="header">
         <a href="../" class="back-link">&larr; Back to Portfolio</a>
-        <h1>🏛️ <span>System Design Sheet</span></h1>
-        <p class="subtitle">HLD + LLD problems with architecture diagrams, solutions, and company tags. From my prep for 13+ companies.</p>
+        <span class="prep-edition">THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
+        <h1><span>System Design Library</span></h1>
+        <p class="subtitle">From a single service to distributed infrastructure and AI-native products.</p>
         <div class="stats-bar">
-            <div class="stat"><div class="n">20+</div><div class="l">Problems</div></div>
-            <div class="stat"><div class="n">HLD</div><div class="l">High-Level</div></div>
-            <div class="stat"><div class="n">LLD</div><div class="l">Low-Level</div></div>
-            <div class="stat"><div class="n">✓</div><div class="l">Diagrams</div></div>
+            <div class="stat"><div class="n">45</div><div class="l">Design prompts</div></div>
+            <div class="stat"><div class="n">30</div><div class="l">High-level designs</div></div>
+            <div class="stat"><div class="n">7</div><div class="l">Low-level designs</div></div>
+            <div class="stat"><div class="n">8</div><div class="l">AI-native systems</div></div>
         </div>
+        <div class="prep-resource-links"><a href="dsa.html">DSA library &rarr;</a><a href="#paywallSection">Original design notes &middot; &#8377;49</a><a href="../index.html#packages">Mentorship packages</a></div>
+    </div>
+    <section class="sheet-library" id="interview-prep" aria-label="System design practice questions">
+        <div data-interview-library="design"></div>
+        <noscript><p>Enable JavaScript to open the interactive practice library.</p></noscript>
+    </section>
+    <div>
+        <h2 class="sheet-paid-heading">Original system design notes</h2>
         <div class="type-toggle">
             <button class="type-btn active" onclick="filterType('all')">All</button>
             <button class="type-btn" onclick="filterType('hld')">HLD</button>

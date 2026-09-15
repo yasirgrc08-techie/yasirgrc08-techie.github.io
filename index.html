@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
     <meta name="twitter:image" content="https://yasirgrc08-techie.github.io/images/personal/yasir_amazon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -657,6 +657,10 @@
         .section-hidden{opacity:0.15;pointer-events:none;filter:grayscale(1);transition:all .4s}
         .section-hidden::after{content:'HIDDEN BY ADMIN';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:1rem;color:var(--red);font-weight:700;letter-spacing:2px;z-index:10;background:rgba(0,0,0,0.8);padding:8px 20px;border-radius:8px;border:1px solid var(--red)}
     </style>
+    <link rel="stylesheet" href="assets/site-refresh.css">
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/interview-data.js"></script>
+    <script defer src="assets/interview-prep.js"></script>
 </head>
 <body>
 <div class="avail-banner">
@@ -673,13 +677,11 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Career</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#coding-stats">DSA</a></li>
-            <li><a href="#education">Education</a></li>
+            <li><a href="#interview-prep">Prep Library</a></li>
+            <li><a href="#packages">Packages</a></li>
             <li><a href="#sessions">Sessions</a></li>
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#services">Hire Me</a></li>
-            <li><a href="#videos">Videos</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-right">
@@ -691,18 +693,18 @@
 
 <!-- Hero -->
 <section class="hero section" id="hero">
-    <div class="hero-bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+    <div class="hero-bg"><img src="images/personal/yasir_microsoft_campus.jpeg" alt="Yasir at the Microsoft campus in Bengaluru" fetchpriority="high" width="960" height="1280"></div>
     <div class="hero-left">
         <div class="hero-badge"><span class="pulse"></span> Available for Mentorship</div>
-        <h1><img src="images/personal/yasir_amazon.jpeg" alt="Yasir" class="hero-inline-pic">Hi, I'm <span class="grad">Yasir Arafat Sharfi</span></h1>
+        <h1>Yasir Arafat<br><span class="grad">Sharfi</span></h1>
         <p class="hero-role typing-cursor" id="heroTyping" style="font-family:var(--mono);font-size:.9rem;color:var(--accent-l);margin-bottom:1rem;"></p>
         <p class="hero-desc">
             Software Engineer at <strong>Microsoft Azure</strong> — building NVMe-based virtual disk architecture on DPUs &amp; SmartNICs.
             <strong>6.7+ years</strong> deep in systems programming, networking &amp; high-performance data planes.
         </p>
         <div class="hero-actions">
-            <a href="#sessions" class="btn btn-p">Book a Session</a>
-            <a href="#experience" class="btn btn-o">View Experience</a>
+            <a href="#interview-prep" class="btn btn-p">Explore Interview Prep <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            <a href="#sessions" class="btn btn-o">Book a Session</a>
         </div>
         <div class="hero-stats">
             <div class="hero-stat"><div class="num count-up" data-target="6.7" data-suffix="+">0</div><div class="lbl">Years Experience</div></div>
@@ -711,43 +713,43 @@
             <div class="hero-stat"><div class="num">ECE</div><div class="lbl">Non-CS Background</div></div>
         </div>
     </div>
-    <div class="hero-right">
+</section>
+    <nav class="hero-right" aria-label="Preparation and services">
         <div class="hero-cards">
             <a href="#services" class="hero-action-card card-hire">
-                <div class="card-icon">🛠️</div>
+                <div class="card-icon"><i data-lucide="code-xml" aria-hidden="true"></i></div>
                 <div>
                     <div class="card-title">Hire Me</div>
                     <div class="card-desc">Website · App · Full-Stack Development</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="sheets/dsa.html" class="hero-action-card card-dsa">
-                <div class="card-icon">🧩</div>
+            <a href="#interview-prep" data-prep-track="dsa" class="hero-action-card card-dsa">
+                <div class="card-icon"><i data-lucide="braces" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">DSA Sheet — ₹49</div>
-                    <div class="card-desc">Top 99 problems · Company-tagged · Solutions</div>
+                    <div class="card-title">150 DSA Questions</div>
+                    <div class="card-desc">18 patterns &middot; Free practice library</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="sheets/system-design.html" class="hero-action-card card-sd">
-                <div class="card-icon">🏛️</div>
+            <a href="sheets/system-design.html#interview-prep" class="hero-action-card card-sd">
+                <div class="card-icon"><i data-lucide="network" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">System Design Sheet — ₹49</div>
-                    <div class="card-desc">20+ HLD + LLD · Diagrams · Company-tagged</div>
+                    <div class="card-title">45 Design Questions</div>
+                    <div class="card-desc">HLD &middot; LLD &middot; AI-native systems</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="sheets/behavioral.html" class="hero-action-card card-beh">
-                <div class="card-icon">🗣️</div>
+            <a href="#packages" class="hero-action-card card-beh">
+                <div class="card-icon"><i data-lucide="compass" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">Behavioral Prep — ₹29</div>
-                    <div class="card-desc">STAR stories · Amazon LPs · 50+ questions</div>
+                    <div class="card-title">Mentorship Packages</div>
+                    <div class="card-desc">Coding &middot; Architecture &middot; Career</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
         </div>
-    </div>
-</section>
+    </nav>
 
 <!-- Companies Marquee -->
 <div class="marquee-wrap">
@@ -889,11 +891,29 @@
     </div>
 </section>
 
+<section class="section prep-section" id="interview-prep">
+    <div class="prep-section-head">
+        <div>
+            <span class="prep-edition"><i data-lucide="library" aria-hidden="true"></i> THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
+            <h2 class="section-title">From patterns to production.</h2>
+            <p class="section-sub">DSA fundamentals. Distributed systems. The next wave of AI architecture.</p>
+        </div>
+        <div class="prep-summary" aria-label="Library totals">
+            <div><strong>150</strong><span>DSA questions</span></div>
+            <div><strong>45</strong><span>Design prompts</span></div>
+            <div><strong>8</strong><span>AI-native designs</span></div>
+        </div>
+    </div>
+    <div data-interview-library="all"></div>
+    <noscript><p>The interactive library requires JavaScript. The <a href="sheets/dsa.html">DSA sheet</a> and <a href="sheets/system-design.html">system design sheet</a> also include the original study material.</p></noscript>
+    <div class="prep-resource-links"><span>Original solution sheets</span><a href="sheets/dsa.html#paywallSection">DSA notes &middot; &#8377;49</a><a href="sheets/system-design.html#paywallSection">System design notes &middot; &#8377;49</a><a href="sheets/behavioral.html">Behavioral interview prep</a><a href="#packages">1:1 preparation packages &rarr;</a></div>
+</section>
+
 <!-- DSA & System Design Tracker -->
 <section class="section" id="coding-stats">
     <div class="reveal" style="text-align:center;">
         <span class="section-tag">Problem Solving</span>
-        <h2 class="section-title">DSA & System Design</h2>
+        <h2 class="section-title">My Problem-Solving Log</h2>
         <p class="section-sub" style="margin:0 auto;">Problems I've solved — building strong fundamentals one problem at a time.</p>
     </div>
     <div class="dsa-summary reveal" id="dsaSummary"></div>
@@ -1019,6 +1039,47 @@
             <img src="images/personal/yasir_microsoft_wall.jpeg" alt="Yasir at Microsoft" loading="lazy">
             <img src="images/personal/yasir_microsoft_nvidia.jpeg" alt="Yasir at Microsoft x NVIDIA" loading="lazy">
         </div>
+    </div>
+</section>
+
+<section class="section packages-section" id="packages">
+    <div class="packages-heading">
+        <div><span class="section-tag">Focused mentorship</span><h2 class="section-title">A plan for your next move.</h2><p class="section-sub">Preparation packages tailored to your role, experience, and interview timeline.</p></div>
+        <a href="#sessions">Prefer a single session? &rarr;</a>
+    </div>
+    <div class="packages-grid">
+        <article class="package-card">
+            <div class="package-icon"><i data-lucide="braces" aria-hidden="true"></i></div>
+            <span class="package-kicker">01 / CODING FOUNDATIONS</span>
+            <h3>DSA Pattern Sprint</h3>
+            <p>Build a repeatable approach to unfamiliar coding problems.</p>
+            <ul><li>Pattern and skill assessment</li><li>Mock coding interview</li><li>Targeted revision plan</li></ul>
+            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=DSA%20Pattern%20Sprint%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20DSA%20Pattern%20Sprint.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+        <article class="package-card">
+            <div class="package-icon"><i data-lucide="network" aria-hidden="true"></i></div>
+            <span class="package-kicker">02 / ARCHITECTURE</span>
+            <h3>System Design Intensive</h3>
+            <p>Turn requirements into designs you can explain and defend.</p>
+            <ul><li>HLD and LLD mock rounds</li><li>Trade-off and failure analysis</li><li>AI-system design discussion</li></ul>
+            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=System%20Design%20Intensive%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20System%20Design%20Intensive.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+        <article class="package-card">
+            <div class="package-icon"><i data-lucide="cpu" aria-hidden="true"></i></div>
+            <span class="package-kicker">03 / SYSTEMS ENGINEERING</span>
+            <h3>Systems Deep Dive</h3>
+            <p>Prepare for roles close to the operating system and the hardware.</p>
+            <ul><li>C, OS, and concurrency review</li><li>Networking and storage design</li><li>Debugging interview practice</li></ul>
+            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=Systems%20Deep%20Dive%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20Systems%20Deep%20Dive.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+        <article class="package-card">
+            <div class="package-icon"><i data-lucide="goal" aria-hidden="true"></i></div>
+            <span class="package-kicker">04 / CAREER TRANSITION</span>
+            <h3>Interview Ready</h3>
+            <p>Bring your technical preparation and career story together.</p>
+            <ul><li>Resume and role alignment</li><li>Coding and design mock rounds</li><li>Behavioral story review</li></ul>
+            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=Interview%20Ready%20package%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20Interview%20Ready%20package.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
     </div>
 </section>
 
@@ -1605,11 +1666,11 @@
     // Theme toggle (day/night)
     const themeBtn=document.getElementById('themeToggle');
     const savedTheme=localStorage.getItem('theme');
-    if(savedTheme==='light'){document.documentElement.setAttribute('data-theme','light');themeBtn.textContent='Day';}
+    if(savedTheme==='light'||savedTheme==='dark'){document.documentElement.setAttribute('data-theme',savedTheme);themeBtn.textContent=savedTheme==='light'?'Day':'Night';}
     themeBtn.addEventListener('click',()=>{
         const isLight=document.documentElement.getAttribute('data-theme')==='light';
         if(isLight){
-            document.documentElement.removeAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme','dark');
             themeBtn.textContent='Night';
             localStorage.setItem('theme','dark');
         } else {
