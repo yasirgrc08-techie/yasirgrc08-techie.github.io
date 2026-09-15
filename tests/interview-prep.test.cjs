@@ -61,3 +61,70 @@ test('stored progress rejects invalid shapes, unknown IDs, and duplicates', () =
     assert.equal(sanitizeProgress(null).completed.length, 0);
     assert.equal(sanitizeProgress([]).bookmarked.length, 0);
 });
+
+test('paid library stays uninitialized until the existing sheet unlocks', () => {
+    let locked = true;
+    let syncAccess;
+    let initializationCount = 0;
+    const section = {};
+    const sheetContent = { classList: { contains: name => name === 'paywall-blur' && locked } };
+    sandbox.MutationObserver = class {
+        constructor(callback) { syncAccess = callback; }
+        observe(target, options) {
+            assert.equal(target, sheetContent);
+            assert.equal(options.attributeFilter[0], 'class');
+        }
+    };
+    sandbox.window.InterviewPrep.bindPaidLibrary(section, sheetContent, () => initializationCount++);
+    assert.equal(section.hidden, true);
+    assert.equal(section.inert, true);
+    assert.equal(initializationCount, 0);
+    locked = false;
+    syncAccess();
+    assert.equal(section.hidden, false);
+    assert.equal(section.inert, false);
+    assert.equal(initializationCount, 1);
+    syncAccess();
+    assert.equal(initializationCount, 1);
+    locked = true;
+    syncAccess();
+    assert.equal(section.hidden, true);
+    assert.equal(section.inert, true);
+    delete sandbox.MutationObserver;
+});
+
+test('paid library fails closed when the sheet access element is missing', () => {
+    const section = {};
+    sandbox.window.InterviewPrep.bindPaidLibrary(section, null, () => assert.fail('Unexpected free access'));
+    assert.equal(section.hidden, true);
+    assert.equal(section.inert, true);
+});
+
+test('homepage keeps the original paid sheets and does not mount a free library', () => {
+    const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+    for (const [filename, className, title] of [
+        ['dsa.html', 'card-dsa', 'DSA Sheet &middot; &#8377;49'],
+        ['system-design.html', 'card-sd', 'System Design Sheet &middot; &#8377;49'],
+        ['behavioral.html', 'card-beh', 'Behavioral Prep &middot; &#8377;29']
+    ]) {
+        assert.ok(html.includes(`href="sheets/${filename}" class="hero-action-card ${className}"`));
+        assert.ok(html.includes(title));
+        assert.ok(fs.existsSync(path.join(root, 'sheets', filename)));
+    }
+    assert.ok(!html.includes('data-interview-library='));
+    assert.ok(!html.includes('src="assets/interview-data.js"'));
+    assert.ok(!html.includes('Free practice library'));
+});
+
+test('new packages have explicit paid booking prices and 60-minute durations', () => {
+    const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+    for (const [type, name, price] of [
+        ['dsa_sprint', 'DSA Pattern Sprint', 499],
+        ['sd_intensive', 'System Design Intensive', 699],
+        ['systems_deep_dive', 'Systems Deep Dive', 699],
+        ['interview_ready', 'Interview Ready', 499]
+    ]) {
+        assert.ok(html.includes(`openBooking('${type}','${name}',${price},60)`));
+    }
+    assert.ok(!html.includes('Price by enquiry'));
+});

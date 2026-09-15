@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    const library = window.INTERVIEW_LIBRARY;
-    if (!library) return;
+    const library = window.INTERVIEW_LIBRARY || { dsa: [], design: [], sources: [] };
 
     const entries = library.dsa.flatMap(group => group.questions.map(question => ({
         id: 'dsa-' + question[0],
@@ -38,7 +37,24 @@
         });
     }
 
-    window.InterviewPrep = { entries, filterEntries, sanitizeProgress };
+    function bindPaidLibrary(section, sheetContent, initialize) {
+        let initialized = false;
+        function syncAccess() {
+            const unlocked = Boolean(sheetContent && !sheetContent.classList.contains('paywall-blur'));
+            section.hidden = !unlocked;
+            section.inert = !unlocked;
+            if (unlocked && !initialized) {
+                initialize();
+                initialized = true;
+            }
+        }
+        if (sheetContent) {
+            new MutationObserver(syncAccess).observe(sheetContent, { attributes: true, attributeFilter: ['class'] });
+        }
+        syncAccess();
+    }
+
+    window.InterviewPrep = { entries, filterEntries, sanitizeProgress, bindPaidLibrary };
     if (typeof document === 'undefined') return;
 
     try {
@@ -60,7 +76,7 @@
         document.documentElement.classList.add('prep-icons-ready');
     }
 
-    document.querySelectorAll('[data-interview-library]').forEach(container => {
+    function initializeLibrary(container) {
         const scope = container.dataset.interviewLibrary || 'all';
         const scopedEntries = entries.filter(entry => scope === 'all' || (scope === 'design' ? entry.track !== 'dsa' : entry.track === 'dsa'));
         const tracks = scope === 'dsa' ? ['dsa'] : scope === 'design' ? ['all', 'hld', 'lld', 'ai'] : ['all', 'dsa', 'hld', 'lld', 'ai'];
@@ -223,6 +239,13 @@
 
         updateTopics();
         renderResults();
+    }
+
+    document.querySelectorAll('[data-paid-library]').forEach(section => {
+        const container = section.querySelector('[data-interview-library]');
+        bindPaidLibrary(section, document.getElementById('sheetContent'), () => {
+            if (container) initializeLibrary(container);
+        });
     });
 
     const themeButton = document.getElementById('themeToggle');

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>45 System Design Questions: HLD, LLD &amp; AI | Yasir Arafat Sharfi</title>
-<meta name="description" content="45 curated system design questions spanning HLD, LLD, AI serving, RAG, storage, and distributed systems. Discussion guides and follow-ups, plus the original paid design notes.">
+<title>System Design Sheet - HLD, LLD &amp; AI Practice | Yasir Arafat Sharfi</title>
+<meta name="description" content="Paid system design sheet: original HLD and LLD solutions, diagrams, and PDF download, now including 45 design practice prompts with AI and RAG. One-time purchase: INR 49.">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -93,21 +93,17 @@ h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-b
     <div class="header">
         <a href="../" class="back-link">&larr; Back to Portfolio</a>
         <span class="prep-edition">THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
-        <h1><span>System Design Library</span></h1>
-        <p class="subtitle">From a single service to distributed infrastructure and AI-native products.</p>
+        <h1><span>System Design Sheet</span></h1>
+        <p class="subtitle">HLD and LLD solutions, architecture diagrams, and a downloadable PDF. Now with 45 design practice prompts, including AI and RAG, in the same &#8377;49 purchase.</p>
         <div class="stats-bar">
             <div class="stat"><div class="n">45</div><div class="l">Design prompts</div></div>
             <div class="stat"><div class="n">30</div><div class="l">High-level designs</div></div>
             <div class="stat"><div class="n">7</div><div class="l">Low-level designs</div></div>
             <div class="stat"><div class="n">8</div><div class="l">AI-native systems</div></div>
         </div>
-        <div class="prep-resource-links"><a href="dsa.html">DSA library &rarr;</a><a href="#paywallSection">Original design notes &middot; &#8377;49</a><a href="../index.html#packages">Mentorship packages</a></div>
+        <div class="prep-resource-links"><a href="#paywallInline">Get System Design Sheet &middot; &#8377;49</a><a href="dsa.html">DSA Sheet</a><a href="behavioral.html">Behavioral Prep &middot; &#8377;29</a><a href="../index.html#packages">Paid mentorship sessions</a></div>
     </div>
-    <section class="sheet-library" id="interview-prep" aria-label="System design practice questions">
-        <div data-interview-library="design"></div>
-        <noscript><p>Enable JavaScript to open the interactive practice library.</p></noscript>
-    </section>
-    <div>
+    <div data-paid-library hidden inert>
         <h2 class="sheet-paid-heading">Original system design notes</h2>
         <div class="type-toggle">
             <button class="type-btn active" onclick="filterType('all')">All</button>
@@ -119,12 +115,13 @@ h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-b
     <!-- INLINE PAYWALL (right below filters) -->
     <div class="paywall-inline" id="paywallInline">
         <h3>🔒 Unlock System Design Sheet</h3>
-        <p>Get instant access to 20+ HLD/LLD problems with architecture diagrams, solutions, and interview strategies.</p>
+        <p>Get the complete original design notes and the expanded design practice library with one purchase.</p>
         <ul class="paywall-features">
             <li>20+ problems (HLD + LLD)</li>
             <li>ASCII architecture diagrams</li>
             <li>Company-tagged (Google, Microsoft, Amazon...)</li>
             <li>Key decisions & trade-offs</li>
+            <li>Included: 45 practice prompts with AI, RAG, and distributed systems</li>
             <li>Lifetime access + downloadable PDF</li>
         </ul>
         <div class="paywall-price">₹49</div>
@@ -141,6 +138,11 @@ h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-b
             </div>
         </div>
     </div>
+
+    <section class="sheet-library" id="interview-prep" data-paid-library hidden inert aria-label="Included system design practice library">
+        <h2 class="sheet-paid-heading">Included: 45 design practice prompts</h2>
+        <div data-interview-library="design"></div>
+    </section>
 
     <!-- Download PDF button (shown after unlock) -->
     <div id="downloadArea" style="text-align:center;display:none;margin:1.5rem auto;">

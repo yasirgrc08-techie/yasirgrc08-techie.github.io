@@ -659,7 +659,6 @@
     </style>
     <link rel="stylesheet" href="assets/site-refresh.css">
     <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-    <script defer src="assets/interview-data.js"></script>
     <script defer src="assets/interview-prep.js"></script>
 </head>
 <body>
@@ -677,7 +676,7 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Career</a></li>
-            <li><a href="#interview-prep">Prep Library</a></li>
+            <li><a href="#interview-prep">Paid Sheets</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#sessions">Sessions</a></li>
             <li><a href="#reviews">Reviews</a></li>
@@ -703,7 +702,7 @@
             <strong>6.7+ years</strong> deep in systems programming, networking &amp; high-performance data planes.
         </p>
         <div class="hero-actions">
-            <a href="#interview-prep" class="btn btn-p">Explore Interview Prep <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            <a href="#interview-prep" class="btn btn-p">Get Interview Sheets <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
             <a href="#sessions" class="btn btn-o">Book a Session</a>
         </div>
         <div class="hero-stats">
@@ -724,27 +723,27 @@
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="#interview-prep" data-prep-track="dsa" class="hero-action-card card-dsa">
+            <a href="sheets/dsa.html" class="hero-action-card card-dsa">
                 <div class="card-icon"><i data-lucide="braces" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">150 DSA Questions</div>
-                    <div class="card-desc">18 patterns &middot; Free practice library</div>
+                    <div class="card-title">DSA Sheet &middot; &#8377;49</div>
+                    <div class="card-desc">99 problems &middot; Solutions &middot; Company tags</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="sheets/system-design.html#interview-prep" class="hero-action-card card-sd">
+            <a href="sheets/system-design.html" class="hero-action-card card-sd">
                 <div class="card-icon"><i data-lucide="network" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">45 Design Questions</div>
-                    <div class="card-desc">HLD &middot; LLD &middot; AI-native systems</div>
+                    <div class="card-title">System Design Sheet &middot; &#8377;49</div>
+                    <div class="card-desc">HLD &middot; LLD &middot; Diagrams &middot; Solutions</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
-            <a href="#packages" class="hero-action-card card-beh">
-                <div class="card-icon"><i data-lucide="compass" aria-hidden="true"></i></div>
+            <a href="sheets/behavioral.html" class="hero-action-card card-beh">
+                <div class="card-icon"><i data-lucide="messages-square" aria-hidden="true"></i></div>
                 <div>
-                    <div class="card-title">Mentorship Packages</div>
-                    <div class="card-desc">Coding &middot; Architecture &middot; Career</div>
+                    <div class="card-title">Behavioral Prep &middot; &#8377;29</div>
+                    <div class="card-desc">STAR stories &middot; Amazon LPs &middot; Questions</div>
                 </div>
                 <span class="card-arrow">&rarr;</span>
             </a>
@@ -894,9 +893,9 @@
 <section class="section prep-section" id="interview-prep">
     <div class="prep-section-head">
         <div>
-            <span class="prep-edition"><i data-lucide="library" aria-hidden="true"></i> THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
-            <h2 class="section-title">From patterns to production.</h2>
-            <p class="section-sub">DSA fundamentals. Distributed systems. The next wave of AI architecture.</p>
+            <span class="prep-edition"><i data-lucide="library" aria-hidden="true"></i> PAID INTERVIEW SHEETS / SEPTEMBER 2026</span>
+            <h2 class="section-title">DSA. System design. Behavioral.</h2>
+            <p class="section-sub">The original paid sheets, now with expanded DSA and design practice included. One-time purchase, lifetime access.</p>
         </div>
         <div class="prep-summary" aria-label="Library totals">
             <div><strong>150</strong><span>DSA questions</span></div>
@@ -904,9 +903,33 @@
             <div><strong>8</strong><span>AI-native designs</span></div>
         </div>
     </div>
-    <div data-interview-library="all"></div>
-    <noscript><p>The interactive library requires JavaScript. The <a href="sheets/dsa.html">DSA sheet</a> and <a href="sheets/system-design.html">system design sheet</a> also include the original study material.</p></noscript>
-    <div class="prep-resource-links"><span>Original solution sheets</span><a href="sheets/dsa.html#paywallSection">DSA notes &middot; &#8377;49</a><a href="sheets/system-design.html#paywallSection">System design notes &middot; &#8377;49</a><a href="sheets/behavioral.html">Behavioral interview prep</a><a href="#packages">1:1 preparation packages &rarr;</a></div>
+    <div class="packages-grid paid-sheet-grid">
+        <article class="package-card" data-product="dsa">
+            <div class="package-icon"><i data-lucide="braces" aria-hidden="true"></i></div>
+            <span class="package-kicker">CODING INTERVIEWS</span>
+            <h3>DSA Sheet</h3>
+            <p>The original 99-problem solution sheet, with an expanded practice library.</p>
+            <ul><li>99 Python solutions and company tags</li><li>150 practice questions across 18 patterns</li><li>Study hints, bookmarks, and progress</li><li>Original solution PDF download</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;49</strong><span>One-time purchase</span></div><a href="sheets/dsa.html">Get DSA Sheet <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+        <article class="package-card" data-product="system-design">
+            <div class="package-icon"><i data-lucide="network" aria-hidden="true"></i></div>
+            <span class="package-kicker">ARCHITECTURE INTERVIEWS</span>
+            <h3>System Design Sheet</h3>
+            <p>The original HLD and LLD material, with current infrastructure and AI design practice.</p>
+            <ul><li>Original solutions and architecture diagrams</li><li>45 design prompts and follow-up questions</li><li>AI, RAG, storage, and distributed systems</li><li>Original design PDF download</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;49</strong><span>One-time purchase</span></div><a href="sheets/system-design.html">Get System Design Sheet <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+        <article class="package-card" data-product="behavioral">
+            <div class="package-icon"><i data-lucide="messages-square" aria-hidden="true"></i></div>
+            <span class="package-kicker">BEHAVIORAL INTERVIEWS</span>
+            <h3>Behavioral Prep</h3>
+            <p>Structured stories for leadership, collaboration, ownership, and difficult decisions.</p>
+            <ul><li>STAR framework and example stories</li><li>Amazon Leadership Principles</li><li>Behavioral interview questions</li><li>Existing paid sheet and PDF access</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;29</strong><span>One-time purchase</span></div><a href="sheets/behavioral.html">Get Behavioral Prep <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        </article>
+    </div>
+    <div class="prep-resource-links"><span>More preparation options</span><a href="#packages">New paid mentorship sessions &rarr;</a><a href="#sessions">All existing sessions &rarr;</a></div>
 </section>
 
 <!-- DSA & System Design Tracker -->
@@ -1044,41 +1067,41 @@
 
 <section class="section packages-section" id="packages">
     <div class="packages-heading">
-        <div><span class="section-tag">Focused mentorship</span><h2 class="section-title">A plan for your next move.</h2><p class="section-sub">Preparation packages tailored to your role, experience, and interview timeline.</p></div>
-        <a href="#sessions">Prefer a single session? &rarr;</a>
+        <div><span class="section-tag">New paid offerings</span><h2 class="section-title">Focused 1:1 prep packages.</h2><p class="section-sub">Four additional 60-minute sessions for your next interview. The existing sheets and sessions remain available.</p></div>
+        <a href="#sessions">All existing sessions &rarr;</a>
     </div>
     <div class="packages-grid">
-        <article class="package-card">
+        <article class="package-card" data-package="dsa-sprint">
             <div class="package-icon"><i data-lucide="braces" aria-hidden="true"></i></div>
             <span class="package-kicker">01 / CODING FOUNDATIONS</span>
             <h3>DSA Pattern Sprint</h3>
-            <p>Build a repeatable approach to unfamiliar coding problems.</p>
-            <ul><li>Pattern and skill assessment</li><li>Mock coding interview</li><li>Targeted revision plan</li></ul>
-            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=DSA%20Pattern%20Sprint%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20DSA%20Pattern%20Sprint.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+            <p>One focused coding session to improve how you approach unfamiliar problems.</p>
+            <ul><li>Pattern and skill assessment</li><li>One guided coding problem</li><li>Feedback and revision priorities</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;499</strong><span>1 session &middot; 60 minutes</span></div><button type="button" class="package-book" onclick="openBooking('dsa_sprint','DSA Pattern Sprint',499,60)">Book DSA Sprint <i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div>
         </article>
-        <article class="package-card">
+        <article class="package-card" data-package="sd-intensive">
             <div class="package-icon"><i data-lucide="network" aria-hidden="true"></i></div>
             <span class="package-kicker">02 / ARCHITECTURE</span>
             <h3>System Design Intensive</h3>
-            <p>Turn requirements into designs you can explain and defend.</p>
-            <ul><li>HLD and LLD mock rounds</li><li>Trade-off and failure analysis</li><li>AI-system design discussion</li></ul>
-            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=System%20Design%20Intensive%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20System%20Design%20Intensive.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+            <p>Work through one architecture problem and defend the key design decisions.</p>
+            <ul><li>Choose HLD, LLD, or AI design</li><li>One focused mock design round</li><li>Trade-off analysis and feedback</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;699</strong><span>1 session &middot; 60 minutes</span></div><button type="button" class="package-book" onclick="openBooking('sd_intensive','System Design Intensive',699,60)">Book Design Intensive <i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div>
         </article>
-        <article class="package-card">
+        <article class="package-card" data-package="systems-deep-dive">
             <div class="package-icon"><i data-lucide="cpu" aria-hidden="true"></i></div>
             <span class="package-kicker">03 / SYSTEMS ENGINEERING</span>
             <h3>Systems Deep Dive</h3>
-            <p>Prepare for roles close to the operating system and the hardware.</p>
-            <ul><li>C, OS, and concurrency review</li><li>Networking and storage design</li><li>Debugging interview practice</li></ul>
-            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=Systems%20Deep%20Dive%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20Systems%20Deep%20Dive.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+            <p>A role-focused technical session on systems programming and infrastructure.</p>
+            <ul><li>Choose C/OS, networking, or storage</li><li>One debugging or design scenario</li><li>Technical feedback and next steps</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;699</strong><span>1 session &middot; 60 minutes</span></div><button type="button" class="package-book" onclick="openBooking('systems_deep_dive','Systems Deep Dive',699,60)">Book Systems Deep Dive <i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div>
         </article>
-        <article class="package-card">
+        <article class="package-card" data-package="interview-ready">
             <div class="package-icon"><i data-lucide="goal" aria-hidden="true"></i></div>
             <span class="package-kicker">04 / CAREER TRANSITION</span>
             <h3>Interview Ready</h3>
-            <p>Bring your technical preparation and career story together.</p>
-            <ul><li>Resume and role alignment</li><li>Coding and design mock rounds</li><li>Behavioral story review</li></ul>
-            <div class="package-footer"><span>Personalized scope &middot; Price by enquiry</span><a href="mailto:yasir.grc08@gmail.com?subject=Interview%20Ready%20package%20enquiry&amp;body=Hi%20Yasir%2C%0A%0AI%20am%20interested%20in%20the%20Interview%20Ready%20package.%0ATarget%20role%3A%20%0AInterview%20timeline%3A%20">Enquire about package <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+            <p>Review your readiness and focus the remaining preparation time.</p>
+            <ul><li>Resume and target-role alignment</li><li>One behavioral story review</li><li>Prioritized interview preparation plan</li></ul>
+            <div class="package-footer"><div class="package-price"><strong>&#8377;499</strong><span>1 session &middot; 60 minutes</span></div><button type="button" class="package-book" onclick="openBooking('interview_ready','Interview Ready',499,60)">Book Readiness Review <i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div>
         </article>
     </div>
 </section>
