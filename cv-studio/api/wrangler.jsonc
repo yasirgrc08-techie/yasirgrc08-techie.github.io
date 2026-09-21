@@ -4,7 +4,7 @@
   "compatibility_date": "2026-09-21",
   "vars": {
     "ALLOWED_ORIGINS": "",
-    "RAZORPAY_KEY_ID": ""
+    "RAZORPAY_KEY_ID": "rzp_live_SdMpxrq9I6XhNj"
   },
   "ratelimits": [
     {

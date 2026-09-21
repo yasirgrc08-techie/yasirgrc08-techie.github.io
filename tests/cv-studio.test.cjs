@@ -189,3 +189,37 @@ test('pending payment proofs survive a temporary failure and prevent a second pu
     assert.equal(client.state.active, true);
     assert.equal(values.has('cv-studio-pending-payment-v1'), false);
 });
+
+test('homepage integrates CV Studio into navigation and a dedicated product section', () => {
+    const { readFileSync } = require('node:fs');
+    const { join } = require('node:path');
+    const homepage = readFileSync(join(__dirname, '../index.html'), 'utf8');
+    assert.match(homepage, /<li><a href="#cv-studio">CV Studio<\/a><\/li>/);
+    const section = homepage.match(/<section[^>]*id="cv-studio"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+    assert.ok(section, 'CV Studio has a homepage product section');
+    assert.match(section, /href="cv-studio\/"/);
+    assert.match(section, /cv-studio\/previews\/classic\.png/);
+    assert.match(section, /&#8377;49/);
+    assert.match(section, /Checkout[^<]*pending/i);
+    for (const destination of ['sheets/dsa.html', 'sheets/system-design.html', 'sheets/behavioral.html', 'guides/']) {
+        assert.ok(homepage.includes('href="' + destination + '"'), destination + ' remains available');
+    }
+});
+
+test('CV Studio reuses the website merchant configuration without enabling unverified checkout', () => {
+    const { readFileSync } = require('node:fs');
+    const { join } = require('node:path');
+    const { runInNewContext } = require('node:vm');
+    const homepage = readFileSync(join(__dirname, '../index.html'), 'utf8');
+    const publicKey = homepage.match(/const RAZORPAY_KEY = '([^']+)'/)?.[1];
+    assert.ok(publicKey, 'Existing website has a public Razorpay merchant key');
+    const workerConfig = JSON.parse(readFileSync(join(__dirname, '../cv-studio/api/wrangler.jsonc'), 'utf8'));
+    assert.equal(workerConfig.vars.RAZORPAY_KEY_ID, publicKey);
+    assert.equal(workerConfig.vars.ALLOWED_ORIGINS, '');
+    assert.equal(workerConfig.vars.RAZORPAY_KEY_SECRET, undefined);
+    const scope = { window: {} };
+    runInNewContext(readFileSync(join(__dirname, '../cv-studio/config.js'), 'utf8'), scope);
+    assert.equal(scope.window.CV_STUDIO_CONFIG.apiBase, '');
+    const studio = readFileSync(join(__dirname, '../cv-studio/index.html'), 'utf8');
+    assert.ok(studio.includes('href="../#cv-studio"'), 'Editor links back to its website product section');
+});

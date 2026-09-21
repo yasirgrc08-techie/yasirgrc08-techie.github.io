@@ -54,7 +54,13 @@ Activation requires the owner's Razorpay account, Cloudflare account, and privat
 6. Review and publish your customer-facing support, refund, privacy, and access terms before accepting live payments. Confirm merchant/KYC readiness and an operational recovery/refund process. The editor does not initiate refunds; refunds performed in Razorpay revoke access on the next verification.
 7. Deploy the frontend on an approved commercial host, still using this GitHub repository as its source. Update its canonical/Open Graph URL to the production domain and verify its navigation links. Deploy a production Worker with the matching live key pair and set `ALLOWED_ORIGINS` to the exact commercial frontend origin. Set that frontend's `apiBase` to the Worker origin only after successful staging checks. Keep the GitHub Pages preview's `apiBase` empty, using a separate deployment configuration for the commercial host. Update the portfolio entry to link to the commercial URL only after live checkout has actually been verified.
 
-The committed Worker configuration has no allowed origin or Razorpay key ID. A public key ID is not a private secret, but it must match the private provider key stored on the Worker. Do not assume the previously used client-only access system for other site products authorizes CV Studio.
+The committed Worker configuration uses the same public Razorpay merchant key ID as the existing website. It has no allowed origin, private credentials, or deployed API URL. This reuses the merchant account configuration, not a verified connection to an order service. The public key must match the private provider key stored on the Worker. Do not assume the previously used client-only access system for other site products authorizes CV Studio.
+
+### Existing Website Integration
+
+CV Studio has a main-navigation entry and a dedicated `#cv-studio` homepage section, using the website's existing theme. Its editor links back to that section. Existing paid sheets, courses, bookings, and their checkout code are unchanged.
+
+The checked website's `initiatePayment` and course `checkoutOptions` pass the public merchant key and amount to Razorpay, then process its browser callback. Booking tracking uses the `yas_bookings` browser-storage key. No server order-creation or signature-verification endpoint is configured in those flows. If an existing service is deployed elsewhere, provide its public API base URL or source location, not private keys, so it can be connected to the payment contract below. No new Razorpay account is required.
 
 ## Payment Contract
 

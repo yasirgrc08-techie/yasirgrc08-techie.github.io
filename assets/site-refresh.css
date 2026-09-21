@@ -77,6 +77,28 @@ svg.lucide { width: 20px; height: 20px; flex-shrink: 0; vertical-align: middle; 
 .section-title { font-family: var(--display); font-size: 2.5rem; letter-spacing: 0; }
 .section-sub { font-size: 1rem; }
 .section-tag { letter-spacing: 0; }
+.cv-product { max-width: none; padding-inline: max(24px, calc((100% - 1136px) / 2)); background: var(--bg-2); border-block: 1px solid var(--border); }
+.cv-product-summary { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); gap: 48px; align-items: start; }
+.cv-product .section-sub { max-width: 650px; margin-bottom: 24px; }
+.cv-product-facts { display: flex; flex-wrap: wrap; gap: 18px 32px; margin: 0; }
+.cv-product-facts > div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.cv-product-facts dt { font-size: .75rem; color: var(--text-2); }
+.cv-product-facts dd { margin: 0; font: 600 1.2rem var(--display); }
+.cv-product-purchase { border-left: 1px solid var(--border); padding-left: 32px; }
+.cv-product-purchase .package-price span { display: block; margin-top: 6px; }
+.cv-product-status { margin: 16px 0; font-size: .8rem; color: var(--orange); }
+.cv-product-purchase .btn { display: inline-flex; align-items: center; gap: 8px; padding-inline: 18px; max-width: 100%; font-size: .85rem; }
+.cv-product-note { margin-top: 16px; font-size: .75rem; line-height: 1.8; color: var(--text-2); }
+.cv-product-previews { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 36px; }
+.cv-product-previews figure { min-width: 0; margin: 0; }
+.cv-product-previews img { display: block; width: 100%; height: auto; aspect-ratio: 268 / 379; object-fit: contain; border: 1px solid var(--border); background: white; }
+.cv-product-previews figcaption { padding-top: 10px; font: 600 .9rem var(--display); }
+.cv-product-previews figcaption span { display: block; margin-top: 3px; font: .72rem var(--sans); color: var(--text-2); }
+@media (max-width: 800px) {
+    .cv-product-summary { grid-template-columns: 1fr; gap: 28px; }
+    .cv-product-purchase { border-left: 0; border-top: 1px solid var(--border); padding: 24px 0 0; }
+    .cv-product-previews { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+}
 .btn, .nav-cta, .session-btn { border-radius: 8px; }
 .btn-p:hover, .session-btn:hover { background: #075c50; color: white; box-shadow: 0 6px 18px rgba(8, 117, 101, .15); }
 .skill-card:hover, .exp-card:hover, .session-card:hover, .service-card:hover, .proj-card:hover { box-shadow: 0 10px 30px rgba(24, 45, 41, .08); transform: translateY(-3px); }
