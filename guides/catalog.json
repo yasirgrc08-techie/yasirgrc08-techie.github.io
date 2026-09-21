@@ -1,0 +1,1261 @@
+{
+  "updated": "2026-09-21",
+  "count": 50,
+  "archive": {
+    "url": "engineering-field-guides.zip",
+    "bytes": 3541125,
+    "sha256": "44d2c0b4299504f3bfccda1edbd0ca2dc38c03fabc197bbd70f15405ed2df17c"
+  },
+  "guides": [
+    {
+      "id": "microsoft-90-day-plan",
+      "title": "Prepare for Microsoft in 90 Days",
+      "category": "Career Roadmaps",
+      "duration": "12 weeks, 8-12 focused hours per week",
+      "level": "Early-career to experienced SWE",
+      "summary": "Prepare around the actual role: problem solving, design, coding, testing, and relevant technical depth. A storage role, product backend role, and ML platform role need different specialization. Use the job description and recruiter guidance to select that depth.",
+      "pages": 4,
+      "pdf": "pdfs/microsoft-90-day-plan.pdf",
+      "preview": "previews/microsoft-90-day-plan.png",
+      "bytes": 80561,
+      "sha256": "fdb73bd8c579bb273af3b9872ec248875ce0f21c24b99c59f6786b285d5da834",
+      "wordsPerPage": [
+        316,
+        387,
+        315,
+        285
+      ],
+      "contentHeights": [
+        572.71,
+        678.12,
+        585.0,
+        585.82
+      ]
+    },
+    {
+      "id": "complete-swe-study-plan",
+      "title": "A Complete 12-Week SWE Study Plan",
+      "category": "Career Roadmaps",
+      "duration": "12 weeks, 10 focused hours per week",
+      "level": "Foundations to intermediate",
+      "summary": "Connect topics through one small service instead of completing unrelated courses. Algorithms teach efficient computation; OS and networks explain execution; databases preserve state; design coordinates the pieces. The project makes gaps visible while mocks test whether the learning transfers.",
+      "pages": 4,
+      "pdf": "pdfs/complete-swe-study-plan.pdf",
+      "preview": "previews/complete-swe-study-plan.png",
+      "bytes": 81514,
+      "sha256": "1a335ab8e40c558c693a11777a7d4eda435a7c77c77e420e3cfc530900f5fbfa",
+      "wordsPerPage": [
+        304,
+        347,
+        261,
+        276
+      ],
+      "contentHeights": [
+        588.01,
+        632.22,
+        534.1,
+        603.27
+      ]
+    },
+    {
+      "id": "faang-90-day-preparation",
+      "title": "FAANG Preparation Without Question Chasing",
+      "category": "Career Roadmaps",
+      "duration": "90 days, adapted to the target role",
+      "level": "Intermediate SWE",
+      "summary": "Build transferable coding, design, and communication skills, then tailor the final revision to the actual team and level. Use official hiring guidance for scope, mocks for diagnosis, and a limited resource set for consistent practice. Avoid treating alleged question frequency as a hiring guarantee.",
+      "pages": 4,
+      "pdf": "pdfs/faang-90-day-preparation.pdf",
+      "preview": "previews/faang-90-day-preparation.png",
+      "bytes": 82232,
+      "sha256": "cfb2851b40a197138a46fcbf68cc11d79e621196f992882491085866dae6419a",
+      "wordsPerPage": [
+        299,
+        326,
+        267,
+        279
+      ],
+      "contentHeights": [
+        600.96,
+        608.42,
+        564.7,
+        618.57
+      ]
+    },
+    {
+      "id": "service-to-product-company",
+      "title": "Move from Services to a Product Role",
+      "category": "Career Roadmaps",
+      "duration": "12-16 weeks alongside your current job",
+      "level": "Working software engineer",
+      "summary": "A credible transition translates existing work into engineering evidence, closes concrete skill gaps, and shows ownership of a small end-to-end system. You do not need to invent a distributed platform or erase support experience; you need to explain decisions, impact, testing, and learning clearly.",
+      "pages": 4,
+      "pdf": "pdfs/service-to-product-company.pdf",
+      "preview": "previews/service-to-product-company.png",
+      "bytes": 80892,
+      "sha256": "db5572a89d885f4676d410472c600494808b34d7a6d2875182772010ddced8bf",
+      "wordsPerPage": [
+        296,
+        335,
+        269,
+        265
+      ],
+      "contentHeights": [
+        572.71,
+        596.52,
+        549.4,
+        570.52
+      ]
+    },
+    {
+      "id": "non-cs-to-software",
+      "title": "A Non-CS Graduate's Software Roadmap",
+      "category": "Career Roadmaps",
+      "duration": "16 weeks or longer, based on the starting point",
+      "level": "Beginner",
+      "summary": "Learn programming, data structures, systems basics, and one complete project in dependency order. The goal is to make software behavior understandable and testable, not to collect certificates or assume that a degree label determines your engineering ability.",
+      "pages": 4,
+      "pdf": "pdfs/non-cs-to-software.pdf",
+      "preview": "previews/non-cs-to-software.png",
+      "bytes": 79907,
+      "sha256": "4ec8a94666a9d5254527fdd743560121ef62381128131c7ec0f2ac4b6587ed44",
+      "wordsPerPage": [
+        309,
+        329,
+        262,
+        279
+      ],
+      "contentHeights": [
+        588.01,
+        593.12,
+        534.1,
+        618.57
+      ]
+    },
+    {
+      "id": "resume-github-portfolio",
+      "title": "Build a Resume and GitHub Portfolio",
+      "category": "Career Roadmaps",
+      "duration": "2-3 weeks, followed by regular updates",
+      "level": "All experience levels",
+      "summary": "A useful portfolio answers three questions: what problem did you solve, what did you personally build, and how can someone verify it? Align the resume, repository, demo, and interview narrative so a reviewer sees one consistent, defensible story.",
+      "pages": 4,
+      "pdf": "pdfs/resume-github-portfolio.pdf",
+      "preview": "previews/resume-github-portfolio.png",
+      "bytes": 81075,
+      "sha256": "da365b22d07a29713d068b04f65a2c1ab8f43dbe3b4afe24eb6e006e48f8e7fd",
+      "wordsPerPage": [
+        285,
+        332,
+        269,
+        270
+      ],
+      "contentHeights": [
+        572.71,
+        615.22,
+        534.1,
+        570.52
+      ]
+    },
+    {
+      "id": "behavioral-project-stories",
+      "title": "Behavioral Interviews and Project Stories",
+      "category": "Career Roadmaps",
+      "duration": "2 weeks plus mock practice",
+      "level": "All experience levels",
+      "summary": "A strong behavioral answer gives enough context, explains your decisions and actions, and reports an honest result. The goal is not to sound flawless. It is to make your judgment, learning, and collaboration understandable through specific evidence.",
+      "pages": 4,
+      "pdf": "pdfs/behavioral-project-stories.pdf",
+      "preview": "previews/behavioral-project-stories.png",
+      "bytes": 81209,
+      "sha256": "aaa19b5140451af49774d84c46a3c6cf689b7db71e08a4e7763946c61fce72a2",
+      "wordsPerPage": [
+        281,
+        339,
+        263,
+        273
+      ],
+      "contentHeights": [
+        572.71,
+        599.92,
+        549.4,
+        585.82
+      ]
+    },
+    {
+      "id": "mock-interview-readiness",
+      "title": "Run Better Mocks and Measure Readiness",
+      "category": "Career Roadmaps",
+      "duration": "A repeatable 4-week cycle",
+      "level": "Candidates with basic preparation",
+      "summary": "A mock is a diagnostic experiment. It should reveal how you clarify, reason, implement, test, communicate, and recover from feedback. Score these dimensions separately, then change one behavior and check it on a new task. A single pass or failure is not a reliable verdict.",
+      "pages": 4,
+      "pdf": "pdfs/mock-interview-readiness.pdf",
+      "preview": "previews/mock-interview-readiness.png",
+      "bytes": 82054,
+      "sha256": "d33452976d91e9c1d8ef6280a39dae0e30b7b9061f356e821989e8f4cc06cbe4",
+      "wordsPerPage": [
+        286,
+        331,
+        264,
+        275
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        518.8,
+        585.82
+      ]
+    },
+    {
+      "id": "operating-systems-six-week-plan",
+      "title": "Get Good at Operating Systems in Six Weeks",
+      "category": "Core Computer Science",
+      "duration": "6 weeks, 6-8 hours per week",
+      "level": "Programming foundations required",
+      "summary": "Learn OS concepts through observations and small programs. Organize the subject around virtualization, concurrency, and persistence: how programs receive CPU and memory, how work overlaps safely, and how state survives failures. A Linux VM or WSL environment is enough for most introductory experiments.",
+      "pages": 4,
+      "pdf": "pdfs/operating-systems-six-week-plan.pdf",
+      "preview": "previews/operating-systems-six-week-plan.png",
+      "bytes": 80391,
+      "sha256": "796d3b72b087de85fb2f736d5169f30794c67fdf34152e616cca6e58059e2a51",
+      "wordsPerPage": [
+        295,
+        330,
+        275,
+        272
+      ],
+      "contentHeights": [
+        600.96,
+        596.52,
+        549.4,
+        570.52
+      ]
+    },
+    {
+      "id": "computer-networks-six-week-plan",
+      "title": "Plan Your Computer Networks Preparation",
+      "category": "Core Computer Science",
+      "duration": "6 weeks with local networking labs",
+      "level": "Beginner to intermediate",
+      "summary": "Follow data from an application message to a remote service and back. Learn addresses, ports, routing, DNS, TCP/UDP, TLS, and HTTP through local experiments. Keep transport guarantees distinct from application guarantees: successful delivery of bytes does not prove a business operation completed once.",
+      "pages": 4,
+      "pdf": "pdfs/computer-networks-six-week-plan.pdf",
+      "preview": "previews/computer-networks-six-week-plan.png",
+      "bytes": 81507,
+      "sha256": "0d0324e086b55d57f81528760d51eb4761083fe0d8ed106f3c9045ed044c566c",
+      "wordsPerPage": [
+        287,
+        335,
+        273,
+        271
+      ],
+      "contentHeights": [
+        572.71,
+        599.92,
+        580.0,
+        572.67
+      ]
+    },
+    {
+      "id": "linux-cli-debugging",
+      "title": "Linux CLI and Debugging for Engineers",
+      "category": "Core Computer Science",
+      "duration": "4 weeks of short local exercises",
+      "level": "Beginner to intermediate",
+      "summary": "Treat the shell as a way to ask precise questions about a system. Learn navigation, quoting, streams, processes, logs, and debugging through a disposable local project. Prefer narrow read-only inspection before changing state, and preserve the evidence that supports each diagnosis.",
+      "pages": 4,
+      "pdf": "pdfs/linux-cli-debugging.pdf",
+      "preview": "previews/linux-cli-debugging.png",
+      "bytes": 80292,
+      "sha256": "fba833a24ace1e83ccb5e4453170e926c5211218ef907845e537fd22a835d4a6",
+      "wordsPerPage": [
+        291,
+        332,
+        265,
+        277
+      ],
+      "contentHeights": [
+        572.71,
+        599.92,
+        518.8,
+        603.27
+      ]
+    },
+    {
+      "id": "c-cpp-memory-safety",
+      "title": "C and C++ Memory Safety Foundations",
+      "category": "Core Computer Science",
+      "duration": "4 weeks with compiler-assisted labs",
+      "level": "Basic C or C++ syntax required",
+      "summary": "Memory correctness is a contract about which object exists, who owns it, how it may be accessed, and when access ends. Learn these boundaries with small local programs, strong compiler warnings, sanitizers, and explicit cleanup reasoning. Keep C and C++ language rules distinct where they differ.",
+      "pages": 4,
+      "pdf": "pdfs/c-cpp-memory-safety.pdf",
+      "preview": "previews/c-cpp-memory-safety.png",
+      "bytes": 81462,
+      "sha256": "b47c8b0aac5da6891f5192848fe531eed828484cc669008452dafa3fe68e8575",
+      "wordsPerPage": [
+        307,
+        328,
+        264,
+        265
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        534.1,
+        587.97
+      ]
+    },
+    {
+      "id": "concurrency-synchronization",
+      "title": "Concurrency, Locks, and Safe Shutdown",
+      "category": "Core Computer Science",
+      "duration": "4 weeks of implementation and reasoning",
+      "level": "Intermediate programming",
+      "summary": "Concurrency is about possible interleavings and invariants, not merely adding threads. Start with the state that must remain consistent, choose a synchronization boundary, and define shutdown before optimizing throughput. A correct steady-state loop can still fail during cancellation or partial initialization.",
+      "pages": 4,
+      "pdf": "pdfs/concurrency-synchronization.pdf",
+      "preview": "previews/concurrency-synchronization.png",
+      "bytes": 81156,
+      "sha256": "1ad680a6b3f7bf0ea114318eff35ef87c68437d52b0311d7b8dbbfdb80ed8c66",
+      "wordsPerPage": [
+        285,
+        318,
+        272,
+        254
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        549.4,
+        572.67
+      ]
+    },
+    {
+      "id": "databases-transactions",
+      "title": "Databases, SQL, Indexes, and Transactions",
+      "category": "Core Computer Science",
+      "duration": "4 weeks with a local relational database",
+      "level": "Basic programming and SQL",
+      "summary": "A database is not just a place to store JSON. Its schema and transaction boundaries encode invariants, while indexes trade read efficiency for write and storage cost. Learn these decisions using a small order or reservation model and inspect actual query behavior.",
+      "pages": 4,
+      "pdf": "pdfs/databases-transactions.pdf",
+      "preview": "previews/databases-transactions.png",
+      "bytes": 79806,
+      "sha256": "f029a1b4ed678c14ce67aa81dc2372b1ffb66fdad9ec304cf33e8c70b482904f",
+      "wordsPerPage": [
+        299,
+        330,
+        271,
+        258
+      ],
+      "contentHeights": [
+        600.96,
+        581.22,
+        564.7,
+        603.27
+      ]
+    },
+    {
+      "id": "http-dns-tls-request-journey",
+      "title": "Trace a Request Through DNS, TLS, and HTTP",
+      "category": "Core Computer Science",
+      "duration": "2 weeks of browser and local-service labs",
+      "level": "Web programming foundations",
+      "summary": "A browser request involves naming, connection selection, transport, server identity, HTTP semantics, intermediaries, and response rendering. The exact path depends on caches, existing connections, protocol versions, and proxies. Explain a concrete request rather than a memorized universal sequence.",
+      "pages": 4,
+      "pdf": "pdfs/http-dns-tls-request-journey.pdf",
+      "preview": "previews/http-dns-tls-request-journey.png",
+      "bytes": 81273,
+      "sha256": "4b08eb087502a6d2238907eea3fcaa8009637536c9daba8d36522f35d67f9fa4",
+      "wordsPerPage": [
+        292,
+        344,
+        280,
+        276
+      ],
+      "contentHeights": [
+        600.96,
+        608.42,
+        580.0,
+        587.97
+      ]
+    },
+    {
+      "id": "performance-profiling-tail-latency",
+      "title": "Profile Performance and Explain Tail Latency",
+      "category": "Core Computer Science",
+      "duration": "3 weeks using a repeatable local workload",
+      "level": "Intermediate engineer",
+      "summary": "Performance work begins with a workload and a user-visible objective. Separate throughput, latency, resource consumption, and correctness. Measure a baseline, locate the dominant cost, change one thing, and verify both the improvement and its side effects under representative conditions.",
+      "pages": 4,
+      "pdf": "pdfs/performance-profiling-tail-latency.pdf",
+      "preview": "previews/performance-profiling-tail-latency.png",
+      "bytes": 80691,
+      "sha256": "78dd493e849ba16b5e7f3049f1032a533e5bbd2c2a70aca8ad6db7f77af82463",
+      "wordsPerPage": [
+        282,
+        331,
+        269,
+        261
+      ],
+      "contentHeights": [
+        600.96,
+        599.92,
+        534.1,
+        572.67
+      ]
+    },
+    {
+      "id": "git-code-review-ci",
+      "title": "Git, Code Review, and CI That Protect Changes",
+      "category": "Core Computer Science",
+      "duration": "3 weeks on a small personal repository",
+      "level": "Beginner to intermediate",
+      "summary": "Version control records decisions; code review checks risk and clarity; CI verifies repeatable contracts. Use all three together. A green pipeline is not proof of correctness, and a large commit message cannot compensate for an unreviewable change that mixes unrelated behavior.",
+      "pages": 4,
+      "pdf": "pdfs/git-code-review-ci.pdf",
+      "preview": "previews/git-code-review-ci.png",
+      "bytes": 80343,
+      "sha256": "f8e560443a153c08d8e7db77ee5102e7f0b9264f6d86753122f2aeb172d27294",
+      "wordsPerPage": [
+        283,
+        339,
+        275,
+        266
+      ],
+      "contentHeights": [
+        600.96,
+        581.22,
+        564.7,
+        587.97
+      ]
+    },
+    {
+      "id": "distributed-systems-foundations",
+      "title": "Distributed Systems from First Principles",
+      "category": "Core Computer Science",
+      "duration": "4-6 weeks of failure-oriented study",
+      "level": "Backend fundamentals required",
+      "summary": "A distributed system contains independently failing components that communicate with uncertain delays. Correct design states what remains true during retries, crashes, and partitions. Start from invariants and failure boundaries, then select replication and coordination mechanisms that support the promised behavior.",
+      "pages": 4,
+      "pdf": "pdfs/distributed-systems-foundations.pdf",
+      "preview": "previews/distributed-systems-foundations.png",
+      "bytes": 80948,
+      "sha256": "6aa01828c4503bd26dcab328002fd28c7f5ab5963af9c6ab1440dda54934b8d0",
+      "wordsPerPage": [
+        291,
+        308,
+        275,
+        267
+      ],
+      "contentHeights": [
+        588.01,
+        569.32,
+        564.7,
+        618.57
+      ]
+    },
+    {
+      "id": "dsa-eight-week-plan",
+      "title": "Plan Your DSA Preparation in Eight Weeks",
+      "category": "DSA and Problem Solving",
+      "duration": "8 weeks, 6-10 hours per week",
+      "level": "Basic programming required",
+      "summary": "Study data structures through the operations they support and algorithms through the invariants that make them correct. Use topic-focused practice to learn, then mixed unseen problems to test recognition. A complete preparation loop includes clarification, implementation, testing, complexity, and revision.",
+      "pages": 4,
+      "pdf": "pdfs/dsa-eight-week-plan.pdf",
+      "preview": "previews/dsa-eight-week-plan.png",
+      "bytes": 81184,
+      "sha256": "8c4154160c4f7d9835fed1b316abfbc3582f57da0f752c2fddf285bf51036981",
+      "wordsPerPage": [
+        299,
+        334,
+        268,
+        275
+      ],
+      "contentHeights": [
+        572.71,
+        611.82,
+        534.1,
+        587.97
+      ]
+    },
+    {
+      "id": "arrays-hashing-two-pointers",
+      "title": "Arrays, Hashing, and Two-Pointer Reasoning",
+      "category": "DSA and Problem Solving",
+      "duration": "2 weeks of focused practice",
+      "level": "Foundational DSA",
+      "summary": "Arrays give indexed access and locality; hashing trades memory for keyed lookup; two pointers exploit ordering or a maintained partition. The useful skill is recognizing which information must be retained and which candidate region can be discarded safely.",
+      "pages": 4,
+      "pdf": "pdfs/arrays-hashing-two-pointers.pdf",
+      "preview": "previews/arrays-hashing-two-pointers.png",
+      "bytes": 79468,
+      "sha256": "87fab115ecae504e3ec93f64db92a8d5bd3bd325903610245213b9a61205e102",
+      "wordsPerPage": [
+        289,
+        320,
+        267,
+        261
+      ],
+      "contentHeights": [
+        600.96,
+        569.32,
+        518.8,
+        585.82
+      ]
+    },
+    {
+      "id": "sliding-windows-prefix-sums",
+      "title": "Sliding Windows and Prefix Sums",
+      "category": "DSA and Problem Solving",
+      "duration": "10-14 focused practice sessions",
+      "level": "Arrays and maps understood",
+      "summary": "Contiguous-range problems often become efficient when you maintain only the state that changes at the boundaries. Sliding windows use a safe expand/shrink rule; prefix sums turn a range relationship into a relationship between earlier states. The input constraints determine which reasoning applies.",
+      "pages": 4,
+      "pdf": "pdfs/sliding-windows-prefix-sums.pdf",
+      "preview": "previews/sliding-windows-prefix-sums.png",
+      "bytes": 79575,
+      "sha256": "aeaebe3b6f02b9d60373093d6fa2efa45c985d46021bb380da6ff2ef9a9fd644",
+      "wordsPerPage": [
+        279,
+        334,
+        269,
+        268
+      ],
+      "contentHeights": [
+        542.11,
+        569.32,
+        518.8,
+        587.97
+      ]
+    },
+    {
+      "id": "trees-graphs-traversal",
+      "title": "Trees and Graphs: Traverse with a Purpose",
+      "category": "DSA and Problem Solving",
+      "duration": "3 weeks of traversal and modeling practice",
+      "level": "Recursion and queues understood",
+      "summary": "A traversal is a framework for exploring a state space while preserving the information needed by the problem. Decide what a node and edge represent, whether the graph is directed or weighted, and whether you need reachability, shortest distance, ordering, or an aggregate over subtrees.",
+      "pages": 4,
+      "pdf": "pdfs/trees-graphs-traversal.pdf",
+      "preview": "previews/trees-graphs-traversal.png",
+      "bytes": 80715,
+      "sha256": "e96f08fa4d758932f3fac5484e4e4c27d727d8f3d4eb6f553e34275c7cefb19d",
+      "wordsPerPage": [
+        302,
+        328,
+        269,
+        274
+      ],
+      "contentHeights": [
+        585.66,
+        584.62,
+        534.1,
+        572.67
+      ]
+    },
+    {
+      "id": "dynamic-programming-roadmap",
+      "title": "Dynamic Programming Without Guessing",
+      "category": "DSA and Problem Solving",
+      "duration": "3 weeks of state-first practice",
+      "level": "Recursion and basic complexity understood",
+      "summary": "Dynamic programming reuses solutions to repeated subproblems whose relevant history can be represented by a state. Start with the meaning of a state and the final answer, then derive transitions and boundaries. Memorizing a table shape without this meaning makes variants difficult to solve.",
+      "pages": 4,
+      "pdf": "pdfs/dynamic-programming-roadmap.pdf",
+      "preview": "previews/dynamic-programming-roadmap.png",
+      "bytes": 80167,
+      "sha256": "fc4c89f0ac93470d5124f39519cb3f2bac711a94c85649833d97f5c3a7680a19",
+      "wordsPerPage": [
+        299,
+        335,
+        272,
+        276
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        534.1,
+        585.82
+      ]
+    },
+    {
+      "id": "heaps-intervals-greedy",
+      "title": "Heaps, Intervals, and Greedy Proofs",
+      "category": "DSA and Problem Solving",
+      "duration": "2-3 weeks of focused variants",
+      "level": "Sorting and basic DSA understood",
+      "summary": "Heaps maintain an extreme under updates, interval problems depend on endpoint semantics, and greedy algorithms need a proof that a local choice preserves an optimal solution. These tools often combine in scheduling and streaming problems, but each solves a different part of the reasoning.",
+      "pages": 4,
+      "pdf": "pdfs/heaps-intervals-greedy.pdf",
+      "preview": "previews/heaps-intervals-greedy.png",
+      "bytes": 79134,
+      "sha256": "2022b368014299292a1f719233504f7c33be85fba4529368321f8eee2d8b6f0a",
+      "wordsPerPage": [
+        310,
+        310,
+        287,
+        261
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        534.1,
+        570.52
+      ]
+    },
+    {
+      "id": "binary-search-sorting",
+      "title": "Binary Search, Sorting, and Boundary Proofs",
+      "category": "DSA and Problem Solving",
+      "duration": "10 focused practice sessions",
+      "level": "Arrays and complexity understood",
+      "summary": "Binary search finds a boundary in an ordered or monotone search space. Its correctness depends on the meaning of the bounds and the update rule. Sorting creates useful order but has its own cost, stability, and memory implications. Learn both as reasoning tools rather than syntax patterns.",
+      "pages": 4,
+      "pdf": "pdfs/binary-search-sorting.pdf",
+      "preview": "previews/binary-search-sorting.png",
+      "bytes": 80560,
+      "sha256": "108d6fbc15dc938f09e67978106ed88901eeeafb3def9459fa052c8af85691bb",
+      "wordsPerPage": [
+        302,
+        327,
+        284,
+        265
+      ],
+      "contentHeights": [
+        600.96,
+        584.62,
+        549.4,
+        587.97
+      ]
+    },
+    {
+      "id": "coding-correctness-testing",
+      "title": "Explain Correctness, Complexity, and Tests",
+      "category": "DSA and Problem Solving",
+      "duration": "2 weeks, then use in every coding session",
+      "level": "All DSA levels",
+      "summary": "A complete coding answer includes a contract, a reason the algorithm is correct, an implementation, tests, and a realistic cost analysis. These are not optional finishing touches. They expose assumptions early and help you recover from feedback without replacing the whole solution blindly.",
+      "pages": 4,
+      "pdf": "pdfs/coding-correctness-testing.pdf",
+      "preview": "previews/coding-correctness-testing.png",
+      "bytes": 80725,
+      "sha256": "67af6462ddca389481a56b571cba0824c5bbc19513e85be4f257e73138625ea7",
+      "wordsPerPage": [
+        290,
+        324,
+        277,
+        274
+      ],
+      "contentHeights": [
+        585.66,
+        584.62,
+        580.0,
+        587.97
+      ]
+    },
+    {
+      "id": "system-design-six-week-plan",
+      "title": "Plan Your System Design Preparation",
+      "category": "System Design",
+      "duration": "6 weeks, 6-8 hours per week",
+      "level": "Backend and database basics required",
+      "summary": "System design is a structured discussion of requirements, data, interfaces, capacity, and failure. Start with a small correct design, identify the important bottlenecks, and deepen only the parts that matter. A defensible trade-off is more valuable than a diagram containing every fashionable component.",
+      "pages": 4,
+      "pdf": "pdfs/system-design-six-week-plan.pdf",
+      "preview": "previews/system-design-six-week-plan.png",
+      "bytes": 81706,
+      "sha256": "7baa2cbd4b14d8502ba0ced27ee89727234bd122327e065db2f3aac8a9d311a2",
+      "wordsPerPage": [
+        284,
+        313,
+        260,
+        256
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        580.0,
+        587.97
+      ]
+    },
+    {
+      "id": "capacity-estimation-data-modeling",
+      "title": "Capacity Estimates and Data Models That Matter",
+      "category": "System Design",
+      "duration": "2 weeks of numerical and schema exercises",
+      "level": "Intermediate",
+      "summary": "Back-of-the-envelope estimates are decision tools, not predictions of exact production behavior. Translate user activity into requests, bytes, concurrency, and storage, then connect the dominant costs to data modeling. Keep average, peak, logical data, replicas, and overhead separate.",
+      "pages": 4,
+      "pdf": "pdfs/capacity-estimation-data-modeling.pdf",
+      "preview": "previews/capacity-estimation-data-modeling.png",
+      "bytes": 80849,
+      "sha256": "1441badfe963a03a8445e2d88012475349c8052461cddfa1e1f6d06d8f05627e",
+      "wordsPerPage": [
+        275,
+        314,
+        278,
+        252
+      ],
+      "contentHeights": [
+        600.96,
+        569.32,
+        549.4,
+        572.67
+      ]
+    },
+    {
+      "id": "caching-database-scaling",
+      "title": "Caching and Database Scaling Without Stale Promises",
+      "category": "System Design",
+      "duration": "3 weeks with a local service",
+      "level": "Database and API basics",
+      "summary": "A cache stores a reusable result under an eligibility and freshness policy. It is not automatically an authoritative source. Replicas and partitions address different scaling needs, and every optimization changes the failure path. Start with measured access patterns and explicit staleness tolerance.",
+      "pages": 4,
+      "pdf": "pdfs/caching-database-scaling.pdf",
+      "preview": "previews/caching-database-scaling.png",
+      "bytes": 81436,
+      "sha256": "f0ffdb8906be9942d4654fe3f376d97a7a94625a9343cbc9bb5a7d6f8d8f7145",
+      "wordsPerPage": [
+        293,
+        323,
+        275,
+        267
+      ],
+      "contentHeights": [
+        600.96,
+        569.32,
+        564.7,
+        587.97
+      ]
+    },
+    {
+      "id": "queues-event-streaming",
+      "title": "Queues, Event Streams, and Reliable Processing",
+      "category": "System Design",
+      "duration": "3 weeks with a durable-worker exercise",
+      "level": "Backend fundamentals",
+      "summary": "A queue decouples arrival from processing, but does not create infinite capacity or remove failure. An event log supports retained history and replay, but consumers still need correct state transitions. Define delivery, processing, and business effects separately before making reliability claims.",
+      "pages": 4,
+      "pdf": "pdfs/queues-event-streaming.pdf",
+      "preview": "previews/queues-event-streaming.png",
+      "bytes": 81589,
+      "sha256": "1482c004e612d33636217503e3395f33e84cf281b942b73a19c024fee417cd21",
+      "wordsPerPage": [
+        278,
+        318,
+        273,
+        268
+      ],
+      "contentHeights": [
+        585.66,
+        569.32,
+        549.4,
+        572.67
+      ]
+    },
+    {
+      "id": "rate-limiter-design",
+      "title": "Design a Rate Limiter You Can Defend",
+      "category": "System Design",
+      "duration": "1-2 weeks of design and local simulation",
+      "level": "Backend and concurrency basics",
+      "summary": "A rate limiter enforces a policy over an identity, resource, and time horizon. Fixed windows, sliding windows, and token buckets implement different semantics. Choose the behavior first, then reason about concurrency, regional limits, hot keys, clock behavior, and dependency failures.",
+      "pages": 4,
+      "pdf": "pdfs/rate-limiter-design.pdf",
+      "preview": "previews/rate-limiter-design.png",
+      "bytes": 82784,
+      "sha256": "922b7ba9411f1e5130a109e51ffc4e2ced5027da7926043cdf7e0ccf330ba59c",
+      "wordsPerPage": [
+        301,
+        301,
+        275,
+        270
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        549.4,
+        587.97
+      ]
+    },
+    {
+      "id": "chat-notification-systems",
+      "title": "Design Chat and Notification Delivery",
+      "category": "System Design",
+      "duration": "2 weeks of state and failure walkthroughs",
+      "level": "Backend and queue fundamentals",
+      "summary": "Real-time transport is only one part of messaging. A reliable design also needs durable identities, ordering scope, authorization, device synchronization, and explicit receipt semantics. Notifications add preferences, provider limits, retries, and ambiguous delivery outcomes that cannot be solved by a WebSocket alone.",
+      "pages": 4,
+      "pdf": "pdfs/chat-notification-systems.pdf",
+      "preview": "previews/chat-notification-systems.png",
+      "bytes": 82455,
+      "sha256": "b0f77ec77cab6470222361b1ee30bafd7c3681caeeded5017a6d3e8f5df4dc71",
+      "wordsPerPage": [
+        295,
+        314,
+        284,
+        257
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        564.7,
+        603.27
+      ]
+    },
+    {
+      "id": "storage-file-sync-design",
+      "title": "File Storage, Sync, and Snapshot Design",
+      "category": "System Design",
+      "duration": "2-3 weeks of metadata and recovery exercises",
+      "level": "Database and distributed-system basics",
+      "summary": "Separate durable data bytes from metadata that names and authorizes them. Large-file systems need partial-upload handling, immutable versions, conflict rules, and garbage collection that never removes live data. A fast happy-path upload is not enough to establish durability or safe multi-device behavior.",
+      "pages": 4,
+      "pdf": "pdfs/storage-file-sync-design.pdf",
+      "preview": "previews/storage-file-sync-design.png",
+      "bytes": 81770,
+      "sha256": "9f7118e082c93c43d0de682f005f870133d1d13cdf271dfa3be2d37c41786901",
+      "wordsPerPage": [
+        288,
+        320,
+        283,
+        260
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        564.7,
+        618.57
+      ]
+    },
+    {
+      "id": "api-authentication-security",
+      "title": "API Design, Authentication, and Authorization",
+      "category": "System Design",
+      "duration": "3 weeks of defensive API practice",
+      "level": "Web service fundamentals",
+      "summary": "A good API defines behavior under valid requests, invalid input, retries, and unauthorized access. Authentication establishes identity; authorization decides permitted actions on a resource. Neither a signed token nor a hidden frontend control automatically enforces object-level access.",
+      "pages": 4,
+      "pdf": "pdfs/api-authentication-security.pdf",
+      "preview": "previews/api-authentication-security.png",
+      "bytes": 81235,
+      "sha256": "2aebfcfce94f6358865fc35e5929d5016313269dc432056718893efdd1fdb1dc",
+      "wordsPerPage": [
+        283,
+        313,
+        285,
+        269
+      ],
+      "contentHeights": [
+        600.96,
+        599.92,
+        564.7,
+        603.27
+      ]
+    },
+    {
+      "id": "cloud-docker-kubernetes",
+      "title": "Cloud, Docker, and Kubernetes Fundamentals",
+      "category": "System Design",
+      "duration": "4 weeks with local-first deployment",
+      "level": "A working application required",
+      "summary": "Deployment should make an application reproducible, observable, and recoverable. Containers package execution dependencies; orchestration coordinates instances and desired state. Neither automatically fixes an unsafe application, missing backups, incorrect secrets, or a database schema change incompatible with older versions.",
+      "pages": 4,
+      "pdf": "pdfs/cloud-docker-kubernetes.pdf",
+      "preview": "previews/cloud-docker-kubernetes.png",
+      "bytes": 79918,
+      "sha256": "13608ce58d324ad3ef8d681b921f1726b54641d9c7dd72ec74c2bb68773361ea",
+      "wordsPerPage": [
+        286,
+        328,
+        262,
+        263
+      ],
+      "contentHeights": [
+        616.26,
+        615.22,
+        534.1,
+        603.27
+      ]
+    },
+    {
+      "id": "observability-reliability-incidents",
+      "title": "Observability, Reliability, and Incident Response",
+      "category": "System Design",
+      "duration": "3 weeks with controlled failure drills",
+      "level": "A small service or project",
+      "summary": "Observability helps answer questions about system behavior; reliability connects that behavior to user needs. Metrics, logs, and traces are complementary evidence. A useful incident process prioritizes mitigation, clear coordination, and later learning without substituting blame or dashboards for a tested recovery plan.",
+      "pages": 4,
+      "pdf": "pdfs/observability-reliability-incidents.pdf",
+      "preview": "previews/observability-reliability-incidents.png",
+      "bytes": 80837,
+      "sha256": "3cb4c878d8fa724011575e4f421123b1631b9302a2a89ea7b44e4cc42bc3a10d",
+      "wordsPerPage": [
+        290,
+        334,
+        267,
+        257
+      ],
+      "contentHeights": [
+        600.96,
+        611.82,
+        549.4,
+        587.97
+      ]
+    },
+    {
+      "id": "ai-tools-for-engineers",
+      "title": "Choose AI Tools for Real Engineering Work",
+      "category": "AI and Machine Learning",
+      "duration": "2 weeks to build and evaluate a useful workflow",
+      "level": "All engineering levels",
+      "summary": "Choose an AI tool by task, data policy, integration, verifiability, and cost. General chat assistants, IDE assistants, search-grounded tools, notebooks, and local models serve different needs. Product features change, so evaluate a small representative workload instead of relying on a permanent 'best tools' ranking.",
+      "pages": 4,
+      "pdf": "pdfs/ai-tools-for-engineers.pdf",
+      "preview": "previews/ai-tools-for-engineers.png",
+      "bytes": 80701,
+      "sha256": "200a44ad056a18ce5b02f9680b7d507c6fa94320df87e27c042e385276a9a459",
+      "wordsPerPage": [
+        307,
+        320,
+        272,
+        260
+      ],
+      "contentHeights": [
+        600.96,
+        584.62,
+        534.1,
+        603.27
+      ]
+    },
+    {
+      "id": "ai-assisted-coding-workflow",
+      "title": "AI-Assisted Coding with Tests and Review",
+      "category": "AI and Machine Learning",
+      "duration": "A 2-week workflow experiment",
+      "level": "Developers with basic testing skills",
+      "summary": "Use the assistant to propose, explain, and implement bounded changes while the specification and tests define success. Start from the controlling code path, make a small change, and run the cheapest check that could prove the hypothesis wrong. Human review remains essential for security, compatibility, and intent.",
+      "pages": 4,
+      "pdf": "pdfs/ai-assisted-coding-workflow.pdf",
+      "preview": "previews/ai-assisted-coding-workflow.png",
+      "bytes": 82111,
+      "sha256": "259b6e91c238d0fcb421f401a263e9634afba86f41e859a88b3a23edd51285b2",
+      "wordsPerPage": [
+        296,
+        326,
+        284,
+        264
+      ],
+      "contentHeights": [
+        572.71,
+        599.92,
+        580.0,
+        603.27
+      ]
+    },
+    {
+      "id": "python-data-ai-foundations",
+      "title": "Python Foundations for Data and AI Work",
+      "category": "AI and Machine Learning",
+      "duration": "4 weeks of small reproducible exercises",
+      "level": "Beginner Python",
+      "summary": "Good AI work depends on ordinary software discipline: clear functions, validated inputs, tests, dependency management, and reproducible data transformations. Learn Python and numerical tools through small tasks whose expected result you can compute independently.",
+      "pages": 4,
+      "pdf": "pdfs/python-data-ai-foundations.pdf",
+      "preview": "previews/python-data-ai-foundations.png",
+      "bytes": 80377,
+      "sha256": "21e9080695f4c14fa655c10a7fbb2f37f3a5a36e3863c2e89b7c5682822deda5",
+      "wordsPerPage": [
+        277,
+        315,
+        270,
+        254
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        518.8,
+        587.97
+      ]
+    },
+    {
+      "id": "machine-learning-six-week-plan",
+      "title": "AI and ML Foundations in Six Weeks",
+      "category": "AI and Machine Learning",
+      "duration": "6 weeks with Python and basic algebra",
+      "level": "Introductory machine learning",
+      "summary": "Learn ML as a decision-making pipeline rather than a catalogue of model names. Define the prediction time, label, objective, data split, baseline, and error costs before optimizing a model. Reliable evaluation and data quality usually matter more than an impressive architecture diagram.",
+      "pages": 4,
+      "pdf": "pdfs/machine-learning-six-week-plan.pdf",
+      "preview": "previews/machine-learning-six-week-plan.png",
+      "bytes": 82418,
+      "sha256": "4ad077a95d7a0983fa589a4ee9c0a1a1a721fd96bf476542fa753f354c2bc70a",
+      "wordsPerPage": [
+        290,
+        325,
+        261,
+        266
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        549.4,
+        603.27
+      ]
+    },
+    {
+      "id": "ml-evaluation-experiments",
+      "title": "ML Evaluation, Metrics, and Experiments",
+      "category": "AI and Machine Learning",
+      "duration": "2-3 weeks of worked metric exercises",
+      "level": "Basic supervised learning",
+      "summary": "Evaluation answers a specific question about generalization and value. Accuracy, precision, recall, ranking, calibration, and experiment outcomes measure different things. Choose the metric and data split from the decision, quantify uncertainty, and investigate failure slices rather than chasing a single leaderboard number.",
+      "pages": 4,
+      "pdf": "pdfs/ml-evaluation-experiments.pdf",
+      "preview": "previews/ml-evaluation-experiments.png",
+      "bytes": 81765,
+      "sha256": "5dab402c7911ae8490f7a3b6381fa10ff49ff85269bf394485166cc578aafe87",
+      "wordsPerPage": [
+        290,
+        317,
+        275,
+        264
+      ],
+      "contentHeights": [
+        572.71,
+        569.32,
+        549.4,
+        587.97
+      ]
+    },
+    {
+      "id": "deep-learning-transformers",
+      "title": "Deep Learning and Transformers: A Practical Map",
+      "category": "AI and Machine Learning",
+      "duration": "4-6 weeks after ML foundations",
+      "level": "Python, linear algebra, and basic gradients",
+      "summary": "Start with a small neural model and a transparent training loop before studying transformers. Connect tensors, losses, gradients, optimization, and validation. Then explain attention, tokens, context, and generation as computational mechanisms with costs and limitations, not as magical understanding.",
+      "pages": 4,
+      "pdf": "pdfs/deep-learning-transformers.pdf",
+      "preview": "previews/deep-learning-transformers.png",
+      "bytes": 81365,
+      "sha256": "0754509c58daa0b98a6140f89dfe833128c29e7f17bdea1212ba73aab408283f",
+      "wordsPerPage": [
+        295,
+        328,
+        279,
+        278
+      ],
+      "contentHeights": [
+        616.26,
+        584.62,
+        549.4,
+        603.27
+      ]
+    },
+    {
+      "id": "rag-prototype-to-production",
+      "title": "RAG: From Prototype to a Defensible System",
+      "category": "AI and Machine Learning",
+      "duration": "3-4 weeks with a small authorized corpus",
+      "level": "APIs, embeddings, and ML evaluation basics",
+      "summary": "Retrieval-augmented generation selects external evidence and provides it to a model. It can improve freshness and grounding, but does not automatically prevent hallucinations or enforce authorization. A credible system has versioned sources, measured retrieval, supported citations, and explicit abstention and failure behavior.",
+      "pages": 4,
+      "pdf": "pdfs/rag-prototype-to-production.pdf",
+      "preview": "previews/rag-prototype-to-production.png",
+      "bytes": 82463,
+      "sha256": "6796234d4ea39988241c218f7e3d448007a86a584a2c2f4933ad9974d1933038",
+      "wordsPerPage": [
+        292,
+        319,
+        281,
+        262
+      ],
+      "contentHeights": [
+        600.96,
+        584.62,
+        580.0,
+        587.97
+      ]
+    },
+    {
+      "id": "vector-search-hybrid-retrieval",
+      "title": "Embeddings, Vector Search, and Hybrid Retrieval",
+      "category": "AI and Machine Learning",
+      "duration": "2-3 weeks with a labeled query set",
+      "level": "Basic vectors and retrieval concepts",
+      "summary": "Embeddings place inputs in a model-dependent vector space; similarity is useful only when that geometry matches the task. Retrieval quality depends on candidate coverage, filters, indexing, ranking, and evaluation. Compare with lexical and exact-match baselines, especially for identifiers and specialized vocabulary.",
+      "pages": 4,
+      "pdf": "pdfs/vector-search-hybrid-retrieval.pdf",
+      "preview": "previews/vector-search-hybrid-retrieval.png",
+      "bytes": 80974,
+      "sha256": "6bdc873aefe9af2ca90362ac6d353d19bd3fe7f56516cd25d92a6017da57bb5c",
+      "wordsPerPage": [
+        296,
+        305,
+        279,
+        263
+      ],
+      "contentHeights": [
+        600.96,
+        584.62,
+        580.0,
+        603.27
+      ]
+    },
+    {
+      "id": "llm-agents-tools-safety",
+      "title": "LLM Agents, Tools, and Controlled Execution",
+      "category": "AI and Machine Learning",
+      "duration": "3 weeks using mocked tools",
+      "level": "APIs and LLM application basics",
+      "summary": "An agent chooses actions within an application-defined environment. Reliable operation requires more than a model loop: tools need schemas, authorization, bounded execution, durable state, and safe handling of ambiguous outcomes. External content is data, not authority to expand the user's request.",
+      "pages": 4,
+      "pdf": "pdfs/llm-agents-tools-safety.pdf",
+      "preview": "previews/llm-agents-tools-safety.png",
+      "bytes": 82243,
+      "sha256": "ed2c5608cd639d3cd4aad77c5ead79631f3310f047f17c498235fb24aa6d6faa",
+      "wordsPerPage": [
+        294,
+        314,
+        275,
+        267
+      ],
+      "contentHeights": [
+        600.96,
+        584.62,
+        549.4,
+        587.97
+      ]
+    },
+    {
+      "id": "ml-system-design-mlops",
+      "title": "ML System Design and MLOps Foundations",
+      "category": "AI and Machine Learning",
+      "duration": "4 weeks after basic ML evaluation",
+      "level": "Intermediate engineer",
+      "summary": "A production ML system includes the processes that create, validate, serve, and monitor predictions. The weights are one component. Define feature availability, label delay, version compatibility, latency, and recovery so a statistically promising model can make dependable decisions in the real application.",
+      "pages": 4,
+      "pdf": "pdfs/ml-system-design-mlops.pdf",
+      "preview": "previews/ml-system-design-mlops.png",
+      "bytes": 81607,
+      "sha256": "283e2ca846fcadfcbae38a66eec6f8e6d2f2fac473d0b46873bdfe26096c5dc7",
+      "wordsPerPage": [
+        285,
+        311,
+        274,
+        257
+      ],
+      "contentHeights": [
+        600.96,
+        569.32,
+        564.7,
+        603.27
+      ]
+    },
+    {
+      "id": "sql-analytics-interview-practice",
+      "title": "SQL and Analytics Interview Practice",
+      "category": "Practical Engineering",
+      "duration": "2 weeks with a local database",
+      "level": "Basic SELECT and GROUP BY",
+      "summary": "SQL interview quality depends on the data contract as much as syntax. Define row grain, keys, timezone, ties, and missing-value meaning before choosing joins or windows. Use small hand-checkable datasets and adversarial fixtures to verify results rather than trusting a query because it executes.",
+      "pages": 4,
+      "pdf": "pdfs/sql-analytics-interview-practice.pdf",
+      "preview": "previews/sql-analytics-interview-practice.png",
+      "bytes": 80510,
+      "sha256": "39547eccdd2d4ad67e61770a0b589590f7e846b74fa999d33d8ed59f6867dbe6",
+      "wordsPerPage": [
+        303,
+        312,
+        281,
+        272
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        549.4,
+        603.27
+      ]
+    },
+    {
+      "id": "backend-project-four-week-plan",
+      "title": "Build an Interview-Ready Backend Project",
+      "category": "Practical Engineering",
+      "duration": "4 weeks with a narrow product scope",
+      "level": "Basic API and database skills",
+      "summary": "Build one small service deeply enough to explain its decisions and limitations. A booking, task, or inventory service can demonstrate the essentials without pretending to be a global platform. Keep the scope small, use maintained libraries, and make behavior reproducible with synthetic data.",
+      "pages": 4,
+      "pdf": "pdfs/backend-project-four-week-plan.pdf",
+      "preview": "previews/backend-project-four-week-plan.png",
+      "bytes": 81274,
+      "sha256": "5c77b58a3e6f9e013661172a3652e7d11a3fc387f0e5236db98f8641fabc1550",
+      "wordsPerPage": [
+        281,
+        321,
+        267,
+        267
+      ],
+      "contentHeights": [
+        572.71,
+        584.62,
+        564.7,
+        572.67
+      ]
+    },
+    {
+      "id": "technical-communication-documentation",
+      "title": "Explain Technical Work Clearly",
+      "category": "Practical Engineering",
+      "duration": "2 weeks of writing and presentation practice",
+      "level": "All engineering levels",
+      "summary": "Good technical communication helps someone make a decision or reproduce a result. Start with the audience and question, separate facts from hypotheses, and choose the smallest structure that preserves the important reasoning. A concise explanation can still include assumptions, evidence, and limitations.",
+      "pages": 4,
+      "pdf": "pdfs/technical-communication-documentation.pdf",
+      "preview": "previews/technical-communication-documentation.png",
+      "bytes": 81386,
+      "sha256": "b8f8b4a5dff6d5f319e5a6d232537027787163fa0b8f8905646dfdc075e33901",
+      "wordsPerPage": [
+        295,
+        332,
+        281,
+        272
+      ],
+      "contentHeights": [
+        557.41,
+        584.62,
+        580.0,
+        587.97
+      ]
+    },
+    {
+      "id": "sustainable-study-system",
+      "title": "Build a Sustainable Engineering Study System",
+      "category": "Practical Engineering",
+      "duration": "A weekly cycle you can maintain",
+      "level": "All learners",
+      "summary": "A useful study system turns limited time into durable understanding. Choose a small number of goals, practice retrieval and application, revisit mistakes, and adjust from evidence. Consistency should not mean ignoring rest or treating a missed day as failure of the whole plan.",
+      "pages": 4,
+      "pdf": "pdfs/sustainable-study-system.pdf",
+      "preview": "previews/sustainable-study-system.png",
+      "bytes": 81454,
+      "sha256": "a765b04eeb5c6f8ee21119c0e34650e457f853fec7ea1ed45ea1a26b9515504a",
+      "wordsPerPage": [
+        303,
+        337,
+        276,
+        285
+      ],
+      "contentHeights": [
+        600.96,
+        599.92,
+        580.0,
+        603.27
+      ]
+    }
+  ]
+}

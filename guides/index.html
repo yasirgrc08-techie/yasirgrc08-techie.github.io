@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50 Free Engineering PDF Guides | Yasir Arafat Sharfi</title>
+    <meta name="description" content="50 free, four-page PDF study guides: Microsoft and FAANG preparation, DSA, system design, OS, networks, AI tools, ML, RAG, and practical engineering.">
+    <meta property="og:title" content="50 Engineering Field Guides | Yasir Arafat Sharfi">
+    <meta property="og:description" content="Free four-page PDF roadmaps, worked exercises, and interview-readiness checklists. 50 guides. 200 pages.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yasirgrc08-techie.github.io/guides/">
+    <meta property="og:image" content="https://yasirgrc08-techie.github.io/images/personal/yasir_microsoft_campus.jpeg">
+    <link rel="canonical" href="https://yasirgrc08-techie.github.io/guides/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="library.css?v=20260921">
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="library.js?v=20260921"></script>
+</head>
+<body>
+    <a class="skip-link" href="#guideList">Skip to guides</a>
+    <header class="site-header">
+        <a class="author" href="../"><img src="../images/personal/yasir_amazon.jpeg" width="40" height="40" alt="Yasir Arafat Sharfi"><span>Yasir Sharfi<span class="author-role">Software Engineer &amp; Mentor</span></span></a>
+        <nav aria-label="Main navigation"><a href="../">Portfolio</a><a href="../#interview-prep">Paid sheets &amp; courses</a><a href="https://github.com/yasirgrc08-techie/yasirgrc08-techie.github.io/tree/main/guides" target="_blank" rel="noopener noreferrer" aria-label="View guide sources on GitHub" title="Guide sources on GitHub"><i data-lucide="github" aria-hidden="true"></i><span class="icon-fallback">GitHub</span></a></nav>
+    </header>
+    <main>
+        <section class="library-heading" aria-labelledby="libraryTitle">
+            <div><p class="eyebrow">THE OPEN STUDY COLLECTION / SEPTEMBER 2026</p><h1 id="libraryTitle">Engineering<br><span>Field Guides.</span></h1><p class="lead">A practical path from fundamentals to your next engineering role.</p><div class="library-facts"><span><strong>50</strong> guides</span><span><strong>4</strong> pages each</span><span><strong>Free</strong> public access</span></div></div>
+            <div class="collection-actions"><a class="button primary" href="engineering-field-guides.zip" download><i data-lucide="download" aria-hidden="true"></i> Download all 50 PDFs <span id="archiveSize"></span></a><button class="button secondary" type="button" id="shareLibrary"><i data-lucide="link" aria-hidden="true"></i> Copy library link</button><p>By Yasir Arafat Sharfi<br><span>Roadmaps, worked exercises, and readiness checks.</span></p></div>
+        </section>
+        <section class="library-body" aria-label="PDF guide library">
+            <aside class="category-panel"><h2>Browse topics</h2><div id="categoryList" role="group" aria-label="Guide category"></div><p class="collection-note">Independent learning guides.<br>No login. No payment.<br>Not an employer-endorsed syllabus.</p><a class="original-offerings" href="../#courses">Looking for the paid courses? <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></aside>
+            <div class="results-panel">
+                <form id="filterForm" class="filter-toolbar" role="search"><label class="search-field"><i data-lucide="search" aria-hidden="true"></i><span class="sr-only">Search guides</span><input id="guideSearch" type="search" placeholder="Microsoft, OS, RAG, system design..." autocomplete="off"></label><label class="sort-field"><span class="sr-only">Sort guides</span><select id="guideSort"><option value="recommended">Collection order</option><option value="title">Title A-Z</option><option value="category">Topic</option></select></label><button class="icon-button" type="button" id="clearFilters" title="Clear filters" aria-label="Clear filters"><i data-lucide="rotate-ccw" aria-hidden="true"></i><span class="icon-fallback">Reset</span></button></form>
+                <div class="results-meta"><p id="resultCount" role="status" aria-live="polite">Loading guides...</p><span>PDF / A4 / 4 pages</span></div>
+                <div id="guideList" class="guide-grid" tabindex="-1"></div>
+                <div id="emptyState" class="empty-state" hidden><h2>No matching guides</h2><p>There are no guides for this combination of filters.</p><button class="button secondary" type="button" id="resetEmpty">Show all guides</button></div>
+                <div id="loadError" class="empty-state" hidden><h2>The catalogue could not load</h2><button class="button secondary" type="button" id="retryLoad">Retry</button><a href="engineering-field-guides.zip" download>Download the PDF collection</a></div>
+                <noscript><p><a href="engineering-field-guides.zip" download>Download all 50 PDF guides as a ZIP</a>, or open the <a href="pdfs/microsoft-90-day-plan.pdf">Microsoft 90-day guide</a>. JavaScript enables the searchable catalogue.</p></noscript>
+            </div>
+        </section>
+    </main>
+    <footer><span>Yasir Arafat Sharfi / Engineering Field Guides</span><a href="../#contact">Contact</a><span>Updated September 21, 2026</span></footer>
+    <p id="shareStatus" class="share-status" role="status" aria-live="polite"></p>
+    <dialog id="shareDialog" aria-labelledby="shareTitle"><form method="dialog"><div class="dialog-heading"><h2 id="shareTitle">Share this link</h2><button class="icon-button" aria-label="Close share dialog" title="Close"><i data-lucide="x" aria-hidden="true"></i><span class="icon-fallback">Close</span></button></div><label for="shareUrl">Public link</label><input id="shareUrl" type="url" readonly></form></dialog>
+</body>
+</html>
