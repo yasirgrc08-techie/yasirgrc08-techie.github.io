@@ -12,6 +12,17 @@ test('site assistant routes public product questions to existing site actions', 
     assert.ok(assistant.answer('my payment was deducted but not unlocked').actions.some(action => action.id === 'support'));
 });
 
+test('post templates stay separate from paid CV templates and exports', () => {
+    const reply = assistant.answer('Help me create content templates');
+    assert.equal(reply.topic, 'blueprints');
+    assert.match(reply.text, /500 post templates: 100 topics/);
+    assert.match(reply.text, /not rendered videos/);
+    assert.deepEqual(reply.actions.map(action => action.href), ['/blueprints/']);
+    assert.equal(assistant.answer('Download ZIP', reply.state).topic, 'blueprints');
+    assert.equal(assistant.answer('Download my CV', reply.state).topic, 'drafts');
+    assert.equal(assistant.answer('Show post templates', assistant.answer('Create a CV').state).topic, 'blueprints');
+});
+
 test('site scope does not answer unrelated questions or expose arbitrary links and actions', () => {
     const unrelated = assistant.answer('What is the weather in Paris today?');
     assert.equal(unrelated.topic, 'scope');
@@ -123,7 +134,7 @@ test('users can leave a guide for payment help or restart without losing site sc
 test('all public product pages include the same scoped support widget', () => {
     const { readFileSync } = require('node:fs');
     const { join } = require('node:path');
-    for (const path of ['index.html', 'cv-studio/index.html', 'guides/index.html', 'sheets/course.html', 'sheets/dsa.html', 'sheets/system-design.html', 'sheets/behavioral.html']) {
+    for (const path of ['index.html', 'cv-studio/index.html', 'guides/index.html', 'blueprints/index.html', 'sheets/course.html', 'sheets/dsa.html', 'sheets/system-design.html', 'sheets/behavioral.html']) {
         const html = readFileSync(join(__dirname, '..', path), 'utf8');
         for (const file of ['site-assistant-config.js', 'site-assistant-core.js', 'site-assistant.js']) assert.ok(html.includes(file), path + ' includes ' + file);
     }

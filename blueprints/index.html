@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>500 Engineering Content Templates | Yasir Sharfi</title>
+    <meta name="description" content="500 engineering post templates across 100 topics: downloadable 1080x1350 images, editable SVG sources, captions, and reel scripts. Backend, system design, databases, AI, and more.">
+    <meta property="og:title" content="500 Engineering Content Templates | Yasir Sharfi">
+    <meta property="og:description" content="100 topics. Five formats. Original engineering explainers with images, captions, scripts, and references.">
+    <meta property="og:image" content="https://yasirgrc08-techie.github.io/blueprints/images/backend-api-scaling--roadmap.png">
+    <meta property="og:url" content="https://yasirgrc08-techie.github.io/blueprints/">
+    <link rel="canonical" href="https://yasirgrc08-techie.github.io/blueprints/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="library.css?v=20260921">
+    <script defer src="../cv-studio/vendor/lucide.min.js"></script>
+    <script defer src="../cv-studio/vendor/fflate.min.js"></script>
+    <script defer src="blueprint-model.js?v=20260921"></script>
+    <script defer src="library.js?v=20260921"></script>
+    <script defer src="../assets/site-assistant-config.js?v=20260921"></script>
+    <script defer src="../assets/site-assistant-core.js?v=20260921-blueprints"></script>
+    <script defer src="../assets/site-assistant.js?v=20260921"></script>
+</head>
+<body>
+    <a class="skip-link" href="#templateList">Skip to templates</a>
+    <header class="site-header">
+        <a class="brand" href="../"><span class="brand-mark"><i data-lucide="layers" aria-hidden="true"></i></span><span>Engineering Blueprints<small>by Yasir Sharfi</small></span></a>
+        <nav aria-label="Main navigation"><a href="../">Portfolio</a><a href="../guides/">Study guides</a><a href="../cv-studio/">CV Studio</a><a class="icon-button" href="https://github.com/yasirgrc08-techie/yasirgrc08-techie.github.io/tree/main/blueprints" title="Collection source on GitHub" aria-label="Collection source on GitHub" target="_blank" rel="noopener noreferrer"><i data-lucide="github" aria-hidden="true"></i></a></nav>
+    </header>
+    <main class="collection">
+        <section class="collection-heading" aria-labelledby="collectionTitle"><div><p class="eyebrow">THE ENGINEERING CONTENT COLLECTION</p><h1 id="collectionTitle">500 Post Templates</h1><p class="collection-facts"><span><strong>100</strong> topics</span><span><strong>5</strong> formats per topic</span><span><strong>1080 × 1350</strong> PNG + editable SVG</span></p></div><div class="collection-downloads"><a class="command primary" id="downloadAll" href="engineering-content-templates.zip" download><i data-lucide="folder-down" aria-hidden="true"></i> Download all 500 <span id="archiveSize"></span></a><a href="template-index.csv" download class="index-link">Template index / CSV <i data-lucide="download" aria-hidden="true"></i></a></div></section>
+        <div class="collection-body">
+            <aside class="category-panel" aria-label="Topic categories"><h2>Topics</h2><div id="categoryList" role="group" aria-label="Category filter"></div><p>50 new production topics + 50 adaptations of the public field guides. Every topic includes five distinct treatments.</p><a href="README.md" target="_blank" rel="noopener noreferrer">Scope and sources <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></aside>
+            <section class="results-panel" aria-label="Content templates">
+                <form class="filter-toolbar" id="filterForm" role="search"><label class="search-field"><i data-lucide="search" aria-hidden="true"></i><span class="sr-only">Search templates</span><input id="templateSearch" type="search" maxlength="120" placeholder="Retries, PostgreSQL, RAG, Linux..." autocomplete="off"></label><label class="format-field"><span class="sr-only">Content format</span><select id="formatFilter"><option value="all">All five formats</option><option value="roadmap">Roadmaps</option><option value="decisions">Decisions &amp; trade-offs</option><option value="incident">Failures &amp; pitfalls</option><option value="metrics">Metrics &amp; readiness</option><option value="lab">Build &amp; validate</option></select></label><button id="savedFilter" type="button" class="icon-button" aria-pressed="false" title="Show saved templates" aria-label="Show saved templates"><i data-lucide="bookmark" aria-hidden="true"></i><span id="savedCount">0</span></button><button id="resetFilters" type="button" class="icon-button" title="Reset filters" aria-label="Reset filters"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button></form>
+                <div class="results-meta"><p id="resultCount" role="status">Loading collection...</p><label><span class="sr-only">Sort templates</span><select id="sortOrder"><option value="collection">Collection order</option><option value="title">Title A-Z</option><option value="duration">Shortest script first</option></select></label></div>
+                <div id="templateList" class="template-list" tabindex="-1"></div>
+                <div id="emptyState" class="empty-state" hidden><h2>No matching templates</h2><button class="command secondary" type="button" id="resetEmpty"><i data-lucide="rotate-ccw" aria-hidden="true"></i> Reset filters</button></div>
+                <div id="loadError" class="empty-state" hidden><h2>The collection could not load</h2><button class="command secondary" type="button" id="retryLoad"><i data-lucide="refresh-cw" aria-hidden="true"></i> Retry</button><a href="engineering-content-templates.zip" download>Download the full collection</a></div>
+                <nav class="pagination" aria-label="Template pages"><button class="icon-button" type="button" id="previousPage" aria-label="Previous results page" title="Previous page" disabled><i data-lucide="chevron-left" aria-hidden="true"></i></button><span id="pageCount">1 / 1</span><button class="icon-button" type="button" id="nextPage" aria-label="Next results page" title="Next page" disabled><i data-lucide="chevron-right" aria-hidden="true"></i></button></nav>
+                <noscript><p><a href="engineering-content-templates.zip" download>Download all 500 templates</a> or <a href="template-index.csv">browse the CSV index</a>.</p></noscript>
+            </section>
+        </div>
+    </main>
+    <footer class="site-footer"><span>Yasir Sharfi / September 2026</span><span>Educational images and scripts, not rendered video clips.</span><a href="../#contact">Contact</a></footer>
+    <p id="appStatus" class="app-status" role="status" aria-live="polite"></p>
+    <dialog id="templateDialog" aria-labelledby="detailTitle">
+        <header class="detail-header"><div><span id="detailEyebrow"></span><h2 id="detailTitle">Template</h2></div><button type="button" class="icon-button" id="closeDetail" aria-label="Close template" title="Close template"><i data-lucide="x" aria-hidden="true"></i></button></header>
+        <div class="detail-layout"><div class="detail-visual"><a id="fullImage" target="_blank" rel="noopener noreferrer" title="Open full-size image"><img id="detailImage" width="1080" height="1350" alt="Engineering post template"></a><div class="visual-actions"><a id="downloadPng" class="command primary" download><i data-lucide="image-down" aria-hidden="true"></i> PNG image</a><button id="downloadTemplate" type="button" class="command secondary"><i data-lucide="folder-down" aria-hidden="true"></i> Source ZIP</button><button class="icon-button" type="button" id="saveDetail" title="Save template" aria-label="Save template" aria-pressed="false"><i data-lucide="bookmark" aria-hidden="true"></i></button><button class="icon-button" type="button" id="shareDetail" title="Copy template link" aria-label="Copy template link"><i data-lucide="link" aria-hidden="true"></i></button></div><p class="asset-details">Source ZIP: PNG, editable SVG, fonts, caption, and script.</p><p id="downloadStatus" role="status"></p></div>
+            <div class="detail-copy"><p id="detailPremise"></p><div class="detail-tabs" role="tablist" aria-label="Template content"><button role="tab" id="tabBlueprint" data-tab="blueprint" aria-selected="true" aria-controls="blueprintPanel">Blueprint</button><button role="tab" id="tabCaption" data-tab="caption" aria-selected="false" aria-controls="captionPanel">Caption</button><button role="tab" id="tabScript" data-tab="script" aria-selected="false" aria-controls="scriptPanel">Reel script</button><button role="tab" id="tabSources" data-tab="sources" aria-selected="false" aria-controls="sourcesPanel">Sources</button></div>
+                <section id="blueprintPanel" role="tabpanel" aria-labelledby="tabBlueprint"><ol id="detailRows"></ol><blockquote id="detailTakeaway"></blockquote><h3>Same topic, another angle</h3><div id="relatedFormats" class="related-formats"></div></section>
+                <section id="captionPanel" role="tabpanel" aria-labelledby="tabCaption" hidden><div class="copy-bar"><span id="captionCount"></span><button class="icon-button" type="button" data-copy="caption" title="Copy caption" aria-label="Copy caption"><i data-lucide="copy" aria-hidden="true"></i></button></div><label class="sr-only" for="captionText">Post caption</label><textarea id="captionText" readonly rows="16"></textarea><a id="downloadNotes" class="text-link" download>Download caption, script, and references <i data-lucide="file-down" aria-hidden="true"></i></a></section>
+                <section id="scriptPanel" role="tabpanel" aria-labelledby="tabScript" hidden><div class="copy-bar"><span id="scriptDuration"></span><button class="icon-button" type="button" data-copy="script" title="Copy reel script" aria-label="Copy reel script"><i data-lucide="copy" aria-hidden="true"></i></button></div><div id="storyboard"></div><p class="scope-note">Timing assumes about 150 spoken words per minute. Adjust delivery and visuals; no music, footage, or rendered video is included.</p></section>
+                <section id="sourcesPanel" role="tabpanel" aria-labelledby="tabSources" hidden><p id="detailOrigin"></p><ul id="detailSources"></ul><p id="detailScope" class="scope-note"></p><a id="downloadSvg" class="text-link" download>Raw editable SVG <i data-lucide="download" aria-hidden="true"></i></a></section>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="copyDialog" aria-labelledby="copyTitle"><form method="dialog"><header class="detail-header"><h2 id="copyTitle">Text ready to copy</h2><button class="icon-button" aria-label="Close text" title="Close"><i data-lucide="x" aria-hidden="true"></i></button></header><label class="sr-only" for="copyText">Copy text</label><textarea id="copyText" readonly rows="12"></textarea></form></dialog>
+</body>
+</html>

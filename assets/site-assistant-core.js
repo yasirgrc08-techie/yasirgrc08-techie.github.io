@@ -10,6 +10,7 @@
         editor: { label: 'Continue my CV', href: '/cv-studio/?view=editor', icon: 'file-pen-line' },
         review: { label: 'Review a CV / INR 9', href: '/cv-studio/?view=ats', icon: 'scan-text' },
         guides: { label: 'Free study guides', href: '/guides/', icon: 'book-open' },
+        blueprints: { label: '500 free post templates', href: '/blueprints/', icon: 'layers' },
         courses: { label: 'Explore INR 49 courses', href: '/#courses', icon: 'graduation-cap' },
         dsa: { label: 'DSA sheet / INR 49', href: '/sheets/dsa.html', icon: 'braces' },
         design: { label: 'System design / INR 49', href: '/sheets/system-design.html', icon: 'network' },
@@ -82,6 +83,7 @@
     ];
 
     const knowledge = [
+        { id: 'blueprints', title: 'Engineering post templates', terms: ['blueprints', 'content template', 'post template', 'reel', 'reels', 'reel script', 'instagram', '500 template', 'engineering content'], text: 'Engineering Blueprints is a free collection of 500 post templates: 100 topics with five distinct formats each. It includes 1080x1350 PNGs, editable SVGs, captions, reel scripts, and public references. Fifty topics are new production explainers and fifty adapt this site\'s public field guides. Search and filter the library, save browser-local bookmarks, download individual source ZIPs, or get the complete collection. These are images and scripts, not rendered videos. Paid CV templates, sheets, and courses remain separate products.', actions: ['blueprints'] },
         { id: 'about', title: 'About this website', terms: ['yasir', 'who are you', 'who built', 'about the author', 'about this website'], text: 'This is Yasir Arafat Sharfi\'s personal portfolio and preparation-resource website. The homepage presents his software-engineering experience, including Microsoft, alongside independent CV tools, guides, paid preparation products, mentoring, and website services. This helper is an automated site guide, not Yasir or an official Microsoft representative.', actions: ['about', 'experience', 'contact'] },
         { id: 'cv', title: 'Create and edit a CV', terms: ['cv', 'resume', 'résumé', 'template', 'fresher', 'graduate', 'manager', 'photo', 'latex'], text: 'CV Studio has 32 layouts and 24 role examples. Start with a template, choose your role, replace the sample details, and edit with a live PDF preview. Editing and local JSON backups are free. INR 49 once unlocks all layouts and PDF, LaTeX, and complete ZIP exports. No calendar booking is involved. Samples use Yasir Sharfi as an illustrative identity, not a biography.', actions: ['templates', 'editor', 'review'] },
         { id: 'review', title: 'ATS and CV readiness review', terms: ['ats', 'review cv', 'review resume', 'check cv', 'validate', 'scanner', 'score', 'upload', 'docx'], text: 'The INR 9 readiness reviewer accepts your PDF, DOCX, TXT, pasted text, or a studio CV. Readability is checked before payment. Choose the role, optionally add a job description, then purchase one report for that CV and target. The same report can be reopened without another purchase. This is a local English-language checklist, not an employer ATS result or interview prediction. Scanned-only files need OCR elsewhere first.', actions: ['review'] },
@@ -238,6 +240,8 @@
         if (/\b(?:refund|charged|deducted|lost access|payment failed|payment support)\b/.test(text)) return response(knowledge.find(topic => topic.id === 'payments'), knowledge.find(topic => topic.id === 'payments').text);
         if (/\b(?:paid|bought|purchased|payment|purchase)\b/.test(text) && /\b(?:no|not|cant|cannot|lost|failed|missing|locked|without)\b/.test(text)) return response(knowledge.find(topic => topic.id === 'payments'), knowledge.find(topic => topic.id === 'payments').text);
         if (/\b(?:review|check|validate|score)\b/.test(text) && /\b(?:cv|resume|résumé)\b/.test(text) && !/\bcurrent\b/.test(text)) return response(knowledge.find(topic => topic.id === 'review'), knowledge.find(topic => topic.id === 'review').text);
+        const blueprints = knowledge.find(topic => topic.id === 'blueprints');
+        if (blueprints.terms.some(term => phrasePresent(text, term)) || (previous.topic === 'blueprints' && /^(?:download|export|save|bookmark|caption|script)\b/.test(text) && !/\b(?:cv|resume|latex|guides?|courses?)\b/.test(text))) return response(blueprints, blueprints.text);
         const newCv = /\b(?:build|create|start|choose|make|select)\b.*\b(?:cv|resume|résumé|template)\b/.test(text);
         const newCareer = /\b(?:career|preparation|study|interview)\b.*\b(?:plan|roadmap|guidance)\b|\bplan\b.*\b(?:interview|career|study)\b/.test(text);
         const newWebsite = /\b(?:build|create|make|plan|design)\b.*\b(?:website|web site|web app|portfolio site)\b/.test(text);
