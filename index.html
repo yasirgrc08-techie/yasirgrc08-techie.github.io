@@ -595,6 +595,7 @@
         .booking-badge:hover{border-color:var(--accent);box-shadow:0 0 25px rgba(99,102,241,.2),0 8px 30px rgba(0,0,0,.5);transform:translateY(-3px)}
         .booking-badge .badge-count{background:var(--accent);color:#fff;font-weight:800;font-size:1rem;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(99,102,241,.4)}
         .booking-badge .badge-label{font-size:.8rem;color:var(--text-2);font-weight:500}
+        .booking-badge .badge-scope{display:block;font-size:.62rem;margin-top:3px;color:var(--text-3)}
         .booking-badge.has-bookings .badge-count{animation:pulse-badge 2s infinite}
         @keyframes pulse-badge{0%,100%{transform:scale(1)}50%{transform:scale(1.15);box-shadow:0 0 20px rgba(99,102,241,.6)}}
         .admin-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem}
@@ -609,25 +610,9 @@
         .admin-booking .ab-client{font-size:.85rem;color:var(--text-2)}
         .admin-booking .ab-details{font-size:.78rem;color:var(--text-3);margin-top:4px;font-family:var(--mono)}
         .admin-booking .ab-date-time{font-size:.8rem;color:var(--cyan,#06b6d4);margin-top:2px}
-        .admin-booking .ab-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--text-3);font-size:1.2rem;cursor:pointer;transition:color .2s}
-        .admin-booking .ab-close:hover{color:#ef4444}
         .admin-actions{display:flex;gap:.75rem;margin-top:1rem}
         .admin-actions button{padding:8px 16px;border-radius:8px;border:none;font-weight:600;font-size:.82rem;cursor:pointer;font-family:var(--sans);transition:all .3s}
-        .btn-clear-all{background:#ef4444;color:#fff}
-        .btn-clear-all:hover{opacity:.8}
-
-        /* Music Toggle */
-        .music-toggle { position: fixed; bottom: 24px; left: 24px; z-index: 150; width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all .35s; box-shadow: 0 4px 20px rgba(0,0,0,.3); }
-        .music-toggle:hover { border-color: var(--accent); transform: scale(1.1); box-shadow: 0 0 20px rgba(99,102,241,.2); }
-        .music-toggle.playing { border-color: var(--accent); background: var(--accent-glow); }
-        .music-toggle .bars { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
-        .music-toggle .bar { width: 3px; background: var(--accent); border-radius: 2px; animation: none; }
-        .music-toggle.playing .bar { animation: music-bar .6s ease-in-out infinite alternate; }
-        .music-toggle.playing .bar:nth-child(1) { animation-delay: 0s; }
-        .music-toggle.playing .bar:nth-child(2) { animation-delay: .15s; }
-        .music-toggle.playing .bar:nth-child(3) { animation-delay: .3s; }
-        .music-toggle.playing .bar:nth-child(4) { animation-delay: .1s; }
-        @keyframes music-bar { 0% { height: 4px; } 100% { height: 16px; } }
+        .admin-actions button{background:var(--accent);color:#fff}.order-history-note{font-size:.8rem;line-height:1.7;color:var(--text-2);margin-bottom:1rem}.admin-booking .ab-details{overflow-wrap:anywhere}
 
         /* Admin Panel */
         .admin-login-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(15px);align-items:center;justify-content:center;padding:1rem}
@@ -657,13 +642,15 @@
         .section-hidden{opacity:0.15;pointer-events:none;filter:grayscale(1);transition:all .4s}
         .section-hidden::after{content:'HIDDEN BY ADMIN';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:1rem;color:var(--red);font-weight:700;letter-spacing:2px;z-index:10;background:rgba(0,0,0,0.8);padding:8px 20px;border-radius:8px;border:1px solid var(--red)}
     </style>
-    <link rel="stylesheet" href="assets/site-refresh.css?v=20260921-career-tools">
+    <link rel="stylesheet" href="assets/site-refresh.css?v=20260921-workflows">
     <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script defer src="assets/interview-prep.js?v=20260915-courses"></script>
     <script defer src="assets/career-tools.js?v=20260921"></script>
+    <script defer src="assets/order-config.js?v=20260921-updates"></script>
+    <script defer src="assets/order-history.js?v=20260921-updates"></script>
     <script defer src="assets/site-assistant-config.js?v=20260921"></script>
     <script defer src="assets/site-assistant-core.js?v=20260921-blueprints"></script>
-    <script defer src="assets/site-assistant.js?v=20260921"></script>
+    <script defer src="assets/site-assistant.js?v=20260921-workflows"></script>
 </head>
 <body>
 <div class="avail-banner">
@@ -1591,7 +1578,20 @@
     </div>
 </section>
 
-<footer>
+<footer id="resources">
+    <h2 class="footer-resources-heading">Free resources</h2>
+    <nav class="footer-resources" aria-label="Free resource libraries">
+        <div class="footer-resource" id="blueprints">
+            <div><a class="footer-resource-title" href="blueprints/"><i data-lucide="layers" aria-hidden="true"></i><span>Engineering Blueprints</span></a><p>500 engineering post templates</p><a class="footer-resource-tag" href="#blueprints" aria-label="Link to the Blueprints footer section">#blueprints</a></div>
+            <button type="button" class="footer-copy-link" data-copy-resource="blueprints" title="Copy Engineering Blueprints link" aria-label="Copy Engineering Blueprints link"><i data-lucide="link" aria-hidden="true"></i></button>
+        </div>
+        <div class="footer-resource" id="guides">
+            <div><a class="footer-resource-title" href="guides/"><i data-lucide="book-open" aria-hidden="true"></i><span>Free PDF Guides</span></a><p>50 guides / 200 pages</p><a class="footer-resource-tag" href="#guides" aria-label="Link to the Guides footer section">#guides</a></div>
+            <button type="button" class="footer-copy-link" data-copy-resource="guides" title="Copy Free PDF Guides link" aria-label="Copy Free PDF Guides link"><i data-lucide="link" aria-hidden="true"></i></button>
+        </div>
+    </nav>
+    <p class="resource-share-status" id="resourceShareStatus" role="status" aria-live="polite"></p>
+    <input id="resourceShareLink" class="resource-share-link" type="url" readonly aria-label="Resource link to copy" hidden>
     <p>&copy; 2026 <a href="https://github.com/yasirgrc08-techie" target="_blank" rel="noopener noreferrer">Yasir Arafat Sharfi</a>. Built with passion for systems engineering.</p>
 </footer>
 
@@ -1623,23 +1623,24 @@
 </div>
 
 <!-- Booking Tracker Badge -->
-<div class="booking-badge" id="bookingBadge" onclick="toggleAdmin()" title="Active Bookings (Ctrl+Shift+B)">
-    <div class="badge-count" id="badgeCount">0</div>
-    <div class="badge-label">Active<br>Bookings</div>
-</div>
+<button type="button" class="booking-badge" id="bookingBadge" onclick="toggleAdmin()" title="Cumulative order history">
+    <span class="badge-count" id="badgeCount">--</span>
+    <span class="badge-label">Total orders<small class="badge-scope" id="bookingScope">Loading</small></span>
+</button>
 
 <!-- Admin Panel -->
 <div class="admin-overlay" id="adminOverlay">
     <div class="admin-panel">
         <div class="admin-header">
-            <h3>&gt; active_bookings</h3>
-            <button class="modal-close" onclick="toggleAdmin()">&times;</button>
+            <h3>Order history</h3>
+            <button class="modal-close" onclick="toggleAdmin()" aria-label="Close order history">&times;</button>
         </div>
         <div class="admin-body" id="adminBody"></div>
     </div>
 </div>
 
 <!-- Booking Modal -->
+<input type="file" id="orderHistoryFile" accept=".json,application/json" hidden>
 <div class="modal-overlay" id="bookingModal">
     <div class="modal">
         <div class="modal-header">
@@ -2226,6 +2227,8 @@
                 }
             },
             notes: {
+                site_id: 'yasir-portfolio',
+                product_id: 'session',
                 session: booking.name,
                 date: booking.date,
                 time: booking.time,
@@ -2242,6 +2245,7 @@
     }
 
     function onPaymentSuccess(paymentId) {
+        if (!/^pay_[A-Za-z0-9]{6,40}$/.test(paymentId || '')) { alert('The payment reference is missing. Contact support before paying again.'); return; }
         // Track booking
         addBookingTracker(booking.name, booking.userName, booking.userEmail, booking.userPhone, booking.price, paymentId, booking.date, booking.time);
         // Show success step
@@ -2538,28 +2542,44 @@
     // Render any existing dynamic reviews on page load
     renderDynamicReviews();
 
+    document.querySelectorAll('[data-copy-resource]').forEach(function(button){
+        button.addEventListener('click', async function(){
+            var link = document.getElementById(button.dataset.copyResource).querySelector('.footer-resource-title');
+            var fallback = document.getElementById('resourceShareLink');
+            var status = document.getElementById('resourceShareStatus');
+            try {
+                await navigator.clipboard.writeText(link.href);
+                fallback.hidden = true;
+                status.textContent = link.textContent.trim() + ' link copied.';
+            } catch {
+                fallback.value = link.href;
+                fallback.hidden = false;
+                fallback.focus();
+                fallback.select();
+                status.textContent = 'Link selected for copying.';
+            }
+        });
+    });
+
     // ============ BOOKING TRACKER ============
-    function getTrackedBookings(){return JSON.parse(localStorage.getItem('yas_bookings')||'[]');}
-    function saveTrackedBookings(b){localStorage.setItem('yas_bookings',JSON.stringify(b));updateBadge();}
     function addBookingTracker(service,client,email,phone,amount,paymentId,date,time){
-        var b=getTrackedBookings();
-        b.push({id:Date.now(),service:service,client:client,email:email,phone:phone,amount:amount,paymentId:paymentId,date:date||'',time:time||'',booked:new Date().toISOString()});
-        saveTrackedBookings(b);
-    }
-    function removeTrackedBooking(id){
-        var b=getTrackedBookings().filter(function(x){return x.id!==id;});
-        saveTrackedBookings(b);
-        renderAdmin();
-    }
-    function clearAllTrackedBookings(){
-        if(!confirm('Clear ALL active bookings?'))return;
-        saveTrackedBookings([]);
-        renderAdmin();
+        if (!/^pay_[A-Za-z0-9]{6,40}$/.test(paymentId || '')) return;
+        var booked = new Date().toISOString();
+        window.SiteOrders?.recordPurchase({ paymentId: paymentId, productId: 'session', product: service, amount: Math.round(Number(amount) * 100), currency: 'INR', createdAt: booked });
+        try {
+            var bookings = JSON.parse(localStorage.getItem('yas_bookings') || '[]');
+            if (Array.isArray(bookings) && !bookings.some(function(item){return item.paymentId === paymentId;})) {
+                bookings.push({id:Date.now(),service:service,client:client,email:email,phone:phone,amount:amount,paymentId:paymentId,date:date||'',time:time||'',booked:booked});
+                localStorage.setItem('yas_bookings', JSON.stringify(bookings));
+            }
+        } catch {}
+        updateBadge();
     }
     function updateBadge(){
-        var count=getTrackedBookings().length;
-        document.getElementById('badgeCount').textContent=count;
-        document.getElementById('bookingBadge').classList.toggle('has-bookings',count>0);
+        var state = window.SiteOrders?.getState();
+        document.getElementById('badgeCount').textContent = state?.count ?? '--';
+        document.getElementById('bookingScope').textContent = !state ? 'Loading' : state.scope === 'site' ? state.stale ? 'Site-wide / last verified' : 'Site-wide verified' : 'This device only';
+        document.getElementById('bookingBadge').title = state?.warning || (state?.scope === 'site' ? 'Verified lifetime paid orders' : 'Cumulative receipt history on this device. A shared backend is not connected.');
     }
     function toggleAdmin(){
         var o=document.getElementById('adminOverlay');
@@ -2568,22 +2588,53 @@
     }
     document.getElementById('adminOverlay').addEventListener('click',function(e){if(e.target===this)toggleAdmin();});
     function renderAdmin(){
-        var b=getTrackedBookings();
-        var body=document.getElementById('adminBody');
-        if(b.length===0){body.innerHTML='<div class="admin-empty">// no active bookings<br>all clear \u2713</div>';return;}
-        var html='';
-        b.forEach(function(item){
-            html+='<div class="admin-booking">';
-            html+='<button class="ab-close" onclick="removeTrackedBooking('+item.id+')" title="Mark as addressed">\u2715</button>';
-            html+='<div class="ab-service">'+item.service+'</div>';
-            html+='<div class="ab-client">'+item.client+' &middot; '+item.email+'</div>';
-            if(item.date)html+='<div class="ab-date-time">'+item.date+(item.time?' &middot; '+item.time:'')+'</div>';
-            html+='<div class="ab-details">\u20b9'+item.amount+' &middot; '+item.paymentId+' &middot; '+new Date(item.booked).toLocaleDateString()+'</div>';
-            html+='</div>';
+        var body = document.getElementById('adminBody');
+        var orders = window.SiteOrders?.getOrders() || [];
+        var state = window.SiteOrders?.getState();
+        body.replaceChildren();
+        var note = document.createElement('p');
+        note.className = 'order-history-note';
+        note.textContent = orders.length + ' saved orders on this device. ' + (state?.scope === 'site' ? 'The badge shows the shared provider-verified total; individual records here remain private to this browser.' : 'A shared payment ledger is not connected, so this is not a count of all visitors\' purchases.') + ' History is retained; clearing browser data can still remove local records.' + (orders.length > 100 ? ' Showing the latest 100; backups include all records.' : '') + (state?.warning ? ' ' + state.warning : '');
+        body.append(note);
+        orders.slice(0, 100).forEach(function(item){
+            var row = document.createElement('div');
+            row.className = 'admin-booking';
+            var title = document.createElement('div');
+            title.className = 'ab-service';
+            title.textContent = item.product;
+            var details = document.createElement('div');
+            details.className = 'ab-details';
+            details.textContent = 'INR ' + (item.amount / 100).toFixed(2) + ' / ' + item.paymentId + ' / ' + new Date(item.createdAt).toLocaleDateString();
+            row.append(title, details);
+            body.append(row);
         });
-        html+='<div class="admin-actions"><button class="btn-clear-all" onclick="clearAllTrackedBookings()">Clear All ('+b.length+')</button></div>';
-        body.innerHTML=html;
+        var actions = document.createElement('div');
+        actions.className = 'admin-actions';
+        var backup = document.createElement('button');
+        backup.type = 'button'; backup.textContent = 'Export history'; backup.addEventListener('click', exportOrderHistory);
+        var restore = document.createElement('button');
+        restore.type = 'button'; restore.textContent = 'Restore history'; restore.addEventListener('click', function(){document.getElementById('orderHistoryFile').click();});
+        actions.append(backup, restore);
+        body.append(actions);
     }
+    function exportOrderHistory(){
+        if (!window.SiteOrders) return;
+        var url = URL.createObjectURL(new Blob([JSON.stringify(window.SiteOrders.backup(), null, 2)], {type:'application/json'}));
+        var anchor = document.createElement('a');
+        anchor.href = url; anchor.download = 'private-order-history.json'; anchor.click();
+        setTimeout(function(){URL.revokeObjectURL(url);}, 30000);
+    }
+    document.getElementById('orderHistoryFile').addEventListener('change', async function(event){
+        var file = event.target.files[0];
+        if (!file || !window.SiteOrders) return;
+        try {
+            if (file.size > 30 * 1024 * 1024) throw new Error('The backup exceeds the 30 MB import limit.');
+            window.SiteOrders.restore(JSON.parse(await file.text()));
+            renderAdmin();
+        } catch(error) { alert('History was not replaced. ' + error.message); }
+        event.target.value = '';
+    });
+    window.addEventListener('site-orders-updated', function(){updateBadge();if(document.getElementById('adminOverlay').classList.contains('active'))renderAdmin();});
     document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='B'){e.preventDefault();toggleAdmin();}});
     updateBadge();
 
@@ -2774,33 +2825,6 @@
     renderDsa();
 </script>
 
-<!-- Background Music -->
-<audio id="bgMusic" loop preload="auto" autoplay>
-    <source src="bgmusic.mp3" type="audio/mpeg">
-</audio>
-<button class="music-toggle playing" id="musicToggle" title="Toggle Music">
-    <div class="bars"><div class="bar" style="height:6px;"></div><div class="bar" style="height:10px;"></div><div class="bar" style="height:4px;"></div><div class="bar" style="height:8px;"></div></div>
-</button>
-<script>
-(function(){
-    var audio=document.getElementById('bgMusic');
-    var btn=document.getElementById('musicToggle');
-    audio.volume=0.3;
-    audio.play().catch(function(){});
-    btn.addEventListener('click',function(){
-        if(audio.paused){audio.play().then(function(){btn.classList.add('playing');}).catch(function(){});}
-        else{audio.pause();btn.classList.remove('playing');}
-    });
-    function tryPlay(){
-        if(!audio.paused)return;
-        audio.play().then(function(){btn.classList.add('playing');}).catch(function(){});
-    }
-    document.addEventListener('click',tryPlay,{once:true});
-    document.addEventListener('scroll',tryPlay,{once:true});
-    document.addEventListener('keydown',tryPlay,{once:true});
-    document.addEventListener('touchstart',tryPlay,{once:true});
-})();
-</script>
 
 <!-- Admin FAB -->
 <button class="admin-fab" id="adminFab" onclick="openAdminLogin()" title="Admin (Ctrl+Shift+A)">⚙️</button>

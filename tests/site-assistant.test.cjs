@@ -140,6 +140,9 @@ test('all public product pages include the same scoped support widget', () => {
     }
     const ui = readFileSync(join(__dirname, '../assets/site-assistant.js'), 'utf8');
     assert.ok(ui.includes("attachShadow({ mode: 'open' })"));
+    assert.ok(ui.includes('<span>Career Copilot</span>'));
+    assert.ok(ui.includes('Local site guide'));
+    assert.ok(!ui.includes('<span>Help</span>'));
     assert.ok(ui.includes('paragraph.textContent = result.text'));
     assert.ok(!ui.includes('localStorage'));
     assert.ok(!ui.includes('razorpay_payment_id'));

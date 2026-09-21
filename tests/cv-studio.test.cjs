@@ -336,6 +336,35 @@ test('readiness results expose points and limitations without fabricating employ
     assert.equal(generic.checks.find(check => check.id === 'columns').status, 'not-assessed');
 });
 
+test('readiness evidence cannot be earned by repeated lines or a skills-only buzzword list', () => {
+    const repeated = 'Built an API service and verified the workflow with automated tests.';
+    const input = reviewFixture({ text: 'Taylor Morgan\ntaylor@candidate.test\nExperience\n2023 - Present\n' + Array(8).fill(repeated).join('\n') + '\nSkills\nBuilt designed implemented API systems improved reliability verified testing Python PostgreSQL Docker Kubernetes' });
+    const report = readiness.analyze(input);
+    for (const id of ['actions', 'context', 'outcomes']) assert.equal(report.checks.find(check => check.id === id).points, 0);
+    assert.match(report.checks.find(check => check.id === 'actions').detail, /^1 distinct/);
+    const improved = readiness.analyze({ ...input, text: input.text.replace('\nSkills', '\nDiagnosed a database query bottleneck and measured lower latency under the same test workload.\nSkills') });
+    assert.equal(improved.checks.find(check => check.id === 'outcomes').points, 8);
+    assert.ok(improved.score > report.score);
+    const skillsOnly = readiness.analyze({ ...input, text: input.text.replace('Experience', 'Professional Summary') });
+    assert.equal(skillsOnly.checks.find(check => check.id === 'actions').points, 0);
+});
+
+test('readiness improvement plans prioritize real gaps and distinguish optional personal fields', () => {
+    const input = reviewFixture({ text: 'Taylor Morgan\nBackend Engineer\nExperience\nService Engineer, Northstar Labs, 2022-Present\nResponsible for maintaining a service used by the team every day.\nWorked on updating the database and preparing operational reports for the support team.\nSkills\nPython, PostgreSQL, Docker, Linux, Git, APIs, testing\nEducation\nDiploma in Software Engineering, City Technical College, 2021' });
+    const report = readiness.analyze(input);
+    const plan = readiness.improvementPlan(report);
+    assert.equal(plan.rating, 'Resolve core information first');
+    assert.ok(plan.priorities.some(item => item.id === 'email' && item.importance === 'important' && item.action.includes('contact')));
+    assert.ok(plan.fields.some(item => item.title.includes('photo') && item.importance === 'optional'));
+    assert.ok(report.revisions.some(item => item.before.includes('Responsible for')));
+    assert.ok(report.revisions.every(item => item.prompt.includes('facts you can support')));
+    const old = { ...report };
+    delete old.rulesVersion;
+    delete old.revisions;
+    assert.ok(readiness.reportDefinition(old));
+    assert.ok(JSON.stringify(readiness.reportDefinition(report).content).includes('Priority improvements'));
+});
+
 test('a review purchase fingerprint follows document and target changes but not a filename change', async () => {
     const initial = await readiness.fingerprint(reviewFixture(), webcrypto);
     assert.equal(initial.length, 64);

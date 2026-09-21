@@ -20,13 +20,14 @@ The selected `checkoutMode` in `config.js` is **`razorpay`**, matching the exist
 - 24 detailed role examples covering students, freshers, laterals/career changes, engineering disciplines, SRE, ML, QA, analysts, designers, product managers, writers, senior ICs, principals, engineering managers, and directors.
 - Yasir Sharfi is the sample identity. Employers, dates, qualifications, and achievements are illustrative, not his biography. Only exact untouched legacy samples migrate; user-authored drafts are not renamed.
 - Editorial preparation guidance for Microsoft, Google, Amazon, Meta, Apple, Netflix, NVIDIA, and general big-tech roles. No screening, interview, or offer guarantees.
-- Contact details, editable/reorderable sections and entries, section visibility, and undo/redo.
+- Contact details, editable/reorderable sections and entries, section visibility, undo/redo, and an explicit Apply & save action alongside autosave.
+- Important fields use an asterisk; other fields are labelled optional. Early-career education guidance follows the selected role. Drafts may remain incomplete, and optional personal details do not earn score points.
 - A4/US Letter, two font families, six accents, spacing, margins, body size, and page numbering.
 - Actual PDF rendering and pagination, a plain-text view, JSON source editing, and content checks.
 - Up to 10 local drafts, JSON import/export, and protection against corrupt storage and competing browser tabs.
-- Local photo cropping, JPEG/PNG storage, private access-receipt backups, and complete PDF/JSON/LaTeX/photo ZIPs.
-- Readiness reviews for PDF, DOCX, TXT, pasted text, or the current studio CV, with point-by-point improvements, keyword coverage, public company guidance, and PDF/JSON reports.
-- A dynamic `CV Tools` homepage button for templates, review, drafts, and local digital-purchase history. Existing booking controls are unchanged.
+- Local photo cropping, JPEG/PNG storage, private access-receipt backups, and complete PDF/JSON/LaTeX/photo ZIPs. Paid ZIPs also contain the purchase receipt; restore the CV JSON and access receipt to resume on another browser without buying all-template access again.
+- Readiness reviews for PDF, DOCX, TXT, pasted text, or the current studio CV, with an explained rating, prioritized gaps, important/optional field checks, truthful rewrite prompts, keyword coverage, public company guidance, and PDF/JSON reports.
+- A dynamic `CV Tools` homepage button for templates, review, drafts, and local digital-purchase history. All paid products now also feed an append-only local order history; the optional shared ledger is documented in `orders/README.md`.
 
 There are no cloud accounts, shared drafts, collaboration, AI resume generation, or online LaTeX compilation. Source mode edits CV JSON. LaTeX is a portable source layout, not an exact reproduction of every PDF design. Select **XeLaTeX** in Overleaf. Community exports use the attributed format with adapted Unicode fonts and generated content. A portable Tectonic check was attempted, but its runtime download timed out before compilation; escaping and package contents are tested, actual TeX compilation remains unverified.
 
@@ -38,13 +39,17 @@ CV text, photographs, uploaded documents, job descriptions, PDF generation, and 
 
 The page requests interface fonts from Google Fonts. Rendering engines, PDF fonts, parsers, previews, and icons are local assets. Razorpay loads when purchasing. After a successful callback, the existing EmailJS merchant notification receives the receipt email, product, price, and payment reference, not CV text, photos, job descriptions, or reports. Notification failure does not revoke access. Third-party scripts execute on the page; this is not an isolation guarantee against their code.
 
-A CV backup contains personal data and any photo. A report backup contains report excerpts, its fingerprint, and purchase receipt. Keep them private. Browser-mode restoration validates the product/report and receipt shape, not provider state. Contact support with the payment reference if storage and backups are lost. No automated email/account recovery is implemented. Digital orders use `yas_digital_orders`; calendar records in `yas_bookings` are unchanged.
+A CV backup contains personal data and any photo. A paid complete ZIP also includes its access receipt. A report backup contains report excerpts, its fingerprint, and purchase receipt. Keep them private. Browser-mode restoration validates the product/report and receipt shape, not provider state. Contact support with the payment reference if storage and backups are lost. No automated email/account recovery is implemented. Digital orders use `yas_digital_orders`; original calendar records in `yas_bookings` are preserved. The cumulative ledger copies these into separate per-payment records without deleting the originals.
 
 **Not DRM:** the renderer, review rules, source, and receipt logic are public browser code. Even optional server verification cannot make a client-owned renderer secret. Stronger enforcement needs an authorized server-owned service and revised privacy model.
 
 ## Review Methodology
 
 The English-language checklist normalizes earned points against available points to 100. It checks readable text, encoding, common file-size guidance, heuristic column signals, contact/section/date context, contribution verbs, work context, outcome/validation signals, concision, placeholders, and target-term coverage. Unknown checks are excluded. Company selection changes guidance, not an invented employer score.
+
+Scoring rules version 2 uses distinct statements under recognized Experience, Projects, or related headings. Repeated claims, summary buzzwords, and skills lists do not earn work-evidence points. Outcomes require a contribution, context, and result/validation signal in the same extracted statement. This conservative heuristic can miss information split across PDF lines or unusual headings; inspect the extracted text. No rule verifies truthfulness. Prioritized suggestions show actual missing checklist points, not guaranteed gains in an employer system. Rewrite structures contain prompts, not fabricated achievements.
+
+The report schema and purchase fingerprint protocol remain compatible with existing receipts and saved reports. Older reports retain their original score. The same unchanged CV/target can be reassessed under current rules using its existing receipt; the upgrade itself does not require another purchase.
 
 Terms use supported aliases and up to 20 explicit requirements. Matching distinguishes Java/JavaScript and supports C++, C#, and .NET. It is not semantic job matching or a test of proficiency, eligibility, authenticity, or actual ATS acceptance. Names, photos, age, and personal characteristics are not positive scoring signals. Do not invent metrics or achievements to improve a checklist score.
 
@@ -79,7 +84,7 @@ The committed Worker configuration uses the same public Razorpay merchant key ID
 
 ### Existing Website Integration
 
-CV Studio has a main-navigation entry and a dedicated `#cv-studio` homepage section, using the website's existing theme. Its editor links back to that section. Existing paid sheets, courses, bookings, and their checkout code are unchanged.
+CV Studio has a main-navigation entry and a dedicated `#cv-studio` homepage section, using the website's existing theme. Its editor links back to that section. Existing prices, paid-product boundaries, and session booking behavior are preserved. Successful callbacks now record cumulative history and include site/product metadata for the optional signed webhook ledger.
 
 The checked website's `initiatePayment` and course `checkoutOptions` pass the public merchant key and amount to Razorpay, then process its browser callback. Booking tracking uses the `yas_bookings` browser-storage key. No server order-creation or signature-verification endpoint is configured in those flows. If an existing service is deployed elsewhere, provide its public API base URL or source location, not private keys, so it can be connected to the payment contract below. No new Razorpay account is required.
 

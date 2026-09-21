@@ -1,6 +1,6 @@
 import * as pdfjs from './vendor/pdf.mjs';
 import { initCatalogue } from './catalog.js?v=20260921-assistant';
-import { initReadiness } from './ats-ui.js?v=20260921-catalog';
+import { initReadiness } from './ats-ui.js?v=20260921-workflows';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdf.worker.mjs', import.meta.url).href;
 if (document.readyState === 'loading') await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }));
@@ -124,8 +124,9 @@ function historyMove(direction) {
     renderEditor(); refreshControls(); save(); queuePreview();
 }
 
-function field(label, fieldName, value, { full = false, area = false, limit = 350, attributes = '' } = {}) {
-    return `<label class="${full ? 'full' : ''}">${escapeHtml(label)}${area ? `<textarea data-field="${fieldName}" maxlength="${limit}" rows="4" ${attributes}>${escapeHtml(value)}</textarea>` : `<input data-field="${fieldName}" maxlength="${limit}" value="${escapeHtml(value)}" ${attributes}>`}</label>`;
+function field(label, fieldName, value, { full = false, area = false, important = false, limit = 350, attributes = '' } = {}) {
+    const marker = important ? '<span class="field-important" aria-label="Important">*</span>' : '<small class="field-optional">Optional</small>';
+    return `<label class="${full ? 'full' : ''}"><span class="field-label">${escapeHtml(label)} ${marker}</span>${area ? `<textarea data-field="${fieldName}" maxlength="${limit}" rows="4" aria-describedby="fieldLegend" ${attributes}>${escapeHtml(value)}</textarea>` : `<input data-field="${fieldName}" maxlength="${limit}" value="${escapeHtml(value)}" aria-describedby="fieldLegend" ${attributes}>`}</label>`;
 }
 
 function renderEditor() {
@@ -134,13 +135,14 @@ function renderEditor() {
     const open = existing.length ? new Set([...existing].filter(details => details.open).map(details => details.dataset.block)) : new Set(['contact', 'experience']);
     const document = resume();
     const contactFields = [['Full name','name'],['Professional headline','headline'],['Email','email'],['Phone','phone'],['Location','location'],['Portfolio / website','website'],['LinkedIn URL','linkedin'],['GitHub URL','github']];
-    element('editorFields').innerHTML = `<details class="editor-section" data-block="contact" ${open.has('contact') ? 'open' : ''}><summary>Contact <small>Identity &amp; links</small></summary><div class="field-grid" data-basics>${contactFields.map(([label, name]) => field(label, name, document.basics[name], { full: ['name','headline'].includes(name), limit: name === 'headline' ? 180 : 350, attributes: name === 'email' ? 'type="email" autocomplete="email"' : '' })).join('')}</div></details>` + document.sections.map((section, sectionIndex) => {
+    element('editorFields').innerHTML = `<details class="editor-section" data-block="contact" ${open.has('contact') ? 'open' : ''}><summary>Contact <small>Identity &amp; links</small></summary><div class="field-grid" data-basics>${contactFields.map(([label, name]) => field(label, name, document.basics[name], { full: ['name','headline'].includes(name), important: ['name','headline','email'].includes(name), limit: name === 'headline' ? 180 : 350, attributes: name === 'email' ? 'type="email" autocomplete="email"' : '' })).join('')}</div></details>` + document.sections.map((section, sectionIndex) => {
         const attributes = `data-section="${section.id}"`;
         const simple = ['summary', 'skills', 'languages'].includes(section.kind);
+        const important = ['experience', 'projects'].includes(section.kind) || (section.kind === 'education' && ['graduate', 'intern'].includes(document.role));
         return `<details class="editor-section${section.visible ? '' : ' is-hidden'}" data-block="${section.id}" ${attributes} ${open.has(section.id) ? 'open' : ''}><summary>${escapeHtml(section.title)}${section.visible ? '' : '<small>Hidden</small>'}</summary>
             <div class="section-actions"><label class="check-label"><input type="checkbox" data-visible ${section.visible ? 'checked' : ''}> Include</label>${tool('section-up','arrow-up','Move section up',sectionIndex === 0 ? 'disabled' : '')}${tool('section-down','arrow-down','Move section down',sectionIndex === document.sections.length - 1 ? 'disabled' : '')}${tool('section-delete','trash-2','Remove section')}</div>
             <label class="sr-only">Section heading</label><input class="section-title-input" aria-label="Section heading" data-section-title maxlength="80" value="${escapeHtml(section.title)}">
-            ${simple ? `<div class="field-grid">${field(section.kind === 'summary' ? 'Professional summary' : section.kind === 'skills' ? 'Skills grouped by category' : 'Languages and proficiency', 'content', section.content, { full: true, area: true, limit: 3500 })}</div>` : section.items.map((item, index) => `<div class="entry-block" data-item="${index}"><div class="entry-heading"><h3>Entry ${index + 1}</h3><div class="entry-actions">${tool('item-up','arrow-up','Move entry up',index === 0 ? 'disabled' : '')}${tool('item-down','arrow-down','Move entry down',index === section.items.length - 1 ? 'disabled' : '')}${tool('item-delete','trash-2','Remove entry')}</div></div><div class="field-grid">${field(section.kind === 'education' ? 'Degree / qualification' : section.kind === 'projects' ? 'Project name' : 'Role / title', 'heading', item.heading, { full: true, limit: 180 })}${field(section.kind === 'education' ? 'Institution' : 'Organization / context', 'subheading', item.subheading, { full: true, limit: 180 })}${field('Start', 'start', item.start, { limit: 40 })}${field('End', 'end', item.end, { limit: 40 })}${field('Location', 'location', item.location, { full: true, limit: 120 })}${field('Public link', 'url', item.url, { full: true })}${field('Evidence bullets / one per line', 'bullets', item.bullets.join('\n'), { full: true, area: true, limit: 10500 })}</div></div>`).join('')}
+            ${simple ? `<div class="field-grid">${field(section.kind === 'summary' ? 'Professional summary' : section.kind === 'skills' ? 'Skills grouped by category' : 'Languages and proficiency', 'content', section.content, { full: true, area: true, important: section.kind === 'skills', limit: 3500 })}</div>` : section.items.map((item, index) => `<div class="entry-block" data-item="${index}"><div class="entry-heading"><h3>Entry ${index + 1}</h3><div class="entry-actions">${tool('item-up','arrow-up','Move entry up',index === 0 ? 'disabled' : '')}${tool('item-down','arrow-down','Move entry down',index === section.items.length - 1 ? 'disabled' : '')}${tool('item-delete','trash-2','Remove entry')}</div></div><div class="field-grid">${field(section.kind === 'education' ? 'Degree / qualification' : section.kind === 'projects' ? 'Project name' : 'Role / title', 'heading', item.heading, { full: true, important, limit: 180 })}${field(section.kind === 'education' ? 'Institution' : 'Organization / context', 'subheading', item.subheading, { full: true, important: important && section.kind !== 'projects', limit: 180 })}${field('Start', 'start', item.start, { important, limit: 40 })}${field('End / Present', 'end', item.end, { important, limit: 40 })}${field('Location', 'location', item.location, { full: true, limit: 120 })}${field('Public link', 'url', item.url, { full: true })}${field('Evidence bullets / one per line', 'bullets', item.bullets.join('\n'), { full: true, area: true, important: ['experience', 'projects'].includes(section.kind), limit: 10500 })}</div></div>`).join('')}
             ${simple ? '' : `<button type="button" class="command secondary entry-add" data-action="item-add">${icon('plus')} Add entry</button>`}
         </details>`;
     }).join('');
@@ -324,6 +326,9 @@ function addDraft(document) {
 
 function billingChanged(state) {
     element('billingStatus').textContent = state.message;
+    element('exportPrice').hidden = state.active;
+    element('templateAccessOffer').hidden = state.active;
+    element('catalogAccessStatus').textContent = state.active ? 'All 32 templates unlocked' : 'All layouts / INR 49 once';
     element('payButton').disabled = !state.ready || state.active || paying || billing?.hasPending() || billing?.hasAccess();
     element('purchaseForm').hidden = state.active;
     element('downloadPdf').disabled = !state.active || exporting;
@@ -331,7 +336,7 @@ function billingChanged(state) {
     element('downloadProject').disabled = !state.active || exporting;
     element('retryPayment').hidden = billing?.mode === 'razorpay' || (!billing?.hasPending() && !(billing?.hasAccess() && !state.active));
     element('backupAccess').disabled = !state.active;
-    element('accessBadge').textContent = state.active ? billing?.mode === 'razorpay' ? 'Access saved' : 'Access verified' : state.ready ? 'All templates / INR 49' : 'Checkout unavailable';
+    element('accessBadge').textContent = state.active ? 'All templates unlocked' : state.ready ? 'All templates / INR 49' : 'Checkout unavailable';
     element('accessBadge').classList.toggle('active', state.active);
 }
 
@@ -341,14 +346,16 @@ async function exportPaid(format) {
     exporting = true; billingChanged(billing.state);
     try {
         await billing.authorize();
+        save();
         const document = clone(resume());
         if (format === 'pdf') download(new Blob([await bufferFor(document, false)], { type: 'application/pdf' }), exporter.filename(document, 'pdf'));
         else if (format === 'project') {
             const files = Object.fromEntries(Object.entries(exporter.projectFiles(document)).map(([name, data]) => [name, typeof data === 'string' ? window.fflate.strToU8(data) : data]));
             files['resume.pdf'] = new Uint8Array(await bufferFor(document, false));
+            files['cv-studio-access-receipt.json'] = window.fflate.strToU8(JSON.stringify(billing.accessReceipt(), null, 2));
             download(new Blob([window.fflate.zipSync(files)], { type: 'application/zip' }), exporter.filename(document, 'zip'));
         } else download(new Blob([exporter.latex(document)], { type: 'application/x-tex;charset=utf-8' }), exporter.filename(document, 'tex'));
-        notify(format === 'pdf' ? 'PDF export prepared.' : format === 'project' ? 'Complete template package prepared.' : 'LaTeX source prepared for XeLaTeX.');
+        notify(format === 'pdf' ? 'PDF export prepared.' : format === 'project' ? 'Private template ZIP prepared, including your editable CV and access receipt.' : 'LaTeX source prepared for XeLaTeX.');
     } catch (error) { element('billingStatus').textContent = error.message; }
     finally { exporting = false; billingChanged({ ...billing.state, message: element('billingStatus').textContent }); }
 }
@@ -452,7 +459,17 @@ element('templateGrid').addEventListener('click', event => {
 });
 for (const [id, setting] of [['cvFont','font'],['fontSize','fontSize'],['spacing','spacing'],['paper','paper'],['margins','margins'],['pageNumbers','pageNumbers']]) element(id).addEventListener('change', event => commit(draft => { draft.settings[setting] = setting === 'pageNumbers' ? event.target.checked : ['fontSize','margins'].includes(setting) ? Number(event.target.value) : event.target.value; }, { markEdited: false }));
 element('accentSwatches').addEventListener('change', event => commit(draft => { draft.settings.accent = event.target.value; }, { markEdited: false }));
-for (const [id, fieldName] of [['targetRole','role'],['targetCompany','company']]) element(id).addEventListener('change', event => commit(draft => { draft[fieldName] = event.target.value; }, { markEdited: false }));
+for (const [id, fieldName] of [['targetRole','role'],['targetCompany','company']]) element(id).addEventListener('change', event => {
+    if (invalidInputs.size || sourceDirty) { notify('Apply source changes and correct highlighted fields before changing the target.'); refreshControls(); return; }
+    commit(draft => { draft[fieldName] = event.target.value; }, { fields: fieldName === 'role', markEdited: false });
+});
+
+element('applyDetails').addEventListener('click', () => {
+    if (invalidInputs.size || sourceDirty) { notify('Correct highlighted fields and apply source changes before saving.'); return; }
+    save();
+    queuePreview();
+    if (!storagePaused && !storageFailed) notify('Changes applied to ' + model.findTemplate(resume().template).name + ' and saved on this device.');
+});
 
 document.querySelectorAll('[data-side]').forEach(button => button.addEventListener('click', () => {
     document.querySelectorAll('[data-side]').forEach(tab => tab.setAttribute('aria-selected', String(tab === button)));

@@ -1,6 +1,6 @@
-# Website Support Assistant
+# Career Copilot
 
-The Help button is present on the portfolio, CV Studio, guide library, and the four paid sheet/course pages. It is additive: it does not replace CV Tools, booking controls, payment flows, or existing content.
+The Career Copilot launcher is present on the portfolio, CV Studio, guide and blueprint libraries, and the four paid sheet/course pages. It is additive: it does not replace CV Tools, booking controls, payment flows, or existing content. The new name does not imply that an AI backend has been connected.
 
 ## Working Now
 
@@ -47,7 +47,7 @@ node --test tests/site-assistant.test.cjs
 node --test tests/cv-studio.test.cjs tests/interview-prep.test.cjs tests/guides.test.cjs
 ```
 
-Browser checks should cover all seven pages, mobile/desktop panel bounds, guided template selection, draft preservation, unapplied-source guards, downloads, tab continuity, corrupt history, clear chat, off-site requests, and AI outage fallback. Existing payment and locked-content behavior must remain unchanged. No real payment or billable AI call is needed for these tests.
+Browser checks should cover all eight pages, mobile/desktop panel bounds, guided template selection, draft preservation, unapplied-source guards, downloads, tab continuity, corrupt history, clear chat, off-site requests, and AI outage fallback. Existing payment and locked-content behavior must remain unchanged. No real payment or billable AI call is needed for these tests.
 
 ## References
 

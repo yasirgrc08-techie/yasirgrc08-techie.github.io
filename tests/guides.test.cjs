@@ -63,3 +63,17 @@ test('public library requires no checkout or login and preserves separate paid o
     assert.ok(!/razorpay|course-page\.js|course-content\.js|emailjs/i.test(html));
     assert.ok(html.includes('<noscript>'));
 });
+
+test('homepage footer exposes both libraries with unique tags and share controls', () => {
+    const html = fs.readFileSync(path.join(root, '..', 'index.html'), 'utf8');
+    const footer = html.match(/<footer id="resources">([\s\S]*?)<\/footer>/)?.[1];
+    assert.ok(footer);
+    for (const id of ['blueprints', 'guides']) {
+        assert.ok(footer.includes('href="' + id + '/"'));
+        assert.ok(footer.includes('href="#' + id + '"'));
+        assert.ok(footer.includes('data-copy-resource="' + id + '"'));
+        assert.equal(html.match(new RegExp('id="' + id + '"', 'g')).length, 1);
+    }
+    assert.ok(footer.includes('resourceShareStatus'));
+    assert.ok(footer.includes('resourceShareLink'));
+});

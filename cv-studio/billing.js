@@ -189,7 +189,7 @@
             name: 'Yasir Arafat Sharfi', description: product.title,
             image: 'https://yasirgrc08-techie.github.io/images/personal/yasir_amazon.jpeg',
             prefill: { email }, theme: { color: '#176b5b' },
-            notes: { product_id: product.id, product_type: 'digital-product', ...(order.reference ? { purchase_reference: order.reference } : {}) },
+            notes: { site_id: 'yasir-portfolio', product_id: product.id, product_type: 'digital-product', ...(order.reference ? { purchase_reference: order.reference } : {}) },
             handler, modal: { ondismiss: dismiss }
         };
     }
@@ -237,6 +237,7 @@
 
     function recordDigitalPurchase(receipt, details, storage) {
         if (!Object.hasOwn(products, receipt.product) || !/^pay_[A-Za-z0-9]{6,40}$/.test(receipt.paymentId || '')) return false;
+        globalThis.SiteOrders?.recordPurchase({ paymentId: receipt.paymentId, productId: receipt.product, product: products[receipt.product].title, amount: receipt.amount, currency: receipt.currency, createdAt: receipt.purchasedAt });
         try {
             if (!storage) return false;
             const raw = storage.getItem('yas_digital_orders');

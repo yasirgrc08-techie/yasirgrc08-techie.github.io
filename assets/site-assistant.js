@@ -15,9 +15,9 @@
     stylesheet.href = new URL('site-assistant.css?v=20260921', assets).href;
     shadow.append(stylesheet);
     const shell = document.createElement('div');
-    shell.innerHTML = `<button id="help-launcher" type="button" aria-expanded="false" aria-controls="help-panel" title="Website help and guided tasks"><span data-icon="MessageCircle" aria-hidden="true">?</span><span>Help</span></button>
+    shell.innerHTML = `<button id="help-launcher" type="button" aria-expanded="false" aria-controls="help-panel" title="Career Copilot: website guidance"><span data-icon="Compass" aria-hidden="true">?</span><span>Career Copilot</span></button>
         <section id="help-panel" role="dialog" aria-modal="false" aria-labelledby="help-title" hidden>
-            <header><div class="help-mark" data-icon="Compass" aria-hidden="true"></div><div class="help-heading"><h2 id="help-title">Site Assistant</h2><span id="help-mode">Local site guide</span></div><button type="button" class="tool" id="help-clear" title="Clear this chat" aria-label="Clear this chat"><span data-icon="RotateCcw" aria-hidden="true"></span></button><a class="tool" id="help-human" title="Contact human support" aria-label="Contact human support"><span data-icon="Mail" aria-hidden="true"></span></a><button type="button" class="tool" id="help-close" title="Close help" aria-label="Close help"><span data-icon="X" aria-hidden="true"></span></button></header>
+            <header><div class="help-mark" data-icon="Compass" aria-hidden="true"></div><div class="help-heading"><h2 id="help-title">Career Copilot</h2><span id="help-mode">Local site guide</span></div><button type="button" class="tool" id="help-clear" title="Clear this chat" aria-label="Clear this chat"><span data-icon="RotateCcw" aria-hidden="true"></span></button><a class="tool" id="help-human" title="Contact human support" aria-label="Contact human support"><span data-icon="Mail" aria-hidden="true"></span></a><button type="button" class="tool" id="help-close" title="Close Career Copilot" aria-label="Close Career Copilot"><span data-icon="X" aria-hidden="true"></span></button></header>
             <div id="help-context"></div>
             <div id="help-log" role="log" aria-label="Support conversation" aria-live="polite" aria-relevant="additions text" tabindex="0"></div>
             <div id="help-ai-control" hidden><label><input id="help-ai" type="checkbox"> AI-assisted understanding</label><span>Questions go to the configured AI service only when enabled.</span></div>
@@ -146,7 +146,7 @@
         }
         if (action.command && ['backup', 'review-current'].includes(action.command) && !location.pathname.includes('/cv-studio/')) {
             const result = core.answer(action.command === 'backup' ? 'How do I save my CV?' : 'Review my current CV');
-            result.text = 'Open your current CV first, then choose this action from Help inside the studio. I will not automatically download a file or process a draft just by changing pages.';
+            result.text = 'Open your current CV first, then choose this action from Career Copilot inside the studio. I will not automatically download a file or process a draft just by changing pages.';
             result.actions = [core.safeAction('editor')];
             appendAssistant(result);
             return;
@@ -177,7 +177,7 @@
         article.className = 'message assistant';
         const label = document.createElement('span');
         label.className = 'message-label';
-        label.textContent = result.ai ? 'Site guide / AI-assisted match' : 'Site guide';
+        label.textContent = result.ai ? 'Career Copilot / AI-assisted match' : 'Career Copilot';
         const paragraph = document.createElement('p');
         paragraph.textContent = result.text;
         article.append(label, paragraph);

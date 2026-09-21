@@ -17,7 +17,7 @@
             name: 'Yasir Arafat Sharfi', description: course.title + ' - self-study course',
             image: 'https://yasirgrc08-techie.github.io/images/personal/yasir_amazon.jpeg',
             prefill: { email }, theme: { color: '#087565' },
-            notes: { product_id: course.id, product_type: 'interview-prep-course' },
+            notes: { site_id: 'yasir-portfolio', product_id: course.id, product_type: 'interview-prep-course' },
             handler, modal: { ondismiss: dismiss }
         };
     }
@@ -166,6 +166,7 @@
                 return;
             }
             receipt = candidate;
+            window.SiteOrders?.recordPurchase({ paymentId: receipt.paymentId, productId: 'course-' + course.id, product: course.title, amount: course.price * 100, currency: 'INR', createdAt: receipt.purchasedAt });
             try { localStorage.setItem(keys.access, JSON.stringify(receipt)); } catch { storageAvailable = false; }
             finishCheckout();
             syncAccess();

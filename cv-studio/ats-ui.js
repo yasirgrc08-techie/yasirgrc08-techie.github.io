@@ -23,15 +23,16 @@ export function initReadiness({ model, readiness, importer, billingApi, config, 
                     <div class="ats-input-actions"><button class="command secondary" type="button" id="useStudioCv">${icon('file-pen-line')} Use current studio CV</button><button class="command secondary" type="button" id="chooseReviewFile">${icon('upload')} Upload your CV</button></div>
                     <input id="reviewFile" type="file" accept=".pdf,.docx,.txt" hidden>
                     <p class="ats-file-status" id="reviewFileStatus" role="status">PDF, DOCX, or TXT / up to 5 MB / English</p>
-                    <label class="ats-label" for="reviewText">CV text <span id="reviewTextLabel">or paste your own CV</span></label>
+                    <label class="ats-label" for="reviewText">CV text * <span id="reviewTextLabel">or paste your own CV</span></label>
                     <textarea id="reviewText" rows="8" maxlength="75000" placeholder="Paste your CV text" spellcheck="false"></textarea>
                     <div class="ats-step"><span>02</span><h2>Target role</h2></div>
-                    <div class="ats-targets"><label>Role<select id="reviewRole">${roleOptions}</select></label><label>Company guidance<select id="reviewCompany">${companyOptions}</select></label></div>
+                    <div class="ats-targets"><label>Target role *<select id="reviewRole">${roleOptions}</select></label><label>Company guidance / optional<select id="reviewCompany">${companyOptions}</select></label></div>
                     <label class="ats-label" for="reviewJob">Job description <span>optional / local only</span></label><textarea id="reviewJob" rows="5" maxlength="12000" placeholder="Paste the relevant job description"></textarea>
                     <label class="ats-label" for="reviewRequirements">Key requirements <span>optional / comma separated</span></label><input id="reviewRequirements" maxlength="1000" placeholder="Python, PostgreSQL, mentoring">
-                    <label class="ats-label" for="reviewEmail">Receipt email</label><input id="reviewEmail" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com">
+                    <label class="ats-label" for="reviewEmail">Receipt email * <span>required only for a new purchase</span></label><input id="reviewEmail" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com">
                     <div class="ats-step"><span>03</span><h2>Prepare review</h2></div>
-                    <label class="check-label"><input type="checkbox" id="reviewConsent" required> I have permission to process this CV locally.</label>
+                    <label class="check-label"><input type="checkbox" id="reviewConsent" required> I have permission to process this CV locally. *</label>
+                    <p class="subtle">* Required input. Optional details do not automatically earn score points.</p>
                     <button class="command primary wide" type="submit" id="prepareReview">${icon('scan-text')} Check readability first</button>
                 </fieldset>
                 <p id="reviewStatus" class="ats-status" role="status" aria-live="polite"></p>
@@ -84,6 +85,7 @@ export function initReadiness({ model, readiness, importer, billingApi, config, 
         const stringFields = [report.label, report.methodology, report.limitation, report.source.name, report.guidance.role, report.guidance.company, ...report.warnings, ...report.coverage.matched, ...report.coverage.missing];
         if (stringFields.some(text => typeof text !== 'string' || text.length > 3000)) return false;
         if (report.checks.some(check => !check || !['pass', 'review', 'not-assessed'].includes(check.status) || [check.title, check.detail, check.recommendation, check.category].some(text => typeof text !== 'string' || text.length > 3000) || !Number.isFinite(check.maximum) || check.maximum < 0 || check.maximum > 100 || (check.points !== null && (!Number.isFinite(check.points) || check.points < 0 || check.points > check.maximum)))) return false;
+        if (report.revisions !== undefined && (!Array.isArray(report.revisions) || report.revisions.length > 2 || report.revisions.some(item => !item || [item.before, item.structure, item.prompt].some(text => typeof text !== 'string' || text.length > 1500)))) return false;
         const receipt = value.receipt;
         return Boolean(receipt && receipt.version === 2 && receipt.product === 'cv-readiness-v1' && receipt.scope === value.fingerprint && receipt.amount === 900 && receipt.currency === 'INR' && receipt.mode === 'razorpay-browser' && /^pay_[A-Za-z0-9]{6,40}$/.test(receipt.paymentId || ''));
     }
@@ -116,11 +118,17 @@ export function initReadiness({ model, readiness, importer, billingApi, config, 
         currentReport = record;
         const report = record.report;
         const company = model.findCompany(report.company);
+        const plan = readiness.improvementPlan(report);
         element('reviewPlaceholder').hidden = true;
         element('reviewReport').hidden = false;
         element('reviewReport').innerHTML = `<div class="review-score"><div><span>${escapeHtml(report.label)}</span><strong>${report.score}<small>/100</small></strong><p>${escapeHtml(report.earned)} / ${escapeHtml(report.available)} available points</p></div><div><h2>${escapeHtml(report.source.name)}</h2><p>${escapeHtml(model.findRole(report.role).name)}</p><p>${escapeHtml(company.name)} / ${escapeHtml(report.wordCount)} words</p></div></div>
+            <p class="review-rating"><strong>${escapeHtml(plan.rating)}</strong><span>${plan.assessed} of ${plan.total} checks assessed. ${escapeHtml(plan.scope)}</span></p>
             <p class="report-limitation">${escapeHtml(report.limitation)}</p>
             <div class="report-actions"><button class="command secondary" type="button" data-report-export="pdf">${icon('file-down')} PDF report</button><button class="command secondary" type="button" data-report-export="json">${icon('save')} Report backup</button></div>
+            <section class="report-section"><h3>Priority improvements</h3>${plan.priorities.length ? `<ol class="report-priorities">${plan.priorities.slice(0, 6).map(item => `<li><h4>${escapeHtml(item.title)}${item.importance === 'important' ? ' <span class="field-important" aria-label="Important">*</span>' : ''}</h4><small>${item.recoverable} checklist points currently missing</small><p>${escapeHtml(item.detail)}</p><p class="report-recommendation">${escapeHtml(item.action)}</p></li>`).join('')}</ol>` : '<p>No failed assessed checks. Verify factual accuracy, job requirements, and reading order manually.</p>'}<p class="subtle">These are checklist gaps, not promised employer-score gains. Reassess only after making accurate, relevant changes.</p></section>
+            ${(report.revisions || []).length ? `<section class="report-section"><h3>Strengthen your evidence</h3>${report.revisions.map(item => `<article class="revision-example"><h4>From your CV</h4><blockquote>${escapeHtml(item.before)}</blockquote><h4>A stronger structure</h4><p>${escapeHtml(item.structure)}</p><p class="subtle">${escapeHtml(item.prompt)}</p></article>`).join('')}</section>` : ''}
+            <section class="report-section"><h3>Field importance</h3><dl class="field-review">${plan.fields.map(item => `<div><dt>${escapeHtml(item.title)} ${item.importance === 'important' ? '<span class="field-important" aria-label="Important">*</span>' : '<span class="field-optional">Optional</span>'}</dt><dd><strong>${item.status === 'pass' ? 'Detected' : item.status === 'review' ? 'Needs attention' : 'Manual check'}</strong> / ${escapeHtml(item.detail)}</dd></div>`).join('')}</dl></section>
+            <h3 class="small-heading">All scored checks</h3>
             <div class="report-checks">${report.checks.map(check => `<article class="report-check ${check.status}"><div><span class="check-marker">${icon(check.status === 'pass' ? 'check' : check.status === 'review' ? 'circle-alert' : 'minus')}</span><h3>${escapeHtml(check.title)}</h3><span>${check.points === null ? 'N/A' : check.points + '/' + check.maximum}</span></div><p>${escapeHtml(check.detail)}</p>${check.recommendation ? `<p class="report-recommendation">${escapeHtml(check.recommendation)}</p>` : ''}</article>`).join('')}</div>
             <section class="report-section"><h3>Job-description terms</h3><p class="subtle">Mentioned terms are not proof of proficiency. Include a requirement only when supported by your actual experience.</p><div class="keyword-group">${report.coverage.matched.map(term => `<span class="keyword">${escapeHtml(term)}</span>`).join('')}${report.coverage.missing.map(term => `<span class="keyword missing">${escapeHtml(term)} / not found</span>`).join('')}</div>${!report.coverage.assessed ? '<p>No job-specific terms were assessed.</p>' : ''}</section>
             <section class="report-section"><h3>${escapeHtml(company.name)} and role guidance</h3><p>${escapeHtml(report.guidance.role)}</p><p>${escapeHtml(report.guidance.company)}</p>${company.url ? `<a href="${company.url}" target="_blank" rel="noopener noreferrer">Official company guidance ${icon('arrow-up-right')}</a>` : ''}</section>

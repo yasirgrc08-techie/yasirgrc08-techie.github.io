@@ -85,9 +85,11 @@ tr:hover{background:var(--bg2)}
 <script defer src="../assets/interview-data.js"></script>
 <script defer src="../assets/interview-depth.js?v=20260915-courses"></script>
 <script defer src="../assets/interview-prep.js?v=20260915-courses"></script>
-<script defer src="../assets/site-assistant-config.js?v=20260921"></script>
+    <script defer src="../assets/order-config.js?v=20260921-updates"></script>
+    <script defer src="../assets/order-history.js?v=20260921-updates"></script>
+    <script defer src="../assets/site-assistant-config.js?v=20260921"></script>
 <script defer src="../assets/site-assistant-core.js?v=20260921"></script>
-<script defer src="../assets/site-assistant.js?v=20260921"></script>
+<script defer src="../assets/site-assistant.js?v=20260921-workflows"></script>
 </head>
 <body class="sheet-page">
 <div class="container">
@@ -1863,7 +1865,10 @@ function unlockSheet() {
         image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
         prefill: { email: email },
         theme: { color: '#6366f1' },
+        notes: { site_id: 'yasir-portfolio', product_id: 'sheet-dsa' },
         handler: function(response) {
+            if (!/^pay_[A-Za-z0-9]{6,40}$/.test(response.razorpay_payment_id || '')) { alert('The payment reference is missing. Contact support before paying again.'); return; }
+            window.SiteOrders?.recordPurchase({ paymentId: response.razorpay_payment_id, productId: 'sheet-dsa', product: 'DSA Sheet', amount: 4900, currency: 'INR' });
             const code = generateCode();
             localStorage.setItem(SHEET_KEY, 'true');
             localStorage.setItem(CODE_KEY, code);
