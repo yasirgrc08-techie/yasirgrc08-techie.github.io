@@ -31,7 +31,7 @@
             const identity = { stack: header, width: '*' };
             content.push({ columns: template.photo === 'left' ? [photo, identity] : [identity, photo], columnGap: 18 });
         } else if (template.source === 'bajaj') {
-            content.push({ columns: [{ stack: header.slice(0, 2), width: '*' }, { text: contacts, fontSize: 9, width: 210, alignment: 'right' }], columnGap: 14 });
+            content.push({ columns: [{ stack: header.slice(0, resume.basics.headline ? 2 : 1), width: '*' }, { text: contacts, fontSize: 9, width: 210, alignment: 'right' }], columnGap: 14 });
         } else content.push(...header);
         if (template.nameRule) content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: (settings.paper === 'A4' ? 595.28 : 612) - settings.margins * 2, y2: 0, lineWidth: 1.5, lineColor: accent }], margin: [0, 2, 0, 5] });
 

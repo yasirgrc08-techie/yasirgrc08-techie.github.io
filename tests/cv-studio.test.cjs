@@ -283,6 +283,16 @@ test('licensed template exports preserve attribution and use only the selected C
     assert.equal(JSON.parse(files['cv-studio.json']).basics.name, 'Yasir & Sharfi');
 });
 
+test('community PDF layout keeps contacts single when the headline is omitted', () => {
+    const document = model.starterForTemplate('bajaj-clean');
+    document.basics.headline = '';
+    const heading = exporter.pdfDefinition(document).content[0].columns;
+    assert.equal(heading[0].stack.length, 1);
+    assert.equal(heading[0].stack[0].text, 'Yasir Sharfi');
+    assert.ok(!JSON.stringify(heading[0]).includes(document.basics.email));
+    assert.ok(JSON.stringify(heading[1]).includes(document.basics.email));
+});
+
 function reviewFixture(overrides = {}) {
     return { text: model.plainText(model.starter('backend')).replaceAll('Sample Product Co.', 'Northstar Labs Ltd.').replaceAll('Sample Institute of Technology', 'City Technical University').replaceAll('example.com', 'candidate.test'), role: 'backend', company: 'general', jobText: 'Backend role requiring Python, PostgreSQL, APIs, testing, Docker, and Kubernetes for reliable services.', source: { kind: 'pdf', name: 'candidate.pdf', bytes: 48000, pages: 1, columns: false, hasImages: false }, ...overrides };
 }
