@@ -1,0 +1,94 @@
+{
+  "libraries": {
+    "pdfmake": "0.2.20",
+    "pdfjs": "4.10.38",
+    "lucide": "0.468.0"
+  },
+  "assets": [
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/build/pdfmake.min.js",
+      "bytes": 1402214,
+      "sha256": "c2fd3a5e24db096c9139bb7d266765de433b0b866d03ba356c2ef4d9ae1a53b7"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
+      "bytes": 658371,
+      "sha256": "a209a2124baa35cbb9015b809926f1bcec9dd1c247296290e205dd9d76cb9128"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
+      "bytes": 2209730,
+      "sha256": "7c237f83fa56bce645d8af51d183c9c56ba7b2d2928ff42754dc7020bea36323"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js",
+      "bytes": 357796,
+      "sha256": "3411692820cb8d47543f69496aa25fd603a358f4498046f41c508a5a3342210e"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/LICENSE",
+      "bytes": 1134,
+      "sha256": "009e509bbd25a0f7572b184781707263f5df9e89d2ed751c46e0f6edf0c5d42e"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/LICENSE",
+      "bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/lucide@0.468.0/LICENSE",
+      "bytes": 880,
+      "sha256": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/OFL.txt",
+      "bytes": 4407,
+      "sha256": "74ba064d03f1f1c4a952da936c3eb71866c34404916734de3cae73b34357e59e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/OFL.txt",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Regular.ttf",
+      "bytes": 656568,
+      "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Bold.ttf",
+      "bytes": 656544,
+      "sha256": "8a0aace75d33794eece4b28187bfc1df0bbd2888b5d8a56e01788c8d65d16be1"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Italic.ttf",
+      "bytes": 722900,
+      "sha256": "e399c44efe1387100531d26c7e4800c5d12251b890d6654a3098c7c679cb1786"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-BoldItalic.ttf",
+      "bytes": 698364,
+      "sha256": "62c1b7f0d2e74b45960154c3520efc337b553db0961bfdc950d5618334596cc8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Regular.ttf",
+      "bytes": 163068,
+      "sha256": "e882efa9c41949a528ac2369079ec5ef050c1c996bbd0bacce3c3326d44cf80d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Bold.ttf",
+      "bytes": 163800,
+      "sha256": "534c02c295999dd86e770457ece1d43db0de9256dd98bf741426f63ae904209e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Italic.ttf",
+      "bytes": 173004,
+      "sha256": "4b75b38be4673527231f49c48818d090c913d5042dd5c747b525bf6185d29ecb"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-BoldItalic.ttf",
+      "bytes": 173032,
+      "sha256": "2a32b76ac19c1942bf5942dbbd2a1566e5f1ae9833e421ebcf36d3522715e153"
+    }
+  ]
+}

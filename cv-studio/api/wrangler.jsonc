@@ -1,0 +1,16 @@
+{
+  "name": "yasir-cv-studio-payments",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-21",
+  "vars": {
+    "ALLOWED_ORIGINS": "",
+    "RAZORPAY_KEY_ID": ""
+  },
+  "ratelimits": [
+    {
+      "name": "CHECKOUT_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ]
+}
