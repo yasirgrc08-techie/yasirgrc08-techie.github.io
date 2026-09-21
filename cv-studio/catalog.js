@@ -18,15 +18,15 @@ export function initCatalogue({ model, createDraft, applyLayout, isBlocked, onEd
         icons();
     }
 
-    function openTemplate(id) {
+    function openTemplate(id, roleId, blank = false) {
         selected = model.findTemplate(id);
         element('templateDialogTitle').textContent = selected.name;
         element('templateDescription').textContent = selected.description;
         element('templateMetadata').textContent = model.levels[selected.level] + ' / ' + (selected.layout === 'single' ? 'Single column' : 'Two columns') + (selected.photo ? ' / Optional photo' : '');
         element('templatePreviewImage').src = 'previews/' + selected.id + '.png?v=20260921-catalog';
         element('templatePreviewImage').alt = selected.name + ' example for ' + model.findRole(selected.role).name;
-        element('templateRole').value = selected.role;
-        element('templateExample').checked = true;
+        element('templateRole').value = model.roles.some(role => role.id === roleId) ? roleId : selected.role;
+        element('templateExample').checked = !blank;
         element('templateStatus').textContent = '';
         const source = model.sources[selected.source];
         element('templateAttribution').innerHTML = source ? `Format adapted from <a href="${source.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.name)}</a> (${source.license}). <a href="${source.overleaf}" target="_blank" rel="noopener noreferrer">Original on Overleaf</a>. Attribution is retained in the source download.` : 'Original CV Studio layout. Example role and current draft can be changed independently.';

@@ -1,5 +1,5 @@
 import * as pdfjs from './vendor/pdf.mjs';
-import { initCatalogue } from './catalog.js?v=20260921-catalog';
+import { initCatalogue } from './catalog.js?v=20260921-assistant';
 import { initReadiness } from './ats-ui.js?v=20260921-catalog';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdf.worker.mjs', import.meta.url).href;
@@ -594,7 +594,7 @@ const catalogue = initCatalogue({ model, createDraft: addDraft, applyLayout: id 
 document.querySelectorAll('button[data-screen]').forEach(button => button.addEventListener('click', () => showScreen(button.dataset.screen)));
 const initialParameters = new URLSearchParams(location.search);
 showScreen(initialParameters.get('view') === 'review' ? 'ats' : initialParameters.get('view') || 'catalog');
-if (model.templates.some(template => template.id === initialParameters.get('template'))) catalogue.openTemplate(initialParameters.get('template'));
+if (model.templates.some(template => template.id === initialParameters.get('template'))) catalogue.openTemplate(initialParameters.get('template'), initialParameters.get('role'), initialParameters.get('sample') === 'blank');
 
 function drawPhotoCrop() {
     if (!cropImage) return;
@@ -641,4 +641,51 @@ element('reviewBeforeExport').addEventListener('click', () => {
     showScreen('ats');
     readinessView.useCurrent();
 });
-window.CvStudio = { current: () => clone(resume()), pdfPages: () => pdfDocument?.numPages || 0, navigate: showScreen, hasUnappliedEdits: () => Boolean(sourceDirty || invalidInputs.size), currentReport: readinessView.getReport };
+function supportGuard() {
+    if (sourceDirty || invalidInputs.size) return 'Apply or discard source changes and correct highlighted fields before continuing.';
+    if (document.querySelector('dialog[open]')) return 'Close the current dialog before opening another editor step.';
+    if (paying || exporting || readinessView.isBusy()) return 'Wait for the current export, payment, or local review operation to finish.';
+    return '';
+}
+
+function supportTemplate(templateId, roleId) {
+    const blocked = supportGuard();
+    if (blocked) return { ok: false, message: blocked };
+    if (!model.templates.some(template => template.id === templateId) || !model.roles.some(role => role.id === roleId)) return { ok: false, message: 'Choose a supported template and role.' };
+    showScreen('catalog');
+    catalogue.openTemplate(templateId, roleId, true);
+    return { ok: true };
+}
+
+function supportAction(command) {
+    const sections = ['contact', 'summary', 'experience', 'projects', 'education', 'skills'];
+    if (![...sections, 'checks', 'drafts', 'backup', 'exports', 'review-current'].includes(command)) return { ok: false, message: 'That action is not supported by the site guide.' };
+    const blocked = supportGuard();
+    if (blocked) return { ok: false, message: blocked };
+    if (command === 'review-current') {
+        showScreen('ats');
+        readinessView.useCurrent();
+        return { ok: true };
+    }
+    showScreen('editor');
+    if (command === 'drafts') showDrafts();
+    else if (command === 'backup') backup();
+    else if (command === 'exports') { billingChanged(billing.state); element('exportDialog').showModal(); }
+    else if (command === 'checks') element('tabReview').click();
+    else {
+        element('tabDetails').click();
+        const sectionId = command === 'contact' ? 'contact' : resume().sections.find(section => section.kind === command)?.id;
+        const details = sectionId && [...element('editorFields').querySelectorAll('details')].find(item => item.dataset.block === sectionId);
+        if (!details) return { ok: false, message: 'This CV has no ' + command + ' section yet. Use Add section in the editor; no content has been added automatically.' };
+        details.open = true;
+        details.scrollIntoView({ block: 'nearest' });
+        details.querySelector('textarea, input:not([type=checkbox]), button')?.focus({ preventScroll: true });
+    }
+    return { ok: true };
+}
+
+window.CvStudio = { current: () => clone(resume()), pdfPages: () => pdfDocument?.numPages || 0, navigate: showScreen, hasUnappliedEdits: () => Boolean(sourceDirty || invalidInputs.size), currentReport: readinessView.getReport, supportAction, supportTemplate };
+if (['contact', 'summary', 'experience', 'projects', 'education', 'skills', 'checks', 'drafts', 'exports'].includes(initialParameters.get('help'))) {
+    const result = supportAction(initialParameters.get('help'));
+    if (!result.ok) notify(result.message);
+}
