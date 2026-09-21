@@ -2,7 +2,9 @@
   "libraries": {
     "pdfmake": "0.2.20",
     "pdfjs": "4.10.38",
-    "lucide": "0.468.0"
+    "lucide": "0.468.0",
+    "mammoth": "1.9.0",
+    "fflate": "0.8.2"
   },
   "assets": [
     {
@@ -51,6 +53,26 @@
       "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
     },
     {
+      "url": "https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js",
+      "bytes": 634129,
+      "sha256": "2a0c24d419b8b6b307b2c59dcad9ac045ef43c29fdb23f3b0f2e82d5b09287fe"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mwilliamson/mammoth.js/e2725a567640af3d9170d5cb4df24f85c642a7a6/LICENSE",
+      "bytes": 1307,
+      "sha256": "6663bbd049205d38a496ccacb412a151980b444627d38de218b3b809aef330f1"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js",
+      "bytes": 32665,
+      "sha256": "c3b34f2e9f5e74d4d7d64e01cac7a0c01954c6c406414d42185c7b53d6875ddf"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/fflate@0.8.2/LICENSE",
+      "bytes": 1069,
+      "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+    },
+    {
       "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Regular.ttf",
       "bytes": 656568,
       "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
@@ -89,6 +111,16 @@
       "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-BoldItalic.ttf",
       "bytes": 173032,
       "sha256": "2a32b76ac19c1942bf5942dbbd2a1566e5f1ae9833e421ebcf36d3522715e153"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sb2nov/resume/7b70fe14876f97180034787f2a7f661597416a17/sourabh_bajaj_resume.tex",
+      "bytes": 8798,
+      "sha256": "fab6099239831d1f46f1426279ae48a32fffe089b71371ebe5b4864e9e621834"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sb2nov/resume/7b70fe14876f97180034787f2a7f661597416a17/LICENSE",
+      "bytes": 1081,
+      "sha256": "08546cf0ac1da1138f5e15486c78cdb564e10799e6aca91b390b36f0ddd9c510"
     }
   ]
 }

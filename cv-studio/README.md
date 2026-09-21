@@ -1,43 +1,64 @@
 # CV Studio
 
-An independent, browser-based engineering CV editor at `/cv-studio/`, inspired by the template/editor/preview workflow of Overleaf. The layouts and fictional examples are original; this is not an Overleaf clone or an employer-endorsed service.
+An independent browser-based CV editor and readiness reviewer at `/cv-studio/`. It includes original layouts and attributed adaptations of an MIT-licensed format available on Overleaf. It is not an Overleaf clone, an employer product, or a reproduction of private ATS scoring.
 
-## Launch Status
+## Products and Checkout
 
-The frontend is a launch preview. `config.js` intentionally contains an empty `apiBase`, so it cannot collect a payment or unlock the supported PDF/LaTeX export controls. Editing, watermarked PDF preview, local drafts, and JSON backups work without payment.
+The selected `checkoutMode` in `config.js` is **`razorpay`**, matching the existing website's browser checkout pattern and public merchant key. This does not require the optional server API. Payment starts only when a visitor chooses to purchase and supplies a receipt email. No calendar, appointment, or recurring subscription is created.
 
-The intended price is **INR 49 once**, for all layouts and supported PDF/LaTeX exports, not INR 49 per template. The Worker fixes the amount to **4900 paise / INR**. The existing paid sheets, courses, mentoring sessions, and free PDF guides are separate and unchanged.
+- **INR 49 once / 4900 paise:** all 32 layouts, PDF and LaTeX exports, and complete template ZIPs. Template switching does not require another purchase. Editing, local drafts, watermarked preview, and JSON backups are available before purchase.
+- **INR 9 / 900 paise per readiness report:** one CV and target snapshot. A SHA-256 fingerprint binds the local receipt to text, target role/company, requirements, and document properties. Reopening or downloading that report is free. A changed CV or target is a new review.
+- Existing paid sheets, courses, mentoring sessions, and free guides remain separate and unchanged.
 
-**Hosting constraint:** [GitHub Pages usage limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) prohibit using Pages for a site primarily offering commercial SaaS or facilitating commercial transactions. Keep this GitHub Pages route as a non-paying project preview. The repository can remain on personal GitHub, but deploy the commercial frontend and payment Worker to a host whose terms permit the intended service before enabling checkout. Cloudflare Pages/Workers is one option to evaluate; no external account or paid hosting has been provisioned. Do not enable the paid CV service on the current GitHub Pages route.
+**Billing limitation:** selected browser mode trusts the Razorpay callback and a local receipt, like the site's existing digital products. It does not independently verify capture, signatures, amount, refunds, or disputes with Razorpay's API. Browser checks isolate products but are not a secure authorization boundary. A determined visitor can forge local access. Merchant support must reconcile references and handle refunds in Razorpay. No real money was charged during testing; mocked callbacks do not prove live merchant settlement.
+
+**Hosting constraint:** [GitHub Pages usage limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) restrict sites primarily offering commercial SaaS or facilitating transactions. Reusing existing checkout does not remove that restriction. The owner must arrange suitable commercial hosting before treating this as a compliant production business deployment. Source may stay on GitHub. No external hosting account, paid plan, or private payment service was provisioned.
 
 ## Included
 
-- 16 original layouts: 13 single-column and 3 two-column variations.
-- 12 fictional starting examples: graduate, backend, frontend, full-stack, mobile, platform/SRE, data, ML, security, systems, technical lead, and research.
+- 32 searchable layouts: simple, project-first, academic, leadership, four optional-photo layouts, and two attributed community-format adaptations.
+- 24 detailed role examples covering students, freshers, laterals/career changes, engineering disciplines, SRE, ML, QA, analysts, designers, product managers, writers, senior ICs, principals, engineering managers, and directors.
+- Yasir Sharfi is the sample identity. Employers, dates, qualifications, and achievements are illustrative, not his biography. Only exact untouched legacy samples migrate; user-authored drafts are not renamed.
 - Editorial preparation guidance for Microsoft, Google, Amazon, Meta, Apple, Netflix, NVIDIA, and general big-tech roles. No screening, interview, or offer guarantees.
 - Contact details, editable/reorderable sections and entries, section visibility, and undo/redo.
 - A4/US Letter, two font families, six accents, spacing, margins, body size, and page numbering.
 - Actual PDF rendering and pagination, a plain-text view, JSON source editing, and content checks.
 - Up to 10 local drafts, JSON import/export, and protection against corrupt storage and competing browser tabs.
-- Server-verified purchase access, pending-verification retry, and private access-receipt backup/restoration.
+- Local photo cropping, JPEG/PNG storage, private access-receipt backups, and complete PDF/JSON/LaTeX/photo ZIPs.
+- Readiness reviews for PDF, DOCX, TXT, pasted text, or the current studio CV, with point-by-point improvements, keyword coverage, public company guidance, and PDF/JSON reports.
+- A dynamic `CV Tools` homepage button for templates, review, drafts, and local digital-purchase history. Existing booking controls are unchanged.
 
-There are no cloud accounts, shared drafts, simultaneous collaboration, AI resume generation, or online LaTeX compilation. Source mode edits the structured CV JSON. LaTeX export produces a portable single-column XeLaTeX document; it does not reproduce every two-column PDF design. Select **XeLaTeX** when importing that source into Overleaf. A local TeX compiler was not available during development, so source escaping is tested but a real LaTeX compilation remains a release check.
+There are no cloud accounts, shared drafts, collaboration, AI resume generation, or online LaTeX compilation. Source mode edits CV JSON. LaTeX is a portable source layout, not an exact reproduction of every PDF design. Select **XeLaTeX** in Overleaf. Community exports use the attributed format with adapted Unicode fonts and generated content. A portable Tectonic check was attempted, but its runtime download timed out before compilation; escaping and package contents are tested, actual TeX compilation remains unverified.
 
 The embedded fonts cover many Latin-script names and text, not every writing system. Verify glyphs and extracted text for the language you use. Two-column reading order varies across parsers; a simple single-column layout is the conservative choice when the employer does not specify a format. Replace all fictional details and use only claims you can substantiate.
 
 ## Privacy and Access Limits
 
-CV contents, job-description text, PDF generation, and draft storage stay in the browser. They are not sent to the payment Worker or an AI service. Drafts are not encrypted, and any script on the same site origin can access that origin's browser storage. Shared devices and other applications on this GitHub Pages origin should be treated accordingly. Browser storage is not a durable backup.
+CV text, photographs, uploaded documents, job descriptions, PDF generation, and review calculations stay in the browser. They are not sent to payment APIs or AI services. Drafts and reports are not encrypted; scripts on the same origin can access its browser storage. Browser storage is not a durable backup, especially on shared devices.
 
-The page requests interface fonts from Google Fonts; GitHub Pages and font hosts receive ordinary web requests. PDF fonts, rendering engines, template previews, and icons are local assets. Razorpay's checkout script is loaded only when an enabled purchase is started. Payment information entered into checkout is handled by Razorpay.
+The page requests interface fonts from Google Fonts. Rendering engines, PDF fonts, parsers, previews, and icons are local assets. Razorpay loads when purchasing. After a successful callback, the existing EmailJS merchant notification receives the receipt email, product, price, and payment reference, not CV text, photos, job descriptions, or reports. Notification failure does not revoke access. Third-party scripts execute on the page; this is not an isolation guarantee against their code.
 
-A CV JSON backup contains personal CV data. An **access receipt** contains a bearer purchase credential, not CV data. Do not publish either file. An access receipt can restore the purchase on another browser only after server verification. If browser storage and the receipt are both lost, contact support with the payment reference. Automated email/account recovery is not implemented.
+A CV backup contains personal data and any photo. A report backup contains report excerpts, its fingerprint, and purchase receipt. Keep them private. Browser-mode restoration validates the product/report and receipt shape, not provider state. Contact support with the payment reference if storage and backups are lost. No automated email/account recovery is implemented. Digital orders use `yas_digital_orders`; calendar records in `yas_bookings` are unchanged.
 
-**This is not DRM or an unbypassable paywall.** The document model, renderer, preview bytes, and source code are shipped to the browser. A determined user can bypass frontend controls or reproduce a document. Server verification prevents a fabricated payment from being accepted by the supported checkout flow; it cannot make a client-owned renderer secret. Stronger export enforcement would require a separately authorized server-rendering design and a revised privacy model.
+**Not DRM:** the renderer, review rules, source, and receipt logic are public browser code. Even optional server verification cannot make a client-owned renderer secret. Stronger enforcement needs an authorized server-owned service and revised privacy model.
 
-## Activate Verified Checkout
+## Review Methodology
 
-Activation requires the owner's Razorpay account, Cloudflare account, and private credentials. No private keys belong in GitHub, `config.js`, browser code, issue comments, or chat. Review hosting limits/charges and payment-provider fees before deployment.
+The English-language checklist normalizes earned points against available points to 100. It checks readable text, encoding, common file-size guidance, heuristic column signals, contact/section/date context, contribution verbs, work context, outcome/validation signals, concision, placeholders, and target-term coverage. Unknown checks are excluded. Company selection changes guidance, not an invented employer score.
+
+Terms use supported aliases and up to 20 explicit requirements. Matching distinguishes Java/JavaScript and supports C++, C#, and .NET. It is not semantic job matching or a test of proficiency, eligibility, authenticity, or actual ATS acceptance. Names, photos, age, and personal characteristics are not positive scoring signals. Do not invent metrics or achievements to improve a checklist score.
+
+Free preflight precedes payment. Unreadable, scanned-only, oversized, unsupported-language, and still-placeholder-filled input is rejected. Limits: 5 MB, 12 PDF pages, 75,000 extracted characters, and a 20-second parser timeout. DOCX checks reject macros/embedded executables, unsafe paths, excessive expansion, and inconsistent metadata. Parsing runs in a disposable worker; document HTML is never injected. PDF column detection is heuristic. DOCX/pasted text cannot establish page count or visual layout reliably. No OCR is included.
+
+Up to 30 reports are saved locally with their receipt, fingerprint, and timestamp, not a cloud copy of the upload. Changes to the CV or target create a new review snapshot.
+
+## Template Attribution
+
+`bajaj-clean` and `bajaj-editorial` adapt [Sourabh Bajaj's MIT-licensed resume format](https://github.com/sb2nov/resume), also [on Overleaf](https://www.overleaf.com/latex/templates/software-engineer-resume/gqxmqsvsbdjf), pinned to `7b70fe14876f97180034787f2a7f661597416a17`. Only formatting is retained, not the author's career history. The MIT notice is included in source and ZIP exports. Modifications: generated document body, Unicode font setup, and selected paper size. Browser PDF rendering is a reimplementation, not pixel-identical TeX output. No author or Overleaf endorsement/support is implied. Other layouts and role examples are original.
+
+## Optional Verified Backend
+
+The retained server implementation supports the **INR 49 template product only**, not INR 9 report entitlements. It is not used by selected browser mode. Server-backed report access needs additional product/scope enforcement. Private keys belong in encrypted secrets, never source or chat. Review provider fees and hosting costs.
 
 1. Use a **test-mode** Razorpay key pair first. In `api/wrangler.jsonc`, set the public `RAZORPAY_KEY_ID` to the matching test key and configure `ALLOWED_ORIGINS` with the exact development origin, including its port. Use a separate Worker name for staging. Never enable test-mode checkout on the public production page.
 2. Install Node.js and use Wrangler **4.36.0 or newer**. Run deployment commands from `cv-studio/api`. The `ratelimits` binding is required; choose a namespace ID unique to this application in the Cloudflare account. Anonymous order requests use a coarse per-IP/per-route limit, which can affect people sharing a network; it is not exact global accounting.
@@ -49,10 +70,10 @@ Activation requires the owner's Razorpay account, Cloudflare account, and privat
    npx wrangler@4 deploy
    ```
 
-4. For a local test of the frontend, set `apiBase` in a local, unpublished copy of `config.js` to the deployed Worker **origin**, such as `https://your-staging-worker.your-subdomain.workers.dev`, with no `/api` path. Serve the site over localhost HTTP. Use provider-documented test payment methods only.
+4. For local testing, set `checkoutMode` to `verified` and `apiBase` to the Worker **origin**, without an `/api` path. Use provider test credentials. The INR 9 reviewer remains browser-mode and must not be described as verified.
 5. Complete the release checks below. Configure automatic capture in Razorpay, or capture approved payments through the provider before verification; this application does not auto-capture an authorized payment. A paid-but-unverified transaction must be retried, not paid for again.
-6. Review and publish your customer-facing support, refund, privacy, and access terms before accepting live payments. Confirm merchant/KYC readiness and an operational recovery/refund process. The editor does not initiate refunds; refunds performed in Razorpay revoke access on the next verification.
-7. Deploy the frontend on an approved commercial host, still using this GitHub repository as its source. Update its canonical/Open Graph URL to the production domain and verify its navigation links. Deploy a production Worker with the matching live key pair and set `ALLOWED_ORIGINS` to the exact commercial frontend origin. Set that frontend's `apiBase` to the Worker origin only after successful staging checks. Keep the GitHub Pages preview's `apiBase` empty, using a separate deployment configuration for the commercial host. Update the portfolio entry to link to the commercial URL only after live checkout has actually been verified.
+6. Review customer-facing support/refund/privacy terms and merchant readiness. Only verified mode automatically rechecks refunds. Browser mode requires merchant support and reconciliation.
+7. Use a commercial host whose terms permit the service and the exact origin in `ALLOWED_ORIGINS`. Update canonical URLs and keep private credentials in Worker secrets. No external hosting migration or account creation is included here.
 
 The committed Worker configuration uses the same public Razorpay merchant key ID as the existing website. It has no allowed origin, private credentials, or deployed API URL. This reuses the merchant account configuration, not a verified connection to an order service. The public key must match the private provider key stored on the Worker. Do not assume the previously used client-only access system for other site products authorizes CV Studio.
 
@@ -62,7 +83,7 @@ CV Studio has a main-navigation entry and a dedicated `#cv-studio` homepage sect
 
 The checked website's `initiatePayment` and course `checkoutOptions` pass the public merchant key and amount to Razorpay, then process its browser callback. Booking tracking uses the `yas_bookings` browser-storage key. No server order-creation or signature-verification endpoint is configured in those flows. If an existing service is deployed elsewhere, provide its public API base URL or source location, not private keys, so it can be connected to the payment contract below. No new Razorpay account is required.
 
-## Payment Contract
+## Verified API Contract
 
 | Route | Behavior |
 | --- | --- |
@@ -71,7 +92,7 @@ The checked website's `initiatePayment` and course `checkoutOptions` pass the pu
 | `POST /api/verify` | Verifies the order proof and Razorpay HMAC, then checks payment/order state directly with the provider. |
 | `GET /api/access` | Validates a signed access token and rechecks capture, amount, currency, product, and refund state. |
 
-The product ID is `cv-studio-v1`. An access token is bound to the order/payment and does not expire by time alone; every supported export and receipt restoration revalidates it online. Any refunded amount denies access. Provider errors deny authorization. An expired pending order proof requires support investigation; keep the payment ID and do not charge the customer again merely because proof verification failed.
+In verified mode, `cv-studio-v1` tokens are bound to provider order/payment and rechecked online on export. Refunded amounts deny access. This does not apply to browser receipts. Keep payment references and do not pay twice merely because verification failed.
 
 Only exact allowed origins receive CORS access. CORS is not authentication. Order/verification/access requests are rate-limited, request proof bodies are bounded, and responses are not cached. The Worker does not maintain a user database or a webhook ledger; provider availability is required for exports. Do not log authorization headers, proof bodies, or signing secrets.
 
@@ -86,20 +107,22 @@ node cv-studio/tools/vendor.mjs
 node cv-studio/tools/build-previews.cjs
 ```
 
-`vendor.mjs` is only needed when intentionally refreshing dependencies. It downloads pinned pdfmake 0.2.20, PDF.js 4.10.38, Lucide 0.468.0, font files, and their licenses, and records source URLs and hashes in `vendor/manifest.json`. `build-previews.cjs` uses Windows Node plus WSL Python/PyMuPDF to generate 16 preview images and verify 29 real PDFs, including all role starters and a four-page long CV. Do not rebuild the unrelated guide PDFs for a CV-only change.
+`vendor.mjs` pins pdfmake 0.2.20, PDF.js 4.10.38, Lucide 0.468.0, Mammoth 1.9.0, fflate 0.8.2, template format, fonts, and licenses. Hashes are recorded in `vendor/manifest.json`; `.gitattributes` preserves vendor bytes. `build-previews.cjs` uses Windows Node and WSL Python/PyMuPDF to generate 32 thumbnails and verify 59 real PDFs, including role examples, a long CV, and readiness reports. Representative ZIPs are round-tripped. Set `CV_TECTONIC` to an available compiler for optional checks of four source projects. Do not rebuild unrelated guides.
 
 ### Release Checks
 
 - Run the CV model/export/payment tests and existing interview/guide regression tests.
 - Generate real PDFs and verify selectable text, nonblank pages, expected content, pagination, and bounds.
 - Test desktop and narrow mobile layouts, template switching, section changes, undo, drafts, JSON import errors, reload persistence, and corrupt-storage protection.
-- Verify payment unavailability never blocks editing/PDF preview and never enables a purchase.
-- In Razorpay test mode, verify success, cancel, failure, authorized-but-uncaptured status, wrong product/amount, bad signatures, pending retry, and refund revocation. Backend mocks and browser simulations are not a substitute for this provider test.
+- Verify payment script failure never blocks the editor/preview. Browser mocks cover success, cancel, failure, missing references, isolated receipts, reload, restore, and same-report reuse.
+- The owner must verify live merchant readiness and settlement. Browser callbacks cannot establish capture/refund state. Only optional backend tests cover signatures, capture, wrong amounts/products, and refund revocation.
 - Test purchase receipt backup/restoration and each export; ensure CV data is absent from payment requests.
 - Compile an exported `.tex` file with XeLaTeX before advertising compiler-validated source compatibility.
 
 ### References
 
 - [Overleaf CV gallery](https://www.overleaf.com/gallery/tagged/cv) and [project download workflow](https://docs.overleaf.com/managing-projects-and-files/downloading-a-project), used for workflow research only.
+- [Sourabh Bajaj's format and MIT license](https://github.com/sb2nov/resume).
+- [Greenhouse parsing limitations](https://support.greenhouse.io/hc/en-us/articles/200989175-Unsuccessful-resume-parse), [Microsoft hiring guidance](https://careers.microsoft.com/v2/global/en/hiring-tips), and [Amazon applications](https://www.amazon.jobs/content/en/how-we-hire/online-application).
 - [Razorpay web integration](https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/integration-steps/).
 - [Cloudflare secrets](https://developers.cloudflare.com/workers/configuration/secrets/) and [rate-limit binding](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).

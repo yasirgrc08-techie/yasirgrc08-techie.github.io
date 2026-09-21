@@ -1,4 +1,6 @@
 import * as pdfjs from './vendor/pdf.mjs';
+import { initCatalogue } from './catalog.js?v=20260921-catalog';
+import { initReadiness } from './ats-ui.js?v=20260921-catalog';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdf.worker.mjs', import.meta.url).href;
 if (document.readyState === 'loading') await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }));
@@ -34,6 +36,7 @@ let zoom = 'fit';
 let paying = false;
 let exporting = false;
 let billing;
+let cropImage = null;
 const invalidInputs = new Set();
 
 function icons() { if (window.lucide) { window.lucide.createIcons(); document.documentElement.classList.add('icons-ready'); } }
@@ -65,7 +68,7 @@ function loadDrafts() {
         storagePaused = true;
         notify('Saved drafts could not be read. They have not been deleted. Saving is paused; keep a JSON backup of this visit.', true);
     }
-    if (!library) { const first = newRecord(model.starter()); library = { version: 1, activeId: first.id, documents: [first] }; }
+    if (!library) { const first = newRecord(model.starter('graduate')); library = { version: 1, activeId: first.id, documents: [first] }; }
 }
 
 function save() {
@@ -147,7 +150,7 @@ function renderEditor() {
 
 function renderTemplates() {
     const family = element('templateFilter').value;
-    element('templateGrid').innerHTML = model.templates.filter(template => family === 'all' || template.family === family).map(template => `<button type="button" class="template-option" data-template="${template.id}" aria-pressed="${resume().template === template.id}" title="${escapeHtml(template.description)}"><img src="previews/${template.id}.png" width="268" height="379" loading="lazy" alt="${escapeHtml(template.name)} CV layout"><strong>${escapeHtml(template.name)}</strong><small>${template.layout === 'single' ? 'Single column' : 'Two columns'} / ${template.font === 'Lato' ? 'Sans' : 'Serif'}</small></button>`).join('');
+    element('templateGrid').innerHTML = model.templates.filter(template => family === 'all' || template.family === family).map(template => `<button type="button" class="template-option" data-template="${template.id}" aria-pressed="${resume().template === template.id}" title="${escapeHtml(template.description)}"><img src="previews/${template.id}.png?v=20260921-catalog" width="268" height="379" loading="lazy" alt="${escapeHtml(template.name)} CV layout"><strong>${escapeHtml(template.name)}</strong><small>${template.layout === 'single' ? 'Single column' : 'Two columns'} / ${template.photo ? 'Photo' : template.font === 'Lato' ? 'Sans' : 'Serif'}</small></button>`).join('');
 }
 
 function renderReview() {
@@ -176,7 +179,28 @@ function refreshControls() {
     if (mode === 'review') renderReview();
     if (!sourceDirty) element('sourceEditor').value = JSON.stringify(document, null, 2);
     element('textPreview').textContent = model.plainText(document);
+    element('photoControls').hidden = !model.findTemplate(document.template).photo;
+    element('profilePhoto').hidden = !document.basics.photo;
+    if (document.basics.photo) element('profilePhoto').src = document.basics.photo;
+    else element('profilePhoto').removeAttribute('src');
+    element('removePhoto').disabled = !document.basics.photo;
     icons();
+}
+
+function showScreen(screen) {
+    if (!['catalog', 'editor', 'ats'].includes(screen)) screen = 'catalog';
+    if (screen !== 'editor' && (sourceDirty || invalidInputs.size)) { notify('Apply source changes and correct highlighted fields before leaving the editor.'); return false; }
+    document.body.dataset.screen = screen;
+    element('catalogScreen').hidden = screen !== 'catalog';
+    element('atsScreen').hidden = screen !== 'ats';
+    element('workspace').hidden = screen !== 'editor';
+    document.querySelector('.workspace-toolbar').hidden = screen !== 'editor';
+    document.querySelectorAll('button[data-screen]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.screen === screen)));
+    const url = new URL(location.href);
+    url.searchParams.set('view', screen);
+    history.replaceState(null, '', url);
+    if (screen === 'editor') requestAnimationFrame(renderPage);
+    return true;
 }
 
 function queuePreview() {
@@ -185,7 +209,16 @@ function queuePreview() {
     previewTimer = setTimeout(generatePreview, 350);
 }
 
-function bufferFor(document, watermark) {
+async function bufferFor(document, watermark) {
+    if (document.basics.photo && model.findTemplate(document.template).photo) {
+        const bytes = Uint8Array.from(atob(document.basics.photo.split(',')[1]), character => character.charCodeAt(0));
+        let image;
+        try { image = await createImageBitmap(new Blob([bytes], { type: document.basics.photo.startsWith('data:image/png;') ? 'image/png' : 'image/jpeg' })); }
+        catch { throw new Error('The profile photo could not be decoded. Remove it or choose a valid JPEG/PNG.'); }
+        const oversized = image.width * image.height > 4000000;
+        image.close();
+        if (oversized) throw new Error('Crop the profile photo before exporting; imported photos must be below 4 megapixels.');
+    }
     return new Promise((resolve, reject) => {
         try { window.pdfMake.createPdf(exporter.pdfDefinition(document, { watermark })).getBuffer(resolve); } catch (error) { reject(error); }
     });
@@ -209,7 +242,7 @@ async function generatePreview() {
     } catch (error) {
         if (sequence !== previewSequence || error.name === 'RenderingCancelledException') return;
         element('previewError').hidden = false;
-        element('previewError').textContent = 'PDF preview could not render. Your local draft is unchanged. Try another layout or reduce an unusually large entry.';
+        element('previewError').textContent = 'PDF preview could not render. Your local draft is unchanged. ' + (error.message || 'Try another layout or reduce an unusually large entry.');
         element('renderState').textContent = 'Preview error';
     }
 }
@@ -278,6 +311,7 @@ function activate(id) {
     element('editorFields').replaceChildren();
     currentPage = 1;
     renderEditor(); renderTemplates(); refreshControls(); save(); queuePreview();
+    showScreen('editor');
 }
 
 function addDraft(document) {
@@ -294,21 +328,11 @@ function billingChanged(state) {
     element('purchaseForm').hidden = state.active;
     element('downloadPdf').disabled = !state.active || exporting;
     element('downloadTex').disabled = !state.active || exporting;
-    element('retryPayment').hidden = !billing?.hasPending() && !(billing?.hasAccess() && !state.active);
+    element('downloadProject').disabled = !state.active || exporting;
+    element('retryPayment').hidden = billing?.mode === 'razorpay' || (!billing?.hasPending() && !(billing?.hasAccess() && !state.active));
     element('backupAccess').disabled = !state.active;
-    element('accessBadge').textContent = state.active ? 'Access verified' : state.ready ? 'Preview / INR 49 exports' : 'Launch preview';
+    element('accessBadge').textContent = state.active ? billing?.mode === 'razorpay' ? 'Access saved' : 'Access verified' : state.ready ? 'All templates / INR 49' : 'Checkout unavailable';
     element('accessBadge').classList.toggle('active', state.active);
-}
-
-async function loadCheckout() {
-    if (window.Razorpay) return;
-    await new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.onload = resolve;
-        script.onerror = () => { script.remove(); reject(new Error('Razorpay could not load. No payment has started.')); };
-        document.head.append(script);
-    });
 }
 
 async function exportPaid(format) {
@@ -319,13 +343,18 @@ async function exportPaid(format) {
         await billing.authorize();
         const document = clone(resume());
         if (format === 'pdf') download(new Blob([await bufferFor(document, false)], { type: 'application/pdf' }), exporter.filename(document, 'pdf'));
-        else download(new Blob([exporter.latex(document)], { type: 'application/x-tex;charset=utf-8' }), exporter.filename(document, 'tex'));
-        notify(format === 'pdf' ? 'PDF export prepared.' : 'LaTeX source prepared for XeLaTeX.');
+        else if (format === 'project') {
+            const files = Object.fromEntries(Object.entries(exporter.projectFiles(document)).map(([name, data]) => [name, typeof data === 'string' ? window.fflate.strToU8(data) : data]));
+            files['resume.pdf'] = new Uint8Array(await bufferFor(document, false));
+            download(new Blob([window.fflate.zipSync(files)], { type: 'application/zip' }), exporter.filename(document, 'zip'));
+        } else download(new Blob([exporter.latex(document)], { type: 'application/x-tex;charset=utf-8' }), exporter.filename(document, 'tex'));
+        notify(format === 'pdf' ? 'PDF export prepared.' : format === 'project' ? 'Complete template package prepared.' : 'LaTeX source prepared for XeLaTeX.');
     } catch (error) { element('billingStatus').textContent = error.message; }
     finally { exporting = false; billingChanged({ ...billing.state, message: element('billingStatus').textContent }); }
 }
 
 loadDrafts();
+element('templateFilter').innerHTML = '<option value="all">All layouts</option>' + [...new Set(model.templates.map(template => template.family))].map(family => `<option>${escapeHtml(family)}</option>`).join('');
 for (const id of ['targetRole', 'newRole']) element(id).innerHTML = model.roles.map(role => `<option value="${role.id}">${escapeHtml(role.name)}</option>`).join('');
 element('targetCompany').innerHTML = model.companies.map(company => `<option value="${company.id}">${escapeHtml(company.name)}</option>`).join('');
 element('sectionKind').innerHTML = Object.entries(model.sectionNames).map(([kind, title]) => `<option value="${kind}">${escapeHtml(title)}</option>`).join('');
@@ -333,7 +362,14 @@ element('accentSwatches').innerHTML = model.colors.map((color, index) => `<input
 renderEditor(); renderTemplates(); refreshControls(); save();
 let storage;
 try { storage = window.localStorage; } catch {}
-billing = window.CvBilling.createClient({ apiBase: window.CV_STUDIO_CONFIG?.apiBase, currentHost: location.hostname, storage, onChange: billingChanged });
+const checkoutConfig = window.CV_STUDIO_CONFIG || {};
+const purchaseRecorded = (receipt, details) => {
+    window.CvBilling.recordDigitalPurchase(receipt, details, storage);
+    return window.CvBilling.notifyDigitalPurchase(receipt, details, checkoutConfig);
+};
+billing = checkoutConfig.checkoutMode === 'razorpay'
+    ? window.CvBilling.createDigitalClient({ publicKey: checkoutConfig.publicKey, storage, onChange: billingChanged, onPurchase: purchaseRecorded })
+    : window.CvBilling.createClient({ apiBase: checkoutConfig.apiBase, currentHost: location.hostname, storage, onChange: billingChanged });
 queuePreview();
 billing.init().then(() => { if (billing.state.active) queuePreview(); });
 
@@ -507,6 +543,7 @@ element('openExport').addEventListener('click', () => { billingChanged(billing.s
 element('openPrivacy').addEventListener('click', () => element('privacyDialog').showModal());
 element('downloadPdf').addEventListener('click', () => exportPaid('pdf'));
 element('downloadTex').addEventListener('click', () => exportPaid('tex'));
+element('downloadProject').addEventListener('click', () => exportPaid('project'));
 element('retryPayment').addEventListener('click', async () => { try { if (billing.hasPending()) await billing.verifyPending(); else await billing.authorize(); queuePreview(); } catch (error) { element('billingStatus').textContent = error.message; } });
 element('backupAccess').addEventListener('click', () => {
     try { download(new Blob([JSON.stringify(billing.accessReceipt(), null, 2)], { type: 'application/json' }), 'cv-studio-access-receipt.json'); }
@@ -519,6 +556,7 @@ element('receiptFile').addEventListener('change', async event => {
     try {
         if (file.size > 5000) throw new Error('This is not a valid access receipt.');
         await billing.restoreAccess(JSON.parse(await file.text()));
+        if (billing.mode === 'razorpay') window.CvBilling.recordDigitalPurchase(billing.accessReceipt(), {}, storage);
         queuePreview();
     } catch (error) { element('billingStatus').textContent = 'Access not restored: ' + error.message; }
     event.target.value = '';
@@ -527,21 +565,17 @@ element('purchaseForm').addEventListener('submit', async event => {
     event.preventDefault();
     if (!event.currentTarget.reportValidity() || paying || !billing.state.ready) return;
     paying = true; billingChanged(billing.state);
-    const finish = () => {
-        paying = false;
-        billingChanged(billing.state);
-        if (!element('exportDialog').open) element('exportDialog').showModal();
-    };
+    let message = billing.state.message;
     try {
-        await loadCheckout();
-        const order = await billing.order();
-        const checkout = new window.Razorpay({ key: order.keyId, order_id: order.orderId, amount: order.amount, currency: order.currency, name: 'Yasir Arafat Sharfi', description: 'CV Studio - one-time export access', prefill: { email: element('checkoutEmail').value.trim() }, theme: { color: '#176b5b' }, handler: async response => {
-            try { await billing.paid(order, response); queuePreview(); finish(); } catch (error) { finish(); element('billingStatus').textContent = error.message; element('retryPayment').hidden = false; }
-        }, modal: { ondismiss: () => { finish(); if (!billing.state.active) element('billingStatus').textContent = 'Checkout closed. Keep any payment reference and verify it before paying again.'; } } });
-        checkout.on('payment.failed', () => { element('billingStatus').textContent = 'Payment was not completed. No access was granted. Check payment status before retrying.'; });
-        element('exportDialog').close();
-        checkout.open();
-    } catch (error) { finish(); element('billingStatus').textContent = error.message; }
+        await window.CvBilling.openCheckout(billing, { email: element('checkoutEmail').value.trim(), beforeOpen: () => element('exportDialog').close(), onStatus: value => { message = value; element('billingStatus').textContent = value; } });
+        message = billing.state.message;
+        queuePreview();
+    } catch (error) { message = error.message; }
+    finally {
+        paying = false;
+        billingChanged({ ...billing.state, message });
+        if (!element('exportDialog').open) element('exportDialog').showModal();
+    }
 });
 
 window.addEventListener('pagehide', save);
@@ -556,4 +590,55 @@ window.addEventListener('storage', event => {
 window.addEventListener('keydown', event => {
     if (event.key === 'Escape' && element('sidePanel').classList.contains('drawer-open')) element('closeSide').click();
 });
-window.CvStudio = { current: () => clone(resume()), pdfPages: () => pdfDocument?.numPages || 0 };
+const catalogue = initCatalogue({ model, createDraft: addDraft, applyLayout: id => commit(draft => model.applyTemplate(draft, id), { markEdited: false }), isBlocked: () => Boolean(sourceDirty || invalidInputs.size), onEdit: () => showScreen('editor'), notify, icons });
+document.querySelectorAll('button[data-screen]').forEach(button => button.addEventListener('click', () => showScreen(button.dataset.screen)));
+const initialParameters = new URLSearchParams(location.search);
+showScreen(initialParameters.get('view') === 'review' ? 'ats' : initialParameters.get('view') || 'catalog');
+if (model.templates.some(template => template.id === initialParameters.get('template'))) catalogue.openTemplate(initialParameters.get('template'));
+
+function drawPhotoCrop() {
+    if (!cropImage) return;
+    const canvas = element('photoCropCanvas');
+    const scale = Math.max(canvas.width / cropImage.width, canvas.height / cropImage.height) * Number(element('photoZoom').value);
+    const sourceWidth = canvas.width / scale;
+    const sourceHeight = canvas.height / scale;
+    const sourceX = (cropImage.width - sourceWidth) * Number(element('photoX').value) / 100;
+    const sourceY = (cropImage.height - sourceHeight) * Number(element('photoY').value) / 100;
+    canvas.getContext('2d').drawImage(cropImage, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
+}
+element('uploadPhoto').addEventListener('click', () => element('photoFile').click());
+element('removePhoto').addEventListener('click', () => commit(draft => { draft.basics.photo = ''; }));
+element('photoFile').addEventListener('change', async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+        if (sourceDirty || invalidInputs.size) throw new Error('Correct the highlighted fields before changing the photograph.');
+        if (!['image/jpeg', 'image/png'].includes(file.type) || file.size > 6000000) throw new Error('Choose a PNG or JPEG smaller than 6 MB.');
+        const image = await createImageBitmap(file);
+        if (image.width * image.height > 25000000) { image.close(); throw new Error('Choose a photo below 25 megapixels.'); }
+        cropImage?.close();
+        cropImage = image;
+        element('photoZoom').value = '1';
+        element('photoX').value = '50';
+        element('photoY').value = '50';
+        drawPhotoCrop();
+        element('photoDialog').showModal();
+    } catch (error) { notify(error.message); }
+    event.target.value = '';
+});
+for (const id of ['photoZoom', 'photoX', 'photoY']) element(id).addEventListener('input', drawPhotoCrop);
+element('applyPhoto').addEventListener('click', () => {
+    if (!cropImage) return;
+    const photo = element('photoCropCanvas').toDataURL('image/jpeg', 0.88);
+    commit(draft => { draft.basics.photo = photo; });
+    element('photoDialog').close();
+});
+element('photoDialog').addEventListener('close', () => { cropImage?.close(); cropImage = null; });
+const readinessView = initReadiness({ model, readiness: window.CvReadiness, importer: window.CvImport, billingApi: window.CvBilling, config: checkoutConfig, storage, getCurrent: () => clone(resume()), isBlocked: () => Boolean(sourceDirty || invalidInputs.size), getPdf: document => bufferFor(document, false), download, notify, icons, onPurchase: purchaseRecorded });
+element('reviewBeforeExport').addEventListener('click', () => {
+    if (sourceDirty || invalidInputs.size) { notify('Apply source changes and correct highlighted fields before reviewing.'); return; }
+    element('exportDialog').close();
+    showScreen('ats');
+    readinessView.useCurrent();
+});
+window.CvStudio = { current: () => clone(resume()), pdfPages: () => pdfDocument?.numPages || 0, navigate: showScreen, hasUnappliedEdits: () => Boolean(sourceDirty || invalidInputs.size), currentReport: readinessView.getReport };

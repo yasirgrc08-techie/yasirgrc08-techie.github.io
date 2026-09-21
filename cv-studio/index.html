@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>CV Studio | Yasir Arafat Sharfi</title>
-    <meta name="description" content="Build your engineering CV with 16 original layouts, 12 role-focused examples, local drafts, live PDF preview, and LaTeX export. INR 49 verified export access when checkout is enabled.">
+    <meta name="description" content="Browse 32 CV layouts and 24 role examples, build and save a resume, export PDF and LaTeX, or review your own CV. INR 49 template access and INR 9 readiness reviews.">
     <meta property="og:title" content="CV Studio | Yasir Arafat Sharfi">
     <meta property="og:description" content="An engineering CV workspace with original templates, role-focused examples, and live PDF preview.">
     <meta property="og:image" content="https://yasirgrc08-techie.github.io/cv-studio/previews/classic.png">
@@ -13,21 +13,25 @@
     <link rel="canonical" href="https://yasirgrc08-techie.github.io/cv-studio/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="studio.css?v=20260921">
+    <link rel="stylesheet" href="studio.css?v=20260921-catalog">
     <script defer src="vendor/lucide.min.js"></script>
     <script defer src="vendor/pdfmake.min.js"></script>
     <script defer src="vendor/fonts.js"></script>
-    <script defer src="config.js?v=20260921"></script>
-    <script defer src="cv-model.js?v=20260921"></script>
-    <script defer src="cv-export.js?v=20260921"></script>
-    <script defer src="billing.js?v=20260921"></script>
-    <script type="module" src="studio.js?v=20260921"></script>
+    <script defer src="vendor/template-sources.js"></script>
+    <script defer src="vendor/fflate.min.js"></script>
+    <script defer src="config.js?v=20260921-catalog"></script>
+    <script defer src="cv-model.js?v=20260921-catalog"></script>
+    <script defer src="cv-export.js?v=20260921-catalog"></script>
+    <script defer src="billing.js?v=20260921-catalog"></script>
+    <script defer src="ats-review.js?v=20260921-catalog"></script>
+    <script defer src="resume-import.js?v=20260921-catalog"></script>
+    <script type="module" src="studio.js?v=20260921-catalog"></script>
 </head>
-<body>
+<body data-screen="catalog">
     <a class="skip-link" href="#editorContent">Skip to CV editor</a>
     <header class="studio-header">
         <a class="brand" href="../#cv-studio" aria-label="CV Studio on Yasir Sharfi's website"><span class="brand-mark"><i data-lucide="file-pen-line" aria-hidden="true"></i></span><span>CV Studio<small>by Yasir Sharfi</small></span></a>
-        <div class="document-identity"><label class="sr-only" for="documentTitle">CV document name</label><input id="documentTitle" maxlength="100" value="Backend Engineering CV"><span id="saveState" role="status">Loading local draft...</span></div>
+        <div class="document-identity"><label class="sr-only" for="documentTitle">CV document name</label><input id="documentTitle" maxlength="100" value="My CV"><span id="saveState" role="status">Loading local draft...</span></div>
         <div class="header-actions">
             <button class="icon-button" id="openDrafts" title="Local drafts" aria-label="Open local drafts"><i data-lucide="folder-open" aria-hidden="true"></i><span class="icon-fallback">Drafts</span></button>
             <button class="icon-button history-button" id="undo" title="Undo" aria-label="Undo" disabled><i data-lucide="undo-2" aria-hidden="true"></i><span class="icon-fallback">Undo</span></button>
@@ -35,14 +39,37 @@
             <button class="command primary" id="openExport"><i data-lucide="download" aria-hidden="true"></i> Export <span>&#8377;49</span></button>
         </div>
     </header>
-    <div class="workspace-toolbar">
-        <div class="toolbar-group"><button class="icon-button drawer-toggle" id="sideToggle" title="Templates and formatting" aria-label="Open templates and formatting"><i data-lucide="panels-top-left" aria-hidden="true"></i><span class="icon-fallback">Style</span></button><span id="currentTemplate">Classic</span><span class="separator">/</span><span id="roleLabel">Backend Engineering</span></div>
+    <nav class="app-tabs" role="tablist" aria-label="CV Studio workspace">
+        <button type="button" role="tab" id="navCatalog" data-screen="catalog" aria-selected="true" aria-controls="catalogScreen"><i data-lucide="layout-grid" aria-hidden="true"></i> Templates</button>
+        <button type="button" role="tab" id="navEditor" data-screen="editor" aria-selected="false" aria-controls="workspace"><i data-lucide="file-pen-line" aria-hidden="true"></i> Editor</button>
+        <button type="button" role="tab" id="navAts" data-screen="ats" aria-selected="false" aria-controls="atsScreen"><i data-lucide="scan-text" aria-hidden="true"></i> ATS Review <span>&#8377;9</span></button>
+    </nav>
+    <section id="catalogScreen" class="catalog-screen" role="tabpanel" aria-labelledby="navCatalog">
+        <div class="catalog-inner">
+            <div class="catalog-heading"><div><p class="catalog-eyebrow">CAREER WORKSPACE</p><h1>CV Templates</h1><p>Freshers, lateral hires, experienced engineers, and leaders.</p></div><button class="command secondary" id="continueEditing"><i data-lucide="folder-open" aria-hidden="true"></i> Continue draft</button></div>
+            <div class="catalog-filters">
+                <label class="catalog-search"><i data-lucide="search" aria-hidden="true"></i><span class="sr-only">Search templates</span><input id="catalogSearch" type="search" placeholder="Search roles, skills, or layouts" maxlength="120"></label>
+                <label><span>Role</span><select id="catalogRole"></select></label>
+                <label><span>Layout</span><select id="catalogLayout"><option value="all">All layouts</option><option value="single">Single column</option><option value="columns">Two columns</option></select></label>
+                <label class="check-label catalog-photo"><input id="catalogPhoto" type="checkbox"> Photo layouts</label>
+            </div>
+            <div class="catalog-levels" id="catalogLevels" role="group" aria-label="Experience level"></div>
+            <div class="catalog-result-line"><span id="catalogCount" role="status"></span><span>All layouts &middot; &#8377;49 once</span><button class="text-command" id="resetCatalog" type="button">Reset filters</button></div>
+            <div class="catalog-grid" id="catalogGrid"></div>
+            <p id="catalogEmpty" class="catalog-empty" hidden>No templates match these filters.</p>
+            <p class="catalog-footnote">Yasir Sharfi is the sample identity. Employers, dates, qualifications, and achievements are illustrative, not his biography. Replace them with your own accurate details.</p>
+            <p class="catalog-footnote">Community formats retain their source attribution and license. This independent studio is not affiliated with Overleaf or any employer.</p>
+        </div>
+    </section>
+    <section id="atsScreen" class="ats-screen" role="tabpanel" aria-labelledby="navAts" hidden><div id="atsApp"></div></section>
+    <div class="workspace-toolbar" hidden>
+        <div class="toolbar-group"><button class="icon-button drawer-toggle" id="sideToggle" title="Templates and formatting" aria-label="Open templates and formatting"><i data-lucide="panels-top-left" aria-hidden="true"></i><span class="icon-fallback">Style</span></button><span id="currentTemplate">Graduate</span><span class="separator">/</span><span id="roleLabel">Student / New Graduate</span></div>
         <div class="toolbar-group"><div class="view-switch" role="group" aria-label="Mobile workspace view"><button type="button" data-view="edit" aria-pressed="true"><i data-lucide="pencil" aria-hidden="true"></i> Edit</button><button type="button" data-view="preview" aria-pressed="false"><i data-lucide="file-text" aria-hidden="true"></i> Preview</button></div><span class="release-badge" id="accessBadge">Launch preview</span><button class="icon-button" id="openPrivacy" title="Privacy and access details" aria-label="Privacy and access details"><i data-lucide="shield-check" aria-hidden="true"></i><span class="icon-fallback">Privacy</span></button></div>
     </div>
-    <div class="workspace" id="workspace" data-view="edit">
+    <div class="workspace" id="workspace" data-view="edit" role="tabpanel" aria-labelledby="navEditor" hidden>
         <aside class="side-panel" id="sidePanel" aria-label="CV template and style settings">
             <div class="side-tabs" role="tablist" aria-label="Document settings"><button role="tab" id="tabTemplates" aria-selected="true" aria-controls="templatesPanel" data-side="templates">Templates</button><button role="tab" id="tabStyle" aria-selected="false" aria-controls="stylePanel" data-side="style">Style</button><button role="tab" id="tabTarget" aria-selected="false" aria-controls="targetPanel" data-side="target">Target</button><button class="icon-button drawer-close" id="closeSide" title="Close settings" aria-label="Close settings"><i data-lucide="x" aria-hidden="true"></i></button></div>
-            <section id="templatesPanel" role="tabpanel" aria-labelledby="tabTemplates"><div class="panel-heading"><h2>Original layouts</h2><span>16</span></div><label class="sr-only" for="templateFilter">Template family</label><select id="templateFilter"><option value="all">All layouts</option><option>Essential</option><option>Early Career</option><option>Academic</option><option>Experienced</option><option>Engineering</option><option>Portfolio</option><option>Two Column</option></select><div class="template-grid" id="templateGrid"></div></section>
+            <section id="templatesPanel" role="tabpanel" aria-labelledby="tabTemplates"><div class="panel-heading"><h2>Layout</h2><span>32</span></div><label class="sr-only" for="templateFilter">Template family</label><select id="templateFilter"></select><div class="template-grid" id="templateGrid"></div></section>
             <section id="stylePanel" role="tabpanel" aria-labelledby="tabStyle" hidden><div class="panel-heading"><h2>Typography &amp; page</h2></div><div class="style-fields"><label>Font<select id="cvFont"><option value="Lato">Lato / Sans serif</option><option value="PlexSerif">IBM Plex Serif</option></select></label><label>Body size<input id="fontSize" type="number" min="9" max="12" step="1" value="10"></label><fieldset><legend>Accent</legend><div class="swatches" id="accentSwatches"></div></fieldset><label>Spacing<select id="spacing"><option value="compact">Compact</option><option value="regular">Regular</option><option value="airy">Airy</option></select></label><label>Paper<select id="paper"><option value="A4">A4</option><option value="LETTER">US Letter</option></select></label><label>Margins<select id="margins"><option value="32">Narrow / 32 pt</option><option value="40">Standard / 40 pt</option><option value="48">Comfortable / 48 pt</option><option value="56">Wide / 56 pt</option></select></label><label class="check-label"><input id="pageNumbers" type="checkbox"> Page numbers</label></div></section>
             <section id="targetPanel" role="tabpanel" aria-labelledby="tabTarget" hidden><div class="panel-heading"><h2>Role &amp; company</h2></div><div class="style-fields"><label>Target role<select id="targetRole"></select></label><label>Company preparation<select id="targetCompany"></select></label></div><div class="target-guidance" id="targetGuidance"></div><button type="button" class="command secondary wide" id="newFromRole"><i data-lucide="file-plus-2" aria-hidden="true"></i> New role example</button><a class="reference-link" href="../guides/pdfs/resume-github-portfolio.pdf" target="_blank" rel="noopener noreferrer">Resume preparation guide <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></section>
             <div class="side-footer"><a href="../">Portfolio</a><a href="../guides/">Free guides</a><a href="../#courses">Paid courses</a></div>
@@ -50,7 +77,7 @@
         <section class="editor-pane" aria-label="CV editor">
             <div class="editor-tabs"><div role="tablist" aria-label="Editor mode"><button role="tab" id="tabDetails" aria-controls="detailsPanel" aria-selected="true" data-mode="details">Details</button><button role="tab" id="tabSource" aria-controls="sourcePanel" aria-selected="false" data-mode="source">Source</button><button role="tab" id="tabReview" aria-controls="reviewPanel" aria-selected="false" data-mode="review">Review</button></div><div class="toolbar-group"><button class="icon-button" id="importJson" title="Import CV Studio JSON as a new draft" aria-label="Import CV JSON"><i data-lucide="upload" aria-hidden="true"></i><span class="icon-fallback">Import</span></button><button class="icon-button" id="backupJson" title="Download JSON backup" aria-label="Download JSON backup"><i data-lucide="save" aria-hidden="true"></i><span class="icon-fallback">Backup</span></button></div></div>
             <div class="editor-scroll" id="editorContent" tabindex="-1">
-                <section id="detailsPanel" role="tabpanel" aria-labelledby="tabDetails"><div id="editorFields"></div><div class="add-section-row"><label class="sr-only" for="sectionKind">New section type</label><select id="sectionKind"></select><button class="command secondary" type="button" id="addSection"><i data-lucide="plus" aria-hidden="true"></i> Add section</button></div></section>
+                <section id="detailsPanel" role="tabpanel" aria-labelledby="tabDetails"><div id="photoControls" class="photo-controls" hidden><img id="profilePhoto" alt="CV profile photo" width="60" height="75" hidden><div><strong>Optional photograph</strong><div class="toolbar-group"><button class="command secondary" id="uploadPhoto" type="button"><i data-lucide="image-plus" aria-hidden="true"></i> Choose photo</button><button class="icon-button" id="removePhoto" type="button" title="Remove photo" aria-label="Remove photo"><i data-lucide="trash-2" aria-hidden="true"></i></button></div></div></div><div id="editorFields"></div><div class="add-section-row"><label class="sr-only" for="sectionKind">New section type</label><select id="sectionKind"></select><button class="command secondary" type="button" id="addSection"><i data-lucide="plus" aria-hidden="true"></i> Add section</button></div></section>
                 <section id="sourcePanel" role="tabpanel" aria-labelledby="tabSource" hidden><div class="source-heading"><h2>CV Studio JSON</h2><button class="command secondary" id="applySource"><i data-lucide="check" aria-hidden="true"></i> Apply changes</button></div><label class="sr-only" for="sourceEditor">CV JSON source</label><textarea id="sourceEditor" spellcheck="false"></textarea><p id="sourceStatus" role="status"></p></section>
                 <section id="reviewPanel" role="tabpanel" aria-labelledby="tabReview" hidden><div class="panel-heading"><h2>Content checks</h2><span id="wordCount"></span></div><div id="reviewFindings"></div><label class="job-label" for="jobDescription">Target job description <span>optional / local only</span></label><textarea id="jobDescription" rows="7" maxlength="12000" placeholder="Paste an authorized job description"></textarea><h3 class="small-heading">Role-word overlap</h3><p class="subtle">Not an ATS score or a hiring prediction. Add a skill only when it is genuinely yours.</p><div id="keywordReview"></div></section>
             </div>
@@ -64,13 +91,20 @@
     <p id="appNotice" class="app-notice" role="status" aria-live="polite"></p>
     <input type="file" id="jsonFile" accept="application/json,.json" hidden>
     <input type="file" id="receiptFile" accept="application/json,.json" hidden>
+    <input type="file" id="photoFile" accept="image/jpeg,image/png" hidden>
+
+    <dialog id="templateDialog" class="template-dialog" aria-labelledby="templateDialogTitle">
+        <div class="dialog-heading"><h2 id="templateDialogTitle">Template</h2><button class="icon-button" data-close="templateDialog" title="Close template" aria-label="Close template"><i data-lucide="x" aria-hidden="true"></i></button></div>
+        <div class="template-dialog-body"><img id="templatePreviewImage" width="268" height="379" alt="CV template preview"><div><p id="templateDescription"></p><p class="template-meta" id="templateMetadata"></p><form id="templateStartForm"><label>Example role<select id="templateRole"></select></label><label class="check-label"><input type="checkbox" id="templateExample" checked> Include sample details</label><button type="submit" class="command primary wide"><i data-lucide="file-plus-2" aria-hidden="true"></i> Create new CV</button></form><button type="button" class="command secondary wide" id="applyCatalogTemplate"><i data-lucide="paintbrush" aria-hidden="true"></i> Apply layout to current CV</button><p id="templateAttribution" class="subtle"></p><p class="subtle">Sample details are illustrative. Photos and two-column layouts may not suit every application or parser.</p><p id="templateStatus" role="status" class="subtle"></p></div></div>
+    </dialog>
+    <dialog id="photoDialog" aria-labelledby="photoTitle"><div class="dialog-heading"><h2 id="photoTitle">Photo crop</h2><button class="icon-button" data-close="photoDialog" title="Close photo crop" aria-label="Close photo crop"><i data-lucide="x" aria-hidden="true"></i></button></div><canvas id="photoCropCanvas" width="256" height="320" aria-label="Photo crop preview"></canvas><div class="photo-sliders"><label>Zoom<input id="photoZoom" type="range" min="1" max="3" step="0.05" value="1"></label><label>Horizontal position<input id="photoX" type="range" min="0" max="100" value="50"></label><label>Vertical position<input id="photoY" type="range" min="0" max="100" value="50"></label></div><button class="command primary wide" id="applyPhoto" type="button"><i data-lucide="check" aria-hidden="true"></i> Use photo</button></dialog>
 
     <dialog id="draftDialog" aria-labelledby="draftDialogTitle"><div class="dialog-heading"><h2 id="draftDialogTitle">Local drafts</h2><button class="icon-button" data-close="draftDialog" title="Close drafts" aria-label="Close drafts"><i data-lucide="x" aria-hidden="true"></i></button></div><div id="draftList"></div><button class="command primary wide" id="newDraft"><i data-lucide="file-plus-2" aria-hidden="true"></i> New CV</button><p class="subtle">Stored in this browser, not a cloud account. JSON backups preserve a transferable copy.</p></dialog>
     <dialog id="newDialog" aria-labelledby="newDialogTitle"><div class="dialog-heading"><h2 id="newDialogTitle">New CV</h2><button class="icon-button" data-close="newDialog" aria-label="Close new CV" title="Close"><i data-lucide="x" aria-hidden="true"></i></button></div><form id="newForm"><label>Document name<input id="newTitle" maxlength="100" value="My CV" required></label><label>Role starting point<select id="newRole"></select></label><label class="check-label"><input id="useExample" type="checkbox" checked> Include fictional example content</label><button class="command primary wide" type="submit"><i data-lucide="plus" aria-hidden="true"></i> Create draft</button></form></dialog>
     <dialog id="confirmDialog" aria-labelledby="confirmTitle"><h2 id="confirmTitle">Confirm change</h2><p id="confirmMessage"></p><form method="dialog" class="dialog-actions"><button class="command secondary" value="cancel">Cancel</button><button class="command primary" value="confirm">Confirm</button></form></dialog>
     <dialog id="exportDialog" aria-labelledby="exportTitle">
         <div class="dialog-heading"><h2 id="exportTitle">Export your CV</h2><button class="icon-button" data-close="exportDialog" title="Close export" aria-label="Close export"><i data-lucide="x" aria-hidden="true"></i></button></div>
-        <div class="price-line"><strong>&#8377;49</strong><span>One-time CV Studio access<br>All 16 layouts / PDF and LaTeX exports</span></div>
+        <div class="price-line"><strong>&#8377;49</strong><span>One-time CV Studio access<br>All 32 layouts / PDF and source exports</span></div>
         <p id="billingStatus" class="billing-status" role="status"></p>
         <form id="purchaseForm">
             <label for="checkoutEmail">Receipt email<input type="email" id="checkoutEmail" required autocomplete="email" placeholder="you@example.com"></label>
@@ -80,17 +114,19 @@
         <div class="export-actions">
             <button class="command secondary" id="downloadPdf" disabled><i data-lucide="file-down" aria-hidden="true"></i> Download PDF</button>
             <button class="command secondary" id="downloadTex" disabled><i data-lucide="code-xml" aria-hidden="true"></i> Download LaTeX</button>
+            <button class="command secondary" id="downloadProject" disabled><i data-lucide="folder-down" aria-hidden="true"></i> Complete template ZIP</button>
             <button class="command secondary" id="exportBackup"><i data-lucide="save" aria-hidden="true"></i> JSON backup</button>
         </div>
+        <button class="command secondary wide" id="reviewBeforeExport" type="button"><i data-lucide="scan-text" aria-hidden="true"></i> Optional ATS readiness review &middot; &#8377;9</button>
         <p class="subtle">LaTeX export uses a portable single-column layout for XeLaTeX, including Overleaf. The studio preview is generated with a PDF engine, not an online TeX compiler.</p>
         <p class="subtle">Replace all fictional details before submitting. No template guarantees an interview, employer approval, or ATS compatibility. Keep your payment ID and a private access receipt for recovery.</p>
         <a class="support-link" href="mailto:yasir.grc08@gmail.com?subject=CV%20Studio%20access%20support">Purchase and access support</a>
         <div class="export-actions">
             <button class="command secondary" id="backupAccess" disabled><i data-lucide="key-round" aria-hidden="true"></i> Back up access</button>
             <button class="command secondary" id="restoreAccess"><i data-lucide="upload" aria-hidden="true"></i> Restore access</button>
-            <p class="subtle">An access receipt contains your purchase credential, not your CV. Keep it private. Restoring access requires online verification.</p>
+            <p class="subtle">An access receipt contains your purchase reference, not your CV. Keep it private. Browser-mode receipts are not independently server-verified.</p>
         </div>
     </dialog>
-    <dialog id="privacyDialog" aria-labelledby="privacyTitle"><div class="dialog-heading"><h2 id="privacyTitle">Privacy &amp; scope</h2><button class="icon-button" data-close="privacyDialog" title="Close privacy details" aria-label="Close privacy details"><i data-lucide="x" aria-hidden="true"></i></button></div><p>Your CV, pasted job description, and PDF rendering stay on this device. Local drafts are not encrypted cloud backups and can be lost if browser storage is cleared.</p><p>When configured, checkout sends payment details to Razorpay. The verification service receives order/payment proofs, not your CV. No AI model receives your resume.</p><p>This is an independent CV editor with original templates, not Overleaf or an employer-endorsed product. It does not provide cloud accounts, simultaneous collaboration, or online LaTeX compilation.</p><p>Fonts cover many Latin-script names and text; verify the PDF text preview and glyphs for your language before submission.</p><p class="subtle">Templates are designed for readability. Two-column parsing and ATS behavior vary by employer and software.</p><a href="README.md" target="_blank" rel="noopener noreferrer">Project documentation</a></dialog>
+    <dialog id="privacyDialog" aria-labelledby="privacyTitle"><div class="dialog-heading"><h2 id="privacyTitle">Privacy &amp; scope</h2><button class="icon-button" data-close="privacyDialog" title="Close privacy details" aria-label="Close privacy details"><i data-lucide="x" aria-hidden="true"></i></button></div><p>Your CV, photographs, uploaded documents, pasted job description, and PDF rendering are processed on this device. Local drafts and reports are not encrypted cloud backups and can be lost if browser storage is cleared.</p><p>Razorpay receives payment details. The existing merchant notification service receives the receipt email, product, amount, and payment reference, not CV text, photographs, or job descriptions. No AI service receives your resume.</p><p>Digital access uses browser receipts, like this site's existing products. It is not a server-verified paywall, and refunds or provider disputes require merchant support. Keep your payment reference and private backups.</p><p>This independent editor contains original layouts and attributed MIT-licensed format adaptations. It is not Overleaf or an employer-endorsed product, and does not provide cloud accounts, collaboration, or online LaTeX compilation.</p><p>Automated reviews currently support English. Font coverage varies by writing system. Scores reflect a documented readiness checklist, not any employer's private screening rules.</p><a href="README.md" target="_blank" rel="noopener noreferrer">Project documentation</a></dialog>
 </body>
 </html>
