@@ -1,0 +1,126 @@
+{
+  "libraries": {
+    "pdfmake": "0.2.20",
+    "pdfjs": "4.10.38",
+    "lucide": "0.468.0",
+    "mammoth": "1.9.0",
+    "fflate": "0.8.2"
+  },
+  "assets": [
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/build/pdfmake.min.js",
+      "bytes": 1402214,
+      "sha256": "c2fd3a5e24db096c9139bb7d266765de433b0b866d03ba356c2ef4d9ae1a53b7"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs",
+      "bytes": 658371,
+      "sha256": "a209a2124baa35cbb9015b809926f1bcec9dd1c247296290e205dd9d76cb9128"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs",
+      "bytes": 2209730,
+      "sha256": "7c237f83fa56bce645d8af51d183c9c56ba7b2d2928ff42754dc7020bea36323"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js",
+      "bytes": 357796,
+      "sha256": "3411692820cb8d47543f69496aa25fd603a358f4498046f41c508a5a3342210e"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/LICENSE",
+      "bytes": 1134,
+      "sha256": "009e509bbd25a0f7572b184781707263f5df9e89d2ed751c46e0f6edf0c5d42e"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/LICENSE",
+      "bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/lucide@0.468.0/LICENSE",
+      "bytes": 880,
+      "sha256": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/OFL.txt",
+      "bytes": 4407,
+      "sha256": "74ba064d03f1f1c4a952da936c3eb71866c34404916734de3cae73b34357e59e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/OFL.txt",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js",
+      "bytes": 634129,
+      "sha256": "2a0c24d419b8b6b307b2c59dcad9ac045ef43c29fdb23f3b0f2e82d5b09287fe"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mwilliamson/mammoth.js/e2725a567640af3d9170d5cb4df24f85c642a7a6/LICENSE",
+      "bytes": 1307,
+      "sha256": "6663bbd049205d38a496ccacb412a151980b444627d38de218b3b809aef330f1"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js",
+      "bytes": 32665,
+      "sha256": "c3b34f2e9f5e74d4d7d64e01cac7a0c01954c6c406414d42185c7b53d6875ddf"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/fflate@0.8.2/LICENSE",
+      "bytes": 1069,
+      "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Regular.ttf",
+      "bytes": 656568,
+      "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Bold.ttf",
+      "bytes": 656544,
+      "sha256": "8a0aace75d33794eece4b28187bfc1df0bbd2888b5d8a56e01788c8d65d16be1"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Italic.ttf",
+      "bytes": 722900,
+      "sha256": "e399c44efe1387100531d26c7e4800c5d12251b890d6654a3098c7c679cb1786"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-BoldItalic.ttf",
+      "bytes": 698364,
+      "sha256": "62c1b7f0d2e74b45960154c3520efc337b553db0961bfdc950d5618334596cc8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Regular.ttf",
+      "bytes": 163068,
+      "sha256": "e882efa9c41949a528ac2369079ec5ef050c1c996bbd0bacce3c3326d44cf80d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Bold.ttf",
+      "bytes": 163800,
+      "sha256": "534c02c295999dd86e770457ece1d43db0de9256dd98bf741426f63ae904209e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-Italic.ttf",
+      "bytes": 173004,
+      "sha256": "4b75b38be4673527231f49c48818d090c913d5042dd5c747b525bf6185d29ecb"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexserif/IBMPlexSerif-BoldItalic.ttf",
+      "bytes": 173032,
+      "sha256": "2a32b76ac19c1942bf5942dbbd2a1566e5f1ae9833e421ebcf36d3522715e153"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sb2nov/resume/7b70fe14876f97180034787f2a7f661597416a17/sourabh_bajaj_resume.tex",
+      "bytes": 8798,
+      "sha256": "fab6099239831d1f46f1426279ae48a32fffe089b71371ebe5b4864e9e621834"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sb2nov/resume/7b70fe14876f97180034787f2a7f661597416a17/LICENSE",
+      "bytes": 1081,
+      "sha256": "08546cf0ac1da1138f5e15486c78cdb564e10799e6aca91b390b36f0ddd9c510"
+    }
+  ]
+}

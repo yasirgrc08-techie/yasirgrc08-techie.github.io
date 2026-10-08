@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Design Sheet - HLD, LLD &amp; AI Practice | Yasir Arafat Sharfi</title>
+<meta name="description" content="Paid system design sheet: original HLD/LLD notes plus 12 worked case studies, eight company-preparation tracks, 57 design prompts, and complete PDFs. One-time purchase: INR 49.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#111119;--card:#16161f;--border:#1e1e2e;--text:#e4e4ed;--text2:#9494a8;--text3:#6b6b80;--accent:#6366f1;--accent-l:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--r:12px;--tr:.3s ease}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--accent-l);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.header{text-align:center;padding:3rem 0 2rem}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:.85rem;margin-bottom:1.5rem}
+.back-link:hover{color:var(--text)}
+h1{font-size:2.5rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--pink),var(--accent-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 1rem}
+.stats-bar{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1.5rem 0}
+.stat{text-align:center}
+.stat .n{font-size:1.5rem;font-weight:800}
+.stat .l{font-size:.75rem;color:var(--text3)}
+.type-toggle{display:flex;gap:.5rem;justify-content:center;margin:1.5rem 0}
+.type-btn{padding:8px 20px;border-radius:100px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:.85rem;font-weight:600;cursor:pointer;transition:all var(--tr);font-family:'Inter',sans-serif}
+.type-btn:hover,.type-btn.active{border-color:var(--accent);background:rgba(99,102,241,.12);color:var(--accent-l)}
+.paywall{position:relative}
+.paywall-blur{filter:blur(6px);pointer-events:none;user-select:none}
+.paywall-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;background:rgba(10,10,15,0.6);backdrop-filter:blur(2px);border-radius:var(--r)}
+/* Inline paywall card */
+.paywall-inline{max-width:520px;margin:1.5rem auto;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2rem 2.5rem;text-align:center}
+.paywall-inline h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-inline p{color:var(--text2);font-size:.9rem;margin-bottom:1rem}
+/* Download button */
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:#22c55e;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .3s ease;margin:1rem auto;}
+.download-btn:hover{background:#16a34a;transform:translateY(-2px);box-shadow:0 10px 30px rgba(34,197,94,.3)}
+.download-btn:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:none}
+@media print{body{background:#fff!important;color:#000!important}.paywall-inline,.download-btn,.back-link,.type-toggle,.stats-bar{display:none!important}.paywall-blur{filter:none!important;pointer-events:auto!important;user-select:auto!important}.sd-body{display:block!important}.sd-card{page-break-inside:avoid;border:1px solid #ccc!important}.sd-diagram{background:#f5f5f5!important;color:#222!important;border:1px solid #ccc!important}.sd-title{color:#000!important}h1 span{-webkit-text-fill-color:#000!important;color:#000!important}.sd-kp{background:#f5f5f5!important;border:1px solid #ccc!important}}
+.paywall-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;text-align:center;max-width:420px;width:90%}
+.paywall-card h3{font-size:1.3rem;margin-bottom:.5rem}
+.paywall-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem}
+.paywall-price{font-size:2.5rem;font-weight:900;margin-bottom:.25rem}
+.paywall-original{color:var(--text3);text-decoration:line-through;font-size:1rem;margin-bottom:1.5rem}
+.paywall-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all var(--tr)}
+.paywall-btn:hover{background:var(--accent-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,.3)}
+.paywall-features{list-style:none;text-align:left;margin:1rem 0 1.5rem;font-size:.85rem;color:var(--text2)}
+.paywall-features li{padding:4px 0}
+.paywall-features li::before{content:'✓';color:var(--green);font-weight:700;margin-right:8px}
+
+/* Cards */
+.sd-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:2rem}
+.sd-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all var(--tr)}
+.sd-card:hover{border-color:var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.sd-header{padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem;cursor:pointer}
+.sd-num{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0}
+.sd-hld .sd-num{background:rgba(236,72,153,.12);color:var(--pink)}
+.sd-lld .sd-num{background:rgba(6,182,212,.12);color:var(--cyan)}
+.sd-title{font-size:1.1rem;font-weight:700;flex:1}
+.sd-tags{display:flex;gap:4px;flex-wrap:wrap}
+.sd-tag{font-size:.65rem;padding:2px 8px;border-radius:4px;font-weight:600}
+.co-google{background:rgba(59,130,246,.1);color:#3b82f6}
+.co-microsoft{background:rgba(99,102,241,.1);color:var(--accent-l)}
+.co-amazon{background:rgba(245,158,11,.1);color:var(--orange)}
+.co-meta{background:rgba(236,72,153,.1);color:var(--pink)}
+.co-apple{background:rgba(156,163,175,.1);color:#9ca3af}
+.co-netflix{background:rgba(239,68,68,.1);color:var(--red)}
+.sd-type-badge{font-size:.7rem;padding:3px 10px;border-radius:100px;font-weight:600}
+.badge-hld{background:rgba(236,72,153,.12);color:var(--pink);border:1px solid rgba(236,72,153,.25)}
+.badge-lld{background:rgba(6,182,212,.12);color:var(--cyan);border:1px solid rgba(6,182,212,.25)}
+.sd-arrow{font-size:1.2rem;color:var(--text3);transition:transform var(--tr)}
+.sd-card.open .sd-arrow{transform:rotate(90deg)}
+.sd-body{display:none;padding:0 2rem 2rem;border-top:1px solid var(--border)}
+.sd-card.open .sd-body{display:block}
+.sd-section{margin-top:1.25rem}
+.sd-section h4{font-size:.85rem;color:var(--accent-l);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.sd-section p,.sd-section li{font-size:.9rem;color:var(--text2);line-height:1.7}
+.sd-section ul{margin-left:1.2rem}
+.sd-section li{margin-bottom:.3rem}
+.sd-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin:.75rem 0;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text2);white-space:pre;overflow-x:auto;line-height:1.5}
+.sd-key-points{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+.sd-kp{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem;font-size:.82rem}
+.sd-kp strong{color:var(--text);display:block;margin-bottom:2px;font-size:.78rem}
+@media(max-width:768px){h1{font-size:1.8rem}.sd-key-points{grid-template-columns:1fr}.sd-header{padding:1rem}.container{padding:1rem}}
+</style>
+<link rel="stylesheet" href="../assets/site-refresh.css?v=20260915-courses">
+<script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script defer src="../assets/interview-data.js"></script>
+<script defer src="../assets/interview-depth.js?v=20260915-courses"></script>
+<script defer src="../assets/interview-prep.js?v=20260915-courses"></script>
+    <script defer src="../assets/order-config.js?v=20260921-updates"></script>
+    <script defer src="../assets/order-history.js?v=20260921-updates"></script>
+    <script defer src="../assets/site-assistant-config.js?v=20260921"></script>
+<script defer src="../assets/site-assistant-core.js?v=20260921"></script>
+<script defer src="../assets/site-assistant.js?v=20260921-workflows"></script>
+</head>
+<body class="sheet-page">
+<div class="container">
+    <div class="header">
+        <a href="../" class="back-link">&larr; Back to Portfolio</a>
+        <span class="prep-edition">THE INTERVIEW LIBRARY / SEPTEMBER 2026</span>
+        <h1><span>System Design Sheet</span></h1>
+        <p class="subtitle">Original HLD and LLD solutions plus 12 new worked case studies, company-preparation tracks, and a downloadable PDF. All included in the same &#8377;49 purchase.</p>
+        <div class="stats-bar">
+            <div class="stat"><div class="n">57</div><div class="l">Design prompts</div></div>
+            <div class="stat"><div class="n">38</div><div class="l">High-level designs</div></div>
+            <div class="stat"><div class="n">8</div><div class="l">Low-level designs</div></div>
+            <div class="stat"><div class="n">11</div><div class="l">AI-native systems</div></div>
+        </div>
+        <div class="prep-resource-links"><a href="#paywallInline">Get System Design Sheet &middot; &#8377;49</a><a href="dsa.html">DSA Sheet</a><a href="behavioral.html">Behavioral Prep &middot; &#8377;29</a><a href="../index.html#packages">Paid mentorship sessions</a></div>
+    </div>
+    <div data-paid-library hidden inert>
+        <h2 class="sheet-paid-heading">Original system design notes</h2>
+        <p class="prep-provenance">Original company associations are retained from the earlier sheet and are not independently verified. Design examples are practice scenarios, not claims about a company's production architecture.</p>
+        <div class="type-toggle">
+            <button class="type-btn active" onclick="filterType('all')">All</button>
+            <button class="type-btn" onclick="filterType('hld')">HLD</button>
+            <button class="type-btn" onclick="filterType('lld')">LLD</button>
+        </div>
+    </div>
+
+    <!-- INLINE PAYWALL (right below filters) -->
+    <div class="paywall-inline" id="paywallInline">
+        <h3>🔒 Unlock System Design Sheet</h3>
+        <p>Get the complete original design notes and the expanded design practice library with one purchase.</p>
+        <ul class="paywall-features">
+            <li>20+ problems (HLD + LLD)</li>
+            <li>ASCII architecture diagrams</li>
+            <li>Company-tagged (Google, Microsoft, Amazon...)</li>
+            <li>Key decisions & trade-offs</li>
+            <li>57 practice prompts, including 12 new worked design case studies</li>
+            <li>Company-preparation tracks, capacity estimates, APIs, and failure analysis</li>
+            <li>Lifetime access + downloadable PDF</li>
+        </ul>
+        <div class="paywall-price">₹49</div>
+        <div class="paywall-original">₹499</div>
+        <div style="margin-bottom:1rem;">
+            <input type="email" id="purchaseEmail" placeholder="Your email (to receive access code)" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.9rem;font-family:Inter,sans-serif;margin-bottom:.5rem;">
+        </div>
+        <button class="paywall-btn" onclick="unlockSheet()">🔓 Unlock Now — ₹49</button>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e1e2e;">
+            <p style="font-size:.82rem;color:#6b6b80;margin-bottom:.5rem;">Already have an access code?</p>
+            <div style="display:flex;gap:.5rem;">
+                <input type="text" id="accessCodeInput" placeholder="Enter access code" style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #1e1e2e;background:#111119;color:#e4e4ed;font-size:.85rem;font-family:Inter,sans-serif;">
+                <button onclick="redeemCode()" style="padding:8px 16px;border-radius:8px;border:none;background:#6366f1;color:#fff;font-weight:600;font-size:.85rem;cursor:pointer;font-family:Inter,sans-serif;">Redeem</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prep-resource-links"><span>Additional paid courses</span><a href="course.html?id=faang">FAANG preparation &middot; &#8377;49</a><a href="course.html?id=rag">RAG/LLM &middot; &#8377;49</a><a href="course.html?id=ml-system-design">ML system design &middot; &#8377;49</a></div>
+
+    <section class="sheet-library" id="interview-prep" data-paid-library hidden inert aria-label="Included system design practice library">
+        <h2 class="sheet-paid-heading">Company preparation and worked designs</h2>
+        <div data-interview-library="design"></div>
+    </section>
+
+    <!-- Download PDF button (shown after unlock) -->
+    <div id="downloadArea" style="text-align:center;display:none;margin:1.5rem auto;">
+        <button class="download-btn" id="downloadPdfBtn" onclick="downloadPDF()">📥 Download System Design Sheet as PDF</button>
+        <p style="color:#6b6b80;font-size:.78rem;margin-top:.5rem;">Opens your browser's print dialog — choose "Save as PDF" to download</p>
+    </div>
+
+    <div class="paywall" id="paywallSection">
+        <div class="paywall-overlay" id="paywallOverlay" style="display:none"></div>
+        <div class="paywall-blur" id="sheetContent">
+            <div class="sd-grid">
+
+<!-- HLD 1: URL Shortener -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">1</div>
+        <div class="sd-title">URL Shortener (TinyURL)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a URL shortening service like TinyURL/bit.ly that converts long URLs to short ones and redirects.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌──────────────┐     ┌────────────────┐     ┌─────────────┐
+│  Client  │────▶│ Load Balancer│────▶│  API Servers   │────▶│ Redis Cache │
+│ (Browser)│     │   (Nginx)    │     │  (Stateless)   │     │  (Hot URLs) │
+└──────────┘     └──────────────┘     └───────┬────────┘     └──────┬──────┘
+                                              │ write                │ miss
+                                              ▼                      ▼
+                                     ┌────────────────┐     ┌─────────────┐
+                                     │   Key Gen Svc  │     │  Database   │
+                                     │  (Base62 / ID) │────▶│ (Cassandra) │
+                                     └────────────────┘     └──────┬──────┘
+                                                                   │
+                                                            ┌──────▼──────┐
+                                                            │  Analytics  │
+                                                            │  (Kafka →   │
+                                                            │  ClickHouse)│
+                                                            └─────────────┘
+FLOW:
+Shorten: Client → LB → API → KeyGen (Base62) → DB write → return short URL
+Redirect: Client → LB → API → Cache hit? return : DB lookup → 301 redirect
+Analytics: Each redirect → Kafka event → ClickHouse for dashboards
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Encoding</strong>Base62 (a-z, A-Z, 0-9) → 6 chars = 56 billion unique URLs</div>
+                <div class="sd-kp"><strong>Database</strong>Cassandra — write-heavy, horizontally scalable, no single point of failure</div>
+                <div class="sd-kp"><strong>Caching</strong>Redis with LRU eviction. 80/20 rule → 80% reads from 20% of URLs</div>
+                <div class="sd-kp"><strong>Scale</strong>100M URLs/day, 10:1 read:write ratio, 301 vs 302 redirect tradeoff</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 2: Twitter/X -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">2</div>
+        <div class="sd-title">Twitter / X (Social Feed)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a social media platform with tweets, follows, news feed, and real-time updates for 500M+ users.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌────────┐     ┌─────────────────────────────────────┐
+│  Client  │────▶│   LB   │────▶│           API Gateway               │
+└──────────┘     └────────┘     └──────────┬──────────────────────────┘
+                                           │
+                    ┌──────────────────────┬┴───────────────────────┐
+                    ▼                      ▼                        ▼
+           ┌──────────────┐    ┌──────────────────┐    ┌──────────────────┐
+           │ Tweet Service │    │  Feed Service    │    │  User Service    │
+           │  (write path) │    │  (read path)     │    │  (profiles)      │
+           └──────┬───────┘    └────────┬─────────┘    └──────────────────┘
+                  │                     │
+                  ▼                     ▼
+           ┌──────────────┐    ┌──────────────────┐
+           │  Tweet DB    │    │   Feed Cache     │
+           │ (sharded by  │    │   (Redis per     │
+           │  userID)     │    │    user)         │
+           └──────┬───────┘    └──────────────────┘
+                  │ fan-out
+                  ▼
+           ┌──────────────┐    ┌──────────────────┐
+           │ Fan-out Svc  │    │  Search Service  │
+           │ (Kafka +     │───▶│ (Elasticsearch)  │
+           │  workers)    │    └──────────────────┘
+           └──────────────┘
+
+FEED GENERATION:
+• Normal users (&lt;1K followers): Fan-out on WRITE — push to follower caches
+• Celebrities (&gt;100K followers): Fan-out on READ — pull at query time
+• Hybrid approach combines both for optimal performance
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Feed Strategy</strong>Hybrid fan-out: push for normal users, pull for celebrities. Avoids hot partition problem</div>
+                <div class="sd-kp"><strong>Storage</strong>Tweet DB sharded by userID + S3 for media + CDN for delivery</div>
+                <div class="sd-kp"><strong>Real-time</strong>WebSocket for live timeline, Kafka for async event processing</div>
+                <div class="sd-kp"><strong>Scale</strong>500M DAU, ~600K tweets/sec read, 5K tweets/sec write</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 3: WhatsApp -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">3</div>
+        <div class="sd-title">WhatsApp / Chat System</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a real-time messaging system with 1:1 chat, group chat, read receipts, media sharing, and E2E encryption.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐  WebSocket  ┌────────────────┐         ┌──────────────┐
+│ Client A │◀═══════════▶│  Chat Server   │────────▶│ Message Queue│
+└──────────┘             │  (stateful,    │         │   (Kafka)    │
+                         │   session mgr) │         └──────┬───────┘
+┌──────────┐  WebSocket  │                │                │
+│ Client B │◀═══════════▶│                │         ┌──────▼───────┐
+└──────────┘             └───────┬────────┘         │  Message DB  │
+                                 │                  │ (Cassandra)  │
+                         ┌───────▼────────┐         └──────────────┘
+                         │ Presence Svc   │
+                         │ (online/typing)│         ┌──────────────┐
+                         └────────────────┘         │  Push Notify │
+                                                    │ (APNs / FCM) │
+┌──────────────────────────────────────┐            └──────────────┘
+│          Group Service               │
+│ • Group metadata in MySQL            │         ┌──────────────┐
+│ • Fan-out messages to members        │────────▶│  Media Store │
+│ • Max 256 members per group          │         │  (S3 + CDN)  │
+└──────────────────────────────────────┘         └──────────────┘
+
+FLOW:
+1. A sends message → WebSocket → Chat Server
+2. Server checks B online? → direct deliver via WebSocket
+3. B offline? → store in Kafka → retry + Push Notification
+4. Read receipts: B reads → ack sent back → A gets double-tick
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Protocol</strong>WebSocket for persistent bidirectional. MQTT as fallback for low-bandwidth</div>
+                <div class="sd-kp"><strong>Storage</strong>Cassandra — write-heavy (billions of msgs/day), TTL for auto-cleanup</div>
+                <div class="sd-kp"><strong>Delivery</strong>At-least-once via Kafka. Client-side dedup using message IDs</div>
+                <div class="sd-kp"><strong>Encryption</strong>Signal Protocol for E2E. Server never sees plaintext content</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 4: Netflix -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">4</div>
+        <div class="sd-title">Netflix / YouTube (Video Streaming)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-netflix">Netflix</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a video streaming platform with upload, transcoding, adaptive playback, CDN delivery, and recommendations.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+UPLOAD PATH:
+┌──────────┐     ┌───────────────┐     ┌─────────────────┐     ┌───────────┐
+│ Creator  │────▶│ Upload Service│────▶│ Transcoding Svc │────▶│    S3     │
+│          │     │ (chunked)     │     │ (FFmpeg workers) │     │ (multiple │
+└──────────┘     └───────────────┘     │ 480p/720p/1080p  │     │ resolutions│
+                                       │ 4K + thumbnails  │     └─────┬─────┘
+                                       └─────────────────┘           │
+                                                                     ▼
+PLAYBACK PATH:                                              ┌───────────────┐
+┌──────────┐     ┌───────────────┐     ┌──────────┐        │     CDN       │
+│  Viewer  │────▶│  API Gateway  │────▶│ Manifest │───────▶│ (CloudFront)  │
+│          │◀════│               │     │ (HLS/DASH│        │  edge caches  │
+└──────────┘     └───────────────┘     │  .m3u8)  │        └───────────────┘
+  ABR Player                           └──────────┘
+  (adapts quality                                    ┌───────────────┐
+   based on bandwidth)                               │ Recommendation│
+                                                     │ (collaborative│
+                                                     │  filtering +  │
+                                                     │  content-based)│
+                                                     └───────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Streaming</strong>HLS/DASH adaptive bitrate. Client measures bandwidth, switches resolution seamlessly</div>
+                <div class="sd-kp"><strong>Transcoding</strong>Pre-compute all resolutions. FFmpeg workers via queue. ~30 mins per hour of 4K video</div>
+                <div class="sd-kp"><strong>CDN</strong>Global edge network. Open Connect (Netflix) / CloudFront. 95%+ cache hit rate</div>
+                <div class="sd-kp"><strong>Recommendation</strong>Collaborative filtering + content-based. A/B tested. Drives 80% of content watched</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 5: Uber -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">5</div>
+        <div class="sd-title">Uber / Ride Sharing</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a ride-sharing platform with real-time driver matching, GPS tracking, ETA, surge pricing, and payments.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌────────────┐ GPS every 4s  ┌──────────────────┐
+│ Driver App │══════════════▶│ Location Service │
+└────────────┘               │  (QuadTree /     │
+                             │   Geohash index) │
+┌────────────┐  ride request │                  │  nearby drivers
+│ Rider App  │──────────────▶│                  │──────────────────┐
+└─────┬──────┘               └──────────────────┘                  │
+      │                                                            ▼
+      │                      ┌──────────────────┐         ┌───────────────┐
+      │                      │ Matching Service  │◀────────│ Supply-Demand │
+      │ ride accepted        │ (assign closest   │         │   Engine      │
+      │◀─────────────────────│  available driver)│         └───────────────┘
+      │                      └────────┬─────────┘
+      │                               │                   ┌───────────────┐
+      │                      ┌────────▼─────────┐         │  Pricing Svc  │
+      │                      │  Trip Service    │────────▶│ (surge based  │
+      │                      │ (state machine:  │         │  on demand/   │
+      │                      │  REQUESTED →     │         │  supply ratio)│
+      │                      │  MATCHED →       │         └───────────────┘
+      │                      │  IN_PROGRESS →   │
+      │                      │  COMPLETED)      │         ┌───────────────┐
+      │                      └────────┬─────────┘────────▶│ Payment Svc   │
+      │                               │                   │ (Stripe/      │
+      ▼                               ▼                   │  Razorpay)    │
+┌──────────────┐            ┌──────────────────┐          └───────────────┘
+│ Notification │            │ ETA Service      │
+│ (WebSocket)  │            │ (graph + traffic)│
+└──────────────┘            └──────────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Location Index</strong>QuadTree or S2 Geometry cells. Drivers update GPS every 4 seconds. Index ~1M active drivers</div>
+                <div class="sd-kp"><strong>Matching</strong>Nearest available driver within radius. Consider direction, ETA, driver rating</div>
+                <div class="sd-kp"><strong>Surge Pricing</strong>Dynamic multiplier based on demand/supply ratio per geo-cell. Updated every 5 mins</div>
+                <div class="sd-kp"><strong>ETA</strong>Dijkstra on road graph + real-time traffic weights. Pre-computed for common routes</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 6: Google Drive -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">6</div>
+        <div class="sd-title">Google Drive / Dropbox</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a cloud file storage with upload/download, sync across devices, versioning, sharing, and real-time collaboration.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌───────────────┐     ┌─────────────────┐
+│ Client   │────▶│ Block Server  │────▶│ Object Storage  │
+│ (desktop │     │ (chunked      │     │     (S3)        │
+│  sync    │     │  upload, 4MB  │     │ • dedup via hash│
+│  agent)  │     │  blocks)      │     │ • versioning    │
+└────┬─────┘     └───────┬───────┘     └─────────────────┘
+     │                   │
+     │           ┌───────▼───────┐     ┌─────────────────┐
+     │           │  Metadata DB  │     │  Sync Service   │
+     │           │ (file tree,   │◀───▶│ (long-polling / │
+     │           │  versions,    │     │  WebSocket for  │
+     │           │  permissions) │     │  change notify)  │
+     │           └───────────────┘     └────────┬────────┘
+     │                                          │
+     │◀─────────────── change notification ─────┘
+     │ (only changed blocks pulled)
+
+UPLOAD: file → split into 4MB blocks → hash each → dedup → upload new blocks → update metadata
+SYNC:   change detected → Sync Service notifies other clients → delta download (only changed blocks)
+SHARE:  ACL stored in metadata → generate share link with permissions (view/edit)
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Chunking</strong>4MB blocks with content-based hashing (SHA-256). Enables dedup &amp; delta sync</div>
+                <div class="sd-kp"><strong>Sync</strong>Long-polling for change notifications. Only changed blocks transferred (saves ~70% bandwidth)</div>
+                <div class="sd-kp"><strong>Conflict</strong>Last-write-wins for simple files. OT (Operational Transform) for real-time collab docs</div>
+                <div class="sd-kp"><strong>Versioning</strong>Keep last N versions per file. Incremental snapshots using block references</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 7: Rate Limiter -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">7</div>
+        <div class="sd-title">Rate Limiter</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a distributed rate limiter that throttles API requests per user/IP with minimal latency.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌───────────────────────────────────┐     ┌──────────┐
+│  Client  │────▶│         API Gateway               │────▶│ Backend  │
+└──────────┘     │  ┌─────────────────────────────┐  │     │ Services │
+                 │  │     Rate Limiter Middleware  │  │     └──────────┘
+                 │  │  1. Extract user/IP key      │  │
+                 │  │  2. Check Redis counter      │  │
+                 │  │  3. Allow or reject (429)    │  │
+                 │  └──────────┬──────────────────┘  │
+                 └─────────────┼──────────────────────┘
+                               │
+                        ┌──────▼──────┐
+                        │    Redis    │
+                        │  (counters  │
+                        │   per key)  │
+                        │             │
+                        │ key: userID │
+                        │ val: count  │
+                        │ TTL: window │
+                        └─────────────┘
+
+ALGORITHMS:
+┌─────────────────┬──────────────────────────────────────────────┐
+│ Token Bucket    │ Steady rate + allows burst. Best for APIs.   │
+│ Sliding Window  │ Precise, no edge spikes. Higher memory.      │
+│ Fixed Window    │ Simple. Risk of 2x burst at window boundary. │
+│ Leaky Bucket    │ Constant output rate. Smooth but no burst.   │
+└─────────────────┴──────────────────────────────────────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Algorithm</strong>Token Bucket (most common). Allows configurable rate + burst capacity</div>
+                <div class="sd-kp"><strong>Distributed</strong>Redis for shared state across API servers. INCR + EXPIRE atomic ops</div>
+                <div class="sd-kp"><strong>Race Conditions</strong>Lua scripts in Redis for atomic check-and-increment. Prevents TOCTOU bugs</div>
+                <div class="sd-kp"><strong>Headers</strong>Return X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After in 429 response</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 8: Notification System -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">8</div>
+        <div class="sd-title">Notification System</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-apple">Apple</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a scalable notification service supporting push, SMS, email, and in-app channels for billions of notifications/day.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────────┐         ┌────────────────┐
+│ Event Source │────────▶│   Kafka /      │
+│ (any service │         │   Message Bus  │
+│  triggers    │         └───────┬────────┘
+│  notification│                 │
+└──────────────┘         ┌───────▼────────┐         ┌─────────────────┐
+                         │ Notification   │────────▶│ User Preference │
+                         │   Service      │         │    DB           │
+                         │ (routing +     │         │ (channel prefs, │
+                         │  templating)   │         │  quiet hours,   │
+                         └───┬───┬───┬────┘         │  frequency cap) │
+                             │   │   │              └─────────────────┘
+                    ┌────────┘   │   └──────────┐
+                    ▼            ▼               ▼
+             ┌───────────┐ ┌──────────┐  ┌──────────────┐
+             │   Push    │ │  Email   │  │     SMS      │
+             │ (APNs/FCM)│ │(SES/SMTP)│  │  (Twilio)    │
+             └───────────┘ └──────────┘  └──────────────┘
+                    │            │               │
+                    ▼            ▼               ▼
+             ┌─────────────────────────────────────────┐
+             │        Delivery Tracking DB             │
+             │  (sent/delivered/failed + retry queue)  │
+             └─────────────────────────────────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Priority</strong>Separate queues: P0 (security alerts, OTP) → immediate. P1 (social) → batched</div>
+                <div class="sd-kp"><strong>Dedup</strong>Idempotency key per notification. Prevents double-send on retry</div>
+                <div class="sd-kp"><strong>Rate Limiting</strong>Per-user caps (max 5 push/hour). Respect quiet hours per timezone</div>
+                <div class="sd-kp"><strong>Retry</strong>Exponential backoff with DLQ (dead letter queue) for permanent failures</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 9: Search Autocomplete -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">9</div>
+        <div class="sd-title">Search Autocomplete / Typeahead</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a real-time search autocomplete system that suggests top queries as users type, with &lt;100ms latency.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐  "app"   ┌────────────┐     ┌──────────────────┐
+│  User    │─────────▶│ API Server │────▶│  Trie Service    │
+│ (typing) │  &lt;100ms  │            │     │  (in-memory)     │
+└──────────┘◀─────────│            │     │                  │
+  top 10    results   └────────────┘     │  Each node stores│
+  suggestions                            │  top-K queries   │
+                                         └────────┬─────────┘
+                                                   │ periodic rebuild
+                                         ┌────────▼─────────┐
+                                         │ Aggregation Svc  │
+                                         │ (MapReduce on    │
+                                         │  query logs,     │
+                                         │  every 15 mins)  │
+                                         └────────┬─────────┘
+                                                   │
+                                         ┌────────▼─────────┐
+                                         │  Analytics DB    │
+                                         │  (query counts,  │
+                                         │   trending)      │
+                                         └──────────────────┘
+
+TRIE STRUCTURE:
+  root
+  ├── a
+  │   ├── p
+  │   │   ├── p → ["apple", "app store", "apple watch"] (top-K cached)
+  │   │   └── ...
+  │   └── m → ["amazon", "amc", "amazon prime"]
+  └── ...
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Data Structure</strong>Trie with top-K results pre-computed at each node. O(prefix length) lookup</div>
+                <div class="sd-kp"><strong>Freshness</strong>Rebuild trie from query logs every 15 mins. Trending topics merged in real-time</div>
+                <div class="sd-kp"><strong>Caching</strong>Browser-side cache for recent prefixes. CDN edge cache for popular ones</div>
+                <div class="sd-kp"><strong>Sharding</strong>Shard by first character or consistent hashing. Each shard fits in memory (~10GB)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 10: Instagram -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">10</div>
+        <div class="sd-title">Instagram (Photo Sharing)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-meta">Meta</span><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a photo/video sharing platform with feed, stories, likes, comments, explore, and reels.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+UPLOAD:
+┌──────────┐     ┌───────────┐     ┌─────────────────┐     ┌──────────┐
+│  User    │────▶│  Upload   │────▶│ Image Processing│────▶│   S3 +   │
+│          │     │  Service  │     │ (resize, filter, │     │   CDN    │
+└──────────┘     └───────────┘     │  thumbnails)    │     └──────────┘
+                                   └─────────────────┘
+
+FEED:
+┌──────────┐     ┌───────────┐     ┌──────────────────┐
+│  User    │────▶│ Feed Svc  │────▶│  Feed Cache      │
+│          │     │ (ranked   │     │  (Redis, per-user │
+└──────────┘     │  by ML)   │     │   pre-computed)   │
+                 └───────────┘     └──────────────────┘
+
+EXPLORE:
+User Activity → ML Ranking Pipeline → Content Index → Personalized Explore Page
+
+• Sharded by userID for posts DB
+• Separate counters service for likes (avoid write amplification)
+• Stories: TTL 24h, stored in separate fast-expiry storage
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Feed Ranking</strong>ML model ranks posts by: recency, engagement probability, relationship strength</div>
+                <div class="sd-kp"><strong>Likes/Counts</strong>Separate counter service with Redis. Avoids row-level locks on posts table</div>
+                <div class="sd-kp"><strong>Stories</strong>24h TTL. Stored in Redis/Memcached for fast reads, auto-expire</div>
+                <div class="sd-kp"><strong>CDN</strong>Multi-region CDN. Images served at multiple resolutions. WebP format for 30% savings</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 11: Parking Lot -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">11</div>
+        <div class="sd-title">Parking Lot System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a multi-floor parking lot with entry/exit, automatic spot assignment, ticket, billing, and vehicle type support.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">
+┌─────────────────────────────────────────────────────────┐
+│                      ParkingLot                         │
+│  - floors: List&lt;ParkingFloor&gt;                           │
+│  - entryPanels: List&lt;EntryPanel&gt;                        │
+│  - exitPanels: List&lt;ExitPanel&gt;                          │
+│  + getAvailableSpot(vehicleType): ParkingSpot           │
+│  + issueTicket(vehicle): Ticket                         │
+│  + processExit(ticket): Payment                         │
+└─────────┬───────────────────────────────┬───────────────┘
+          │                               │
+┌─────────▼──────────┐          ┌─────────▼──────────┐
+│   ParkingFloor     │          │   DisplayBoard     │
+│ - spots: Map       │          │ - availableCounts  │
+│ + getAvailable()   │          │ + update()         │
+└─────────┬──────────┘          └────────────────────┘
+          │
+┌─────────▼──────────┐    ┌────────────────┐    ┌────────────┐
+│   ParkingSpot      │    │    Vehicle     │    │   Ticket   │
+│ (Abstract)         │    │ - plate       │    │ - entryTime│
+│ + isAvailable()    │    │ - type        │    │ - spot     │
+│ + assignVehicle()  │    └────────────────┘    │ - vehicle  │
+├────────────────────┤                          └─────┬──────┘
+│ CompactSpot        │                                │
+│ LargeSpot          │                         ┌──────▼──────┐
+│ HandicappedSpot    │                         │   Payment   │
+│ MotorcycleSpot     │                         │ - amount    │
+└────────────────────┘                         │ - strategy  │
+                                               └─────────────┘
+PATTERNS:
+• Strategy → PricingStrategy (hourly, flat, weekend rates)
+• Observer → DisplayBoard updates when spot status changes
+• Factory  → SpotFactory assigns spot based on vehicle type
+• Singleton → ParkingLot instance
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Spot Assignment</strong>Factory pattern: motorcycle→small, car→compact/large, bus→large. Nearest-to-exit priority</div>
+                <div class="sd-kp"><strong>Pricing</strong>Strategy pattern: HourlyPricing, FlatRate, WeekendPricing. Swap at runtime</div>
+                <div class="sd-kp"><strong>Concurrency</strong>Lock at spot level (not floor). CAS operation for atomic assign/release</div>
+                <div class="sd-kp"><strong>Display</strong>Observer pattern: spots notify display boards on status change. Real-time counts</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 12: Elevator -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">12</div>
+        <div class="sd-title">Elevator System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-microsoft">Microsoft</span><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a multi-elevator system with optimal dispatching, SCAN algorithm, and maintenance mode.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">
+┌─────────────────────────────────────────────┐
+│             ElevatorSystem                   │
+│  - elevators: List&lt;Elevator&gt;                 │
+│  - dispatcher: Dispatcher                    │
+│  + requestElevator(floor, direction): void   │
+└──────────────────┬──────────────────────────┘
+                   │ delegates
+┌──────────────────▼──────────────────────────┐
+│          Dispatcher (Strategy)               │
+│  + selectElevator(request): Elevator         │
+├──────────────────────────────────────────────┤
+│  NearestIdleDispatcher                       │
+│  SCANDispatcher (direction-based)            │
+│  ZoneDispatcher (floors 1-10, 11-20, etc.)   │
+└──────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────┐
+│              Elevator                        │
+│  - id: int                                   │
+│  - currentFloor: int                         │
+│  - direction: UP | DOWN | IDLE               │
+│  - state: RUNNING | STOPPED | MAINTENANCE    │
+│  - requests: PriorityQueue&lt;int&gt;              │
+│  + move(): void                              │
+│  + addRequest(floor): void                   │
+│  + openDoor() / closeDoor(): void            │
+└──────────────────────────────────────────────┘
+
+SCAN ALGORITHM:
+Floor:  1  2  3  4  5  6  7  8  9  10
+        ↑        E→→→→→→→→→→↑
+        │                    │ (reverses at top)
+        ↑←←←←←←←←←←←←←←←←←↓
+
+Elevator moves in one direction, services all requests,
+then reverses — like a disk arm (elevator algorithm).
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Dispatch</strong>Strategy pattern: swap SCAN/Nearest/Zone at runtime. SCAN minimizes total travel</div>
+                <div class="sd-kp"><strong>State Machine</strong>State pattern: IDLE→MOVING→STOPPED→MAINTENANCE. Clean transitions</div>
+                <div class="sd-kp"><strong>Priority Queue</strong>Requests sorted by floor in current direction. Reversal when no more ahead</div>
+                <div class="sd-kp"><strong>Overload</strong>Weight sensor → reject if over capacity. Emergency stop via Command pattern</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 13: LRU Cache -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">13</div>
+        <div class="sd-title">LRU Cache</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a Least Recently Used cache with O(1) get and put operations.</p></div>
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+DATA STRUCTURE:
+┌─────────────────────────────────────────────────────────┐
+│  HashMap: { key → Node pointer }     O(1) lookup       │
+│                                                         │
+│  Doubly Linked List:  HEAD ↔ [A] ↔ [B] ↔ [C] ↔ TAIL   │
+│                       (LRU)              (MRU)          │
+│                                                         │
+│  get(B): remove B from middle, move to tail (MRU)       │
+│  put(D): add at tail. If full, evict HEAD.next (LRU)    │
+└─────────────────────────────────────────────────────────┘
+
+class Node:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
+        self.prev = self.next = None
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = {}        # key → Node
+        self.cap = capacity
+        self.head = Node(0,0)  # dummy
+        self.tail = Node(0,0)  # dummy
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node):       # O(1)
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def _add(self, node):          # O(1) — add before tail
+        node.prev = self.tail.prev
+        node.next = self.tail
+        self.tail.prev.next = node
+        self.tail.prev = node
+
+    def get(self, key):            # O(1)
+        if key in self.cache:
+            node = self.cache[key]
+            self._remove(node)
+            self._add(node)
+            return node.val
+        return -1
+
+    def put(self, key, val):       # O(1)
+        if key in self.cache:
+            self._remove(self.cache[key])
+        node = Node(key, val)
+        self._add(node)
+        self.cache[key] = node
+        if len(self.cache) > self.cap:
+            lru = self.head.next
+            self._remove(lru)
+            del self.cache[lru.key]
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Why DLL?</strong>Need O(1) removal from middle. Array can't do this. DLL + HashMap = O(1) for everything</div>
+                <div class="sd-kp"><strong>Dummy Nodes</strong>Head and tail sentinels eliminate null checks at boundaries. Cleaner code</div>
+                <div class="sd-kp"><strong>Thread Safety</strong>For concurrent use: ReadWriteLock or ConcurrentHashMap + synchronized DLL ops</div>
+                <div class="sd-kp"><strong>Eviction</strong>Always evict head.next (oldest). Python alternative: collections.OrderedDict</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 14: BookMyShow -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">14</div>
+        <div class="sd-title">Movie Ticket Booking (BookMyShow)</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a movie ticket booking system with seat selection, concurrent booking handling, and payment.</p></div>
+        <div class="sd-section"><h4>Class Diagram</h4>
+<div class="sd-diagram">
+┌────────────┐     ┌────────────┐     ┌────────────┐
+│  Theater   │────▶│   Screen   │────▶│    Show    │
+│ - name     │  1:N│ - capacity │  1:N│ - movie    │
+│ - city     │     │ - seats[]  │     │ - timing   │
+└────────────┘     └────────────┘     └─────┬──────┘
+                                            │ 1:N
+                                     ┌──────▼──────┐
+┌────────────┐     ┌────────────┐    │    Seat     │
+│   User     │────▶│  Booking   │───▶│ - row, col  │
+│ - name     │     │ - seats[]  │    │ - type      │
+│ - email    │     │ - status   │    │ - status:   │
+└────────────┘     │ - payment  │    │   AVAILABLE │
+                   └─────┬──────┘    │   LOCKED    │
+                         │           │   BOOKED    │
+                   ┌─────▼──────┐    └─────────────┘
+                   │  Payment   │
+                   │ - amount   │
+                   │ - method   │
+                   │ - status   │
+                   └────────────┘
+
+CONCURRENCY FLOW:
+1. User selects seats → seats LOCKED (5 min TTL)
+2. Other users see those seats as unavailable
+3. Payment success → seats marked BOOKED
+4. Payment fail / timeout → seats released back to AVAILABLE
+5. Pessimistic locking: SELECT ... FOR UPDATE on seat rows
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Concurrency</strong>Pessimistic lock (SELECT FOR UPDATE) on seats. 5-min TTL prevents abandoned locks</div>
+                <div class="sd-kp"><strong>Pricing</strong>Strategy pattern: WeekdayPrice, WeekendPrice, PremiumSeat, HolidayPrice</div>
+                <div class="sd-kp"><strong>Seat Status</strong>State machine: AVAILABLE → LOCKED → BOOKED. TTL auto-releases LOCKED seats</div>
+                <div class="sd-kp"><strong>Scale</strong>Hot shows: thousands of concurrent users. Queue-based booking with position tracking</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 15: Tic-Tac-Toe -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">15</div>
+        <div class="sd-title">Tic-Tac-Toe Game</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design an extensible Tic-Tac-Toe game with O(1) win detection, undo support, and AI opponent.</p></div>
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+┌──────────────────────────────────────────────────────┐
+│                    Game                              │
+│  - board: Board                                      │
+│  - players: [Player1, Player2]                       │
+│  - currentTurn: int                                  │
+│  - moveHistory: Stack&lt;Move&gt;  (for undo)              │
+│  + makeMove(row, col): Result                        │
+│  + undo(): void                                      │
+└──────────┬───────────────────────────────────────────┘
+           │
+┌──────────▼───────────────────────────────────────────┐
+│                    Board (n × n)                     │
+│  - grid: char[][]                                    │
+│  - rowCount: int[]    ← +1 for X, -1 for O          │
+│  - colCount: int[]                                   │
+│  - diagCount: int     ← main diagonal               │
+│  - antiDiagCount: int ← anti diagonal               │
+│                                                      │
+│  Win check: O(1) — if any counter reaches ±n → win   │
+│  Instead of scanning entire board each move           │
+└──────────────────────────────────────────────────────┘
+
+PATTERNS:
+• Command pattern → Move objects stored in stack for undo
+• Strategy pattern → Player can be HumanPlayer or AIPlayer (minimax)
+• Observer pattern → UI notified on board state change
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>O(1) Win Check</strong>Row/col/diag counters: +1 for X, -1 for O. Counter = ±n → someone wins. No board scan</div>
+                <div class="sd-kp"><strong>Undo</strong>Command pattern: each Move is an object. Stack-based history. Pop to undo last move</div>
+                <div class="sd-kp"><strong>AI</strong>Minimax algorithm with alpha-beta pruning for AI opponent. Unbeatable on 3×3</div>
+                <div class="sd-kp"><strong>Extensible</strong>Board size n is configurable. Win condition adapts to n. Same logic works for 4×4, 5×5</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 16: Library Management -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">16</div>
+        <div class="sd-title">Library Management System</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-microsoft">Microsoft</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a library system with catalog search, book checkout/return, reservations, and fine calculation.</p></div>
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+┌─────────────────────────────────────────────────────┐
+│              Library (Singleton)                    │
+│  - catalog: Catalog                                 │
+│  - members: Map&lt;ID, Member&gt;                         │
+│  + searchBook(query): List&lt;Book&gt;                    │
+│  + checkoutBook(member, book): Lending              │
+│  + returnBook(lending): Fine                        │
+└──────────────────┬──────────────────────────────────┘
+                   │
+     ┌─────────────┼─────────────────┐
+     ▼             ▼                  ▼
+┌──────────┐ ┌──────────────┐  ┌──────────────┐
+│  Book    │ │   Member     │  │   Lending    │
+│ - isbn   │ │ - name       │  │ - book       │
+│ - title  │ │ - maxBooks=5 │  │ - member     │
+│ - author │ │ - activeLoans│  │ - dueDate    │
+│ - copies │ │              │  │ - returnDate │
+└──────────┘ └──────────────┘  └──────┬───────┘
+                                      │
+                               ┌──────▼───────┐
+                               │  Fine Calc   │
+                               │  (Strategy)  │
+                               │ • PerDayFine │
+                               │ • FlatFine   │
+                               │ • NoFine     │
+                               └──────────────┘
+
+• Observer: notify waitlisted members when book returned
+• Strategy: fine calculation swappable per library policy
+• Singleton: one Library instance per branch
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Search</strong>Catalog indexed by title, author, ISBN. Full-text search via inverted index</div>
+                <div class="sd-kp"><strong>Reservation</strong>Queue per book. When returned, next in queue gets 24h to pick up</div>
+                <div class="sd-kp"><strong>Fine</strong>Strategy pattern: PerDayFine($1/day), FlatFine($5), StudentDiscount. Configurable</div>
+                <div class="sd-kp"><strong>Limits</strong>Max 5 active loans per member. Blocked from checkout if overdue books exist</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 17: Payment System -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">17</div>
+        <div class="sd-title">Payment System (Razorpay/Stripe)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a payment processing system with idempotent transactions, multi-currency support, and reconciliation.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌───────────────┐     ┌─────────────────┐
+│ Merchant │────▶│   Payment     │────▶│  Payment Service│
+│   App    │     │   Gateway     │     │  (idempotency   │
+└──────────┘     │ (TLS, auth,   │     │   key check)    │
+                 │  rate limit)  │     └────────┬────────┘
+                 └───────────────┘              │
+                                        ┌──────▼───────┐
+                                        │   Payment    │
+                                        │   State      │
+                                        │   Machine    │
+                                        │ INIT→AUTH→   │
+                                        │ CAPTURE→DONE │
+                                        └──────┬───────┘
+                                               │
+                              ┌────────────────┼──────────────┐
+                              ▼                ▼              ▼
+                     ┌──────────────┐  ┌────────────┐  ┌───────────┐
+                     │   PSP        │  │  Ledger    │  │  Wallet   │
+                     │ (Visa/MC/    │  │ (double-   │  │  Service  │
+                     │  UPI/PayPal) │  │  entry     │  │  (refunds)│
+                     └──────────────┘  │  accounting│  └───────────┘
+                                       └────────────┘
+                                               │
+                                       ┌───────▼────────┐
+                                       │ Reconciliation │
+                                       │ (daily batch   │
+                                       │  PSP vs ledger)│
+                                       └────────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Idempotency</strong>Unique idempotency key per payment. DB uniqueness constraint prevents double-charge</div>
+                <div class="sd-kp"><strong>Saga Pattern</strong>Distributed transaction: auth → capture → ledger. Compensating actions on failure</div>
+                <div class="sd-kp"><strong>Ledger</strong>Double-entry bookkeeping: every debit has a credit. Ensures books always balance</div>
+                <div class="sd-kp"><strong>Reconciliation</strong>Daily cron: compare PSP settlement report vs internal ledger. Flag mismatches</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 18: E-Commerce -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">18</div>
+        <div class="sd-title">E-Commerce Platform (Amazon)</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a full e-commerce platform with product catalog, cart, orders, inventory, and delivery tracking.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────┐     ┌────────┐
+│  Client  │────▶│API GW  │
+└──────────┘     └───┬────┘
+                     │
+    ┌────────────────┼────────────────┬──────────────────┐
+    ▼                ▼                ▼                  ▼
+┌────────┐    ┌───────────┐    ┌───────────┐     ┌────────────┐
+│Product │    │   Cart    │    │  Order    │     │  Search    │
+│Catalog │    │  Service  │    │  Service  │     │(Elastic-   │
+│Service │    │ (Redis)   │    │           │     │ search)    │
+└───┬────┘    └───────────┘    └─────┬─────┘     └────────────┘
+    │                                │
+    │                    ┌───────────┼───────────┐
+    ▼                    ▼           ▼           ▼
+┌────────┐        ┌──────────┐ ┌─────────┐ ┌──────────┐
+│Product │        │Inventory │ │Payment  │ │Delivery  │
+│  DB    │        │ Service  │ │Service  │ │Tracking  │
+│(MySQL) │        │(prevent  │ │(Stripe/ │ │(real-time│
+└────────┘        │ oversell)│ │Razorpay)│ │ status)  │
+                  └──────────┘ └─────────┘ └──────────┘
+
+EVENT-DRIVEN (Kafka):
+Order placed → Inventory reserved → Payment charged → 
+Shipping notified → Delivery assigned → Status updates
+
+• CQRS: write to MySQL, read from Elasticsearch (denormalized)
+• Cart in Redis (fast R/W, auto-expire abandoned carts)
+• Inventory: optimistic locking to prevent overselling
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Microservices</strong>Each domain (product, order, payment) is independent. Communicate via Kafka events</div>
+                <div class="sd-kp"><strong>Inventory</strong>Optimistic lock: version check on decrement. Prevents overselling during flash sales</div>
+                <div class="sd-kp"><strong>Search</strong>Elasticsearch with filters (price, rating, brand). Denormalized product docs for fast reads</div>
+                <div class="sd-kp"><strong>Cart</strong>Redis with TTL. Merge anonymous cart with user cart on login. Fast add/remove</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 19: Snake & Ladder -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">19</div>
+        <div class="sd-title">Snake &amp; Ladder Game</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+┌──────────────────────────────────────────────────────────┐
+│                      Game                                │
+│  - board: Board                                          │
+│  - players: Queue&lt;Player&gt;  (turn-based)                  │
+│  - dice: Dice                                            │
+│  + play(): void  (main loop)                             │
+│  + isWinner(player): bool                                │
+└────────────┬─────────────────────────────────────────────┘
+             │
+┌────────────▼─────────────────────────────────────────────┐
+│                      Board                               │
+│  - size: 100                                             │
+│  - snakes: Map&lt;head, tail&gt;     {16→6, 47→26, 97→78}     │
+│  - ladders: Map&lt;bottom, top&gt;   {2→38, 7→14, 28→84}      │
+│  + getNewPosition(pos + dice): int                       │
+│    → if snake/ladder at position, teleport               │
+└──────────────────────────────────────────────────────────┘
+
+GAME LOOP:
+while no winner:
+    player = players.dequeue()
+    roll = dice.roll()   # 1-6
+    newPos = player.pos + roll
+    newPos = board.getNewPosition(newPos)  # check snake/ladder
+    player.pos = newPos
+    if newPos == 100: declare winner
+    players.enqueue(player)  # back in queue
+
+• Queue for fair turn management
+• Observer for UI updates on each move
+• Strategy for Dice (fair dice, loaded dice, etc.)
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Board</strong>HashMap for snakes/ladders. O(1) lookup. No need to store all 100 cells</div>
+                <div class="sd-kp"><strong>Turns</strong>Queue: dequeue current player, process turn, enqueue back. Fair round-robin</div>
+                <div class="sd-kp"><strong>Rules</strong>Exact 100 to win (overshoot = stay). Triple 6 = skip turn (configurable)</div>
+                <div class="sd-kp"><strong>Extensible</strong>Board size, number of players, snake/ladder placement all configurable</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 20: Chess -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">20</div>
+        <div class="sd-title">Chess Game</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span><span class="sd-tag co-amazon">Amazon</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+┌───────────────────────────────────────────────────┐
+│                    Game                           │
+│  - board: Board(8×8)                              │
+│  - players: [WhitePlayer, BlackPlayer]            │
+│  - currentTurn: Color                             │
+│  - status: ACTIVE | CHECK | CHECKMATE | STALEMATE │
+│  - moveLog: List&lt;Move&gt;                           │
+│  + makeMove(from, to): bool                       │
+│  + undo(): void                                   │
+└───────────┬───────────────────────────────────────┘
+            │
+┌───────────▼───────────────────────────────────────┐
+│              Board (8×8 Cell grid)                │
+│  + getPiece(row, col): Piece                      │
+│  + movePiece(from, to): void                      │
+│  + isKingInCheck(color): bool                     │
+└───────────────────────────────────────────────────┘
+            │
+┌───────────▼───────────────────────────────────────┐
+│         Piece (Abstract) — Strategy Pattern        │
+│  - color: WHITE | BLACK                           │
+│  + getValidMoves(board, pos): List&lt;Position&gt;      │
+│                                                    │
+│  King   → 1 step any direction + castling          │
+│  Queen  → row + col + diagonal (unlimited)         │
+│  Rook   → row + col (unlimited)                    │
+│  Bishop → diagonal (unlimited)                     │
+│  Knight → L-shape (2+1), can jump                  │
+│  Pawn   → forward 1 (2 from start), capture diag   │
+└────────────────────────────────────────────────────┘
+
+MOVE VALIDATION:
+1. Piece.getValidMoves() returns all legal squares
+2. Filter out moves that leave own king in check
+3. If no valid moves: checkmate (if in check) or stalemate
+
+• Strategy pattern: each Piece subclass defines its own movement rules
+• Command pattern: Move objects for undo/redo history
+• Observer: UI updates, game status notifications
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Move Validation</strong>Piece generates moves → filter self-check → validate. O(1) for knight, O(n) for queen</div>
+                <div class="sd-kp"><strong>Special Moves</strong>Castling, en passant, pawn promotion — each as separate move handler with preconditions</div>
+                <div class="sd-kp"><strong>Check Detection</strong>After each move, scan opponent pieces' attack squares for king. Cache attacked squares</div>
+                <div class="sd-kp"><strong>Draw</strong>50-move rule, threefold repetition (hash board states), insufficient material</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HLD 21: Web Crawler -->
+<div class="sd-card sd-hld" data-type="hld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">21</div>
+        <div class="sd-title">Web Crawler</div>
+        <span class="sd-type-badge badge-hld">HLD</span>
+        <div class="sd-tags"><span class="sd-tag co-google">Google</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a distributed web crawler that fetches billions of pages, respects robots.txt, and feeds a search index.</p></div>
+        <div class="sd-section"><h4>Architecture</h4>
+<div class="sd-diagram">
+┌──────────────┐     ┌────────────────────┐
+│  Seed URLs   │────▶│   URL Frontier     │
+└──────────────┘     │ (Priority Queue +  │
+                     │  politeness queue   │
+                     │  per domain)        │
+                     └────────┬───────────┘
+                              │ URL to crawl
+                     ┌────────▼───────────┐     ┌──────────────┐
+                     │   DNS Resolver     │     │ robots.txt   │
+                     │   (cached)         │     │  cache       │
+                     └────────┬───────────┘     └──────┬───────┘
+                              │                        │ check
+                     ┌────────▼────────────────────────▼──────┐
+                     │          Fetcher Workers                │
+                     │  (multi-threaded, 1000s of workers)     │
+                     │  • Respect crawl-delay per domain       │
+                     │  • Timeout + retry on failure           │
+                     └────────┬───────────────────────────────┘
+                              │ HTML
+                     ┌────────▼───────────┐
+                     │    HTML Parser     │
+                     │  • Extract links   │
+                     │  • Extract content │
+                     └───┬────────────┬───┘
+                         │            │
+              ┌──────────▼──┐  ┌─────▼──────────┐
+              │ URL Filter  │  │ Content Store  │
+              │ (Bloom      │  │ (S3 / HDFS)    │
+              │  Filter for │  └────────────────┘
+              │  dedup)     │         │
+              └──────┬──────┘  ┌──────▼──────────┐
+                     │         │    Indexer       │
+                     ▼         │ (inverted index) │
+              Back to Frontier └─────────────────┘
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>Politeness</strong>Per-domain queue with crawl-delay (default 1s). Respect robots.txt disallow rules</div>
+                <div class="sd-kp"><strong>Dedup</strong>Bloom filter for URL dedup (100M URLs, 1% false positive). Content hash for page dedup</div>
+                <div class="sd-kp"><strong>Priority</strong>PageRank score, freshness, domain authority determine crawl priority. BFS for breadth</div>
+                <div class="sd-kp"><strong>Scale</strong>Consistent hashing to shard URLs across crawler nodes. ~1B pages/day at Google scale</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LLD 22: Vending Machine -->
+<div class="sd-card sd-lld" data-type="lld" onclick="this.classList.toggle('open')">
+    <div class="sd-header">
+        <div class="sd-num">22</div>
+        <div class="sd-title">Vending Machine</div>
+        <span class="sd-type-badge badge-lld">LLD</span>
+        <div class="sd-tags"><span class="sd-tag co-amazon">Amazon</span><span class="sd-tag co-microsoft">Microsoft</span></div>
+        <span class="sd-arrow">&rarr;</span>
+    </div>
+    <div class="sd-body">
+        <div class="sd-section"><h4>Problem</h4><p>Design a vending machine with product selection, coin/card payment, change dispensing, and inventory management.</p></div>
+        <div class="sd-section"><h4>Design</h4>
+<div class="sd-diagram">
+┌──────────────────────────────────────────────────────────┐
+│              VendingMachine (Singleton)                   │
+│  - inventory: Map&lt;Product, count&gt;                        │
+│  - currentBalance: float                                 │
+│  - state: State (State Pattern)                          │
+│  + insertMoney(amount): void                             │
+│  + selectProduct(code): Product                          │
+│  + dispense(): void                                      │
+│  + returnChange(): float                                 │
+└────────────┬─────────────────────────────────────────────┘
+             │
+┌────────────▼─────────────────────────────────────────────┐
+│              State (State Pattern)                        │
+│                                                          │
+│  IdleState                                               │
+│    → insertMoney() → HasMoneyState                       │
+│                                                          │
+│  HasMoneyState                                           │
+│    → selectProduct() → check inventory + balance         │
+│      → sufficient? → DispensingState                     │
+│      → insufficient? → stay (show "add more")            │
+│    → returnChange() → IdleState                          │
+│                                                          │
+│  DispensingState                                         │
+│    → dispense item → calculate change → IdleState        │
+│                                                          │
+│  OutOfStockState                                         │
+│    → all actions show "Out of stock" + return money       │
+└──────────────────────────────────────────────────────────┘
+
+CHANGE CALCULATION (Greedy):
+change = balance - price
+coins = [25, 10, 5, 1]  # denominations
+for coin in coins:
+    count = change // coin
+    change -= count * coin
+    dispense(coin, count)
+
+• State pattern for clean state transitions
+• Singleton for machine instance
+• Observer for admin alerts (low stock, coin box full)
+</div>
+        </div>
+        <div class="sd-section"><h4>Key Decisions</h4>
+            <div class="sd-key-points">
+                <div class="sd-kp"><strong>State Machine</strong>State pattern: Idle→HasMoney→Dispensing→Idle. Prevents invalid operations per state</div>
+                <div class="sd-kp"><strong>Change</strong>Greedy algorithm with largest-denomination-first. Track available coins per type</div>
+                <div class="sd-kp"><strong>Concurrency</strong>Synchronized operations — only one transaction at a time per machine</div>
+                <div class="sd-kp"><strong>Admin</strong>Observer alerts when inventory &lt; threshold or coin box nearing capacity</div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+if(typeof emailjs!=='undefined')emailjs.init('97FdG6E2hT9AYtA_4');
+
+const SHEET_KEY = 'sd_sheet_unlocked';
+const CODE_KEY = 'sd_access_code';
+
+function generateCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = 'SD-';
+    for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+}
+
+function checkAccess() {
+    if (localStorage.getItem(SHEET_KEY) === 'true') {
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+        document.getElementById('paywallInline').style.display = 'none';
+        document.getElementById('downloadArea').style.display = 'block';
+    }
+}
+checkAccess();
+
+(function(){
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if (code) {
+        document.getElementById('accessCodeInput').value = code;
+        setTimeout(() => redeemCode(), 500);
+    }
+})();
+
+function unlockSheet() {
+    const email = document.getElementById('purchaseEmail').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email to receive your access code.');
+        return;
+    }
+    const options = {
+        key: 'rzp_live_SdMpxrq9I6XhNj',
+        amount: 4900,
+        currency: 'INR',
+        name: 'Yasir Arafat Sharfi',
+        description: 'System Design Sheet — 20+ HLD/LLD with Diagrams',
+        image: 'https://avatars.githubusercontent.com/u/268230354?v=4',
+        prefill: { email: email },
+        theme: { color: '#6366f1' },
+        notes: { site_id: 'yasir-portfolio', product_id: 'sheet-system-design' },
+        handler: function(response) {
+            if (!/^pay_[A-Za-z0-9]{6,40}$/.test(response.razorpay_payment_id || '')) { alert('The payment reference is missing. Contact support before paying again.'); return; }
+            window.SiteOrders?.recordPurchase({ paymentId: response.razorpay_payment_id, productId: 'sheet-system-design', product: 'System Design Sheet', amount: 4900, currency: 'INR' });
+            const code = generateCode();
+            localStorage.setItem(SHEET_KEY, 'true');
+            localStorage.setItem(CODE_KEY, code);
+            document.getElementById('paywallOverlay').style.display = 'none';
+            document.getElementById('sheetContent').classList.remove('paywall-blur');
+            document.getElementById('paywallInline').style.display = 'none';
+            document.getElementById('downloadArea').style.display = 'block';
+            alert('✅ Sheet unlocked!\n\nYour access code: ' + code + '\n\nSave this code — you can use it on any device/browser to unlock again.\n\nPayment ID: ' + response.razorpay_payment_id);
+            // Auto-trigger PDF download after payment
+            setTimeout(function(){ downloadPDF(); }, 1000);
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send('service_phdrjfp', 'template_k2ysz6k', {
+                    session: 'System Design Sheet Purchased — Access Code: ' + code,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString(),
+                    name: email,
+                    email: email,
+                    phone: 'N/A',
+                    message: 'Access Code: ' + code + '\nUse this code at: https://yasirgrc08-techie.github.io/sheets/system-design.html?code=' + code,
+                    amount: '₹49',
+                    payment_id: response.razorpay_payment_id,
+                    to_email: 'yasir.grc08@gmail.com'
+                }).catch(() => {});
+            }
+        },
+        modal: { ondismiss: function(){} }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+}
+
+function redeemCode() {
+    const input = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+    if (!input) { alert('Please enter an access code.'); return; }
+    if (/^SD-[A-Z0-9]{8}$/.test(input)) {
+        localStorage.setItem(SHEET_KEY, 'true');
+        localStorage.setItem(CODE_KEY, input);
+        document.getElementById('paywallOverlay').style.display = 'none';
+        document.getElementById('sheetContent').classList.remove('paywall-blur');
+        document.getElementById('paywallInline').style.display = 'none';
+        document.getElementById('downloadArea').style.display = 'block';
+        alert('✅ Access code accepted! Sheet unlocked.');
+    } else {
+        alert('❌ Invalid access code. Please check and try again.');
+    }
+}
+
+function downloadPDF() {
+    const content = document.getElementById('sheetContent');
+    // Expand all cards for complete PDF
+    content.querySelectorAll('.sd-card').forEach(c => c.classList.add('open'));
+    // Use browser print — works on all devices, produces clean PDF
+    window.print();
+}
+
+function filterType(type) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.sd-card').forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>

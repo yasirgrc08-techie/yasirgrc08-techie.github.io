@@ -1,0 +1,18 @@
+{
+  "name": "yasir-site-assistant",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-21",
+  "vars": {
+    "ALLOWED_ORIGINS": ""
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "ratelimits": [
+    {
+      "name": "ASSISTANT_LIMITER",
+      "namespace_id": "1002",
+      "simple": { "limit": 12, "period": 60 }
+    }
+  ]
+}
